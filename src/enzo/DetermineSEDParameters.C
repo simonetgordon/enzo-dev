@@ -18,6 +18,16 @@ float BHEnergyBins[NUMRADIATIONBINS] = {2.0, 12.8, 19.1, 217.3, 5190.0};
 float BHSEDFracBins[NUMRADIATIONBINS] = {0.0, 0.0, 0.0, 0.0, 0.0};
 #define RAMPAGE 1e5
 #define STELLAR 0
+
+
+
+
+
+
+
+
+
+
 /* BHArray is the photonspersecond, IR Radiation, LW Radiation, Ionising Radiation, Soft X-ray, Hard X-ray */
 /* 
  * The array covers black hole masses from 1 Msolar to 1e9 Msolar 
@@ -171,11 +181,12 @@ int DetermineSEDParameters(ActiveParticleType_SmartStar *SS, FLOAT Time, FLOAT d
 #endif
   /* 
    * The PopIII values are taken from Schaerer et al. 2002 Table 4.
+   * John added the ionising fluxes (photons/s) for the 4 species in columns 3-6 of Table 4 to obtain a value of 6.696798e49 photons/s
    * Luminosity is NOT in ergs/s but in photons/s 
    */
   if(SS->ParticleClass == POPIII) {
     SS->RadiationLifetime = SmartStarSMSLifetime*yr_s/TimeUnits; //Code Time
-    SS->LuminosityPerSolarMass = 6.696798e49/40.0; //In physical units
+    SS->LuminosityPerSolarMass = 6.696798e49/40.0; //In physical units (photon/(s msun))
     for(int bin = 0; bin < NUMRADIATIONBINS; bin++) {
       SS->RadiationEnergyBins[bin] = PopIIIEnergyBins[bin];
       SS->RadiationSED[bin] = PopIIISEDFracBins[bin];

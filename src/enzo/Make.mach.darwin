@@ -40,9 +40,9 @@ LOCAL_PACKAGES       = /usr/local
 # This will not work on OSX Lion or newer.  You may wany to try installing
 # openmpi via macports.  
 LOCAL_MPI_INSTALL    = /usr/local
-LOCAL_FC_INSTALL     = /usr/local
-LOCAL_HDF5_INSTALL   = $(YT_DEST)
-LOCAL_SZIP_INSTALL   = $(LOCAL_PACKAGES)
+LOCAL_FC_INSTALL     = /usr/local/Cellar/gcc@9/9.3.0_1
+LOCAL_HDF5_INSTALL   = /usr/local/Cellar/hdf5/1.12.0_1
+LOCAL_SZIP_INSTALL   = /usr/local/Cellar/szip/2.1.1_1
 LOCAL_HYPRE_INSTALL  = $(HOME)
 LOCAL_PYTHON_INSTALL = $(YT_DEST)
 LOCAL_GRACKLE_INSTALL = /usr/local
@@ -56,19 +56,19 @@ MACH_CPP       = /usr/bin/cpp
 # With MPI
 
 MACH_CC_MPI    = mpicc
-MACH_CXX_MPI   = mpic++ 
-MACH_FC_MPI    = gfortran 
-MACH_F90_MPI   = gfortran
+MACH_CXX_MPI   = mpic++
+MACH_FC_MPI    = /usr/local/Cellar/gcc@9/9.3.0_1/bin/gfortran-9
+MACH_F90_MPI   = /usr/local/Cellar/gcc@9/9.3.0_1/bin/gfortran-9
 MACH_LD_MPI    = mpic++ 
 MACH_CUDACOMPILER = /usr/local/cuda/bin/nvcc
 
 # Without MPI
 
-MACH_CC_NOMPI  = gcc  # C compiler when not using MPI
-MACH_CXX_NOMPI = g++ # C++ compiler when not using MPI
-MACH_FC_NOMPI  = gfortran # Fortran 77 compiler when not using MPI
-MACH_F90_NOMPI = gfortran # Fortran 90 compiler when not using MPI
-MACH_LD_NOMPI  = g++ # Linker when not using MPI
+MACH_CC_NOMPI  = gcc-9  # C compiler when not using MPI
+MACH_CXX_NOMPI = g++-9 # C++ compiler when not using MPI
+MACH_FC_NOMPI  = /usr/local/Cellar/gcc@9/9.3.0_1/bin/gfortran-9 # Fortran 77 compiler when not using MPI
+MACH_F90_NOMPI = /usr/local/Cellar/gcc@9/9.3.0_1/bin/gfortran-9 # Fortran 90 compiler when not using MPI
+MACH_LD_NOMPI  = g++-9 # Linker when not using MPI
 
 #-----------------------------------------------------------------------
 # Machine-dependent defines
@@ -125,7 +125,7 @@ MACH_INCLUDES_GRACKLE  = $(LOCAL_INCLUDES_GRACKLE)
 # Libraries
 #-----------------------------------------------------------------------
 
-LOCAL_LIBS_MACH   = -L$(LOCAL_FC_INSTALL)/lib -lgfortran 
+LOCAL_LIBS_MACH   = -L$(LOCAL_FC_INSTALL)/lib/gcc/9 -lgfortran 
                     #-L$(HOME)/yt/enzolib/enzolib -lproblemtype_handler
 LOCAL_LIBS_HDF5   = -L$(LOCAL_HDF5_INSTALL)/lib -lhdf5
 LOCAL_LIBS_PYTHON = -lpython2.6

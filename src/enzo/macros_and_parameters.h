@@ -155,9 +155,9 @@ typedef unsigned long long int unsigned_long_int;
 
 /* Previously in hdf4.h */
 
-typedef float        float32;
-typedef double       float64;
-typedef long double  float128;
+typedef float        float32; // 6 decimal places, 4 byte
+typedef double       float64; // 12 decimal places, 8 byte
+typedef long double  float128; // 24 decimal places, 16 bytes
 
 /* Macro definitions for portability */
 
@@ -248,7 +248,7 @@ typedef long long int   HDF5_hid_t;
 #endif
 
 #ifdef CONFIG_BFLOAT_8
-#define BFLOAT_EPSILON 1e-12f
+#define BFLOAT_EPSILON 1e-12f // baryon float- precision to baryon field
 #define Eflt double
 #define FSYM "lf"
 #define ESYM "le"
@@ -264,7 +264,7 @@ typedef long long int   HDF5_hid_t;
 #endif
 #endif
 
-#ifdef CONFIG_PFLOAT_4
+#ifdef CONFIG_PFLOAT_4 // particle positions
 #define PFLOAT_EPSILON 1e-6f
 #define FLOAT Eflt32
 #define PEXP expf
@@ -281,7 +281,7 @@ typedef long long int   HDF5_hid_t;
 #endif
 #endif
 
-#ifdef CONFIG_PFLOAT_8
+#ifdef CONFIG_PFLOAT_8 
 #define PFLOAT_EPSILON 1e-12f
 #define FLOAT double
 #define PEXP exp

@@ -31,10 +31,10 @@
 /* Every how many times will the accretion rate be updated */
 #define FREQUENCY 100
 #define MAXACCRETIONRADIUS  128 /* Times the minimum cell width */
-#define ACCRETIONRADIUS  4
+#define ACCRETIONRADIUS  4 // 4 cell widths
 #define NUMRADIATIONBINS 5
 #define CRITICAL_ACCRETION_RATE 0.04 //Msolar/yr
-#define TIMEGAP            900   //yrs
+#define TIMEGAP            900   //yrs - updated every 900 years?
 /* Prototypes */
 
 int GetUnits(float *DensityUnits, float *LengthUnits,
@@ -150,7 +150,7 @@ public:
   
   // sink helper routines
 
-  template <class active_particle_class>
+  template <class active_particle_class> // POPIII, SMS or BH
   static void MergeSmartStars(
       int *nParticles, ActiveParticleList<ActiveParticleType>& ParticleList, 
       int *ngroups, 
@@ -183,6 +183,7 @@ public:
   float AccretionRateTime[NTIMES];
   int TimeIndex;
   float oldmass; //To calculate accmass do accmass = mass - oldmass; oldmass = mass;
+// if oldmass is used in the accretion rate, should it not be a reasonable value?
 
   static int FeedbackDistTotalCells, FeedbackDistRadius, FeedbackDistCellStep;
   float NotEjectedMass, eta_disk, mass_in_accretion_sphere, MassToBeEjected;
