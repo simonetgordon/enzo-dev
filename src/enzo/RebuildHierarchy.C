@@ -373,7 +373,6 @@ int RebuildHierarchy(TopGridData *MetaData,
         ncells = NumberOfCells[i];
       else
         ncells = NumberOfCells[i+1];
-
       DetermineSubgridSizeExtrema(ncells, i+1, MaximumStaticSubgridLevel+1);
 
       /* 3a) Generate an array of grids on this level. */
@@ -410,14 +409,13 @@ int RebuildHierarchy(TopGridData *MetaData,
            refinement on large numbers of particles
        */
       
-      tt0 = ReturnWallTime();
-      DepositActiveParticleMassFlaggingField(LevelArray,i,MetaData->TopGridDims);
+      tt0 = ReturnWallTime(); 
+      DepositActiveParticleMassFlaggingField(LevelArray,i,MetaData->TopGridDims); // SG. 
       tt1 = ReturnWallTime();
       RHperf[3] += tt1-tt0;
 
       /* 3b.2) Loop over grids creating new (but empty!) subgrids
 	 (This also properly fills out the GridHierarchy tree). */
-
       tt0 = ReturnWallTime();
       TotalFlaggedCells = FlaggedGrids = 0;
       for (j = 0; j < grids; j++)
@@ -680,8 +678,12 @@ int RebuildHierarchy(TopGridData *MetaData,
 	  }
 
       if (GridHierarchyPointer[j]->GridData->MoveSubgridActiveParticles(
-                 subgrids, ToGrids, FALSE) == FAIL)
-        ENZO_FAIL("Error in grid->MoveSubgridActiveParticles.");
+                 subgrids, ToGrids, FALSE) == FAIL){
+                   ENZO_FAIL("Error in grid->MoveSubgridActiveParticles.");
+                 } else{
+                   printf("%s: MoveSubgridActiveParticles.\n", __FUNCTION__); // SG. For testing.
+                 }
+        
       
 	  if (GridHierarchyPointer[j]->GridData->MoveSubgridStars(
 				 subgrids, ToGrids, FALSE) == FAIL)

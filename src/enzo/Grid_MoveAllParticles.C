@@ -165,6 +165,7 @@ int grid::MoveAllParticles(int NumberOfGrids, grid* FromGrid[])
   for (grid = 0; grid < NumberOfGrids; grid++) {
     for (i = 0; i < FromGrid[grid]->NumberOfActiveParticles; i++) {
       FromGrid[grid]->ActiveParticles[i]->AdjustMassByFactor(MassDecrease);
+      FromGrid[grid]->ActiveParticles[i]->AdjustOldmassMassByFactor(MassDecrease);
       FromGrid[grid]->ActiveParticles[i]->ReduceLevel(dlevel);
       FromGrid[grid]->ActiveParticles[i]->AssignCurrentGrid(this);
       FromGrid[grid]->ActiveParticles[i]->SetGridID(this->ID);

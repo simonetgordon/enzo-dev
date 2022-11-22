@@ -23,7 +23,7 @@
 #include "ParticleAttributeHandler.h"
 #include "h5utilities.h"
 #include <string.h>
-#define NTIMES 2000
+#define NTIMES 10000
 template <class ap_type> class ActiveParticleList;
 struct ActiveParticleFormationData;
 struct ActiveParticleFormationDataFlags;
@@ -52,6 +52,7 @@ public:
   ActiveParticleType(void);
   ActiveParticleType(grid *_grid, ActiveParticleFormationData &data);
   ActiveParticleType(ActiveParticleType* part);
+
   virtual ~ActiveParticleType(void);
 
   void operator=(ActiveParticleType *a);
@@ -67,16 +68,26 @@ public:
   int   ReturnLevel(void) { return level; };
   int   ReturnGridID(void) { return GridID; };
   grid *ReturnCurrentGrid(void) { return CurrentGrid; };
+  //float oldmass; // SG. Will delete.
+  double ReturnOldMass(void) { return oldmass; };
 
-  void  ReduceLevel(void) { level--; };
-  void  ReduceLevel(int x) { level -= x; };
-  void  IncreaseLevel(void) { level++; };
-  void  IncreaseLevel(int x) { level += x; };
+
+  void  ReduceLevel(void) { level--; fprintf(stderr, "%s: (void).\n", __FUNCTION__);};
+  void  ReduceLevel(int x) { level -= x; fprintf(stderr, "%s: (int).\n", __FUNCTION__);};
+  void  IncreaseLevel(void) { level++; fprintf(stderr, "%s: (void).\n", __FUNCTION__);};
+  void  IncreaseLevel(int x) { level += x; fprintf(stderr, "%s: (int).\n", __FUNCTION__);};
   void  SetLevel(int i) { level = i; };
   void  SetGridID(int i) { GridID = i; };
   void  AssignCurrentGrid(grid *a) { this->CurrentGrid = a; };
   void  AddMass(double dM) { Mass += dM; };
   void  AdjustMassByFactor(double factor) { Mass *= factor; };
+  void  AdjustOldmassMassByFactor(double factor) { 
+    oldmass *= factor;
+    if (oldmass < 0.0){
+      oldmass *= -1;
+    }
+    fprintf(stderr, "%s: oldmass = %e.\n", __FUNCTION__, oldmass); 
+    }; // SG. Correct for negative values.
   void  AdjustVelocity(float VelocityIncrement[]);
   void  SetVelocity(float NewVelocity[]);
   void  SetPosition(FLOAT NewPosition[]);
@@ -85,8 +96,8 @@ public:
   FLOAT *ReturnPosition(void) { return pos; };
   float *ReturnVelocity(void) { return vel; };
   float ReturnMomentum(int dim) { return Mass*vel[dim]; };
-  void   ConvertMassToSolar(void);
-  void   Merge(ActiveParticleType *a);
+  void  ConvertMassToSolar(void);
+  void  Merge(ActiveParticleType *a);
   float Separation(ActiveParticleType *a);
   float Separation2(ActiveParticleType *a);
   float RelativeVelocity2(ActiveParticleType *a);
@@ -108,16 +119,23 @@ public:
   virtual bool Mergable(ActiveParticleType *a);
   virtual ActiveParticleType* clone(void) = 0;
   virtual int GetEnabledParticleID(int id = -1) {ENZO_FAIL("Not implemented.");};
-
+ 
 #ifdef TRANSFER
   RadiationSourceEntry* RadiationSourceInitialize(void);
 #endif
 
-protected:
+/* 
+  A protected member variable or function is very similar to a private member 
+  but it provides one additional benefit: they can be accessed in child classes which 
+  are called derived classes. 
+*/
+
+protected: 
   grid *CurrentGrid;
   FLOAT	pos[MAX_DIMENSION];
   float vel[MAX_DIMENSION];
   double Mass;
+  double oldmass; // SG. 
   float BirthTime;
   float DynamicalTime;
   float Metallicity;
@@ -574,6 +592,7 @@ namespace ActiveParticleHelpers {
           }
           delete [] buffer;
       }
+      
 
       H5Gclose(node);
       offset += Count;

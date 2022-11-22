@@ -142,6 +142,7 @@ int grid::GrackleWrapper()
 
   // Double check if there's a metal field when we have metal cooling
   if (MetalCooling && MetalFieldPresent == FALSE) {
+
     ENZO_FAIL("Metal cooling is on, but no metal field present.");
   }
 

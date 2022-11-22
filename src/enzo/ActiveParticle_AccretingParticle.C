@@ -304,7 +304,7 @@ int ActiveParticleType_AccretingParticle::BeforeEvolveLevel
 }
 
 
-grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, int FeedbackRadius,
+grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, FLOAT FeedbackRadius,
 			     FLOAT dx, HierarchyEntry** Grids, int NumberOfGrids,
 			     int SendField);
 
@@ -338,7 +338,7 @@ int ActiveParticleType_AccretingParticle::Accrete(int nParticles,
   float SubtractedMass, SubtractedMomentum[3] = {};
 
   NumberOfGrids = GenerateGridArray(LevelArray, ThisLevel, &Grids);
-
+  
   for (i = 0; i < nParticles; i++) {
     grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], AccretionRadius,
 					       dx, Grids, NumberOfGrids, ALL_FIELDS);
@@ -365,7 +365,7 @@ int ActiveParticleType_AccretingParticle::Accrete(int nParticles,
 
   delete [] Grids;
   return SUCCESS;
-}
+} // End function.
 
 int ActiveParticleType_AccretingParticle::SetFlaggingField(
     LevelHierarchyEntry *LevelArray[], int level,
@@ -382,6 +382,7 @@ int ActiveParticleType_AccretingParticle::SetFlaggingField(
 
   /* Calculate CellWidth on maximum refinement level */
 
+  // SG. Do I need to change the MaximumRefinementLevel here?
   dx = (DomainRightEdge[0] - DomainLeftEdge[0]) /
     (TopGridDims[0]*POW(FLOAT(RefineBy),FLOAT(MaximumRefinementLevel)));
 

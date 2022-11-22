@@ -1040,6 +1040,8 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   ActiveParticleDensityThreshold = 1e8; //in cm^-3
   //SmartStar Feedback modes
   SmartStarAccretion = 8;
+
+  SmartStarBondiRadiusRefinementFactor = 1;
   SmartStarFeedback = FALSE;
   SmartStarEddingtonCap = FALSE;
   SmartStarBHFeedback = FALSE;
@@ -1047,14 +1049,14 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   SmartStarBHJetFeedback = FALSE;
   SmartStarBHThermalFeedback = FALSE;
   SmartStarStellarRadiativeFeedback = FALSE;
+  ActiveParticlesIMFSeed = -1;
   
   //SmartStar Feedback parameters - should be as minimal as possible
   SmartStarFeedbackEnergyCoupling = 0.016666;
   SmartStarFeedbackJetsThresholdMass = 1.0;
   SmartStarJetVelocity = 1e-1; //as a fraction of clight
   SmartStarSuperEddingtonAdjustment = TRUE;
-  SmartStarSpin = 0.7;
-  SmartStarSMSLifetime = 1e6; //1 Myr
+  SmartStarSpin = 0.674351; //This gives eta_disk = 0.1
   /* Gas drag parameters */
   UseGasDrag = 0;
   GasDragCoefficient = 0.;

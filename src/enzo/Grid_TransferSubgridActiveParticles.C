@@ -158,6 +158,7 @@ int grid::TransferSubgridActiveParticles
           if (IncludeGhostZones == FALSE) {
             List[n1]->IncreaseLevel();
             List[n1]->AdjustMassByFactor(MassIncrease);
+            List[n1]->AdjustOldmassMassByFactor(MassIncrease);
           }
           n1++;
         } // ENDIF subgrid

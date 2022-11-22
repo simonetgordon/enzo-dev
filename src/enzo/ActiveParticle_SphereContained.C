@@ -37,7 +37,8 @@ int ActiveParticleType::SphereContained(LevelHierarchyEntry *LevelArray[], int l
   LevelHierarchyEntry *Temp;
   int i, dim, direction, cornersContained, Rank, result;
   bool inside;
-  int cornerDone[8], Dims[MAX_DIMENSION];
+  Eint32 cornerDone[8];
+  int Dims[MAX_DIMENSION];
   FLOAT corners[MAX_DIMENSION][8];
   FLOAT LeftEdge[MAX_DIMENSION], RightEdge[MAX_DIMENSION];
 
@@ -46,8 +47,6 @@ int ActiveParticleType::SphereContained(LevelHierarchyEntry *LevelArray[], int l
      Compute corners of cube that contains a sphere of r=Radius
 
    **************************************************************/
-
-  LCAPERF_START("star_SphereContained");
 
   for (i = 0; i < 8; i++) {
     for (dim = 0; dim < MAX_DIMENSION; dim++) {
@@ -64,7 +63,8 @@ int ActiveParticleType::SphereContained(LevelHierarchyEntry *LevelArray[], int l
 
   Temp = LevelArray[level];
   for (Temp = LevelArray[level]; Temp; Temp = Temp->NextGridThisLevel) {
-    if (Temp->GridData->ReturnProcessorNumber() == MyProcessorNumber) {
+    // SG. This does almost nothing.
+    // if (Temp->GridData->ReturnProcessorNumber() == MyProcessorNumber) {
       Temp->GridData->ReturnGridInfo(&Rank, Dims, LeftEdge, RightEdge);
 
       for (i = 0; i < 8; i++) {
@@ -77,23 +77,14 @@ int ActiveParticleType::SphereContained(LevelHierarchyEntry *LevelArray[], int l
 	  cornerDone[i] = 1;
       } // ENDFOR corners
 
-    } // ENDIF MyProcessorNumber == ProcessorNumber
+    //} // ENDIF MyProcessorNumber == ProcessorNumber
   } // ENDFOR grids
-
-  /* Take the MPI_MAX of cornerDone flags, then sum them to see if
-     they equal 8.  If so, the sphere is contained within grids on
-     this level. */
-
-#ifdef USE_MPI
-  CommunicationAllReduceValues(cornerDone, 8, MPI_MAX);
-#endif
 
   cornersContained = 0;
   for (i = 0; i < 8; i++)
     cornersContained += cornerDone[i];
-
+    //fprintf(stderr, "cornersContained = %d\n", __FUNCTION__, cornersContained);
   result = (cornersContained == 8);
-  LCAPERF_STOP("star_SphereContained");
   return result;
 
 }

@@ -59,6 +59,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
   float CellWidth;
   FLOAT LeftEdge[MAX_DIMENSION], RightEdge[MAX_DIMENSION];
   LevelArray[level]->GridData->ReturnGridInfo(&Rank, Dims, LeftEdge, RightEdge);
+  // SG. Comes from level which is arg to function.
   CellWidth = (RightEdge[0] - LeftEdge[0]) / (Dims[0] - 2*NumberOfGhostZones);
 
   SphereContained = TRUE;
@@ -146,10 +147,11 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
 
 	/* Sum enclosed mass in this grid */
 
-	Temp->GridData->GetEnclosedMassInShell(this, Radius-CellWidth, Radius, 
+	Temp->GridData->GetEnclosedMassInShell(this->pos, Radius-CellWidth, Radius, 
 					       ShellMass, ShellMetallicity2, 
 					       ShellMetallicity3,
-					       ShellColdGasMass, ShellVelocity);
+					       ShellColdGasMass, ShellVelocity,
+					       FeedbackFlag);
 
 	Temp = Temp->NextGridThisLevel;
 
@@ -309,7 +311,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
   if (SphereContained && FeedbackFlag == FORMATION) {
 
     if (debug) {
-      printf("StarParticle[birth]: L%"ISYM", r = %"GSYM" pc, M = %"GSYM
+      printf("StarParticle[birth]: L%"ISYM", r = %"GSYM" pc, Mass Enclosed = %"GSYM
 	     ", Z2/Z3 = %"GSYM"/%"GSYM"\n",
 	     level, Radius*LengthUnits/pc_cm, MassEnclosed, Metallicity2,
 	     Metallicity3);

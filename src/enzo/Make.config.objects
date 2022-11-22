@@ -28,6 +28,7 @@ OBJS_CONFIG_LIB = \
         ActiveParticle_AccretingParticle.o \
         ActiveParticle_CenOstriker.o \
         ActiveParticle_DisableParticle.o \
+        ActiveParticle_FindAccretionSphere.o \
         ActiveParticle_GalaxyParticle.o \
         ActiveParticle_Kravtsov.o \
         ActiveParticle_MirrorToParticle.o \
@@ -338,6 +339,7 @@ OBJS_CONFIG_LIB = \
 	Grid_AccessBaryonFields.o \
     	Grid_AccreteOntoAccretingParticle.o \
     	Grid_AccreteOntoSmartStarParticle.o \
+        Grid_ActiveParticle_RemoveMassFromSphere.o \
     	Grid_ActiveParticleHandler.o \
     	Grid_AddActiveParticle.o \
     	Grid_AddActiveParticles.o \
@@ -360,6 +362,7 @@ OBJS_CONFIG_LIB = \
     	Grid_ApplyGalaxyParticleFeedback.o \
     	Grid_ApplyGalaxyParticleGravity.o \
     	Grid_ApplySmartStarParticleFeedback.o \
+	Grid_ApplySphericalFeedbackToGrid.o \
 	Grid_ApplyTimeAction.o \
     	Grid_AveragedVelocityAtCell.o \
 	Grid_CalculateAngularMomentum.o \

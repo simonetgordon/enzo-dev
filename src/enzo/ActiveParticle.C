@@ -272,7 +272,7 @@ void ActiveParticleType::ConstructData(grid *_grid,
   }
 
   _grid->ConvertColorFieldsToFractions();
-
+  if(MultiSpecies > 1) {
   /* If creating primordial stars, make a total H2 density field */
 
   float *h2field = NULL;
@@ -287,7 +287,7 @@ void ActiveParticleType::ConstructData(grid *_grid,
       }
     data.H2Fraction = h2field;
   }
-
+  }
   if (flags.CoolingTime) {
     /* Compute the cooling time. */
 
@@ -389,6 +389,7 @@ void ActiveParticleType::SetupBaseParticleAttributes(
     handlers.push_back(new Handler<ap, int, &ap::level>("level"));
     handlers.push_back(new Handler<ap, int, &ap::GridID>("GridID"));
     handlers.push_back(new Handler<ap, int, &ap::WillDelete>("WillDelete"));
+    handlers.push_back(new Handler<ap, double, &ap::oldmass>("oldmass"));
 }
 
 void ActiveParticleType::OutputPositionInformation()

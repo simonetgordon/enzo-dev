@@ -1372,6 +1372,8 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     ret += sscanf(line, "ActiveParticleDensityThreshold = %"FSYM,
 		  &ActiveParticleDensityThreshold);
     ret += sscanf(line, "SmartStarAccretion    = %"ISYM, &SmartStarAccretion);
+
+    ret += sscanf(line, "SmartStarBondiRadiusRefinementFactor    = %"FSYM, &SmartStarBondiRadiusRefinementFactor);
     ret += sscanf(line, "SmartStarFeedback     = %"ISYM, &SmartStarFeedback);
     ret += sscanf(line, "SmartStarEddingtonCap = %"ISYM, &SmartStarEddingtonCap);
     ret += sscanf(line, "SmartStarBHFeedback = %"ISYM, &SmartStarBHFeedback);
@@ -1382,7 +1384,6 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
 
     ret += sscanf(line, "SmartStarFeedbackEnergyCoupling       = %"FSYM, &SmartStarFeedbackEnergyCoupling);
     ret += sscanf(line, "SmartStarFeedbackJetsThresholdMass    = %"FSYM, &SmartStarFeedbackJetsThresholdMass);
-    ret += sscanf(line, "SmartStarSMSLifetime                  = %"FSYM, &SmartStarSMSLifetime);
     ret += sscanf(line, "SmartStarSuperEddingtonAdjustment  = %"ISYM, &SmartStarSuperEddingtonAdjustment);
     ret += sscanf(line, "SmartStarJetVelocity                  = %"FSYM, &SmartStarJetVelocity);
     ret += sscanf(line, "UseGasDrag = %"ISYM, &UseGasDrag);
@@ -1480,6 +1481,7 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     if (MyProcessorNumber == ROOT_PROCESSOR) {
       fprintf(stdout, "Enabling particle type %s\n", active_particle_types[i]);
     }
+    ActiveParticlesIMFSeed = MetaData.CycleNumber;
     EnableActiveParticleType(active_particle_types[i]);
     delete [] active_particle_types[i];
   }
@@ -1746,8 +1748,6 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
   if( ((RefineRegionTimeType==1) || (MustRefineRegionTimeType==1) || (CoolingRefineRegionTimeType==1)) && (ComovingCoordinates==0)){
     ENZO_FAIL("You cannot have ComovingCoordinates turned off if your RegionTimeType is set to 1!");
   }
-
-
 
   // Check if Grackle is being used, and read in parameters if so
   if (GrackleReadParameters(fptr, MetaData.Time) == FAIL){

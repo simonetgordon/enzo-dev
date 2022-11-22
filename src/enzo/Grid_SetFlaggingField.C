@@ -28,11 +28,12 @@ extern float DepositParticleMaximumParticleMass;
  
 int grid::SetFlaggingField(int &NumberOfFlaggedCells, int level)
 {
- 
   /* Return if this doesn't concern us. */
  
   if (ProcessorNumber != MyProcessorNumber)
     return SUCCESS;
+
+  //printf("%s: We're beginning to read through this function now. Not in AP_SS.C.\n", __FUNCTION__);
  
   /* declarations */
  
@@ -101,6 +102,7 @@ int grid::SetFlaggingField(int &NumberOfFlaggedCells, int level)
 	   return the number of flagged cells). */
  
 	NumberOfFlaggedCells = this->FlagCellsToBeRefinedByMass(level, method, FALSE);
+	// fprintf(stderr,"%s: %"ISYM" cells detected, method 2. Case %"ISYM".\n", __FUNCTION__, NumberOfFlaggedCells, method);
 	if (NumberOfFlaggedCells < 0) {
 	  ENZO_FAIL("Error in grid->FlagCellsToBeRefinedByMass (2).");
 	}
@@ -132,6 +134,7 @@ int grid::SetFlaggingField(int &NumberOfFlaggedCells, int level)
 	pmethod = method;
 	if (!RestrictFlaggingToMustRefineParticles) {
 	  NumberOfFlaggedCells = this->FlagCellsToBeRefinedByMass(level, method, FALSE);
+	  //fprintf(stderr,"%s: %"ISYM" cells detected, method 4. Case %"ISYM".\n", __FUNCTION__, NumberOfFlaggedCells, pmethod);
 	  if (NumberOfFlaggedCells < 0) {
 	    ENZO_FAIL("Error in grid->FlagCellsToBeRefinedByMass (4).");
 	  }
@@ -145,6 +148,7 @@ int grid::SetFlaggingField(int &NumberOfFlaggedCells, int level)
       case 6:
  
 	NumberOfFlaggedCells = this->FlagCellsToBeRefinedByJeansLength();
+	// fprintf(stderr,"%s: %"ISYM" cells detected, method 6. Case %"ISYM".\n", __FUNCTION__, NumberOfFlaggedCells, method);
 	if (NumberOfFlaggedCells < 0) {
 	  ENZO_FAIL("Error in grid->FlagCellsToBeRefinedByJeansLength.");
 	}

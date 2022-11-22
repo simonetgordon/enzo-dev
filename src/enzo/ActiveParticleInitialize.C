@@ -26,7 +26,7 @@
 #include "LevelHierarchy.h"
 #include "ActiveParticle.h"
 
-#define NO_DEBUG
+#define NO_DEBUG // SG. Switch from 'NO_DEBUG'. For testing purposes. Throws error.
 
 int FindTotalNumberOfParticles(LevelHierarchyEntry *LevelArray[]);
 
@@ -50,7 +50,7 @@ int ActiveParticleInitialize(HierarchyEntry *Grids[], TopGridData *MetaData,
 
   MetaData->NumberOfParticles = FindTotalNumberOfParticles(LevelArray);
   NumberOfOtherParticles = MetaData->NumberOfParticles;// - NumberOfActiveParticles;
-
+  
   if (NextActiveParticleID == INT_UNDEFINED)
     NextActiveParticleID = NumberOfOtherParticles + NumberOfActiveParticles;
 

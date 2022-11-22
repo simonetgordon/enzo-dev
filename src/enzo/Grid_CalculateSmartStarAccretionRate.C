@@ -31,6 +31,7 @@
 #define SMALL_NUMBER         1e-6
 #define ACCRETION_LIMIT     1e-1
 #define C_VISC              2.1e6
+
 float bondi_alpha(float x);
 int GetUnits(float *DensityUnits, float *LengthUnits,
 	     float *TemperatureUnits, float *TimeUnits,
@@ -68,7 +69,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   ActiveParticleType_SmartStar* SS;
   SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
   SS->mass_in_accretion_sphere = 0.0;
-  float eta_disk = SS->eta_disk;
+
   float WeightedSum = 0, AverageDensity = 0, RhoInfinity = 0.0;
   float AverageT=0, TotalGasMass = 0;
   float lambda_c = 0.25*exp(1.5);
@@ -79,7 +80,6 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   /* Find the Bondi-Hoyle radius */
   int size = this->GetGridSize();
   float *Temperature = new float[size]();
- 
   this->ComputeTemperatureField(Temperature);
   /* Get indices in BaryonField for density, internal energy, thermal energy,
    * velocity */
@@ -115,17 +115,20 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
 			 pow(vparticle[1] - BaryonField[Vel2Num][cgindex],2) +
 			 pow(vparticle[2] - BaryonField[Vel3Num][cgindex],2));
 
-  //float CellTemperature = Temperature[cgindex];
-  float CellTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, 2.0*AccretionRadius);
+  float CellTemperature = Temperature[cgindex];
+  // float CellTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, 2.0*AccretionRadius);
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
+
   float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
+  // SG. Change CellTemperature -> Temperature[cgindex]
   float cInfinity = sqrt(Gamma * kboltz * CellTemperature / (Mu * mh)) /
     LengthUnits*TimeUnits;
+  // SG. Temperature is computed on line 83
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature); 
- 
-  //printf("%s:  BondiHoyleRadius = %e pc\n", __FUNCTION__,  BondiHoyleRadius*LengthUnits/pc_cm);
-  //printf("%s:  AccretionRadius = %e pc\n", __FUNCTION__,  AccretionRadius*LengthUnits/pc_cm);
+  fprintf(stderr, "%s:  BondiHoyleRadius = %e pc\n", __FUNCTION__,  BondiHoyleRadius*LengthUnits/pc_cm);
+  fprintf(stderr, "%s:  AccretionRadius = %e pc\n", __FUNCTION__,  AccretionRadius*LengthUnits/pc_cm);
+  
   /* Impose a kernel radius that regulates the weighting cells get as a function of radius */
   if (BondiHoyleRadius < CellWidth[0][0]/4.0) {  /* For BHs whose Bondi radius is not resolved */
     //printf("%s: Setting kernel radius to CellWidth, BH not resolved\n", __FUNCTION__);
@@ -183,12 +186,21 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
 #ifdef DEBUG_AP
     printf("Doing SPHERICAL_BONDI_HOYLE_FORMALISM, SmartStarAccretion = %d\n", SmartStarAccretion);
 #endif
-    RhoInfinity = AverageDensity /
-      bondi_alpha(1.2*CellWidth[0][0] / BondiHoyleRadius);
+    // RhoInfinity = AverageDensity /
+    //   bondi_alpha(1.2*CellWidth[0][0] / BondiHoyleRadius);
+
+    // SG. Replaces above two lines. We want rho_inf = avg dens in accretion sphere.
+    // This alpha factor has the effect of reducing rho_inf when dx <~ bondi_radius.
+    RhoInfinity = AverageDensity;
 
     /* Bondi Hoyle */
+    // AccretionRate = (4*pi*RhoInfinity*POW(BondiHoyleRadius,2)*
+		// 	 sqrt(POW(lambda_c*cInfinity,2) + POW(vInfinity,2)));
+
+    // SG. Replaces above two lines. We want denom^2/3, not ^1/2. In line with derivation and Beckmann (2018).
     AccretionRate = (4*pi*RhoInfinity*POW(BondiHoyleRadius,2)*
-			 sqrt(POW(lambda_c*cInfinity,2) + POW(vInfinity,2)));
+			 POW(POW(lambda_c*cInfinity,2) + POW(vInfinity,2), 1.5));
+
     /* Include Vorticity component if specified */
     if(SPHERICAL_BONDI_HOYLE_FORMALISM_WITH_VORTICITY == SmartStarAccretion) {
 #ifdef DEBUG_AP
@@ -275,15 +287,17 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
    *
    */
   if(SmartStarAccretion ==  CONVERGING_MASS_FLOW) {
+
 #ifdef DEBUG_AP
     printf("Doing CONVERGING_MASS_FLOW, SmartStarAccretion = %d\n", SmartStarAccretion);
 #endif
+
     AccretionRate = ConvergentMassFlow(DensNum, Vel1Num, AccretionRadius, xparticle, vparticle, 
 				       mparticle, Gcode, GENum);
-#ifdef DEBUG_AP
+
     printf("%s: Calculated (mass flux) accretion rate is %e Msolar/yr\n", __FUNCTION__, 
 	   AccretionRate*3.154e7*MassUnits/(SolarMass*TimeUnits));
-#endif
+
   }
   
   return AccretionRate;
@@ -522,13 +536,17 @@ float grid::ConvergentMassFlow(int DensNum, int Vel1Num, FLOAT AccretionRadius,
 	  float accrate = 0.0; 
 	  if(radialvelocity < 0) {
 #if USEBOUNDEDNESS
-	    float ke = pow(gasvelx[index], 2.0) + pow(gasvely[index], 2.0) + pow(gasvelz[index], 2.0);
-	    float te = BaryonField[GENum][index];
-	    FLOAT dist = sqrt(radius2);
-	    float ge = Gcode*SSmass/dist;
-	    if(ke+te-ge<0) { /*Only add if we are bound */
-	      continue;
+	    if(SSMass > 0.0){
+	      float ke = pow(gasvelx[index], 2.0) + pow(gasvely[index], 2.0) + pow(gasvelz[index], 2.0);
+	      float te = BaryonField[GENum][index];
+	      FLOAT dist = sqrt(radius2);
+	      float ge = Gcode*SSmass/dist;
+	      if(ke+te-ge<0) { /*Only add if we are bound */
+		continue;
+	      }
 	    }
+	    else
+	      ;
 #endif
 	    numincells++;
 	    accrate = density[index]*relposmag*relposmag*radialvelocity;
@@ -610,7 +628,8 @@ float grid::CalculateCirculisationSpeed(int Vel1Num, FLOAT AccretionRadius,
 
 FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature)
 {
-
+  fprintf(stderr,"%s: Start of function. On proc %"ISYM"\n", __FUNCTION__, MyProcessorNumber);
+  // SG/BS get location of particle and cell index from that.
   int cindex = (GridEndIndex[0] - GridStartIndex[0])/2 + GridStartIndex[0];
   int cgindex = GRIDINDEX_NOGHOST(cindex,cindex,cindex);
   float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1,
@@ -633,26 +652,23 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
   {
     ENZO_FAIL("Error in IdentifyPhysicalQuantities.");
   }
-
- 
   /* Estimate the relative velocity */
   float vInfinity = sqrt(pow(vparticle[0] - BaryonField[Vel1Num][cgindex],2) +
 			 pow(vparticle[1] - BaryonField[Vel2Num][cgindex],2) +
 			 pow(vparticle[2] - BaryonField[Vel3Num][cgindex],2));
-
   float CellTemperature = Temperature[cgindex];
+  fprintf(stderr, "%s: cgindex = %"ISYM" \n", __FUNCTION__, cgindex);
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
 
   float cInfinity = sqrt(Gamma * kboltz * CellTemperature / (Mu * mh)) /
     LengthUnits*TimeUnits;
+    // SG. GravConst = 6.67e-8 cgs units cm^3 kg^-1 s^-2
   float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
-#ifdef DEBUG_AP
-  printf("%s: vInfinity = %f km/s\n", __FUNCTION__,  (vInfinity*LengthUnits/TimeUnits)/1e5);
-  printf("%s: cInfinity = %f km/s\n", __FUNCTION__,  (cInfinity*LengthUnits/TimeUnits)/1e5);
-  printf("%s: CellTemperature = %f K\n", __FUNCTION__, CellTemperature);
-  printf("%s: Celllength = %e pc\n", __FUNCTION__, CellWidth[0][0]*LengthUnits/pc_cm);
-#endif
-  return Gcode*mparticle/
-    (pow(vInfinity,2) + pow(cInfinity,2));
-}
+  fprintf(stderr,"%s: vInfinity = %f km/s\n", __FUNCTION__,  (vInfinity*VelocityUnits)/1e5);
+  fprintf(stderr,"%s: cInfinity = %f km/s\n", __FUNCTION__,  (cInfinity*VelocityUnits)/1e5);
+  fprintf(stderr,"%s: CellTemperature = %f K\n", __FUNCTION__, CellTemperature);
+  fprintf(stderr,"%s: Celllength = %e pc\n", __FUNCTION__, CellWidth[0][0]*LengthUnits/pc_cm);
+  FLOAT ret = FLOAT(2*Gcode*mparticle/(1 + POW(cInfinity,2)));
+  return ret;
+} // SG. End of function.

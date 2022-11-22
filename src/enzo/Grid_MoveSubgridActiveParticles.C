@@ -105,10 +105,10 @@ int grid::MoveSubgridActiveParticles(int NumberOfSubgrids, grid* ToGrids[],
       if (subgrid[i] >= 0) {
         np = this->ActiveParticles[i]->clone();
         this->ActiveParticles.erase(i);
-
         np->CurrentGrid = ToGrids[subgrid[i]];
         np->IncreaseLevel();
         np->AdjustMassByFactor(MassIncrease);
+        np->AdjustOldmassMassByFactor(MassIncrease);
         np->GridID = ToGrids[subgrid[i]]->ID;
         
         ToGrids[subgrid[i]]->AddActiveParticle(np);

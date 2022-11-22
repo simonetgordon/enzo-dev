@@ -45,6 +45,7 @@ int GetUnits(float *DensityUnits, float *LengthUnits,
 	     float *TemperatureUnits, float *TimeUnits,
 	     float *VelocityUnits, FLOAT Time);
 int CosmologyComputeExpansionFactor(FLOAT time, FLOAT *a, FLOAT *dadt);
+unsigned_long_int mt_random(void);
 /*******************************
 
    CONSTRUCTORS AND DESTRUCTOR
@@ -60,6 +61,7 @@ ActiveParticleType::ActiveParticleType(void)
   Mass = BirthTime = DynamicalTime = 0.0;
   level = GridID = type = 0;
   WillDelete = false;
+  oldmass = -1; // SG. Will delete.
 
   /* The correct indices are assigned in CommunicationUpdateActiveParticleCount 
      in ActiveParticleFinalize.*/
@@ -83,6 +85,7 @@ ActiveParticleType::ActiveParticleType(ActiveParticleType* part)
   type = part->type;
   CurrentGrid = part->CurrentGrid;
   WillDelete = part->WillDelete;
+  oldmass = part->oldmass; // SG. Will delete.
 }
 
 ActiveParticleType::ActiveParticleType(grid *_grid, ActiveParticleFormationData &data)
@@ -91,7 +94,7 @@ ActiveParticleType::ActiveParticleType(grid *_grid, ActiveParticleFormationData 
   CurrentGrid = _grid;
   for (dim = 0; dim < MAX_DIMENSION; dim++)
     pos[dim] = vel[dim] = 0.0;
-  Mass = BirthTime = DynamicalTime = 0.0;
+  Mass = BirthTime = DynamicalTime = oldmass = 0.0; // SG.
   type = 0;
   level = data.level;
   GridID = data.GridID;
@@ -124,6 +127,7 @@ void ActiveParticleType::operator=(ActiveParticleType *a)
   }
   Mass = a->Mass;
   BirthTime = a->BirthTime;
+  oldmass = a->oldmass;
   DynamicalTime = a->DynamicalTime;
   Metallicity = a->Metallicity;
   Identifier = a->Identifier;
@@ -151,6 +155,7 @@ active_particle_class *ActiveParticleType::copy(void)
   }
   a->Mass = Mass;
   a->BirthTime = BirthTime;
+  a->oldmass = oldmass;
   a->DynamicalTime = DynamicalTime;
   a->Metallicity = Metallicity;
   a->Identifier = Identifier;
@@ -241,9 +246,11 @@ void ActiveParticleType_SmartStar::SmartMerge(ActiveParticleType_SmartStar *a)
 {
   int dim;
   double ratio1, ratio2;
-
-  ratio1 = Mass / (Mass + a->Mass);
+  if((Mass == 0.0) || (a->Mass == 0.0))
+    return;  
+  ratio1 =  (max(Mass, 1e-10)) / (max(1e-10,Mass) + max(1e-10, a->Mass));
   ratio2 = 1.0 - ratio1;
+
   Metallicity = ratio1 * Metallicity + ratio2 * a->Metallicity;
   for (dim = 0; dim < MAX_DIMENSION; dim++) {
     pos[dim] = ratio1 * pos[dim] + ratio2 * a->pos[dim];
@@ -262,10 +269,32 @@ void ActiveParticleType_SmartStar::SmartMerge(ActiveParticleType_SmartStar *a)
 	AccretionRateTime[i] = a->AccretionRateTime[i];
 	AccretionRate[i] = a->AccretionRate[i];	
       }
+    RadiationLifetime = a->RadiationLifetime;
+    StellarAge = a->StellarAge;
   }
-  Mass += a->Mass;
   NotEjectedMass += a->NotEjectedMass;
-  ParticleClass = max(ParticleClass, a->ParticleClass);
+
+  /*
+   * SMS + PopIII -> SMS
+   * BH + SMS -> BH
+   * BH + PopIII -> BH
+   * POPII + POPII -> POPII
+   * POPII + SMS -> POPII (assume SMS becomes part of cluster)
+   * POPII + POPIII -> POPII (assume POPIII becomes part of cluster)
+   * a) POPII + BH -> POPII (if POPII mass > BH mass)
+   * b) POPII + BH -> BH (if BH mass > POPII mass)
+   */
+  if(ParticleClass < 3 && a->ParticleClass < 3)
+    ParticleClass = max(ParticleClass, a->ParticleClass);
+  else if (ParticleClass == 4 || a->ParticleClass == 4)
+    {
+      if(Mass > a->Mass)
+	ParticleClass = a->ParticleClass;
+      else
+	a->ParticleClass = ParticleClass;
+    } 
+  WillDelete = min(WillDelete, a->WillDelete);
+  Mass += a->Mass;
   return;
 }
 
@@ -498,3 +527,48 @@ int ActiveParticleType_SmartStar::CalculateAccretedAngularMomentum()
   return SUCCESS;
 }
 
+void ActiveParticleType_SmartStar::AssignMassFromIMF()
+{
+  float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits,
+    VelocityUnits, MassConversion;
+  GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
+	   &TimeUnits, &VelocityUnits, CurrentGrid->Time);
+  
+  unsigned_long_int random_int = mt_random();
+  const int max_random = (1<<16);
+  float x = (float) (random_int%max_random) / (float) (max_random);
+  float dm = log10(PopIIIUpperMassCutoff / PopIIILowerMassCutoff) / 
+    (float) (IMF_TABLE_ENTRIES-1);
+  
+  printf("%s: random_int = %lld\n x = %f\n", __FUNCTION__, random_int, x);
+  /* (binary) search for the mass bin corresponding to the random
+     number */
+
+  int width = IMF_TABLE_ENTRIES/2;
+  int bin_number = IMF_TABLE_ENTRIES/2;
+  
+  while (width > 1) {
+    width /= 2;
+    if (x > IMFData[bin_number])
+      bin_number += width;
+    else if (x < IMFData[bin_number])
+      bin_number -= width;
+    else
+      break;
+  }
+  
+  this->Mass = PopIIILowerMassCutoff * POW(10.0, bin_number * dm);
+  
+  /* Adjust the lifetime (taken from the fit in Schaerer 2002) now we
+     know the stellar mass.  It was set to the lifetime of a star with
+     M=PopIIILowerMassCutoff in pop3_maker.src as a placeholder. */
+  float logm = log10((float)this->Mass);
+
+  // First in years, then convert to code units
+  this->RadiationLifetime = POW(10.0, (9.785 - 3.759*logm + 1.413*logm*logm - 
+			      0.186*logm*logm*logm)) / (TimeUnits/yr_s);
+
+  printf("%s: Mass assigned from IMF = %e Msolar\t Lifetime = %1.5f Myr\n", __FUNCTION__, this->Mass,
+	 this->RadiationLifetime*TimeUnits/Myr_s);
+ 
+}

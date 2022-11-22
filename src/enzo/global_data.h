@@ -1180,6 +1180,7 @@ EXTERN ActiveParticleType_info *EnabledActiveParticles[MAX_ACTIVE_PARTICLE_TYPES
 EXTERN int EnabledActiveParticlesCount;
 EXTERN float ActiveParticleDensityThreshold;
 EXTERN int SmartStarAccretion;
+EXTERN FLOAT SmartStarBondiRadiusRefinementFactor; // SG. New parameter for adjusting refinement around BH.
 EXTERN int SmartStarFeedback;
 EXTERN int SmartStarEddingtonCap;
 EXTERN int SmartStarBHFeedback;
@@ -1192,7 +1193,6 @@ EXTERN float SmartStarFeedbackJetsThresholdMass;
 EXTERN float SmartStarJetVelocity;
 EXTERN float SmartStarSpin; 
 EXTERN int SmartStarSuperEddingtonAdjustment;
-EXTERN float SmartStarSMSLifetime;
 
 /* For EnzoTiming Behavior */
 EXTERN int TimingCycleSkip; // Frequency of timing data dumps.
