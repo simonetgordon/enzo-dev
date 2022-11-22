@@ -157,6 +157,7 @@ OBJS_CONFIG_LIB = \
         CreateSUBlingList.o \
         CreateFluxes.o \
         CRShockTubesInitialize.o \
+        CRTransportTestInitialize.o \
         InitializeFluxes.o \
         DeleteFluxes.o \
         DeleteSUBlingList.o \
@@ -408,11 +409,14 @@ OBJS_CONFIG_LIB = \
 	Grid_ComputeAccelerationField.o \
 	Grid_ComputeAccelerations.o \
 	Grid_ComputeAccelerationsFromExternalPotential.o \
+        Grid_ComputeAnisotropicCRDiffusion.o \
 	Grid_ComputeCellCenteredField.o \
 	Grid_ComputeConductionTimeStep.o \
 	Grid_ComputeCoolingTime.o \
         Grid_ComputeCRDiffusion.o \
         Grid_ComputeCRDiffusionTimeStep.o \
+        Grid_ComputeCRStreaming.o \
+        Grid_ComputeCRStreamingTimeStep.o \
         Grid_ComputeDomainBoundaryMassFlux.o \
 	Grid_ComputeDustTemperatureField.o \
 	Grid_ComputeElementalDensity.o \
@@ -456,6 +460,7 @@ OBJS_CONFIG_LIB = \
 	Grid_CreateFieldArray.o \
 	Grid_CreateParticleTypeGrouping.o \
 	Grid_CRShockTubesInitializeGrid.o \
+        Grid_CRTransportTestInitialize.o \
     	Grid_DebugActiveParticles.o \
 	Grid_DebugCheck.o \
 	Grid_DeleteAllButParticles.o \
@@ -520,6 +525,7 @@ OBJS_CONFIG_LIB = \
         Grid_GetEnclosedMassInShell.o \
         Grid_GetProjectedBoundaryFluxes.o \
         Grid_GrackleWrapper.o \
+        Grid_GrackleCustomCoolRate.o \
         Grid_GravityEquilibriumTestInitializeGrid.o \
         Grid_Group_WriteGridInterpolate.o \
         Grid_Group_WriteGrid.o \
@@ -830,6 +836,7 @@ OBJS_CONFIG_LIB = \
         read_bt.o \
         read_bv.o \
         ReadDataHierarchy.o \
+        ReadEquilibriumTable.o \
         ReadFile.o \
         ReadGridFile.o \
         ReadIntFile.o \
@@ -865,6 +872,7 @@ OBJS_CONFIG_LIB = \
         SetDefaultGlobalValues.o \
         SetLevelTimeStep.o \
         SetEvolveRefineRegion.o \
+        SetStellarFeedbackEfficiency.o \
         SetStellarMassThreshold.o \
         sgi_st1_fft64.o \
         ShearingBoxInitialize.o \
@@ -954,16 +962,6 @@ OBJS_CONFIG_LIB = \
         UpdateParticlePositions.o \
         utilities.o \
         uuid.o \
-        uuid/clear.o \
-        uuid/compare.o \
-        uuid/copy.o \
-        uuid/gen_uuid.o \
-        uuid/isnull.o \
-        uuid/pack.o \
-        uuid/parse.o \
-        uuid/unpack.o \
-        uuid/unparse.o \
-        uuid/uuid_time.o \
         wall_clock.o \
         WavePoolInitialize.o \
         wrapper1d.o \
@@ -1047,9 +1045,10 @@ OBJS_CONFIG_LIB = \
    Grid_SchrodingerSolver.o \
    rk4.o \
    SchrodingerAddPotential.o \
+   ParallelFDMCollapseInitialize.o \
+   Grid_ParallelFDMCollapseInitialize.o \
    FDMCollapse.o \
    Grid_FDMCollapse.o
-
 
 #-----------------------------------------------------------------------
 # Objects for radiative transfer module
@@ -1243,4 +1242,15 @@ OBJS_ECUDA_ALL = \
 	CUDAUtil.o \
 	SaveSubgridFluxCUDA.o 
 
-
+# Objects to support get_uuid
+POBJS_UUID = \
+        uuid/clear.o \
+        uuid/compare.o \
+        uuid/copy.o \
+        uuid/gen_uuid.o \
+        uuid/isnull.o \
+        uuid/pack.o \
+        uuid/parse.o \
+        uuid/unpack.o \
+        uuid/unparse.o \
+        uuid/uuid_time.o

@@ -288,7 +288,9 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
    */
   if(SmartStarAccretion ==  CONVERGING_MASS_FLOW) {
 
+#ifdef DEBUG_AP
     printf("Doing CONVERGING_MASS_FLOW, SmartStarAccretion = %d\n", SmartStarAccretion);
+#endif
 
     AccretionRate = ConvergentMassFlow(DensNum, Vel1Num, AccretionRadius, xparticle, vparticle, 
 				       mparticle, Gcode, GENum);

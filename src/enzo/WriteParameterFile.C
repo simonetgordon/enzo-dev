@@ -314,6 +314,7 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "PressureFree                   = %"ISYM"\n", PressureFree);
   /* FDM: write FDM parameters */  
   fprintf(fptr, "QuantumPressure                = %"ISYM"\n", QuantumPressure);
+  fprintf(fptr, "FDMCollapseAbsorbingBoundary   = %"ISYM"\n", FDMCollapseAbsorbingBoundary);
   fprintf(fptr, "FDMMass                        = %"FSYM"\n", FDMMass);
 
   fprintf(fptr, "RefineBy                       = %"ISYM"\n", RefineBy);
@@ -330,6 +331,7 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   }  // This needs to be after CellFlaggingMethod to make sure must
      // refine active particles are configured correctly on restart.
      // There's probably a better way to do this.
+   
   fprintf(fptr, "ActiveParticleDensityThreshold        = %"GSYM"\n", ActiveParticleDensityThreshold);
   fprintf(fptr, "SmartStarAccretion                    = %"ISYM"\n", SmartStarAccretion);
   fprintf(fptr, "SmartStarBondiRadiusRefinementFactor  = %"FSYM"\n", SmartStarBondiRadiusRefinementFactor);
@@ -460,8 +462,8 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "DiskGravityStellarDiskScaleHeightz = %"GSYM"\n",DiskGravityStellarDiskScaleHeightz);
   fprintf(fptr, "DiskGravityStellarBulgeMass        = %"GSYM"\n",DiskGravityStellarBulgeMass);
   fprintf(fptr, "DiskGravityStellarBulgeR           = %"GSYM"\n",DiskGravityStellarBulgeR);
-  fprintf(fptr, "DiskGravityDarkMatterR             = %"GSYM"\n",DiskGravityDarkMatterR);
-  fprintf(fptr, "DiskGravityDarkMatterDensity       = %"GSYM"\n",DiskGravityDarkMatterDensity);
+  fprintf(fptr, "DiskGravityDarkMatterMass          = %"GSYM"\n",DiskGravityDarkMatterMass);
+  fprintf(fptr, "DiskGravityDarkMatterConcentration = %"GSYM"\n",DiskGravityDarkMatterConcentration);
 
   fprintf(fptr, "ExternalGravity           = %"ISYM"\n",ExternalGravity); 
   fprintf(fptr, "ExternalGravityConstant     = %"FSYM"\n",ExternalGravityConstant);
@@ -554,6 +556,10 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "RadiationXRayComptonHeating    = %"ISYM"\n", RadiationXRayComptonHeating);
   fprintf(fptr, "CRModel                        = %"ISYM"\n", CRModel);
   fprintf(fptr, "CRDiffusion                    = %"ISYM"\n", CRDiffusion);
+  fprintf(fptr, "CRHeating                      = %"ISYM"\n", CRHeating);
+  fprintf(fptr, "CRStreaming                    = %"ISYM"\n", CRStreaming);
+  fprintf(fptr, "CRStreamVelocityFactor         = %"FSYM"\n", CRStreamVelocityFactor);
+  fprintf(fptr, "CRStreamStabilityFactor        = %"FSYM"\n", CRStreamStabilityFactor);
   fprintf(fptr, "CRkappa                        = %"FSYM"\n", CRkappa);
   fprintf(fptr, "CRCourantSafetyNumber          = %"FSYM"\n", CRCourantSafetyNumber);
   fprintf(fptr, "CRFeedback                     = %"FSYM"\n", CRFeedback);
@@ -937,6 +943,16 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
           StarFeedbackDistCellStep);
   fprintf(fptr, "StarMakerUseJeansMass                 = %"ISYM"\n",
 	  StarMakerUseJeansMass);
+  fprintf(fptr, "StarMakerVelDivCrit                   = %"ISYM"\n",
+    StarMakerVelDivCrit);
+  fprintf(fptr, "StarMakerSelfBoundCrit                = %"ISYM"\n",
+    StarMakerSelfBoundCrit);
+  fprintf(fptr, "StarMakerThermalCrit                  = %"ISYM"\n",
+    StarMakerThermalCrit);
+  fprintf(fptr, "StarMakerH2Crit                       = %"ISYM"\n",
+    StarMakerH2Crit);
+  fprintf(fptr, "StarMakerTemperatureThreshold         = %"GSYM"\n",
+    StarMakerTemperatureThreshold);
   fprintf(fptr, "StarMakerTypeIaSNe                    = %"ISYM"\n",
 	  StarMakerTypeIaSNe);
   fprintf(fptr, "StarMakerTypeIISNeMetalField          = %"ISYM"\n",
@@ -1100,6 +1116,12 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "StarMakerMinimumMassRampStartMass  = %"GSYM"\n", StarMakerMinimumMassRampStartMass);
   fprintf(fptr, "StarMakerMinimumMassRampEndTime    = %"GSYM"\n", StarMakerMinimumMassRampEndTime);
   fprintf(fptr, "StarMakerMinimumMassRampEndMass    = %"GSYM"\n", StarMakerMinimumMassRampEndMass);
+
+  fprintf(fptr, "StarFeedbackThermalEfficiencyRamp           = %"ISYM"\n", StarFeedbackThermalEfficiencyRamp);
+  fprintf(fptr, "StarFeedbackThermalEfficiencyRampStartTime  = %"GSYM"\n", StarFeedbackThermalEfficiencyRampStartTime);
+  fprintf(fptr, "StarFeedbackThermalEfficiencyRampStartValue  = %"GSYM"\n", StarFeedbackThermalEfficiencyRampStartValue);
+  fprintf(fptr, "StarFeedbackThermalEfficiencyRampEndTime    = %"GSYM"\n", StarFeedbackThermalEfficiencyRampEndTime);
+  fprintf(fptr, "StarFeedbackThermalEfficiencyRampEndValue   = %"GSYM"\n", StarFeedbackThermalEfficiencyRampEndValue);
 
   /* Most Stanford additions: */
 
@@ -1285,10 +1307,12 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   }
   /* Write unique simulation identifier. */
   fprintf(fptr, "MetaDataSimulationUUID          = %s\n", MetaData.SimulationUUID);
+#ifdef USE_UUID
   /* Give this dataset a unique identifier. */
   char dset_uuid[MAX_LINE_LENGTH];
   get_uuid(dset_uuid);
   fprintf(fptr, "MetaDataDatasetUUID             = %s\n", dset_uuid);
+#endif
   /* If the restart data had a UUID, write that. */
   if(MetaData.RestartDatasetUUID != NULL){
     fprintf(fptr, "MetaDataRestartDatasetUUID      = %s\n",
@@ -1304,8 +1328,10 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
  
   fprintf(fptr, "VersionNumber              = %"FSYM"\n\n", VERSION);
 
+#ifdef USE_UUID
   if (name != NULL)
     UpdateLocalDatabase(MetaData, ID, dset_uuid, name);
+#endif
  
   return SUCCESS;
 }
