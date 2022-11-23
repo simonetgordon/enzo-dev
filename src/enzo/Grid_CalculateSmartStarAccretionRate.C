@@ -125,8 +125,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   float cInfinity = sqrt(Gamma * kboltz * CellTemperature / (Mu * mh)) /
     LengthUnits*TimeUnits;
   // SG. Temperature is computed on line 83
-  FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature); 
-  fprintf(stderr, "%s:  BondiHoyleRadius = %e pc\n", __FUNCTION__,  BondiHoyleRadius*LengthUnits/pc_cm);
+  FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   fprintf(stderr, "%s:  AccretionRadius = %e pc\n", __FUNCTION__,  AccretionRadius*LengthUnits/pc_cm);
   
   /* Impose a kernel radius that regulates the weighting cells get as a function of radius */
@@ -628,13 +627,11 @@ float grid::CalculateCirculisationSpeed(int Vel1Num, FLOAT AccretionRadius,
 
 FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature)
 {
-  fprintf(stderr,"%s: Start of function. On proc %"ISYM"\n", __FUNCTION__, MyProcessorNumber);
   // SG/BS get location of particle and cell index from that.
   int cindex = (GridEndIndex[0] - GridStartIndex[0])/2 + GridStartIndex[0];
   int cgindex = GRIDINDEX_NOGHOST(cindex,cindex,cindex);
   float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1,
-    TimeUnits = 1, VelocityUnits = 1, 
-    PressureUnits = 0, GEUnits = 0, VelUnits = 0;
+    TimeUnits = 1, VelocityUnits = 1, PressureUnits = 0, GEUnits = 0, VelUnits = 0;
   double MassUnits = 1;
   if (GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
 	       &TimeUnits, &VelocityUnits, Time) == FAIL) {
@@ -657,7 +654,6 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
 			 pow(vparticle[1] - BaryonField[Vel2Num][cgindex],2) +
 			 pow(vparticle[2] - BaryonField[Vel3Num][cgindex],2));
   float CellTemperature = Temperature[cgindex];
-  fprintf(stderr, "%s: cgindex = %"ISYM" \n", __FUNCTION__, cgindex);
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
 

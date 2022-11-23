@@ -126,8 +126,6 @@ int ActiveParticleType_SmartStar::EvaluateFormation
     // SG. If we just want one SmartStar in simulation.
     // SG. Temporarily disable star formation other than the current particle.
     if (ONE_PARTICLE_ONLY) {
-        fprintf(stderr, "Total number of SmartStar particles is 1. Disabling further formation %s\n",
-                __FUNCTION__);
         return SUCCESS;
     }
     // No need to do the rest if we're not on the maximum refinement level/ local max level of refinement

@@ -231,11 +231,8 @@ int grid::CopyZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSION])
      StartOther to reflect the fact that we are only coping part of
      the grid. */
  
-  if (traceMPI) 
-    fprintf(tracePtr, "CopyZones SendRegion from %"ISYM" to %"ISYM"\n", 
-	    ProcessorNumber, OtherGrid->ProcessorNumber);
- 
-  
+  if (traceMPI)
+
   if (ProcessorNumber != OtherGrid->ProcessorNumber) {
     OtherGrid->CommunicationSendRegion(OtherGrid, ProcessorNumber,
 				       ALL_FIELDS, NEW_ONLY, StartOther, 
