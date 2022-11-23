@@ -103,28 +103,29 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 		/ BaryonField[DensNum][index] ;
 
 	      newGE = min(newGE, maxGE);  
-	      //printf("%s: Energy Before = %e\t Energy injected = %e\t Increase = %e\n", __FUNCTION__, 
-	      //	     oldGE,ramp * factor * EjectaThermalEnergy / Density, (newGE - oldGE)/oldGE);
+	      printf("%s: Energy Before = %e\t Energy injected = %e\t Increase = %e\n", __FUNCTION__,
+	      	     oldGE,ramp * factor * EjectaThermalEnergy / Density, (newGE - oldGE)/oldGE);
 	      fflush(stdout);
 	      
 	      this->BaryonField[GENum][index] = newGE;
 	      this->BaryonField[TENum][index] = newGE;
 
 	      for (int dim = 0; dim < GridRank; dim++)
-		this->BaryonField[TENum][index] += 
-		  0.5 * this->BaryonField[Vel1Num+dim][index] * 
-		  this->BaryonField[Vel1Num+dim][index];
+              this->BaryonField[TENum][index] += 0.5 * this->BaryonField[Vel1Num+dim][index] *
+                      this->BaryonField[Vel1Num+dim][index];
 
-	      fprintf(stderr, "%s: Increase in GE energy is %e\n", __FUNCTION__, (newGE - oldGE)/oldGE);
+          fprintf(stderr, "%s: In DualEnergy formalism Increase in GE energy is %e\n", __FUNCTION__,
+                    (newGE - oldGE)/oldGE);
 	      
 	    } else {
 
 	      float newGE = (OldDensity * this->BaryonField[TENum][index] +
-		       ramp * factor * EjectaDensity * EjectaThermalEnergy) /
-		BaryonField[DensNum][index];
+		       ramp * factor * EjectaDensity * EjectaThermalEnergy) / BaryonField[DensNum][index];
 
 	      newGE = min(newGE, maxGE);  
 	      this->BaryonField[TENum][index] = newGE;
+
+          fprintf(stderr, "%s: New GE energy is %e\n", __FUNCTION__, newGE);
 
 	    } //end if(GENum >= 0 && DualEnergyFormalism)
 
@@ -134,8 +135,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	    else
 	      delta_fz = 0.0;
 	    float increase = BaryonField[DensNum][index] / OldDensity - delta_fz;
-          fprintf(stderr, "increase = %e , delta_fz = %e\n", increase, delta_fz);
-
+        fprintf(stderr, "increase = %e , delta_fz = %e\n", increase, delta_fz);
+          fprintf(stderr, "HIINum before *= increase = %e\n", this->BaryonField[HIINum][index]);
 	    if (MultiSpecies) {
 	      BaryonField[DeNum][index] *= increase;
 	      BaryonField[HINum][index] *= increase;
@@ -143,6 +144,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	      BaryonField[HeINum][index] *= increase;
 	      BaryonField[HeIINum][index] *= increase;
 	      BaryonField[HeIIINum][index] *= increase;
+          fprintf(stderr, "HIINum after *= increase = %e\n", BaryonField[HIINum][index]);
 	    }
 	    if (MultiSpecies > 1) {
 	      BaryonField[HMNum][index] *= increase;
@@ -155,6 +157,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	      BaryonField[HDINum][index] *= increase;
 	    }
 
+        fprintf(stderr, "HIINum after *= increase = %e\n", this->BaryonField[HIINum][index]);
 	    if (MetallicityField == TRUE)
 	      BaryonField[MetalNum][index] += EjectaMetalDensity;
 
