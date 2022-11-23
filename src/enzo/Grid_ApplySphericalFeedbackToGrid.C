@@ -115,7 +115,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 		  0.5 * this->BaryonField[Vel1Num+dim][index] * 
 		  this->BaryonField[Vel1Num+dim][index];
 
-	      //printf("%s: Increase in GE energy is %e\n", __FUNCTION__, (newGE - oldGE)/oldGE);
+	      fprintf(stderr, "%s: Increase in GE energy is %e\n", __FUNCTION__, (newGE - oldGE)/oldGE);
 	      
 	    } else {
 
@@ -134,6 +134,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	    else
 	      delta_fz = 0.0;
 	    float increase = BaryonField[DensNum][index] / OldDensity - delta_fz;
+          fprintf(stderr, "increase = %e , delta_fz = %e\n", increase, delta_fz);
 
 	    if (MultiSpecies) {
 	      BaryonField[DeNum][index] *= increase;

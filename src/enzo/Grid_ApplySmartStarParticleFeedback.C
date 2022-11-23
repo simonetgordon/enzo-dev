@@ -440,11 +440,12 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	float BH_Age = (Age - SS->StellarAge)*TimeUnits/yr_s;
 	if(BH_Age < RAMPTIME)
 	  {
-	    printf("BH Age = %e yrs, ramp = %e\n", BH_Age, BH_Age/(float)RAMPTIME);
+	    fprintf(stderr, "BH Age = %e yrs, ramp = %e\n", BH_Age, BH_Age/(float)RAMPTIME);
 	    EjectaThermalEnergy *= BH_Age/(float)RAMPTIME;
 	  }
 	EjectaDensity = 0.0;
 	EjectaMetalDensity = 0.0;
+    fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy);
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
 					   EjectaMetalDensity);
 	

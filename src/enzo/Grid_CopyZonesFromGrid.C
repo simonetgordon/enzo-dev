@@ -230,7 +230,7 @@ int grid::CopyZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSION])
   /* Copy data from other processor if needed (modify OtherDim and
      StartOther to reflect the fact that we are only coping part of
      the grid. */
-  
+
   if (ProcessorNumber != OtherGrid->ProcessorNumber) {
     OtherGrid->CommunicationSendRegion(OtherGrid, ProcessorNumber,
 				       ALL_FIELDS, NEW_ONLY, StartOther, 
