@@ -103,7 +103,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 		/ BaryonField[DensNum][index] ;
 
 	      newGE = min(newGE, maxGE);  
-	      printf("%s: Energy Before = %e\t Energy injected = %e\t Increase = %e\n", __FUNCTION__,
+	      printf("%s: Energy Before = %"GSYM"\t Energy injected = %"GSYM"\t Increase = %e\n", __FUNCTION__,
 	      	     oldGE,ramp * factor * EjectaThermalEnergy / Density, (newGE - oldGE)/oldGE);
 	      fflush(stdout);
 	      
@@ -125,7 +125,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	      newGE = min(newGE, maxGE);  
 	      this->BaryonField[TENum][index] = newGE;
 
-          fprintf(stderr, "%s: New GE energy is %e\n", __FUNCTION__, newGE);
+          fprintf(stderr, "%s: New GE energy is %"GSYM"\n", __FUNCTION__, newGE);
 
 	    } //end if(GENum >= 0 && DualEnergyFormalism)
 
@@ -135,8 +135,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	    else
 	      delta_fz = 0.0;
 	    float increase = BaryonField[DensNum][index] / OldDensity - delta_fz;
-        fprintf(stderr, "increase = %e , delta_fz = %e\n", increase, delta_fz);
-          fprintf(stderr, "HIINum before *= increase = %e\n", this->BaryonField[HIINum][index]);
+        fprintf(stderr, "increase = %e , delta_fz = %"GSYM"\n", increase, delta_fz);
+        fprintf(stderr, "HIINum before *= increase = %"GSYM"\n", this->BaryonField[HIINum][index]);
 	    if (MultiSpecies) {
 	      BaryonField[DeNum][index] *= increase;
 	      BaryonField[HINum][index] *= increase;
@@ -144,7 +144,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	      BaryonField[HeINum][index] *= increase;
 	      BaryonField[HeIINum][index] *= increase;
 	      BaryonField[HeIIINum][index] *= increase;
-          fprintf(stderr, "HIINum after *= increase = %e\n", BaryonField[HIINum][index]);
+	      fprintf(stderr, "HIINum after *= increase = %"GSYM"\n", BaryonField[HIINum][index]);
 	    }
 	    if (MultiSpecies > 1) {
 	      BaryonField[HMNum][index] *= increase;
@@ -157,7 +157,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	      BaryonField[HDINum][index] *= increase;
 	    }
 
-        fprintf(stderr, "HIINum after *= increase = %e\n", this->BaryonField[HIINum][index]);
+        fprintf(stderr, "HIINum after *= increase = %"GSYM"\n", this->BaryonField[HIINum][index]);
 	    if (MetallicityField == TRUE)
 	      BaryonField[MetalNum][index] += EjectaMetalDensity;
 
