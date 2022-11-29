@@ -1,0 +1,457 @@
+The system is: Linux - 4.18.0-305.25.1.el8_4.x86_64 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/cc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/c++ 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug/CMakeFiles/3.23.2/CompilerIdCXX/a.out"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/ninja/linux/ninja cmTC_2d3cd && [1/2] Building C object CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o
+Using built-in specs.
+COLLECT_GCC=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/cc
+Target: x86_64-pc-linux-gnu
+Configured with: ./configure --prefix=/scratch/sw/gcc/8.2.0 --disable-multilib --with-system-zlib --enable-languages=c,c++,fortran
+Thread model: posix
+gcc version 8.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/cc1 -quiet -v -iprefix /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/ /mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o -version -o /tmp/cczsABsH.s
+GNU C17 (GCC) version 8.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 8.2.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.18-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../x86_64-pc-linux-gnu/include"
+ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include"
+ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed"
+ignoring nonexistent directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../x86_64-pc-linux-gnu/include"
+ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include"
+  as it is a non-system directory that duplicates a system directory
+#include "..." search starts here:
+#include <...> search starts here:
+ /mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include
+ /opt/hpe/hpc/mpt/mpt-2.25/include
+ /mnt/lustre/indy2lfs/sw/libtool/2.4.6/include
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed
+ /usr/local/include
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../include
+ /usr/include
+End of search list.
+GNU C17 (GCC) version 8.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 8.2.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.18-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 2134b32e188b8707272e493c8e3124e3
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ as -v --64 -o CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o /tmp/cczsABsH.s
+GNU assembler version 2.30 (x86_64-redhat-linux) using BFD version version 2.30-93.el8
+COMPILER_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/
+LIBRARY_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/opt/hpe/hpc/mpt/mpt-2.25/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/:/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+[2/2] Linking C executable cmTC_2d3cd
+Using built-in specs.
+COLLECT_GCC=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/cc
+COLLECT_LTO_WRAPPER=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ./configure --prefix=/scratch/sw/gcc/8.2.0 --disable-multilib --with-system-zlib --enable-languages=c,c++,fortran
+Thread model: posix
+gcc version 8.2.0 (GCC) 
+COMPILER_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/
+LIBRARY_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/opt/hpe/hpc/mpt/mpt-2.25/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/:/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_2d3cd' '-mtune=generic' '-march=x86-64'
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/collect2 -plugin /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/liblto_plugin.so -plugin-opt=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccW2V4F1.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_2d3cd /lib/../lib64/crt1.o /lib/../lib64/crti.o /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/opt/hpe/hpc/mpt/mpt-2.25/lib -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib -L/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../.. CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o /lib/../lib64/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_2d3cd' '-mtune=generic' '-march=x86-64'
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include]
+    add: [/opt/hpe/hpc/mpt/mpt-2.25/include]
+    add: [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/include]
+    add: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include]
+    add: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed]
+    add: [/usr/local/include]
+    add: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../include]
+    add: [/usr/include]
+  end of search list found
+  collapse include dir [/mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include] ==> [/mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include]
+  collapse include dir [/opt/hpe/hpc/mpt/mpt-2.25/include] ==> [/opt/hpe/hpc/mpt/mpt-2.25/include]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/include] ==> [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/include]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/include]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../include] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include;/opt/hpe/hpc/mpt/mpt-2.25/include;/mnt/lustre/indy2lfs/sw/libtool/2.4.6/include;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/include;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed;/usr/local/include;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include;/usr/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/ninja/linux/ninja cmTC_2d3cd && [1/2] Building C object CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/cc]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: ./configure --prefix=/scratch/sw/gcc/8.2.0 --disable-multilib --with-system-zlib --enable-languages=c c++ fortran]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 8.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/cc1 -quiet -v -iprefix /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/ /mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o -version -o /tmp/cczsABsH.s]
+  ignore line: [GNU C17 (GCC) version 8.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 8.2.0  GMP version 6.1.0  MPFR version 3.1.4  MPC version 1.0.3  isl version isl-0.18-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../x86_64-pc-linux-gnu/include"]
+  ignore line: [ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include"]
+  ignore line: [ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../x86_64-pc-linux-gnu/include"]
+  ignore line: [ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include"]
+  ignore line: [  as it is a non-system directory that duplicates a system directory]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include]
+  ignore line: [ /opt/hpe/hpc/mpt/mpt-2.25/include]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/libtool/2.4.6/include]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../include]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C17 (GCC) version 8.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 8.2.0  GMP version 6.1.0  MPFR version 3.1.4  MPC version 1.0.3  isl version isl-0.18-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 2134b32e188b8707272e493c8e3124e3]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o /tmp/cczsABsH.s]
+  ignore line: [GNU assembler version 2.30 (x86_64-redhat-linux) using BFD version version 2.30-93.el8]
+  ignore line: [COMPILER_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/]
+  ignore line: [LIBRARY_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/opt/hpe/hpc/mpt/mpt-2.25/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/:/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [[2/2] Linking C executable cmTC_2d3cd]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: ./configure --prefix=/scratch/sw/gcc/8.2.0 --disable-multilib --with-system-zlib --enable-languages=c c++ fortran]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 8.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/]
+  ignore line: [LIBRARY_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/opt/hpe/hpc/mpt/mpt-2.25/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/:/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_2d3cd' '-mtune=generic' '-march=x86-64']
+  link line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/collect2 -plugin /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/liblto_plugin.so -plugin-opt=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccW2V4F1.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_2d3cd /lib/../lib64/crt1.o /lib/../lib64/crti.o /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/opt/hpe/hpc/mpt/mpt-2.25/lib -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib -L/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../.. CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o /lib/../lib64/crtn.o]
+    arg [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccW2V4F1.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_2d3cd] ==> ignore
+    arg [/lib/../lib64/crt1.o] ==> obj [/lib/../lib64/crt1.o]
+    arg [/lib/../lib64/crti.o] ==> obj [/lib/../lib64/crti.o]
+    arg [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o] ==> obj [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64]
+    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+    arg [-L/opt/hpe/hpc/mpt/mpt-2.25/lib] ==> dir [/opt/hpe/hpc/mpt/mpt-2.25/lib]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib]
+    arg [-L/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib] ==> dir [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../..] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../..]
+    arg [CMakeFiles/cmTC_2d3cd.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o] ==> obj [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o]
+    arg [/lib/../lib64/crtn.o] ==> obj [/lib/../lib64/crtn.o]
+  collapse obj [/lib/../lib64/crt1.o] ==> [/lib64/crt1.o]
+  collapse obj [/lib/../lib64/crti.o] ==> [/lib64/crti.o]
+  collapse obj [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o]
+  collapse obj [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o]
+  collapse obj [/lib/../lib64/crtn.o] ==> [/lib64/crtn.o]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+  collapse library dir [/lib/../lib64] ==> [/lib64]
+  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+  collapse library dir [/opt/hpe/hpc/mpt/mpt-2.25/lib] ==> [/opt/hpe/hpc/mpt/mpt-2.25/lib]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib] ==> [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../..] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib]
+  implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+  implicit objs: [/lib64/crt1.o;/lib64/crti.o;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o;/lib64/crtn.o]
+  implicit dirs: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64;/lib64;/usr/lib64;/opt/hpe/hpc/mpt/mpt-2.25/lib;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib;/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib]
+  implicit fwks: []
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/ninja/linux/ninja cmTC_0e54c && [1/2] Building CXX object CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o
+Using built-in specs.
+COLLECT_GCC=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/c++
+Target: x86_64-pc-linux-gnu
+Configured with: ./configure --prefix=/scratch/sw/gcc/8.2.0 --disable-multilib --with-system-zlib --enable-languages=c,c++,fortran
+Thread model: posix
+gcc version 8.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/cc1plus -quiet -v -iprefix /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/ -D_GNU_SOURCE /mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccHgcVMG.s
+GNU C++14 (GCC) version 8.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 8.2.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.18-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../x86_64-pc-linux-gnu/include"
+ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0"
+ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/x86_64-pc-linux-gnu"
+ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/backward"
+ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include"
+ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed"
+ignoring nonexistent directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../x86_64-pc-linux-gnu/include"
+ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include"
+  as it is a non-system directory that duplicates a system directory
+#include "..." search starts here:
+#include <...> search starts here:
+ /mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include
+ /opt/hpe/hpc/mpt/mpt-2.25/include
+ /mnt/lustre/indy2lfs/sw/libtool/2.4.6/include
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/x86_64-pc-linux-gnu
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/backward
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed
+ /usr/local/include
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../include
+ /usr/include
+End of search list.
+GNU C++14 (GCC) version 8.2.0 (x86_64-pc-linux-gnu)
+	compiled by GNU C version 8.2.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.18-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: a7cabab2d75bfdc2519365f56b63094f
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ as -v --64 -o CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccHgcVMG.s
+GNU assembler version 2.30 (x86_64-redhat-linux) using BFD version version 2.30-93.el8
+COMPILER_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/
+LIBRARY_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/opt/hpe/hpc/mpt/mpt-2.25/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/:/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+[2/2] Linking CXX executable cmTC_0e54c
+Using built-in specs.
+COLLECT_GCC=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/c++
+COLLECT_LTO_WRAPPER=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ./configure --prefix=/scratch/sw/gcc/8.2.0 --disable-multilib --with-system-zlib --enable-languages=c,c++,fortran
+Thread model: posix
+gcc version 8.2.0 (GCC) 
+COMPILER_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/
+LIBRARY_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/opt/hpe/hpc/mpt/mpt-2.25/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/:/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_0e54c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/collect2 -plugin /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/liblto_plugin.so -plugin-opt=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cctZsLc2.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_0e54c /lib/../lib64/crt1.o /lib/../lib64/crti.o /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/opt/hpe/hpc/mpt/mpt-2.25/lib -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib -L/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../.. CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o /lib/../lib64/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_0e54c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include]
+    add: [/opt/hpe/hpc/mpt/mpt-2.25/include]
+    add: [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/include]
+    add: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0]
+    add: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/x86_64-pc-linux-gnu]
+    add: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/backward]
+    add: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include]
+    add: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed]
+    add: [/usr/local/include]
+    add: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../include]
+    add: [/usr/include]
+  end of search list found
+  collapse include dir [/mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include] ==> [/mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include]
+  collapse include dir [/opt/hpe/hpc/mpt/mpt-2.25/include] ==> [/opt/hpe/hpc/mpt/mpt-2.25/include]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/include] ==> [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/include]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include/c++/8.2.0]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/x86_64-pc-linux-gnu] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include/c++/8.2.0/x86_64-pc-linux-gnu]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/backward] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include/c++/8.2.0/backward]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/include]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../include] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include;/opt/hpe/hpc/mpt/mpt-2.25/include;/mnt/lustre/indy2lfs/sw/libtool/2.4.6/include;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include/c++/8.2.0;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include/c++/8.2.0/x86_64-pc-linux-gnu;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include/c++/8.2.0/backward;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/include;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed;/usr/local/include;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include;/usr/include]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/ninja/linux/ninja cmTC_0e54c && [1/2] Building CXX object CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/c++]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: ./configure --prefix=/scratch/sw/gcc/8.2.0 --disable-multilib --with-system-zlib --enable-languages=c c++ fortran]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 8.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/cc1plus -quiet -v -iprefix /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/ -D_GNU_SOURCE /mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccHgcVMG.s]
+  ignore line: [GNU C++14 (GCC) version 8.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 8.2.0  GMP version 6.1.0  MPFR version 3.1.4  MPC version 1.0.3  isl version isl-0.18-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../x86_64-pc-linux-gnu/include"]
+  ignore line: [ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0"]
+  ignore line: [ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/x86_64-pc-linux-gnu"]
+  ignore line: [ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/backward"]
+  ignore line: [ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include"]
+  ignore line: [ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../x86_64-pc-linux-gnu/include"]
+  ignore line: [ignoring duplicate directory "/mnt/lustre/indy2lfs/sw/gcc/8.2.0/include"]
+  ignore line: [  as it is a non-system directory that duplicates a system directory]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/hdf5parallel/1.10.6-gcc8-mpt225/include]
+  ignore line: [ /opt/hpe/hpc/mpt/mpt-2.25/include]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/libtool/2.4.6/include]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/x86_64-pc-linux-gnu]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../include/c++/8.2.0/backward]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/include-fixed]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/../../include]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C++14 (GCC) version 8.2.0 (x86_64-pc-linux-gnu)]
+  ignore line: [	compiled by GNU C version 8.2.0  GMP version 6.1.0  MPFR version 3.1.4  MPC version 1.0.3  isl version isl-0.18-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: a7cabab2d75bfdc2519365f56b63094f]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccHgcVMG.s]
+  ignore line: [GNU assembler version 2.30 (x86_64-redhat-linux) using BFD version version 2.30-93.el8]
+  ignore line: [COMPILER_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/]
+  ignore line: [LIBRARY_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/opt/hpe/hpc/mpt/mpt-2.25/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/:/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [[2/2] Linking CXX executable cmTC_0e54c]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/c++]
+  ignore line: [COLLECT_LTO_WRAPPER=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: ./configure --prefix=/scratch/sw/gcc/8.2.0 --disable-multilib --with-system-zlib --enable-languages=c c++ fortran]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 8.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/]
+  ignore line: [LIBRARY_PATH=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/opt/hpe/hpc/mpt/mpt-2.25/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/:/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib/:/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_0e54c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/collect2 -plugin /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/liblto_plugin.so -plugin-opt=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cctZsLc2.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_0e54c /lib/../lib64/crt1.o /lib/../lib64/crti.o /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/opt/hpe/hpc/mpt/mpt-2.25/lib -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64 -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib -L/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib -L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../.. CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o /lib/../lib64/crtn.o]
+    arg [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/cctZsLc2.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_0e54c] ==> ignore
+    arg [/lib/../lib64/crt1.o] ==> obj [/lib/../lib64/crt1.o]
+    arg [/lib/../lib64/crti.o] ==> obj [/lib/../lib64/crti.o]
+    arg [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o] ==> obj [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64]
+    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+    arg [-L/opt/hpe/hpc/mpt/mpt-2.25/lib] ==> dir [/opt/hpe/hpc/mpt/mpt-2.25/lib]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib]
+    arg [-L/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib] ==> dir [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib]
+    arg [-L/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../..] ==> dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../..]
+    arg [CMakeFiles/cmTC_0e54c.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o] ==> obj [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o]
+    arg [/lib/../lib64/crtn.o] ==> obj [/lib/../lib64/crtn.o]
+  collapse obj [/lib/../lib64/crt1.o] ==> [/lib64/crt1.o]
+  collapse obj [/lib/../lib64/crti.o] ==> [/lib64/crti.o]
+  collapse obj [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o]
+  collapse obj [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o]
+  collapse obj [/lib/../lib64/crtn.o] ==> [/lib64/crtn.o]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64/../lib64] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/../lib64] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../../../lib64] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+  collapse library dir [/lib/../lib64] ==> [/lib64]
+  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+  collapse library dir [/opt/hpe/hpc/mpt/mpt-2.25/lib] ==> [/opt/hpe/hpc/mpt/mpt-2.25/lib]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib] ==> [/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib]
+  collapse library dir [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/../lib/gcc/x86_64-pc-linux-gnu/8.2.0/../../..] ==> [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib]
+  implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+  implicit objs: [/lib64/crt1.o;/lib64/crti.o;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtbegin.o;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0/crtend.o;/lib64/crtn.o]
+  implicit dirs: [/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib/gcc;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib64;/lib64;/usr/lib64;/opt/hpe/hpc/mpt/mpt-2.25/lib;/mnt/lustre/indy2lfs/sw/gcc/8.2.0/lib;/mnt/lustre/indy2lfs/sw/libtool/2.4.6/lib]
+  implicit fwks: []
+
+

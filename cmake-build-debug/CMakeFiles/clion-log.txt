@@ -1,0 +1,16 @@
+/mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/ninja/linux/ninja -G Ninja -S /mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg -B /mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug
+-- The C compiler identification is GNU 8.2.0
+-- The CXX compiler identification is GNU 8.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /mnt/lustre/indy2lfs/sw/gcc/8.2.0/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug

@@ -1,0 +1,9550 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "enzo_dev_sg"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 6,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 7,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 8,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 9,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 2,
+					"path" : "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/src/enzo"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/src/enzo/hydro_rk"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/src/enzo/python_bridge"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/src/enzo/uuid"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				65,
+				66,
+				67,
+				68,
+				69,
+				70,
+				71,
+				72,
+				73,
+				74,
+				75,
+				76,
+				77,
+				79,
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				88,
+				89,
+				90,
+				91,
+				92,
+				93,
+				94,
+				96,
+				98,
+				99,
+				115,
+				117,
+				119,
+				121,
+				122,
+				123,
+				125,
+				127,
+				128,
+				130,
+				132,
+				134,
+				136,
+				137,
+				139,
+				140,
+				141,
+				142,
+				143,
+				144,
+				145,
+				146,
+				147,
+				148,
+				150,
+				152,
+				154,
+				155,
+				156,
+				157,
+				158,
+				159,
+				160,
+				161,
+				162,
+				164,
+				165,
+				166,
+				167,
+				168,
+				169,
+				170,
+				171,
+				172,
+				173,
+				174,
+				175,
+				179,
+				181,
+				182,
+				183,
+				185,
+				186,
+				187,
+				188,
+				189,
+				190,
+				191,
+				192,
+				193,
+				194,
+				195,
+				196,
+				197,
+				198,
+				199,
+				200,
+				201,
+				202,
+				203,
+				204,
+				205,
+				206,
+				207,
+				208,
+				209,
+				210,
+				211,
+				212,
+				213,
+				214,
+				215,
+				217,
+				218,
+				219,
+				220,
+				221,
+				222,
+				223,
+				224,
+				225,
+				226,
+				227,
+				229,
+				230,
+				231,
+				232,
+				233,
+				234,
+				235,
+				236,
+				237,
+				238,
+				240,
+				241,
+				242,
+				243,
+				244,
+				245,
+				246,
+				247,
+				248,
+				249,
+				250,
+				256,
+				258,
+				259,
+				260,
+				261,
+				262,
+				263,
+				264,
+				265,
+				266,
+				267,
+				268,
+				269,
+				270,
+				271,
+				272,
+				273,
+				274,
+				276,
+				278,
+				279,
+				282,
+				284,
+				285,
+				286,
+				287,
+				292,
+				294,
+				295,
+				296,
+				297,
+				298,
+				300,
+				301,
+				302,
+				303,
+				304,
+				305,
+				306,
+				307,
+				308,
+				309,
+				310,
+				311,
+				312,
+				313,
+				314,
+				315,
+				316,
+				317,
+				318,
+				319,
+				321,
+				322,
+				323,
+				324,
+				326,
+				327,
+				328,
+				329,
+				330,
+				331,
+				332,
+				333,
+				334,
+				335,
+				336,
+				337,
+				338,
+				339,
+				342,
+				343,
+				345,
+				346,
+				347,
+				348,
+				350,
+				351,
+				352,
+				353,
+				355,
+				357,
+				358,
+				360,
+				361,
+				362,
+				363,
+				364,
+				365,
+				366,
+				367,
+				369,
+				370,
+				371,
+				372,
+				373,
+				375,
+				376,
+				377,
+				378,
+				379,
+				380,
+				381,
+				382,
+				383,
+				384,
+				385,
+				387,
+				388,
+				389,
+				390,
+				391,
+				392,
+				393,
+				394,
+				396,
+				397,
+				398,
+				399,
+				400,
+				401,
+				402,
+				403,
+				404,
+				405,
+				406,
+				407,
+				408,
+				409,
+				410,
+				411,
+				412,
+				413,
+				414,
+				415,
+				416,
+				418,
+				419,
+				420,
+				421,
+				422,
+				423,
+				424,
+				425,
+				426,
+				427,
+				428,
+				429,
+				430,
+				431,
+				432,
+				433,
+				435,
+				436,
+				437,
+				439,
+				440,
+				441,
+				442,
+				443,
+				444,
+				445,
+				446,
+				447,
+				448,
+				449,
+				450,
+				451,
+				452,
+				453,
+				454,
+				455,
+				456,
+				457,
+				458,
+				459,
+				460,
+				461,
+				462,
+				463,
+				464,
+				465,
+				466,
+				468,
+				469,
+				470,
+				471,
+				472,
+				473,
+				474,
+				475,
+				476,
+				477,
+				478,
+				479,
+				480,
+				481,
+				482,
+				483,
+				484,
+				485,
+				486,
+				487,
+				488,
+				489,
+				490,
+				491,
+				492,
+				493,
+				494,
+				495,
+				496,
+				497,
+				498,
+				499,
+				500,
+				501,
+				502,
+				503,
+				504,
+				505,
+				506,
+				507,
+				508,
+				509,
+				510,
+				511,
+				512,
+				513,
+				514,
+				515,
+				516,
+				517,
+				518,
+				519,
+				520,
+				521,
+				522,
+				523,
+				524,
+				525,
+				526,
+				527,
+				528,
+				529,
+				530,
+				531,
+				532,
+				533,
+				534,
+				535,
+				536,
+				537,
+				538,
+				539,
+				540,
+				541,
+				542,
+				543,
+				544,
+				545,
+				546,
+				547,
+				548,
+				549,
+				550,
+				551,
+				552,
+				553,
+				554,
+				555,
+				556,
+				557,
+				558,
+				559,
+				560,
+				561,
+				562,
+				563,
+				564,
+				565,
+				566,
+				567,
+				568,
+				569,
+				570,
+				571,
+				572,
+				573,
+				574,
+				575,
+				576,
+				577,
+				578,
+				579,
+				580,
+				581,
+				582,
+				583,
+				584,
+				585,
+				586,
+				587,
+				588,
+				589,
+				590,
+				591,
+				592,
+				593,
+				594,
+				595,
+				596,
+				597,
+				598,
+				599,
+				600,
+				601,
+				602,
+				603,
+				604,
+				605,
+				606,
+				607,
+				608,
+				609,
+				610,
+				611,
+				612,
+				613,
+				614,
+				615,
+				616,
+				617,
+				618,
+				619,
+				620,
+				621,
+				622,
+				623,
+				624,
+				625,
+				626,
+				627,
+				628,
+				629,
+				630,
+				631,
+				632,
+				633,
+				634,
+				635,
+				636,
+				637,
+				638,
+				639,
+				640,
+				641,
+				642,
+				643,
+				644,
+				645,
+				646,
+				647,
+				648,
+				649,
+				650,
+				651,
+				652,
+				653,
+				654,
+				655,
+				656,
+				657,
+				658,
+				659,
+				660,
+				661,
+				662,
+				663,
+				664,
+				665,
+				666,
+				667,
+				668,
+				669,
+				670,
+				671,
+				672,
+				673,
+				674,
+				675,
+				676,
+				677,
+				678,
+				679,
+				680,
+				681,
+				682,
+				683,
+				684,
+				685,
+				686,
+				687,
+				688,
+				689,
+				690,
+				691,
+				692,
+				693,
+				694,
+				695,
+				696,
+				697,
+				698,
+				699,
+				700,
+				701,
+				702,
+				703,
+				704,
+				705,
+				706,
+				707,
+				708,
+				709,
+				710,
+				711,
+				712,
+				713,
+				714,
+				715,
+				716,
+				717,
+				718,
+				719,
+				720,
+				721,
+				722,
+				723,
+				724,
+				725,
+				726,
+				727,
+				728,
+				729,
+				730,
+				731,
+				732,
+				733,
+				734,
+				735,
+				736,
+				737,
+				738,
+				739,
+				740,
+				741,
+				742,
+				743,
+				744,
+				745,
+				746,
+				747,
+				748,
+				749,
+				750,
+				751,
+				752,
+				753,
+				754,
+				755,
+				756,
+				757,
+				758,
+				759,
+				760,
+				761,
+				762,
+				763,
+				764,
+				765,
+				766,
+				767,
+				768,
+				769,
+				770,
+				771,
+				772,
+				773,
+				774,
+				775,
+				776,
+				777,
+				778,
+				779,
+				780,
+				781,
+				782,
+				783,
+				784,
+				785,
+				786,
+				787,
+				788,
+				789,
+				790,
+				791,
+				792,
+				793,
+				794,
+				795,
+				796,
+				797,
+				798,
+				799,
+				800,
+				801,
+				802,
+				803,
+				804,
+				805,
+				806,
+				807,
+				808,
+				809,
+				810,
+				811,
+				812,
+				813,
+				814,
+				815,
+				816,
+				817,
+				818,
+				819,
+				820,
+				821,
+				822,
+				823,
+				824,
+				825,
+				826,
+				827,
+				828,
+				829,
+				830,
+				831,
+				832,
+				833,
+				834,
+				835,
+				836,
+				837,
+				838,
+				839,
+				840,
+				841,
+				842,
+				843,
+				844,
+				845,
+				846,
+				847,
+				848,
+				849,
+				850,
+				851,
+				852,
+				853,
+				854,
+				856,
+				857,
+				858,
+				859,
+				861,
+				864,
+				865,
+				866,
+				867,
+				868,
+				871,
+				872,
+				874,
+				875,
+				876,
+				877,
+				878,
+				879,
+				880,
+				881,
+				882,
+				883,
+				884,
+				885,
+				886,
+				887,
+				888,
+				889,
+				890,
+				891,
+				892,
+				893,
+				894,
+				895,
+				896,
+				898,
+				901,
+				902,
+				903,
+				905,
+				908,
+				909,
+				910,
+				912,
+				913,
+				914,
+				915,
+				919,
+				920,
+				923,
+				924,
+				925,
+				926,
+				927,
+				930,
+				931,
+				932,
+				933,
+				934,
+				936,
+				938,
+				940,
+				941,
+				942,
+				943,
+				944,
+				945,
+				946,
+				947,
+				948,
+				949,
+				951,
+				952,
+				953,
+				959,
+				960,
+				961,
+				963,
+				966,
+				967,
+				968,
+				969,
+				970,
+				972,
+				973,
+				974,
+				975,
+				976,
+				978,
+				979,
+				980,
+				981,
+				982,
+				984,
+				985,
+				986,
+				987,
+				988,
+				989,
+				990,
+				991,
+				992,
+				993,
+				994,
+				995,
+				996,
+				997,
+				998,
+				999,
+				1000,
+				1001,
+				1003,
+				1004,
+				1006,
+				1007,
+				1008,
+				1010,
+				1011,
+				1012,
+				1013,
+				1015,
+				1016,
+				1017,
+				1018,
+				1019,
+				1020,
+				1021,
+				1023,
+				1024,
+				1026,
+				1027,
+				1029,
+				1030,
+				1031,
+				1032,
+				1033,
+				1034,
+				1035,
+				1036,
+				1037,
+				1038,
+				1039,
+				1040,
+				1041,
+				1042,
+				1043,
+				1044,
+				1045,
+				1046,
+				1047,
+				1048,
+				1049,
+				1050,
+				1052,
+				1053,
+				1054,
+				1056,
+				1057,
+				1058,
+				1059,
+				1060,
+				1061,
+				1062,
+				1063,
+				1064,
+				1065,
+				1066,
+				1069,
+				1070,
+				1072,
+				1073,
+				1074,
+				1075,
+				1076,
+				1077,
+				1078,
+				1079,
+				1080,
+				1081,
+				1082,
+				1083,
+				1084,
+				1086,
+				1087,
+				1089,
+				1092,
+				1093,
+				1096,
+				1097,
+				1098,
+				1099,
+				1100,
+				1101,
+				1102,
+				1103,
+				1104,
+				1105,
+				1106,
+				1107,
+				1108,
+				1109,
+				1110,
+				1111,
+				1112,
+				1113,
+				1114,
+				1115,
+				1116,
+				1117,
+				1118,
+				1119,
+				1121,
+				1122,
+				1123,
+				1124,
+				1126,
+				1127,
+				1128,
+				1129,
+				1130,
+				1131,
+				1132,
+				1133,
+				1134,
+				1135,
+				1136,
+				1138,
+				1139,
+				1140,
+				1141,
+				1142,
+				1143,
+				1144,
+				1145,
+				1146,
+				1147,
+				1148,
+				1149,
+				1150,
+				1151,
+				1152,
+				1153,
+				1154,
+				1156,
+				1157,
+				1159,
+				1162,
+				1164,
+				1165,
+				1168,
+				1169,
+				1170,
+				1171,
+				1174,
+				1175,
+				1176,
+				1177,
+				1178,
+				1179,
+				1180,
+				1181,
+				1182,
+				1183,
+				1184,
+				1185,
+				1186,
+				1187,
+				1188,
+				1189,
+				1190,
+				1191,
+				1192,
+				1193,
+				1194,
+				1195,
+				1196,
+				1197,
+				1198,
+				1199,
+				1200,
+				1201,
+				1202
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 2,
+					"path" : "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/src/enzo"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/src/enzo/hydro_rk"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/src/enzo/python_bridge"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/src/enzo/uuid"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				101,
+				102,
+				103,
+				104,
+				105,
+				106,
+				107,
+				108,
+				109,
+				110,
+				112,
+				163,
+				176,
+				177,
+				178,
+				928,
+				935,
+				964,
+				1088,
+				1172
+			]
+		}
+	],
+	"id" : "enzo_dev_sg::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "enzo_dev_sg",
+	"nameOnDisk" : "enzo_dev_sg",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65,
+				66,
+				67,
+				68,
+				69,
+				70,
+				71,
+				72,
+				73,
+				74,
+				75,
+				76,
+				77,
+				78,
+				79,
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				88,
+				89,
+				90,
+				91,
+				92,
+				93,
+				94,
+				96,
+				98,
+				99,
+				101,
+				102,
+				103,
+				104,
+				105,
+				106,
+				107,
+				108,
+				109,
+				110,
+				112,
+				115,
+				117,
+				119,
+				121,
+				122,
+				123,
+				125,
+				127,
+				128,
+				130,
+				132,
+				134,
+				136,
+				137,
+				139,
+				140,
+				141,
+				142,
+				143,
+				144,
+				145,
+				146,
+				147,
+				148,
+				150,
+				152,
+				154,
+				155,
+				156,
+				157,
+				158,
+				159,
+				160,
+				161,
+				162,
+				163,
+				164,
+				165,
+				166,
+				167,
+				168,
+				169,
+				170,
+				171,
+				172,
+				173,
+				174,
+				175,
+				176,
+				177,
+				178,
+				179,
+				181,
+				182,
+				183,
+				185,
+				186,
+				187,
+				188,
+				189,
+				190,
+				191,
+				192,
+				193,
+				194,
+				195,
+				196,
+				197,
+				198,
+				199,
+				200,
+				201,
+				202,
+				203,
+				204,
+				205,
+				206,
+				207,
+				208,
+				209,
+				210,
+				211,
+				212,
+				213,
+				214,
+				215,
+				217,
+				218,
+				219,
+				220,
+				221,
+				222,
+				223,
+				224,
+				225,
+				226,
+				227,
+				229,
+				230,
+				231,
+				232,
+				233,
+				234,
+				235,
+				236,
+				237,
+				238,
+				240,
+				241,
+				242,
+				243,
+				244,
+				245,
+				246,
+				247,
+				248,
+				249,
+				250,
+				251,
+				253,
+				256,
+				258,
+				259,
+				260,
+				261,
+				262,
+				263,
+				264,
+				265,
+				266,
+				267,
+				268,
+				269,
+				270,
+				271,
+				272,
+				273,
+				274,
+				276,
+				278,
+				279,
+				282,
+				284,
+				285,
+				286,
+				287,
+				292,
+				294,
+				295,
+				296,
+				297,
+				298,
+				300,
+				301,
+				302,
+				303,
+				304,
+				305,
+				306,
+				307,
+				308,
+				309,
+				310,
+				311,
+				312,
+				313,
+				314,
+				315,
+				316,
+				317,
+				318,
+				319,
+				321,
+				322,
+				323,
+				324,
+				326,
+				327,
+				328,
+				329,
+				330,
+				331,
+				332,
+				333,
+				334,
+				335,
+				336,
+				337,
+				338,
+				339,
+				342,
+				343,
+				345,
+				346,
+				347,
+				348,
+				350,
+				351,
+				352,
+				353,
+				355,
+				357,
+				358,
+				360,
+				361,
+				362,
+				363,
+				364,
+				365,
+				366,
+				367,
+				369,
+				370,
+				371,
+				372,
+				373,
+				375,
+				376,
+				377,
+				378,
+				379,
+				380,
+				381,
+				382,
+				383,
+				384,
+				385,
+				387,
+				388,
+				389,
+				390,
+				391,
+				392,
+				393,
+				394,
+				396,
+				397,
+				398,
+				399,
+				400,
+				401,
+				402,
+				403,
+				404,
+				405,
+				406,
+				407,
+				408,
+				409,
+				410,
+				411,
+				412,
+				413,
+				414,
+				415,
+				416,
+				418,
+				419,
+				420,
+				421,
+				422,
+				423,
+				424,
+				425,
+				426,
+				427,
+				428,
+				429,
+				430,
+				431,
+				432,
+				433,
+				435,
+				436,
+				437,
+				439,
+				440,
+				441,
+				442,
+				443,
+				444,
+				445,
+				446,
+				447,
+				448,
+				449,
+				450,
+				451,
+				452,
+				453,
+				454,
+				455,
+				456,
+				457,
+				458,
+				459,
+				460,
+				461,
+				462,
+				463,
+				464,
+				465,
+				466,
+				468,
+				469,
+				470,
+				471,
+				472,
+				473,
+				474,
+				475,
+				476,
+				477,
+				478,
+				479,
+				480,
+				481,
+				482,
+				483,
+				484,
+				485,
+				486,
+				487,
+				488,
+				489,
+				490,
+				491,
+				492,
+				493,
+				494,
+				495,
+				496,
+				497,
+				498,
+				499,
+				500,
+				501,
+				502,
+				503,
+				504,
+				505,
+				506,
+				507,
+				508,
+				509,
+				510,
+				511,
+				512,
+				513,
+				514,
+				515,
+				516,
+				517,
+				518,
+				519,
+				520,
+				521,
+				522,
+				523,
+				524,
+				525,
+				526,
+				527,
+				528,
+				529,
+				530,
+				531,
+				532,
+				533,
+				534,
+				535,
+				536,
+				537,
+				538,
+				539,
+				540,
+				541,
+				542,
+				543,
+				544,
+				545,
+				546,
+				547,
+				548,
+				549,
+				550,
+				551,
+				552,
+				553,
+				554,
+				555,
+				556,
+				557,
+				558,
+				559,
+				560,
+				561,
+				562,
+				563,
+				564,
+				565,
+				566,
+				567,
+				568,
+				569,
+				570,
+				571,
+				572,
+				573,
+				574,
+				575,
+				576,
+				577,
+				578,
+				579,
+				580,
+				581,
+				582,
+				583,
+				584,
+				585,
+				586,
+				587,
+				588,
+				589,
+				590,
+				591,
+				592,
+				593,
+				594,
+				595,
+				596,
+				597,
+				598,
+				599,
+				600,
+				601,
+				602,
+				603,
+				604,
+				605,
+				606,
+				607,
+				608,
+				609,
+				610,
+				611,
+				612,
+				613,
+				614,
+				615,
+				616,
+				617,
+				618,
+				619,
+				620,
+				621,
+				622,
+				623,
+				624,
+				625,
+				626,
+				627,
+				628,
+				629,
+				630,
+				631,
+				632,
+				633,
+				634,
+				635,
+				636,
+				637,
+				638,
+				639,
+				640,
+				641,
+				642,
+				643,
+				644,
+				645,
+				646,
+				647,
+				648,
+				649,
+				650,
+				651,
+				652,
+				653,
+				654,
+				655,
+				656,
+				657,
+				658,
+				659,
+				660,
+				661,
+				662,
+				663,
+				664,
+				665,
+				666,
+				667,
+				668,
+				669,
+				670,
+				671,
+				672,
+				673,
+				674,
+				675,
+				676,
+				677,
+				678,
+				679,
+				680,
+				681,
+				682,
+				683,
+				684,
+				685,
+				686,
+				687,
+				688,
+				689,
+				690,
+				691,
+				692,
+				693,
+				694,
+				695,
+				696,
+				697,
+				698,
+				699,
+				700,
+				701,
+				702,
+				703,
+				704,
+				705,
+				706,
+				707,
+				708,
+				709,
+				710,
+				711,
+				712,
+				713,
+				714,
+				715,
+				716,
+				717,
+				718,
+				719,
+				720,
+				721,
+				722,
+				723,
+				724,
+				725,
+				726,
+				727,
+				728,
+				729,
+				730,
+				731,
+				732,
+				733,
+				734,
+				735,
+				736,
+				737,
+				738,
+				739,
+				740,
+				741,
+				742,
+				743,
+				744,
+				745,
+				746,
+				747,
+				748,
+				749,
+				750,
+				751,
+				752,
+				753,
+				754,
+				755,
+				756,
+				757,
+				758,
+				759,
+				760,
+				761,
+				762,
+				763,
+				764,
+				765,
+				766,
+				767,
+				768,
+				769,
+				770,
+				771,
+				772,
+				773,
+				774,
+				775,
+				776,
+				777,
+				778,
+				779,
+				780,
+				781,
+				782,
+				783,
+				784,
+				785,
+				786,
+				787,
+				788,
+				789,
+				790,
+				791,
+				792,
+				793,
+				794,
+				795,
+				796,
+				797,
+				798,
+				799,
+				800,
+				801,
+				802,
+				803,
+				804,
+				805,
+				806,
+				807,
+				808,
+				809,
+				810,
+				811,
+				812,
+				813,
+				814,
+				815,
+				816,
+				817,
+				818,
+				819,
+				820,
+				821,
+				822,
+				823,
+				824,
+				825,
+				826,
+				827,
+				828,
+				829,
+				830,
+				831,
+				832,
+				833,
+				834,
+				835,
+				836,
+				837,
+				838,
+				839,
+				840,
+				841,
+				842,
+				843,
+				844,
+				845,
+				846,
+				847,
+				848,
+				849,
+				850,
+				851,
+				852,
+				853,
+				854,
+				856,
+				857,
+				858,
+				859,
+				861,
+				864,
+				865,
+				866,
+				867,
+				868,
+				871,
+				872,
+				874,
+				875,
+				876,
+				877,
+				878,
+				879,
+				880,
+				881,
+				882,
+				883,
+				884,
+				885,
+				886,
+				887,
+				888,
+				889,
+				890,
+				891,
+				892,
+				893,
+				894,
+				895,
+				896,
+				898,
+				901,
+				902,
+				903,
+				905,
+				908,
+				909,
+				910,
+				912,
+				913,
+				914,
+				915,
+				919,
+				920,
+				923,
+				924,
+				925,
+				926,
+				927,
+				928,
+				930,
+				931,
+				932,
+				933,
+				934,
+				935,
+				936,
+				938,
+				940,
+				941,
+				942,
+				943,
+				944,
+				945,
+				946,
+				947,
+				948,
+				949,
+				951,
+				952,
+				953,
+				959,
+				960,
+				961,
+				963,
+				964,
+				966,
+				967,
+				968,
+				969,
+				970,
+				972,
+				973,
+				974,
+				975,
+				976,
+				978,
+				979,
+				980,
+				981,
+				982,
+				984,
+				985,
+				986,
+				987,
+				988,
+				989,
+				990,
+				991,
+				992,
+				993,
+				994,
+				995,
+				996,
+				997,
+				998,
+				999,
+				1000,
+				1001,
+				1003,
+				1004,
+				1006,
+				1007,
+				1008,
+				1010,
+				1011,
+				1012,
+				1013,
+				1015,
+				1016,
+				1017,
+				1018,
+				1019,
+				1020,
+				1021,
+				1023,
+				1024,
+				1026,
+				1027,
+				1029,
+				1030,
+				1031,
+				1032,
+				1033,
+				1034,
+				1035,
+				1036,
+				1037,
+				1038,
+				1039,
+				1040,
+				1041,
+				1042,
+				1043,
+				1044,
+				1045,
+				1046,
+				1047,
+				1048,
+				1049,
+				1050,
+				1052,
+				1053,
+				1054,
+				1056,
+				1057,
+				1058,
+				1059,
+				1060,
+				1061,
+				1062,
+				1063,
+				1064,
+				1065,
+				1066,
+				1067,
+				1069,
+				1070,
+				1072,
+				1073,
+				1074,
+				1075,
+				1076,
+				1077,
+				1078,
+				1079,
+				1080,
+				1081,
+				1082,
+				1083,
+				1084,
+				1086,
+				1087,
+				1088,
+				1089,
+				1092,
+				1093,
+				1096,
+				1097,
+				1098,
+				1099,
+				1100,
+				1101,
+				1102,
+				1103,
+				1104,
+				1105,
+				1106,
+				1107,
+				1108,
+				1109,
+				1110,
+				1111,
+				1112,
+				1113,
+				1114,
+				1115,
+				1116,
+				1117,
+				1118,
+				1119,
+				1121,
+				1122,
+				1123,
+				1124,
+				1126,
+				1127,
+				1128,
+				1129,
+				1130,
+				1131,
+				1132,
+				1133,
+				1134,
+				1135,
+				1136,
+				1138,
+				1139,
+				1140,
+				1141,
+				1142,
+				1143,
+				1144,
+				1145,
+				1146,
+				1147,
+				1148,
+				1149,
+				1150,
+				1151,
+				1152,
+				1153,
+				1154,
+				1156,
+				1157,
+				1159,
+				1162,
+				1164,
+				1165,
+				1168,
+				1169,
+				1170,
+				1171,
+				1172,
+				1174,
+				1175,
+				1176,
+				1177,
+				1178,
+				1179,
+				1180,
+				1181,
+				1182,
+				1183,
+				1184,
+				1185,
+				1186,
+				1187,
+				1188,
+				1189,
+				1190,
+				1191,
+				1192,
+				1193,
+				1194,
+				1195,
+				1196,
+				1197,
+				1198,
+				1199,
+				1200,
+				1201,
+				1202
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				7,
+				8,
+				87,
+				95,
+				97,
+				100,
+				111,
+				113,
+				114,
+				116,
+				118,
+				120,
+				124,
+				126,
+				129,
+				131,
+				133,
+				135,
+				138,
+				149,
+				151,
+				153,
+				180,
+				184,
+				216,
+				228,
+				239,
+				252,
+				255,
+				257,
+				275,
+				277,
+				280,
+				281,
+				283,
+				288,
+				289,
+				290,
+				291,
+				293,
+				299,
+				320,
+				325,
+				340,
+				341,
+				344,
+				349,
+				354,
+				356,
+				359,
+				368,
+				374,
+				386,
+				395,
+				417,
+				434,
+				438,
+				467,
+				855,
+				860,
+				862,
+				863,
+				869,
+				870,
+				873,
+				897,
+				899,
+				900,
+				904,
+				906,
+				907,
+				911,
+				916,
+				917,
+				918,
+				921,
+				922,
+				929,
+				937,
+				939,
+				950,
+				954,
+				955,
+				956,
+				957,
+				958,
+				962,
+				965,
+				971,
+				977,
+				983,
+				1002,
+				1005,
+				1009,
+				1014,
+				1022,
+				1025,
+				1028,
+				1051,
+				1055,
+				1068,
+				1071,
+				1085,
+				1090,
+				1091,
+				1094,
+				1095,
+				1120,
+				1125,
+				1137,
+				1155,
+				1158,
+				1160,
+				1161,
+				1166,
+				1167,
+				1173
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				254,
+				1163
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/AGNDiskInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Collapse1DInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Collapse3DInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/CollapseMHD3DInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/ComputeDednerWaveSpeeds.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/hydro_rk/CUDA_Rec_PLM.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/hydro_rk/CudaMHD.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/hydro_rk/CudaMHD.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/hydro_rk/EOS.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/EvolveLevel_RK2.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/FindSinkParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/GalaxyDiskInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_AddAmbipolarDiffusion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_AddResistivity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_AddSelfGravity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_AddViscosity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_AGNDiskInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_Collapse1DInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_Collapse3DInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_CollapseMHD2DInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_CollapseMHD3DInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_CopyOldBaryonFieldToBaryonField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_CudaMHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_CudaMHDRK2_1stStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_CudaMHDRK2_2ndStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_GalaxyDiskInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_Hydro3D.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHD1DTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHD1DTestWavesInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHD2DTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHD3D.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHD3DTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHDDecayingRandomFieldInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHDRK2_1stStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHDRK2_2ndStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHDSourceTerms.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_MHDTurbulenceInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_NormalizeMagneticFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_NormalizeVelocities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_PrepareAlfvenVelocityNormalization.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_PrepareVelocityNormalization.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_ReduceWindBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_ReturnHydroRKPointers.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_ReturnOldHydroRKPointers.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_RungeKutta2_1stStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_RungeKutta2_2ndStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_SaveMHDSubgridFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_SaveSubgridFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_SetFloor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_SetNumberOfColours.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_SourceTerms.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_TurbulenceInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_UpdateElectronDensity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_UpdateMHDPrim.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_UpdatePrim.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Grid_ZeroFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HLL_PLM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HLL_PLM_MHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HLL_PPM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HLL_PPM_MHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HLLC_PLM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HLLD_PLM_MHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HLLD_Zero_MHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HydroLine.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/hydro_rk/HydroSweep_CUDA.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HydroSweepX.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HydroSweepY.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/HydroSweepZ.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/LLF_PLM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/LLF_PLM_MHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/LLF_Zero.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/LLF_Zero_MHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHD1DTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHD1DTestWavesInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHD2DTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHD3DTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHDDecayingRandomFieldInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHDLine.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/hydro_rk/MHDSweep_CUDA.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHDSweepX.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHDSweepY.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHDSweepZ.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/MHDTurbulenceInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/ModifiedBesselFunctions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Rec_ConsPLM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Rec_PLM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Rec_PPM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/hydro_rk/ReconstructionRoutines.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Riemann_HLL.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Riemann_HLL_MHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Riemann_HLLC.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Riemann_HLLD_MHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Riemann_LLF.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Riemann_LLF_MHD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Riemann_rLLF.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/hydro_rk/SuperNova.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/SuperNovaSeedField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/hydro_rk/tools.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/Turbulence_Generator.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/hydro_rk/TurbulenceInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/python_bridge/fix_enzo_defs.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/clear.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/compare.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/copy.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/gen_uuid.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/isnull.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/pack.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/parse.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/tst_uuid.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/unpack.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/unparse.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/uuid/uuid.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/uuid/uuid_time.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/uuid/uuidd.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/uuid/uuidP.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_AccretingParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle_AccretingParticle.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_CenOstriker.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle_CenOstriker.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_DisableParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_FindAccretionSphere.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_GalaxyParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle_GalaxyParticle.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_Kravtsov.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle_Kravtsov.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_MirrorToParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_PopIII.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle_PopIII.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_RadiationParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle_RadiationParticle.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_Skeleton.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle_Skeleton.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_SmartStar.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle_SmartStar.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_SphereContained.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticle_SpringelHernquist.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ActiveParticle_SpringelHernquist.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticleDepositMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticleFinalize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticleFindAll.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticleInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticleResetAccelerations.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ActiveParticleRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/AdiabaticExpansionInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/AdjustMustRefineParticlesRefineToLevel.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/AdjustRefineRegion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/AMRH5writer.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/AMRH5writer.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/AnalysisBaseClass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/AnalysisBaseClass.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/AnalysisBaseClass_HDF5Utils.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/AnalyzeClusters.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/arccosh.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/arcsinh.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/AssignActiveParticlesToGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/AssignGridToTaskMap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/auto_show_config.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/auto_show_flags.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/auto_show_version.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/bondi_alpha.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/c_message.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/calc_dt_c.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CalcEmiss.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CalculatePopIIILifetime.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CalculateSubtractionParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CallProblemSpecificRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CallPython.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CheckEmissivity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CheckEnergyConservation.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CheckForOutput.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CheckForResubmit.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CheckForTimeAction.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CheckOverlap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CheckShearingBoundaryConsistency.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/cic_deposit_c.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/cic_flag_c.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/cic_interp_c.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ClearEmissivity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/CloudyCoolingData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ClusterInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ClusterSMBHSumGasMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CollapseTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/communication.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationBroadcastValue.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationBufferedSend.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationCollectParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationCombineGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationLoadBalanceGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationLoadBalancePhotonGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationLoadBalanceRootGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationMergeStarParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationNonblockingRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationParallelFFT.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationPartitionGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationReceiveFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationReceiveHandler.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationReceiverPhotons.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationSendFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationShareActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationShareGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationShareParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationShareStars.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationSyncNumberOfParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationSyncNumberOfPhotons.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationTransferActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationTransferParticlesOpt.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationTransferPhotons.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationTransferStarsOpt.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationTransferSubgridParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationTranspose.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationUpdateActiveParticleCount.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationUpdateStarParticleCount.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CommunicationUtilities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/CommunicationUtilities.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ComputeDomainBoundaryMassFlux.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ComputePotentialFieldLevelZero.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ComputeRandomForcingNormalization.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ComputeStochasticForcing.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ComputeTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ConductionBubbleInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ConductionCloudInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ConductionTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ConstructFeedbackZone.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Continue.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ConvertParticles2ActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/CoolData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CoolingTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CopyOverlappingParticleMassFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CopyOverlappingZones.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CopyParticlesAcrossPeriodicBoundaries.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CopyZonesFromOldGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CosmoIonizationInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CosmologyComputeExpansionFactor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CosmologyComputeExpansionTimestep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CosmologyComputeTimeFromRedshift.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CosmologyGetUnits.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/CosmologyParameters.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CosmologyReadParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CosmologySimulationInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CosmologyTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CosmologyWriteParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CreateFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CreateSiblingList.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CreateSmoothedDarkMatterFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CreateSourceClusteringTree.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CreateSUBlingList.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CRShockTubesInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/CRTransportTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/CUDAUtil.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/CUDAUtil.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/cuPPM.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/cuPPM.cuh",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/cuPPM.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DebugTools.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/DebugTools.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DeleteFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DeletePhotonPackage.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DeleteRadiationSource.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DeleteSUBlingList.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DepositActiveParticleMassFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DepositBaryons.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DepositParticleMassField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DepositParticleMassFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DetermineNumberOfNodes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DetermineParallelism.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DetermineSEDParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DetermineSubgridSizeExtrema.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DistributeFeedbackZone.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DoubleMachInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/DrivenFlowInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/E_ColumnFormat.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ealFloat.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ealFloat.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ealInt.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ealInt.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/enzo.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Enzo_Dims_create.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/EnzoArray.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/EnzoTiming.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/EnzoVector.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/EnzoVector.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/EnzoVector_Exchange.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/EnzoVector_ExchangeEnd.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/EnzoVector_ExchangeStart.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/EnzoVector_test.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/EquilibriumTable.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/error.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ErrorExceptions.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/euler_sweep.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/EventHooks.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/EventHooks.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/EvolveHierarchy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/EvolveLevel.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/EvolvePhotons.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExposeDataHierarchy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExposeGridHierarchy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ExternalBoundary.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_AddField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_AppendForcingToBaryonFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_constructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_DeleteObsoleteFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_DetachForcingFromBaryonFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_IdentifyPhysicalQuantities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_InitializeExternalBoundaryFaceIO.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_Prepare.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_ReadExternalBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_SetDoubleMachBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_SetExternalBoundaryIO.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_SetExternalBoundaryParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_SetGalaxySimulationBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_SetMagneticBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_SetShockPoolBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_SetWavePoolBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_SetWengenCollidingFlowBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExternalBoundary_WriteExternalBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExtractSection.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ExtraOutput.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/f2c.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/F_ColumnFormat.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FastFourierTransform.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FastFourierTransformPrepareComplex.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FastFourierTransformSGIMATH.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/FastSiblingLocator.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FastSiblingLocatorFinalize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FastSiblingLocatorInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FastSiblingLocatorInitializeStaticChainingMesh.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FDMCollapse.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FinalizeFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FindCrossSection.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FindCube.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FindField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FindRootGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FindSubgrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FindSuperSource.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FindSuperSourceByPosition.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FLDCorrectForImpulses.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/flow.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/flowdefs.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/Fluxes.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_allocate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/FOF_allvars.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_cmpfunc.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_density.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_Finalize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_forcetree.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/FOF_forcetree.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_iindexx.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_indexx.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_Initialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_ngbtree.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/FOF_ngbtree.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_nrutil.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/FOF_nrutil.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_potential.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_properties.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/FOF_proto.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_selectb.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_sort2_flt_int.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_sort2_int.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_sort_int.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_subfind.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_subgroups.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FOF_unbind.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FofLib.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/FofLib.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FreeExpansionInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FreeRealMem.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FreezeRateData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FriendOfFriend.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSMultiSourceInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/FSProb.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_ComputeOpacityLW.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_constructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_destructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_Dump.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_EnforceBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_Evolve.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_FInterface.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_Initialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_SetupBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/FSProb_WriteParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Gadget.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/Gadget.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GadgetInitCoolMemory.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GadgetIonizeParamsTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GadgetMakeCoolingTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GadgetReadIonizeParams.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GalaxySimulationInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GenerateGridArray.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GetNodeFreeMemory.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GetUnits.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/gFLDProblem.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_ComputeRadiationIntegrals.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_ComputeRHS.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_ComputeTemperature.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_ComputeTimeStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_constructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_CrossSections.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_destructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_Dump.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_EnforceBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_Evolve.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_FInterface.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_InitialGuess.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_Initialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_LocRHS.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_lsetup.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_lsolve.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_nlresid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_RadiationSpectrum.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_SetupBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_UpdateBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDProblem_WriteParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/gFLDSplit.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_ComputeRadiationIntegrals.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_ComputeTemperature.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_ComputeTimeStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_constructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_CrossSections.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_destructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_Dump.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_EnforceBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_Evolve.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_FillRates.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_FInterface.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_InitialGuess.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_Initialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_RadiationSpectrum.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_SetupBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/gFLDSplit_WriteParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/global_data.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GrackleReadParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GrackleWriteParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/GravityEquilibriumTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/Grid.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AccelerationBoundaryRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AccessBaryonFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AccreteOntoAccretingParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AccreteOntoSmartStarParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ActiveParticle_RemoveMassFromSphere.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ActiveParticleHandler.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddActiveParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddBaryonsToGravitatingMassField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddExternalAcceleration.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddExternalPotentialField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddFeedbackSphere.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddFieldMassToMassFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddH2Dissociation.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddH2DissociationFromSources.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddH2DissociationFromTree.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddMagneticSupernovaeToList.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddOneParticleFromList.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddOverlappingParticleMassField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddParticlesFromList.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddRadiationImpulse.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddRadiationPressureAcceleration.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddRandomForcing.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddStellarWind.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AddToBoundaryFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AllocateGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AllocateInterpolatedRadiation.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/Grid_AnalyzeClusters.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AnalyzeTrackPeaks.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AppendActiveParticlesToList.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AppendForcingToBaryonFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ApplyGalaxyParticleFeedback.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ApplyGalaxyParticleGravity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ApplySmartStarParticleFeedback.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ApplySphericalFeedbackToGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ApplyTimeAction.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_AveragedVelocityAtCell.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CalculateAngularMomentum.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CalculateJeansMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CalculateSmartStarAccretionRate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CalculateSpecificQuantities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CenterMagneticField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ChangeParticleTypeBeforeSN.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CheckForExternalReflections.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CheckForOverlap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CheckForPossibleOverlap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CheckForSharedFace.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CheckSubgridMarker.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CleanUp.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CleanUpMovedParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClearAvgElectricField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClearBoundaryFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClearFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClearGravitatingMassField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClearGravitatingMassFieldParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClearMassFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClearParticleAccelerations.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClearParticleMassFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClusterInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClusterSMBHEachGridGasMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ClusterSMBHFeedback.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CollapseTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CollectActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CollectGridInformation.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CollectParticleMassFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CollectParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CollectStars.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationMoveGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationReceiveRegion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationSendActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationSendParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationSendPhotonPackages.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationSendRegion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationSendStars.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationSendSubgridMarker.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationTransferActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationTransferParticlesOpt.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CommunicationTransferStarsOpt.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComovingExpansionTerms.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComovingGravitySourceTerm.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeAccelerationField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeAccelerationFieldExternal.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeAccelerations.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeAccelerationsFromExternalPotential.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeAnisotropicCRDiffusion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeCellCenteredField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeConductionTimeStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeCoolingTime.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeCRDiffusion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeCRDiffusionTimeStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeCRStreaming.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeCRStreamingTimeStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeDomainBoundaryMassFlux.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeDustTemperatureField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeElectricField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeElementalDensity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeEnergy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeExternalNohBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeGammaField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeHeat.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeLuminosity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeMetalLineLuminosity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeOneZoneCollapseFactor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputePhotonTimestep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputePhotonTimestepHII.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputePhotonTimestepTau.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputePressure.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeRandomForcingFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeTemperatureField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeTimeStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeVectorAnalysisFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeVertexCenteredField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ComputeXrayEmissivity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ConductHeat.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ConductionBubbleInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ConductionCloudInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ConductionTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_constructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ConvertColorFieldsToFractions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ConvertToCellCenteredRadiation.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ConvertToNumpy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ConvertTotalEnergyToGasEnergy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CoolingTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CoolingTestResetEnergies.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CopyActiveZonesFromGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CopyBaryonFieldToOldBaryonField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CopyOverlappingMassField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CopyParentToGravitatingFieldBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CopyPotentialField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CopyPotentialToBaryonField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CopyZonesFromGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CopyZonesFromGridCountOnly.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CorrectForRefinedFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CorrectRadiationIncompleteness.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CosmoIonizationInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CosmologyInitializeParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CosmologyReadParticles3D.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CosmologySimulationInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CreateChildParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CreateEmissivityLW.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CreateFieldArray.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CreateParticleTypeGrouping.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CRShockTubesInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_CRTransportTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DebugActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DebugCheck.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DeleteAllButParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DeleteAllFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DeleteBaryonFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DeleteEmissivity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DeleteFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DeleteObsoleteFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DeletePhotonPackages.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DepositBaryons.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DepositMustRefineParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DepositParticlePositions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DepositParticlePositionsLocal.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DepositPositions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DepositRefinementZone.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_destructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DetachForcingFromBaryonFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DetectIonizationFrontApprox.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DetermineActiveParticleTypes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DoubleMachInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_DrivenFlowInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ElectronFractionEstimate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ExtraFunction.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FastSiblingLocatorAddGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FastSiblingLocatorFindSiblings.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FDMCollapse.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FinalizeRadiationFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindAllStarParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindAngularMomentumMinimum.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindAverageTemperature.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindMassinRegion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindMassiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindMinimumParticleMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindMinimumPotential.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindNewStarParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindPhotonNewGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FindShocks.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FinishFFT.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagBufferZones.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToAvoidRefinement.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToAvoidRefinementRegion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByCoolingTime.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByJeansLength.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByMetallicity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByMetalMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByMustRefineRegion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByOpticalDepth.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByResistiveLength.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedBySecondDerivative.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByShear.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByShocks.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByShockwaves.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedBySlope.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagCellsToBeRefinedByTotalJeansLength.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagGridArray.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FlagRefinedCells.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FreeExpansionInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FSMultiSourceInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_FTStochasticForcing.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GadgetCalculateCooling.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GadgetComputeTemperature.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GadgetComputeTemperatureDEF.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_Gadgetconvertutotemp.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GadgetCoolingRate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GadgetCoolingRateFromU.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GadgetCoolingTime.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GadgetEquilibriumCooling.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_Gadgetfindabundancesandrates.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GalaxySimulationInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GetActiveParticlePosition.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GetEnclosedMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GetEnclosedMassInShell.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GetProjectedBoundaryFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GrackleCustomCoolRate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GrackleWrapper.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_GravityEquilibriumTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_Group_ReadGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_Group_WriteGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_Group_WriteGridInterpolate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_HydroShockTubesInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_IdentifyColourFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_IdentifyGloverSpeciesFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_IdentifyNewSubgrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_IdentifyNewSubgridsSmall.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_IdentifyPhysicalQuantities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_IdentifyRadiationPressureFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_IdentifyRadiativeTransferFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_IdentifyShockSpeciesFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_IdentifySpeciesFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ImplosionInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InheritProperties.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InitializeGravitatingMassField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InitializeGravitatingMassFieldParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InitializeRadiativeTransferFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InitializeSource.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InitializeUniformGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InterpolateAccelerations.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InterpolateBoundaryFromParent.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InterpolateFieldValues.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InterpolateParticlePositions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InterpolateParticlesToGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InterpolatePositions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InterpolateRadiationFromParent.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_InterpolateStarParticlesToGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_KHInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_KHInitializeGridRamp.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_LightBosonInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MagneticFieldResetter.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MergePausedPhotonPackages.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHD_CID.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHD_Curl.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHD_Diagnose.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHD_ProjectFace.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHD_ProlongAllocate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHD_SendOldFineGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHD_SetupDims.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHD_UpdateMagneticField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHDBlastInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHDCTEnergyToggle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHDLoopInitGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MHDOrszagTangInitGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MirrorStarParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MoveAllParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MoveAllPhotonPackages.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MoveAllStars.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MoveParticlesFOF.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MoveSubgridActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MoveSubgridParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MoveSubgridParticlesFast.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MoveSubgridStars.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MultiSpeciesHandler.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MustRefineParticlesFlagFromList.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_MustRefineParticlesFlagInRegion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_NestedCosmologySimulationInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_NohInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_OldStarFeedback.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_OneZoneFreefallTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_OutputAsParticleData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_OutputStarParticleInformation.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ParallelFDMCollapseInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ParticleSplitter.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_Phases.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PhotonPeriodicBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PhotonSortLinkedLists.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PhotonTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PhotonTestRestartInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PoissonSolver.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PoissonSolverCGA.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PoissonSolverTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PrepareBoundaryFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PrepareBoundaryMassFluxFieldNumbers.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PrepareFFT.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PrepareGreensFunction.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PrepareGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PrepareGridDerivedQuantities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PreparePeriodicGreensFunction.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PreparePotentialField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PrepareRandomForcingNormalization.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PressurelessCollapseInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ProjectSolutionToParentGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ProjectToPlane.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ProjectToPlane2.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ProtostellarCollapseInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_PutSinkRestartInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RadHydroConstTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RadHydroGreyMarshakWaveInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RadHydroPulseTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RadHydroRadShockInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RadHydroStreamTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RadiatingShockInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RadiationComputeDensities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReadGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReadHierarchyInformationHDF5.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReadRandomForcingFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReassignSuperSources.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RegridPausedPhotonPackage.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RemoveActiveParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RemoveForcingFromBaryonFields.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RemoveMassFromGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RemoveParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RestoreEnergyConsistency.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReturnFluxDims.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReturnGridInfo.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReturnNumberOfActiveParticlesOfThisType.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReturnNumberOfStarParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReturnParticleEntry.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReturnStarStatistics.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ReturnSubgridMarker.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RHIonizationClumpInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RHIonizationSteepInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RHIonizationTestInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RotatingCylinderInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RotatingDiskInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_RotatingSphereInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SchrodingerSolver.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SedovBlastInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SedovBlastInitializeGrid3D.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetExternalBoundaryValues.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetFlaggingFieldMultiRefineRegions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetFlaggingFieldStaticRegions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetIsolatedPotentialBoundary.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetMinimumSupport.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetNewParticleIndex.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetParticleMassFlaggingField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetSubgridMarkerFromParent.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetSubgridMarkerFromSibling.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SetSubgridMarkerFromSubgrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SGSAddEMFTerms.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SGSAddMomentumTerms.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SGSUtilities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ShearingBox2DInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ShearingBoxInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ShearingBoxStratifiedInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_Shine.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ShocksHandler.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SolveForPotential.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SolveHydroEquations.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SolveMHD_Li.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SolveOneZoneFreefall.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SolvePPM_DE.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SolveRadiativeCooling.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SolveRateAndCoolEquations.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SolveRateEquations.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SortActiveParticlesByNumber.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SortParticlesByNumber.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SortParticlesByType.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SphericalInfallGetProfile.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SphericalInfallInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_StarParticleHandler.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_StratifiedMediumExplosionInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SubgridMarkerPostParallel.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SubtractAccretedMassFromSphere.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_SupernovaRestartInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TestGravityCheckResults.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TestGravityInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TestGravityMotionInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TestGravitySphereCheckResults.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TestGravitySphereInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TestOrbitInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TestStarParticleInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TracerParticleCreateParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TracerParticleOutputData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TracerParticleSetVelocity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TransferSubgridActiveParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TransferSubgridParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TransferSubgridStars.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TransportPhotonPackages.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_TurbulenceSimulationInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_UpdateParticlePosition.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_UpdateParticleVelocity.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_UpdateStarParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WalkPhotonPackage.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteCube.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteCubeInterpolate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteGridInterpolate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteGridX.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteHierarchyInformationHDF5.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteMemoryMap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteNewMovieData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteNewMovieDataSeparateParticles.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteStuff.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_WriteTaskMap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_xEulerSweep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_yEulerSweep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ZeldovichPancakeInitializeGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ZeroSolutionUnderSubgrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_zEulerSweep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Grid_ZeusSolver.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/GridList.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Group_ReadAllData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Group_ReadDataHierarchy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Group_WriteAllData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Group_WriteDataHierarchy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/GroupPhotonList.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/h5utilities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/h5utilities.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/Hierarchy.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Hierarchy_DeleteHierarchyEntry.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/HilbertCurve3D.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/HydroShockTubesInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/I_ColumnFormat.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/IdentifyNewSubgridsBySignature.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ImplicitProblemABC.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ImplosionGlobalData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ImplosionInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InexactNewton.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/InexactNewton.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InexactNewton_constructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InexactNewton_destructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InexactNewton_InexactNewtonForce.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InexactNewton_LinesearchStepSize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InexactNewton_Solve.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeCloudyCooling.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeEquilibriumCoolData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeFluxes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeGadgetEquilibriumCoolData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeHM12Photorates.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeLocal.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeLymanWernerTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeMovieFile.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeNew.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializePythonInterface.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeRadiationFieldData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeRadiativeTransferSpectrumTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitializeRateData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InitialLoadBalanceRootGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/InterpretCommandLine.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Isdigit.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/KHInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/lcamem.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/lcamem.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/lcaperf.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/lcaperf.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/LevelHierarchy.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/LevelHierarchy_AddLevel.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/LightBosonInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/LinkedListRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/list.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ListIO.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ListOfParticles.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ListOfPhotonsToMove.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/LoadBalanceHilbertCurve.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/LoadBalanceHilbertCurveRootGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/LoadBalanceSimulatedAnnealing.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/macros_and_parameters.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MagneticFieldResetter.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MakeFieldConservative.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/mbh_maker.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MemoryAllocationRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/MemoryBlock.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/MemoryChunk.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/MemoryPool.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MemoryPoolRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MersenneTwister.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/message.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/MHD2DTestGlobalData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MHDBlastInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MHDCT_ParameterJuggle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MHDCTSetupFieldLabels.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MHDLoopInit.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MHDOrszagTangInit.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/Mpich_V1_Dims_create.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/MTLPARAM.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/MultigridSolver.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/mused.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/NestedCosmologySimulationInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/New_Grid_ReadGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/New_Grid_WriteGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/ngp_deposit_c.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/NohInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/NonlinearProblemABC.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/NullProblem.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/NullProblem.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/OneZoneFreefallTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/OutputAsParticleData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/OutputCoolingTimeOnly.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/OutputDustTemperatureOnly.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/OutputFromEvolveLevel.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/OutputLevelInformation.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/OutputPotentialFieldOnly.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/OutputSmoothedDarkMatterOnly.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/P_ColumnFormat.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ParallelFDMCollapseInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ParticleAttributeHandler.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ParticleMergeRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ParticleSplitter.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/performance.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/performance.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/PhotonCommunication.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/PhotonGrid_Methods.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/PhotonGrid_Variables.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/PhotonPackage.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/PhotonPackageRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/PhotonTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/PhotonTestRestartInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/phys_constants.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/PoissonSolverTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/pop3_color_maker_c.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/preincludes.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/PrepareDensityField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/PrepareGravitatingMassField.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/PrepareIsolatedGreensFunction.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/PressurelessCollapseInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProblemType.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ProblemType.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProblemType_AgoraRestart.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProblemType_CollapsingCoolingCloud.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProblemType_ExplodingCloud.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProblemType_MagneticReconnection.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProblemType_Python.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ProblemType_Python.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProblemType_RotatingCylinder.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProcMap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProjectToPlane.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProjectToPlane2.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtostellarCollapseInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ProtoSubgrid.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_AcceptableGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_CleanUp.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_ComputeSecondDerivative.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_ComputeSignature.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_constructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_CopyFlaggedZonesFromGrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_CopyToNewSubgrid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_FindGridsByZeroSignature.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_LargeAxisRatioCheck.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_ReturnNthLongestDimension.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ProtoSubgrid_ShrinkToMinimumSize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/PutSinkRestartInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/QuickSortAndDrag.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadHydroConstTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadHydroGreyMarshakWaveInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadHydroPulseTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadHydroRadShockInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadHydroStreamTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/RadiatingShockGlobalData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiatingShockInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiationFieldCalculateRates.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/RadiationFieldData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiationFieldLymanWernerTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiationFieldUpdate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiationGetUnits.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/RadiationSource.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferCallFLD.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferComputeTimestep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferH2II.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferHealpixRoutines64.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/RadiativeTransferHealpixRoutines64.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferIonization.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferIR.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferLoadBalanceRevert.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferLW.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferLWShielding.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferMoveLocalPhotons.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/RadiativeTransferParameters.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferPrepare.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferReadParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/RadiativeTransferSpectrumTable.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferWriteParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RadiativeTransferXRays.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/RateData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/read_bt.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/read_bv.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadAllData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadAttr.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadDataHierarchy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadEquilibriumTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadEvolveRefineFile.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadFile.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadGridFile.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadIntFile.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadMetalCoolingRates.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadMetalCoolingRatios.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadParameterFile.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadPhotonSources.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadRadiationData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadRadiativeTransferSpectrumTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadStarParticleData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReadUnits.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReassignSuperSources.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RebuildHierarchy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RecalibrateAccretingMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RecalibrateMBHFeedbackThermalRadius.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ReconstructionRoutines.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RecordTotalActiveParticleCount.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Reduce_Times.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReduceFragmentation.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/region.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReportMemoryUsage.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RestartPhotons.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReturnValuesFromSpectrumTable.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ReturnWallTime.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RHIonizationClumpInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RHIonizationSteepInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RHIonizationTestInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/rk4.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RotatingCylinderInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RotatingDiskInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/RotatingSphereInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/SaveSubgridFluxCUDA.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/SaveSubgridFluxCUDA.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SchrodingerAddPotential.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SearchUtilities.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/SedovBlastGlobalData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SedovBlastInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SetBoundaryConditions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SetDefaultGlobalValues.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SetEvolveRefineRegion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SetLevelTimeStep.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SetStellarFeedbackEfficiency.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SetStellarMassThreshold.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SetSubgridMarker.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ShearingBox2DInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ShearingBoxInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ShearingBoxStratifiedInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ShellSortAndDrag.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ShockInABoxInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/ShockPoolGlobalData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ShockPoolInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/sink_maker.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/smooth_deposit_c.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SortCompareFunctions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/SortCompareFunctions.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/SphericalInfall.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SphericalInfallInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SplitPhotonPackage.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/sse2neon.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/Star.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_Accrete.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_AccreteAngularMomentum.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_ActivateNewStar.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_ApplyFeedbackTrue.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_AssignAccretedAngularMomentum.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_AssignFinalMassFromIMF.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_CalculateFeedbackParameters.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_CalculateMassAccretion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_CalculateMassLoss.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_ComputePhotonRates.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_DeleteCopyInGridGlobal.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_DeleteParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_DisableParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_FindFeedbackSphere.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_HitEndpoint.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_IsARadiationSource.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/star_maker8.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/star_maker9.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_MirrorToParticle.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_MultiplyAccretionRate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_RemoveMassFromStarAfterFeedback.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_SetFeedbackFlag.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_SphereContained.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Star_SubtractAccretedMassFromCell.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/StarBuffer.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarListRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleAccretion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleAddFeedback.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleCountOnly.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/StarParticleData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleDeath.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleFinalize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleFindAll.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleMergeMBH.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleMergeNew.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticlePopIII_IMFInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleRadTransfer.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleSetRefinementLevel.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarParticleSubtractAccretedMass.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StarRoutines.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/StochasticForcing.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StochasticForcing_CommunicationBroadcastFlags.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StochasticForcing_CommunicationBroadcastSpectrum.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StochasticForcing_constructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StochasticForcing_destructor.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StochasticForcing_Evolve.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StochasticForcing_GaussDeviate.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StochasticForcing_Init.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StochasticForcing_ReadAndWrite.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/StratifiedMediumExplosionInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SupernovaRestartInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/SysMkdir.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TemperatureFieldToolsForComptonHeating.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TemperatureFieldToolsH2Shielding.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TestGravityCheckResults.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TestGravityInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TestGravityMotion.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TestGravitySphereCheckResults.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/TestGravitySphereGlobalData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TestGravitySphereInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TestOrbitInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/TestProblemData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TestStarParticleInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/tools.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/TopGridData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TracerParticleCreation.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/transpose_cuda.cuh",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TransposeRegionOverlap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/TurbulenceSimulationInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/typedefs.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/units.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/UpdateFromFinerGrids.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/UpdateLocalDatabase.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/UpdateParticlePositions.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/uuid.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/enzo/wall_clock.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/enzo/WavePoolGlobalData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WavePoolInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/write_bt.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/write_bv.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteAllData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteAllDataCubes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteConfigure.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteDataCubes.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteDataHierarchy.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteHDF5HierarchyFile.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteMemoryMap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteParameterFile.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WritePhotonSources.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteRadiationData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteStarParticleData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteStreamData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteStringAttr.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteTaskMap.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteTracerParticleData.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/WriteUnits.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ZeldovichPancakeInitialize.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Zeus_xTransport.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Zeus_xTransport_FDM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Zeus_yTransport.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Zeus_yTransport_FDM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Zeus_zTransport.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/Zeus_zTransport_FDM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ZeusFDM.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ZeusSource.C",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/enzo/ZeusUtilities.C",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}
