@@ -91,16 +91,31 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	    float factor = 0.578704;
 	    
 	    float OldDensity = this->BaryonField[DensNum][index];
-	    BaryonField[DensNum][index] += factor*EjectaDensity;
+	    if(EjectaDensity > 0.0){
+						BaryonField[DensNum][index] += factor*EjectaDensity;
+					}
 	    /* Get specific energy */
 	    if (GENum >= 0 && DualEnergyFormalism) {
 
 	      /* When injected energy is uniform throughout the volume;
 		 EjectaThermalEnergy in EnergyUnits/VolumeUnits */
 	      float oldGE =  this->BaryonField[GENum][index];
-	      float newGE = (OldDensity * this->BaryonField[GENum][index] +
-		       ramp * factor * EjectaThermalEnergy * EjectaDensity)
-		/ BaryonField[DensNum][index] ;
+	      float newGE = 0.0;
+
+							if(EjectaDensity > 0.0) { /* SuperNovae */
+								newGE = (OldDensity * this->BaryonField[GENum][index] +
+								ramp * factor * EjectaThermalEnergy * EjectaDensity) / BaryonField[DensNum][index] ;
+							}
+	      else if (EjectaDensity == 0.0) { /* Thermal energy due to stellar luminosity */
+							/* Thermal energy dump with no ejecta */
+							/* For this case the EjectaThermalEnergy is passed in as simply an energy  */
+							newGE = EjectaThermalEnergy;
+							}
+	      else if (EjectaDensity < 0.0) {
+							/* Black Hole accretion Thermal feedback */
+							float cellmass = this->BaryonField[DensNum][index]*dx*dx*dx;
+							newGE = this->BaryonField[GENum][index] + EjectaThermalEnergy / cellmass;
+	      }
 
 	      newGE = min(newGE, maxGE);  
 	      printf("%s: Energy Before = %"GSYM"\t Energy injected = %"GSYM"\t Increase = %e\n", __FUNCTION__,
@@ -118,16 +133,26 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
                     (newGE - oldGE)/oldGE);
 	      
 	    } else {
-
-	      float newGE = (OldDensity * this->BaryonField[TENum][index] +
-		       ramp * factor * EjectaDensity * EjectaThermalEnergy) / BaryonField[DensNum][index];
+						float newGE = 0.0;
+	     if(EjectaDensity > 0.0) {
+							newGE = (OldDensity * this->BaryonField[TENum][index] +
+			 			ramp * factor * EjectaDensity * EjectaThermalEnergy) / BaryonField[DensNum][index];
+	      }
+	      else if (EjectaDensity == 0.0) { /* Thermal energy from luminosity */
+								newGE = EjectaThermalEnergy;
+	      }
+	      else if (EjectaDensity < 0.0) {
+							/* Black Hole accretion Thermal feedback */
+							float cellmass = this->BaryonField[DensNum][index]*dx*dx*dx;
+							newGE = this->BaryonField[GENum][index] + EjectaThermalEnergy / cellmass;
+	      }
 
 	      newGE = min(newGE, maxGE);  
 	      this->BaryonField[TENum][index] = newGE;
 
-          fprintf(stderr, "%s: New GE energy is %"GSYM"\n", __FUNCTION__, newGE);
+       printf(stderr, "%s: New GE energy is %"GSYM"\n", __FUNCTION__, newGE);
 
-	    } //end if(GENum >= 0 && DualEnergyFormalism)
+	    } //end if/else (GENum >= 0 && DualEnergyFormalism)
 
 	    /* Update species and colour fields */
 	    if (MetallicityField == TRUE && radius2 <= MetalRadius2)
