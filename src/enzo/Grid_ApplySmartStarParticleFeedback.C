@@ -389,7 +389,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       // Similar to Supernova, but here we assume the followings:
       // EjectaDensity = 0.0
       // EjectaMetalDensity = 0.0
-      float  EjectaDensity = 0.0, EjectaMetalDensity = 0.0;
+      float  EjectaDensity = -1.0, EjectaMetalDensity = 0.0;
+      FLOAT MBHRadius = SS->InfluenceRadius*1.2; //set to 4 * AccretionRadius
       // The unit of EjectaThermalEnergy = ergs/cm^3, not ergs/g
       if (SmartStarBHThermalFeedback == TRUE) {
 	printf("%s: eta_disk = %f\n", __FUNCTION__, SS->eta_disk);
@@ -404,8 +405,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	       accrate, SS->AccretionRate[SS->TimeIndex], SS->TimeIndex);
 	
 	
-	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(SS->AccretionRadius*LengthUnits, 3);
-	float EjectaVolume = 4.0/3.0 * PI * pow(SS->AccretionRadius, 3);
+	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(MBHRadius*LengthUnits, 3);
+	float EjectaVolume = 4.0/3.0 * PI * pow(MBHRadius, 3);
 	
 	float BHMass =  SS->ReturnMass()*MassConversion/SolarMass; //In solar masses
 	float eddrate = 4*M_PI*GravConst*BHMass*mh/(SS->eta_disk*clight*sigma_thompson); // Msolar/s
@@ -432,8 +433,23 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	 * must fix v_wind. For v_wind we choose 0.1 c (C.-A. Faucher-Giguere, E. Quataert Arxiv:1204.2547)
 	 */
 	float SmartStarDiskEnergyCoupling = 0.05;
+
+    /*
+    This is the total energy created by the accretion process and dumped into an
+    area surrounding the black hole. This is NOT the specific energy. This is simply the
+    energy deposited homogeneously into each surrounding cell.
+    I then (in Grid_ApplySpehericalFeedbackToGrid) deposit this energy
+    into each cell and divide by the mass. This
+    gives the specific energy at that point.
+    */
+    float NumCells = EjectaVolume/(dx*dx*dx);
+
+    /* EjectaThermalEnergy in code energy units*/
 	float EjectaThermalEnergy = SmartStarDiskEnergyCoupling * epsilon * dt * 
-	  mdot*clight*clight/(VelocityUnits*VelocityUnits*EjectaVolume); 
+	  mdot*clight*clight/(VelocityUnits*VelocityUnits*EjectaVolume);
+    printf("%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
+           __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*
+           TimeUnits*mdot_cgs*clight*clight);
 	
 	/* Ramp up over RAMPTIME yrs */
 	float Age = Time - SS->BirthTime;
@@ -443,11 +459,11 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	    fprintf(stderr, "BH Age = %e yrs, ramp = %e\n", BH_Age, BH_Age/(float)RAMPTIME);
 	    EjectaThermalEnergy *= BH_Age/(float)RAMPTIME;
 	  }
-	EjectaDensity = 0.0;
+	EjectaDensity = -1.0;
 	EjectaMetalDensity = 0.0;
     fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy);
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity);
+                                       EjectaMetalDensity);
 	
       }
   
