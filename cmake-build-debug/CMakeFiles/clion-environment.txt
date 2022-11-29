@@ -1,3 +1,0 @@
-ToolSet: 1.0 (local)Options: 
-
-Options:-DCMAKE_MAKE_PROGRAM=/mnt/cephfs/ceph01/site-home/home/sc070/sc070/stg/.cache/JetBrains/RemoteDev/dist/68305831d57ea_CLion-2022.2.4/bin/ninja/linux/ninja

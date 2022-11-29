@@ -1,3 +1,0 @@
-/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug/CMakeFiles/enzo_dev_sg.dir
-/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/lustre/indy2lfs/work/sc070/sc070/stg/software/enzo-dev-sg/cmake-build-debug/CMakeFiles/rebuild_cache.dir
