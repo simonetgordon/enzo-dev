@@ -150,7 +150,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 	      newGE = min(newGE, maxGE);  
 	      this->BaryonField[TENum][index] = newGE;
 
-       printf(stderr, "%s: New GE energy is %"GSYM"\n", __FUNCTION__, newGE);
+       fprintf(stderr, "%s: New GE energy is %"GSYM"\n", __FUNCTION__, newGE);
 
 	    } //end if/else (GENum >= 0 && DualEnergyFormalism)
 
