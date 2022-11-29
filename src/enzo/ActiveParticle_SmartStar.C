@@ -27,7 +27,7 @@
 #define STELLAR_ACCRETION_OFF 1 // SG. Turns off accretion for POPIII if =1.
 #define HW_BH_MASS 1   // SG. BH forms with mass according to Heger-Woosley 2002 relation.
 #define SNEFEEDBACK 1
-#define ONE_PARTICLE_ONLY 0 // SG. Disabling further particle formation. Must be set to 1 after forming 1 particle.
+#define ONE_PARTICLE_ONLY 1 // SG. Disabling further particle formation. Must be set to 1 after forming 1 particle.
 int DetermineSEDParameters(ActiveParticleType_SmartStar *SS,FLOAT Time, FLOAT dx);
 float CalculatePopIIILifetime(float Mass);
 
@@ -569,6 +569,13 @@ int ActiveParticleType_SmartStar::BeforeEvolveLevel
 	MassConversion = (double) (dx*dx*dx * mfactor); //Converts to Solar Masses
 	source = ThisParticle->RadiationSourceInitialize();
 	double PMass = ThisParticle->Mass*MassConversion;
+
+    if(ThisParticle->ParticleClass == POPIII && PMass > 500.0)
+	  continue; //No stellar radiative feedback in this case (thermal mode only)
+
+	if((ThisParticle->ParticleClass == BH) && (ThisParticle->AccretionRate[ThisParticle->TimeIndex] == 0.0))
+	  continue;
+
 	float ramptime = 0.0;
 	//fprintf(stderr, "%s: PMass = %e and Particle Class = %"ISYM" and OldMass = %e.\n", __FUNCTION__, PMass, ThisParticle->ParticleClass, ThisParticle->oldmass);
 	if(POPIII == ThisParticle->ParticleClass ||
