@@ -1152,7 +1152,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         }
 
         // SG/BS Put feedback zone inside processor num
-        grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], int(AccretionRadius/dx), dx, Grids,
+        grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius/dx), dx, Grids,
                                                    NumberOfGrids, ALL_FIELDS);
         grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
 
