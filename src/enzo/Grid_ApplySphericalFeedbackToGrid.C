@@ -97,6 +97,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
               /* When injected energy is uniform throughout the volume;
               EjectaThermalEnergy in EnergyUnits/VolumeUnits */
               float oldGE =  this->BaryonField[GENum][index];
+              fprintf(stderr,"%s: oldGE = %e\t OldDensity = %e\n", __FUNCTION__, oldGE, OldDensity);
               float newGE = 0.0;
 
               if(EjectaDensity > 0.0) { /* SuperNovae */
@@ -116,7 +117,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
 
               newGE = min(newGE, maxGE);
               fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %e\n", __FUNCTION__,
-                     oldGE,ramp * factor * EjectaThermalEnergy / Density, maxGE);
+                     oldGE, newGE, maxGE);
 
               this->BaryonField[TENum][index] = newGE;
 
