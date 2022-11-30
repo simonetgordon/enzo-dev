@@ -57,19 +57,22 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
   if (ProcessorNumber != MyProcessorNumber && OtherGrid->ProcessorNumber != MyProcessorNumber) {
     return SUCCESS;
     }
-  fprintf(stderr, "%s: GOT PAST exit 1,", __FUNCTION__);
-  fprintf(stderr, "%s: exit 1, ProcNum = %"ISYM", MyProcNum = %"ISYM", OtherGrid->ProcessorNumber = %"ISYM"\n",
-          __FUNCTION__, ProcessorNumber, MyProcessorNumber, OtherGrid->ProcessorNumber);
  
-  if (NumberOfBaryonFields == 0)
-    fprintf(stderr, "%s: exit 2", __FUNCTION__);
-    return SUCCESS;
+  if (NumberOfBaryonFields == 0) {
+      fprintf(stderr, "%s: exit 2", __FUNCTION__);
+      return SUCCESS;
+  }
 
-  if (this->GetCellWidth(0,0) != OtherGrid->GetCellWidth(0,0))
+  if (this->GetCellWidth(0,0) != OtherGrid->GetCellWidth(0,0)){
     fprintf(stderr, "%s: exit 3", __FUNCTION__);
     return SUCCESS;
+  }
 
   /* Compute the left and right edges of this grid (including ghost zones). */
+
+  fprintf(stderr, "%s: GOT PAST exit 1,", __FUNCTION__);
+  fprintf(stderr, "%s: exit 1, ProcNum = %"ISYM", MyProcNum = %"ISYM", OtherGrid->ProcessorNumber = %"ISYM"\n",
+            __FUNCTION__, ProcessorNumber, MyProcessorNumber, OtherGrid->ProcessorNumber);
  
   FLOAT GridLeft[MAX_DIMENSION]; FLOAT GridRight[MAX_DIMENSION];
   FLOAT ActiveLeft[MAX_DIMENSION]; FLOAT ActiveRight[MAX_DIMENSION];
