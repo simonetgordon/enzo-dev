@@ -1313,7 +1313,7 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
                  fprintf(stderr,"%s: BondiRadius/factor = %e pc is less than cell width = %e pc. Deposit refinement zone.\n",
                  	__FUNCTION__, dx_bondi_pc, dx_pc);
                 // SG Deposit refinement zone with dx_bondi
-                if (Temp->GridData->DepositRefinementZone(level,pos,dx_bondi*25741580) == FAIL) {
+                if (Temp->GridData->DepositRefinementZone(level,pos,dx_bondi*257) == FAIL) {
                     ENZO_FAIL("Error in grid->DepositRefinementZone.\n")
                 } // end IF
             } // end FOR
