@@ -56,13 +56,16 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
   /* Return if this doesn't involve us. */
   if (ProcessorNumber != MyProcessorNumber &&
       OtherGrid->ProcessorNumber != MyProcessorNumber) {
+      fprintf(stderr, "%s: exit 1", __FUNCTION__);
     return SUCCESS;
     }
  
   if (NumberOfBaryonFields == 0)
+    fprintf(stderr, "%s: exit 2", __FUNCTION__);
     return SUCCESS;
 
   if (this->GetCellWidth(0,0) != OtherGrid->GetCellWidth(0,0))
+    fprintf(stderr, "%s: exit 3", __FUNCTION__);
     return SUCCESS;
 
   /* Compute the left and right edges of this grid (including ghost zones). */
@@ -205,8 +208,8 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
          the grid. */
      
       if (TRUE){
-        fprintf(stderr, "CopyZones SendRegion from %"ISYM" to %"ISYM"\n", 
-            ProcessorNumber, OtherGrid->ProcessorNumber);
+        fprintf(stderr, "CopyZones SendRegion from %"ISYM" to %"ISYM", SEND_FIELD = %"ISYM"\n",
+            ProcessorNumber, OtherGrid->ProcessorNumber, SendField);
       };
       if (ProcessorNumber != OtherGrid->ProcessorNumber) {
         OtherGrid->CommunicationSendRegion(OtherGrid, ProcessorNumber,
@@ -232,6 +235,7 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
         }
     
       if (SendField == ALL_FIELDS) {
+          fprinf(stderr, "sending all fields");
           for (int field = 0; field < NumberOfBaryonFields; field++) {
             FORTRAN_NAME(copy3drel)(OtherGrid->BaryonField[field], BaryonField[field],
                         Dim, Dim+1, Dim+2,
