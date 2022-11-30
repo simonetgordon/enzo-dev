@@ -64,7 +64,8 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
   }
 
   if (this->GetCellWidth(0,0) != OtherGrid->GetCellWidth(0,0)){
-    fprintf(stderr, "%s: exit 3", __FUNCTION__);
+    fprintf(stderr, "%s: exit 3, feedbackzone cell width = %e, other grid cell width = %e", __FUNCTION__,
+            this->GetCellWidth(0,0), OtherGrid->GetCellWidth(0,0));
     return SUCCESS;
   }
 
