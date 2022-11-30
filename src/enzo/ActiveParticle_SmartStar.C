@@ -1358,6 +1358,8 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
 
         // SG. BH class.
         if(pclass == BH){
+            fprintf(stderr, "%s: AccretionRadius = %e, FLOAT(AccretionRadius/dx_sg) = %e \n", __FUNCTION__ ,
+                    AccretionRadius, FLOAT(AccretionRadius/dx_sg));
             grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius/dx_sg), dx_sg,
                                                        Grids, NumberOfGrids, ALL_FIELDS);
             if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
