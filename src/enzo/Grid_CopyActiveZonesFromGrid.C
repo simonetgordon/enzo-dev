@@ -60,6 +60,7 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
               __FUNCTION__, ProcessorNumber, MyProcessorNumber, OtherGrid->ProcessorNumber);
     return SUCCESS;
     }
+  fprintf(stderr, "%s: GOT PAST exit 1,", __FUNCTION__);
  
   if (NumberOfBaryonFields == 0)
     fprintf(stderr, "%s: exit 2", __FUNCTION__);
