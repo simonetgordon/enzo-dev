@@ -46,15 +46,15 @@ grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, FLOAT FeedbackRadi
   int FeedbackZoneRank;
   FLOAT FBRdx;
   FLOAT ParticlePosition[3] = {ThisParticle->ReturnPosition()[0],
-			       ThisParticle->ReturnPosition()[1],
-			       ThisParticle->ReturnPosition()[2]};
+                               ThisParticle->ReturnPosition()[1],
+                               ThisParticle->ReturnPosition()[2]};
 
   /* Build array of AP grids and check for errors */
   grid* APGrid;
 
   APGrid = ThisParticle->ReturnCurrentGrid();
   FBRdx = dx * FLOAT(FeedbackRadius);
-  // fprintf(stderr, "%s: Feedback_radius = %e.\n", __FUNCTION__, FBRdx);
+  fprintf(stderr, "%s: Feedback_radius = %e.\n", __FUNCTION__, FBRdx);
 
   if (APGrid == NULL)
     ENZO_FAIL("Particle CurrentGrid is invalid!\n");
@@ -65,11 +65,14 @@ grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, FLOAT FeedbackRadi
       (APGrid->GetGridLeftEdge(2) > ParticlePosition[2]+FBRdx) ||
       (APGrid->GetGridRightEdge(0) < ParticlePosition[0]-FBRdx) ||
       (APGrid->GetGridRightEdge(1) < ParticlePosition[1]-FBRdx) ||
-      (APGrid->GetGridRightEdge(2) < ParticlePosition[2]-FBRdx))
-    fprintf(stderr, "%s: edge 0 = %e, edge 1 = %e and edge 3 = %e.\n", __FUNCTION__, APGrid->GetGridLeftEdge(0), APGrid->GetGridLeftEdge(1), APGrid->GetGridLeftEdge(2));
-    fprintf(stderr, "%s: Feedback_radius = %e.\n", __FUNCTION__, FBRdx);
-    fprintf(stderr, "%s: x = %e, y = %e, z = %e.\n", __FUNCTION__, ParticlePosition[0], ParticlePosition[1], ParticlePosition[2]);
-    ENZO_FAIL("Particle outside own grid!\n");
+      (APGrid->GetGridRightEdge(2) < ParticlePosition[2]-FBRdx)) {
+      fprintf(stderr, "%s: edge 0 = %e, edge 1 = %e and edge 3 = %e.\n", __FUNCTION__, APGrid->GetGridLeftEdge(0),
+              APGrid->GetGridLeftEdge(1), APGrid->GetGridLeftEdge(2));
+      fprintf(stderr, "%s: Feedback_radius = %e.\n", __FUNCTION__, FBRdx);
+      fprintf(stderr, "%s: x = %e, y = %e, z = %e.\n", __FUNCTION__, ParticlePosition[0], ParticlePosition[1],
+              ParticlePosition[2]);
+      ENZO_FAIL("Particle outside own grid!\n");
+  }
 // SG. Interesting to know if the particle itself is in the grid. If you add in the FBRdx
 // is it still not in the grid.
 
