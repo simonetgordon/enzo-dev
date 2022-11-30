@@ -235,7 +235,7 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
         }
     
       if (SendField == ALL_FIELDS) {
-          fprinf(stderr, "sending all fields");
+          fprintf(stderr, "sending all fields");
           for (int field = 0; field < NumberOfBaryonFields; field++) {
             FORTRAN_NAME(copy3drel)(OtherGrid->BaryonField[field], BaryonField[field],
                         Dim, Dim+1, Dim+2,
