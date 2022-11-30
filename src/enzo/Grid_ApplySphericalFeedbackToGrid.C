@@ -115,9 +115,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
               }
 
               newGE = min(newGE, maxGE);
-              fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t Increase = %e\n", __FUNCTION__,
-                     oldGE,ramp * factor * EjectaThermalEnergy / Density, (newGE - oldGE)/oldGE);
-              fflush(stdout);
+              fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %e\n", __FUNCTION__,
+                     oldGE,ramp * factor * EjectaThermalEnergy / Density, maxGE);
 
               this->BaryonField[TENum][index] = newGE;
 
