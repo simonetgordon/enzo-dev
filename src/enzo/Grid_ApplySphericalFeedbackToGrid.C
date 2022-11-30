@@ -60,7 +60,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
   ActiveParticleType_SmartStar *SS = static_cast<ActiveParticleType_SmartStar*>(* ThisParticle);
   FLOAT radius = max(64*this->CellWidth[0][0], SS->InfluenceRadius);
-  //printf("%s: radius (in cellwidths) = %f\n", __FUNCTION__, radius/this->CellWidth[0][0]);
+  fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, radius/this->CellWidth[0][0]);
   float MetalRadius = 1.0;
   FLOAT MetalRadius2 = radius * radius * MetalRadius * MetalRadius;
   float dx = float(this->CellWidth[0][0]);
@@ -72,7 +72,10 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
-	
+
+	    fprintf(stderr,"%s: index = %e\n", __FUNCTION__, index);
+        fprintf(stderr,"%s: current density = %e (this), %e\n", __FUNCTION__, this->BaryonField[DensNum][index],
+                BaryonField[DensNum][index]);
 	    FLOAT radius2 = POW(CellLeftEdge[0][i] + 0.5*dx - pos[0],2.0) +
 	    POW(CellLeftEdge[1][j] + 0.5*dx - pos[1],2.0) +
 	    POW(CellLeftEdge[2][k] + 0.5*dx - pos[2],2.0);
