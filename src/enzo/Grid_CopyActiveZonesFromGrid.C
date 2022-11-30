@@ -56,7 +56,8 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
   /* Return if this doesn't involve us. */
   if (ProcessorNumber != MyProcessorNumber &&
       OtherGrid->ProcessorNumber != MyProcessorNumber) {
-      fprintf(stderr, "%s: exit 1", __FUNCTION__);
+      fprintf(stderr, "%s: exit 1, ProcNum = %"ISYM", MyProcNum = %"ISYM", OtherGrid->ProcessorNumber = %"ISYM"\n",
+              __FUNCTION__, ProcessorNumber, MyProcessorNumber, OtherGrid->ProcessorNumber);
     return SUCCESS;
     }
  
