@@ -56,11 +56,11 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
   /* Return if this doesn't involve us. */
   if (ProcessorNumber != MyProcessorNumber &&
       OtherGrid->ProcessorNumber != MyProcessorNumber) {
-      fprintf(stderr, "%s: exit 1, ProcNum = %"ISYM", MyProcNum = %"ISYM", OtherGrid->ProcessorNumber = %"ISYM"\n",
-              __FUNCTION__, ProcessorNumber, MyProcessorNumber, OtherGrid->ProcessorNumber);
     return SUCCESS;
     }
   fprintf(stderr, "%s: GOT PAST exit 1,", __FUNCTION__);
+  fprintf(stderr, "%s: exit 1, ProcNum = %"ISYM", MyProcNum = %"ISYM", OtherGrid->ProcessorNumber = %"ISYM"\n",
+          __FUNCTION__, ProcessorNumber, MyProcessorNumber, OtherGrid->ProcessorNumber);
  
   if (NumberOfBaryonFields == 0)
     fprintf(stderr, "%s: exit 2", __FUNCTION__);
@@ -93,7 +93,8 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
      The loop breaks when check_overlap returns -1.
    */
   int overlap = 0;
-  while (true) 
+  fprintf(stderr, "%s: before while loop", __FUNCTION__);
+  while (true)
     {
    
       for (dim = 0; dim < GridRank; dim++) {
@@ -141,6 +142,7 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
         OtherDim[dim]   = 1;
         Dim[dim]        = 1;
       }
+      fprintf(stderr, "%s: before dim loop", __FUNCTION__);
      
       for (dim = 0; dim < GridRank; dim++){
         if (GridDimension[dim] > 1) {
