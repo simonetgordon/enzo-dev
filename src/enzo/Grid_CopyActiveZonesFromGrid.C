@@ -63,19 +63,19 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
       return SUCCESS;
   }
   FLOAT tol = 0.1;
-  if ((1-tol)*OtherGrid->GetCellWidth(0,0) < this->GetCellWidth(0,0) < (1+tol)*OtherGrid->GetCellWidth(0,0)){
-      fprintf(stderr, "%s: exit 3: feedbackzone cell width = %e,\t other grid cell width = %e\t", __FUNCTION__,
+  if (abs(OtherGrid->GetCellWidth(0,0) - this->GetCellWidth(0,0)) > tol*this->GetCellWidth(0,0)){
+      fprintf(stderr, "%s: exit 3: feedbackzone cell width = %e,\t other grid cell width = %e\n", __FUNCTION__,
               this->GetCellWidth(0,0), OtherGrid->GetCellWidth(0,0));
       return SUCCESS;
   }
 
   /* Compute the left and right edges of this grid (including ghost zones). */
 
-  fprintf(stderr, "%s: GOT PAST exit 3,", __FUNCTION__);
-  fprintf(stderr, "%s: exit 3: feedbackzone cell width = %e,\t other grid cell width = %e\t", __FUNCTION__,
+  fprintf(stderr, "%s: GOT PAST exit 3\n", __FUNCTION__);
+  fprintf(stderr, "%s: fb cell width = %e,\t other cell width = %e\n", __FUNCTION__,
           this->GetCellWidth(0,0), OtherGrid->GetCellWidth(0,0));
-  fprintf(stderr, "%s: exit 1, ProcNum = %"ISYM", MyProcNum = %"ISYM", OtherGrid->ProcessorNumber = %"ISYM"\n",
-            __FUNCTION__, ProcessorNumber, MyProcessorNumber, OtherGrid->ProcessorNumber);
+//  fprintf(stderr, "%s: exit 1, ProcNum = %"ISYM", MyProcNum = %"ISYM", OtherGrid->ProcessorNumber = %"ISYM"\n",
+//            __FUNCTION__, ProcessorNumber, MyProcessorNumber, OtherGrid->ProcessorNumber);
  
   FLOAT GridLeft[MAX_DIMENSION]; FLOAT GridRight[MAX_DIMENSION];
   FLOAT ActiveLeft[MAX_DIMENSION]; FLOAT ActiveRight[MAX_DIMENSION];

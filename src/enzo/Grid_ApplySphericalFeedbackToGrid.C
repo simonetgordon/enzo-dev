@@ -156,9 +156,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
               delta_fz = EjectaMetalDensity / OldDensity;
             else
               delta_fz = 0.0;
-            float increase = BaryonField[DensNum][index] / OldDensity - delta_fz;
+            float increase = this->BaryonField[DensNum][index] / OldDensity - delta_fz;
             fprintf(stderr, "increase = %e , delta_fz = %"GSYM"\n", increase, delta_fz);
-            fprintf(stderr, "HIINum before *= increase = %"GSYM"\n", this->BaryonField[HIINum][index]);
             if (MultiSpecies) {
               BaryonField[DeNum][index] *= increase;
               BaryonField[HINum][index] *= increase;
