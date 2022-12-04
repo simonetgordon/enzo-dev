@@ -28,6 +28,7 @@
 #define HW_BH_MASS 1   // SG. BH forms with mass according to Heger-Woosley 2002 relation.
 #define SNEFEEDBACK 1
 #define ONE_PARTICLE_ONLY 0 // SG. Disabling further particle formation. Must be set to 1 after forming 1 particle.
+#define ZEROSTELLARPHASE 1 // SG. Sets RadiationLifeime = 0 (BH-only runs).
 int DetermineSEDParameters(ActiveParticleType_SmartStar *SS,FLOAT Time, FLOAT dx);
 float CalculatePopIIILifetime(float Mass);
 
@@ -731,9 +732,11 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		/* Assign mass, radius and lifetime to particle */
 		SS->Mass = PopIIIStarMass; // msun
 		SS->InfluenceRadius = SphereRadius; // code units
-		//SS->RadiationLifetime = CalculatePopIIILifetime(SS->Mass); // code time
-		//SS->RadiationLifetime*= yr_s/TimeUnits;
+		SS->RadiationLifetime = CalculatePopIIILifetime(SS->Mass); // code time
+                SS->RadiationLifetime*= yr_s/TimeUnits;
+#ifdef ZEROSTELLARPHASE
 		SS->RadiationLifetime = 0; // SG. Hardcoding lifetime to zero for BH-phase only runs. Replaces above two lines.
+#endif
 		SS->BirthTime = APGrid->ReturnTime();
 		Age = Time - SS->BirthTime;
 
