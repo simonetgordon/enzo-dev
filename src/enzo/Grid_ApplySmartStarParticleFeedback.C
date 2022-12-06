@@ -450,15 +450,36 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     printf("%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
            __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*
            TimeUnits*mdot_cgs*clight*clight);
+
+    /* SG. Budgeted thermal energy ramping */
+    float dTcrit = 1e7;
+    float gamma = 4/3;
+    float mu = 0.58; // SG. For fully ionised gas. Values between this and 1.
+    float CriticalThermalEnergy = SmartStarDiskEnergyCoupling * epsilon * dt * mdot * NumCells * dTcrit /
+            ((gamma - 1) * mu * mhydrogen);
+    printf("%s: Critical Thermal Energy is %e ergs\n", __FUNCTION__, CriticalThermalEnergy);
+
+//    // SG. Update energy budget array de.
+//    if EjectaThermalEnergy > CriticalThermalEnergy{
+//        EjectaThermalEnergy = CriticalThermalEnergy;
+//        de += (EjectaThermalEnergy - CriticalThermalEnergy);
+//    } else {
+//        EjectaThermalEnergyNew = EjectaThermalEnergy;
+//        EjectaThermalEnergyNew += de;
+//        if EjectaThermalEnergyNew > CriticalThermalEnergy{
+//            de -= CritcalThermalEnergy - EjectaThermalEnergy;
+//            EjectaThermalEnergy = CriticalThermalEnergy;
+//            }
+//    }
 	
 	/* Ramp up over RAMPTIME yrs */
 	float Age = Time - SS->BirthTime;
 	float BH_Age = (Age - SS->StellarAge)*TimeUnits/yr_s;
-	if(BH_Age < RAMPTIME)
-	  {
-	    fprintf(stderr, "BH Age = %e yrs, ramp = %e\n", BH_Age, BH_Age/(float)RAMPTIME);
-	    EjectaThermalEnergy *= BH_Age/(float)RAMPTIME;
-	  }
+//	if(BH_Age < RAMPTIME)
+//	  {
+//	    fprintf(stderr, "BH Age = %e yrs, ramp = %e\n", BH_Age, BH_Age/(float)RAMPTIME);
+//	    EjectaThermalEnergy *= BH_Age/(float)RAMPTIME;
+//	  }
 	EjectaDensity = -1.0;
 	EjectaMetalDensity = 0.0;
     fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy);
