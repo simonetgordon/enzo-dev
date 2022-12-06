@@ -52,9 +52,12 @@ grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, FLOAT FeedbackRadi
   /* Build array of AP grids and check for errors */
   grid* APGrid;
 
+  FeedbackRadius = ceil(FeedbackRadius);
+
   APGrid = ThisParticle->ReturnCurrentGrid();
-  fprintf(stderr, "%s: Feedback Radius = %e.\n", __FUNCTION__, FeedbackRadius);
-  FBRdx = dx * ceil(FeedbackRadius);
+  fprintf(stderr, "%s: Feedback Radius ceil = %e.\n", __FUNCTION__, FeedbackRadius);
+  fprintf(stderr, "%s: Feedback Radius floor = %e.\n", __FUNCTION__, FeedbackRadius);
+  FBRdx = dx * FeedbackRadius;
   fprintf(stderr, "%s: FBRdx = %e.\n", __FUNCTION__, FBRdx);
 
   if (APGrid == NULL)
