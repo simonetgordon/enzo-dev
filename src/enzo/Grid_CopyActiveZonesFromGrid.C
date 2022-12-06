@@ -59,13 +59,10 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
     }
  
   if (NumberOfBaryonFields == 0) {
-      fprintf(stderr, "%s: exit 2", __FUNCTION__);
       return SUCCESS;
   }
-  FLOAT tol = 0.1;
-  if (abs(OtherGrid->GetCellWidth(0,0) - this->GetCellWidth(0,0)) > tol*this->GetCellWidth(0,0)){
-      fprintf(stderr, "%s: exit 3: feedbackzone cell width = %e,\t other grid cell width = %e\n", __FUNCTION__,
-              this->GetCellWidth(0,0), OtherGrid->GetCellWidth(0,0));
+
+  if (this->GetCellWidth(0,0) != OtherGrid->GetCellWidth(0,0)){
       return SUCCESS;
   }
 
