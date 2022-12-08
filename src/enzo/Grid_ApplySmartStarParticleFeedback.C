@@ -453,13 +453,13 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 
     /* SG. Budgeted thermal energy ramping */
     float dTcrit = 10000000; // K
-    float k_b = 1.3807e-16 // cm2 g s-2 K-1
+    float k_b = 1.3807e-16; // cm^2 g s^-2 K^-1
     float gamma = 1.4;
     float mu = 0.58; // SG. For fully ionised gas. Values between this and 1.
     float mhydrogen = 1.6735575e-24; // g
     float CriticalThermalEnergy1 = (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * mdot_cgs * NumCells * dTcrit) / ((gamma - 1) * mu * mhydrogen);
-    float CriticalThermalEnergy2 = dt * TimeUnits * k_b * NumCells * dTcrit / ((gamma - 1) * mu * mhydrogen);
-    float CriticalThermalEnergy3 = SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit /
+    float CriticalThermalEnergy2 = (dt * TimeUnits * k_b * NumCells * dTcrit) / ((gamma - 1) * mu * mhydrogen);
+    float CriticalThermalEnergy3 = (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit) /
                                          ((gamma - 1) * mu * mhydrogen);
     fprintf(stderr, "%s: Critical Thermal Energy 1 is %e ergs, 2 = %e ergs, 3 = %e ergs\n", __FUNCTION__, CriticalThermalEnergy1,
            CriticalThermalEnergy2, CriticalThermalEnergy3);
