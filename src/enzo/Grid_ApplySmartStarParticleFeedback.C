@@ -452,17 +452,19 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
            TimeUnits*mdot_cgs*clight*clight);
 
     /* SG. Budgeted thermal energy ramping */
-    float dTcrit = 1e7; // K
-    float gamma = 4/3;
+    float dTcrit = 10000000; // K
+    float gamma = 1.4;
     float mu = 0.58; // SG. For fully ionised gas. Values between this and 1.
     float mhydrogen = 1.6735575e-24; // g
-    float CriticalThermalEnergy1 = SmartStarDiskEnergyCoupling * epsilon * dt * TimeUnits * mdot_cgs * NumCells * dTcrit /
-            ((gamma - 1) * mu * mhydrogen);
+    float CriticalThermalEnergy1 = (SmartStarDiskEnergyCoupling * epsilon * dt * TimeUnits * mdot_cgs * NumCells * dTcrit) / ((gamma - 1) * mu * mhydrogen);
     float CriticalThermalEnergy2 = dt * TimeUnits * mdot_cgs * NumCells * dTcrit / ((gamma - 1) * mu * mhydrogen);
     float CriticalThermalEnergy3 = SmartStarDiskEnergyCoupling * epsilon * dt * TimeUnits * mdot_cgs * dTcrit /
                                          ((gamma - 1) * mu * mhydrogen);
-    printf("%s: Critical Thermal Energy 1 is %e ergs, 2 = %e ergs, 3 = %e ergs\n", __FUNCTION__, CriticalThermalEnergy1,
+    fprintf(stderr, "%s: Critical Thermal Energy 1 is %e ergs, 2 = %e ergs, 3 = %e ergs\n", __FUNCTION__, CriticalThermalEnergy1,
            CriticalThermalEnergy2, CriticalThermalEnergy3);
+    fprintf(stderr, "%s: numerator is %e, denominator = %e \n", __FUNCTION__,
+           (SmartStarDiskEnergyCoupling * epsilon * dt * TimeUnits * mdot_cgs * NumCells * dTcrit),
+           ((gamma - 1) * mu * mhydrogen));
 
 //    // SG. Update energy budget array de.
 //    if EjectaThermalEnergy > CriticalThermalEnergy{
