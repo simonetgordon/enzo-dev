@@ -690,7 +690,7 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		SphereContainedNextLevel = FALSE;
 		
 		if (LevelArray[ThisLevel+1] != NULL) {
-			fprintf(stderr, "%s: Checking if sphere can be found on next highest level.\n", __FUNCTION__);		
+//			fprintf(stderr, "%s: Checking if sphere can be found on next highest level.\n", __FUNCTION__);
 			SS->FindAccretionSphere(LevelArray, ThisLevel+1, StarLevelCellWidth, Radius,
                                     TargetSphereMass,MassEnclosed, Metallicity2, Metallicity3, ColdGasMass,
                                     ColdGasFraction,SphereContainedNextLevel, MarkedSubgrids);
@@ -702,8 +702,8 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 
 		if ((SphereContained == FALSE) || 
 		(SphereContained == TRUE && SphereContainedNextLevel == TRUE)){
-			fprintf(stderr, "%s: Sphere not contained or sphere contained on next level.\n", 
-				__FUNCTION__, SphereContained);	
+//			fprintf(stderr, "%s: Sphere not contained or sphere contained on next level.\n",
+//				__FUNCTION__, SphereContained);
 			return SUCCESS;
 		}
 
@@ -723,7 +723,7 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 
 		/* Exit if no mass is enclosed */
 		if (SphereMass == 0){
-			fprintf(stderr,"%s: No mass enclosed. No particle created.\n", __FUNCTION__);
+//			fprintf(stderr,"%s: No mass enclosed. No particle created.\n", __FUNCTION__);
 			return SUCCESS;
 		}
 
@@ -737,7 +737,7 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		#else
 		SS->RadiationLifetime = CalculatePopIIILifetime(SS->Mass); // code time
 		SS->RadiationLifetime*= yr_s/TimeUnits;
-                #endif
+        #endif
 		SS->BirthTime = APGrid->ReturnTime();
 		Age = Time - SS->BirthTime;
 
