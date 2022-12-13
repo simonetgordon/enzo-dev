@@ -387,132 +387,97 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       /***********************************************************************
                                 MBH_THERMAL
       ************************************************************************/
-      if(SmartStarBHFeedback == FALSE)
-	return SUCCESS;
-      // Similar to Supernova, but here we assume the followings:
-      // EjectaDensity = 0.0
-      // EjectaMetalDensity = 0.0
-      float  EjectaDensity = -1.0, EjectaMetalDensity = 0.0;
-      FLOAT MBHRadius = SS->InfluenceRadius*1.2; //set to 4 * AccretionRadius
-      // The unit of EjectaThermalEnergy = ergs/cm^3, not ergs/g
-      if (SmartStarBHThermalFeedback == TRUE) {
-	printf("%s: eta_disk = %f\n", __FUNCTION__, SS->eta_disk);
-	float epsilon = SS->eta_disk/(1 - SS->eta_disk);
-	
-	/* find mdot */
-	float mdot = SS->AccretionRate[SS->TimeIndex];  //CodeMass/CodeTime
-	float accrate = mdot*MassUnits/(SolarMass*TimeUnits)*3.154e7; //in Msolar/yr
-	float mdot_cgs = mdot*MassUnits/TimeUnits; //g/s
-	//printf("%s: dx = %e\t MassConversion = %e\n", __FUNCTION__, dx, MassConversion);
-	fprintf(stderr, "%s: AccretionRate = %e Msolar/yr %e (code) TimeIndex = %d\n", __FUNCTION__,
-	       accrate, SS->AccretionRate[SS->TimeIndex], SS->TimeIndex);
-
-          fprintf(stderr, "%s: AccretionRadius = %e (code) MBHRadius = %e (code). MBHRadius is %e times bigger. \n", __FUNCTION__,
-                  SS->AccretionRadius, MBHRadius, MBHRadius/SS->AccretionRadius);
-	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(MBHRadius*LengthUnits, 3);
-	float EjectaVolume = 4.0/3.0 * PI * pow(MBHRadius, 3);
-	
-	float BHMass =  SS->ReturnMass()*MassConversion/SolarMass; //In solar masses
-	float eddrate = 4*M_PI*GravConst*BHMass*mh/(SS->eta_disk*clight*sigma_thompson); // Msolar/s
-	eddrate = eddrate*3.154e7; //in Msolar/yr
-	fprintf(stderr, "%s: Eddrate = %e Msolar/yr AccRate = %e Msolar/yr\n", __FUNCTION__,
-	       eddrate, accrate);
-	if(SmartStarSuperEddingtonAdjustment == TRUE) {
-	  if(accrate > eddrate) {
-	    fprintf(stderr, "%s: We are accreting at super-Eddington rates. Modifying radiative efficiency\n", __FUNCTION__);
-	    float mue = 1.22, a = 0.7;
-	    float Ledd = 4*M_PI*GravConst*BHMass*SolarMass*mh*mue*clight/sigma_thompson; //cgs
-	    float medddot = 16.0*Ledd/(clight*clight); //cgs
-	    /* Apply Madau fit to calculate Luminosity */
-	    float LSuperEdd = Ledd*MadauFit(a, accrate*SolarMass/3.154e7, medddot); //cgs
-	    epsilon = LSuperEdd/(mdot_cgs*clight*clight);
-	    printf("%s: Using the Madau fit raditive efficiency calculated as %e\n", __FUNCTION__, epsilon);
-	  }
-	}
-	/* When injected energy is uniform throughout the volume;
-	 * The unit of EjectaThermalEnergy is CodeMass*CodeVelocity^2
-	 * EjectaThermalEnergy is added to each cell normalised by the 
-	 * totalEjectaVolume. Hence the units of EjectaThermalEnergy are EnergyUnits/VolumeUnits
-	 * We calculate the SmartStarDiskEnergyCoupling as (v_wind/(2*c)). To do this we
-	 * must fix v_wind. For v_wind we choose 0.1 c (C.-A. Faucher-Giguere, E. Quataert Arxiv:1204.2547)
-	 */
-	float SmartStarDiskEnergyCoupling = 0.05;
-
-    /*
-    This is the total energy created by the accretion process and dumped into an
-    area surrounding the black hole. This is NOT the specific energy. This is simply the
-    energy deposited homogeneously into each surrounding cell.
-    I then (in Grid_ApplySphericalFeedbackToGrid) deposit this energy
-    into each cell and divide by the mass. This
-    gives the specific energy at that point.
-    */
-    float NumCells = EjectaVolume/(dx*dx*dx);
-
-    /* EjectaThermalEnergy in code energy/volume units*/
-	float EjectaThermalEnergy = SmartStarDiskEnergyCoupling * epsilon * dt * 
-	  mdot*clight*clight/(VelocityUnits*VelocityUnits*EjectaVolume);
-    /* EjectaThermalEnergy in ergs/cm^3 */
-    float EjectaThermalEnergy_CGS = SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight/EjectaVolumeCGS;
-    fprintf(stderr, "%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
-           __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight);
-    fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n",EjectaThermalEnergy_CGS);
-
-    /* SG. Budgeted thermal energy ramping in cgs*/
-    float dTcrit = 10000000; // K
-    float k_b = 1.3807e-16; // cm^2 g s^-2 K^-1
-    float gamma = 1.3;
-    float mu = 0.58; // SG. For fully ionised gas. Values between this and 1. Mean molecular weight, dimensionless.
-    float mhydrogen = 1.6735575e-24; // g
-    float CriticalThermalEnergy1 = (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit) /
-                                        ((gamma - 1) * mu * mhydrogen);
-    float CriticalThermalEnergy2 = (dt * TimeUnits * k_b * NumCells * dTcrit) / ((gamma - 1) * mu * mhydrogen);
-    float CriticalThermalEnergy3 = (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit) /
-                                         ((gamma - 1) * mu * mhydrogen * EjectaVolumeCGS);
-    fprintf(stderr, "mdot_cgs = %e g/s, dt = %e s, EjectaVolume = %e cm^3 \n", mdot_cgs, dt*TimeUnits,
-            EjectaVolumeCGS);
-
-    // SG. 1 g cm^2 s^-2 = 1 erg
-    fprintf(stderr, "%s: Critical Thermal Energy 1 is %e ergs, 2 = %e ergs, 3 = %e ergs/cm^3\n", __FUNCTION__,
-            CriticalThermalEnergy1, CriticalThermalEnergy2, CriticalThermalEnergy3);
-    fprintf(stderr, "%s: numerator 3 is %e, denominator 3 = %e \n", __FUNCTION__,
-            (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit),
-            ((gamma - 1) * mu * mhydrogen * EjectaVolumeCGS));
-
-    // SG. Update energy budget attribute.
-    float energy_saved, EjectaThermalEnergyNew;
-    energy_saved = SS->EnergySaved; // in ergs/cm^3
-    if (EjectaThermalEnergy_CGS > CriticalThermalEnergy3){
-        energy_saved += (EjectaThermalEnergy_CGS - CriticalThermalEnergy3); // add difference to saved energy
-        EjectaThermalEnergy_CGS = CriticalThermalEnergy3;
-    } else {
-        EjectaThermalEnergyNew = EjectaThermalEnergy_CGS;
-        EjectaThermalEnergyNew += energy_saved; // add saved energy
-        if (EjectaThermalEnergyNew > CriticalThermalEnergy3) { // if it now exceeds critical energy,
-            energy_saved -= (CriticalThermalEnergy3 - EjectaThermalEnergy_CGS); // remove the difference,
-            EjectaThermalEnergy_CGS = CriticalThermalEnergy3; // and set the energy to the critical value
-            }
-    }
-
-    SS->EnergySaved += energy_saved;
-    fprintf(stderr, "%s: energy_saved = ergs/cm^3 %e \n", __FUNCTION__, energy_saved);
-	
-	/* Ramp up over RAMPTIME yrs */
-	float Age = Time - SS->BirthTime;
-	float BH_Age = (Age - SS->StellarAge)*TimeUnits/yr_s;
-//	if(BH_Age < RAMPTIME)
-//	  {
-//	    fprintf(stderr, "BH Age = %e yrs, ramp = %e\n", BH_Age, BH_Age/(float)RAMPTIME);
-//	    EjectaThermalEnergy *= BH_Age/(float)RAMPTIME;
-//	  }
-	EjectaDensity = -1.0;
-	EjectaMetalDensity = 0.0;
-    fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy_CGS);
-    float EjectaThermalEnergyUpdated =  EjectaThermalEnergy_CGS*EjectaVolumeCGS/(MassUnits*VelocityUnits*VelocityUnits*EjectaVolume);
-    fprintf(stderr, "EjectaThermalEnergyUpdated = %e code energy/code length^3 \n", EjectaThermalEnergyUpdated);
-	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyUpdated,
-                                       EjectaMetalDensity);
-	
+      if(SmartStarBHFeedback == FALSE) {
+          return SUCCESS;
       }
+      /*
+       * BHs inject a fixed fraction of the rest mass energy of the gas they accrete into the surrounding medium.
+       * The feedback is implemented thermally, that is: energy is deposited into the surrounding gas by increasing
+       * its internal energy, as opposed to the kinetic feedback used to inject supernova energy, which is
+       * deposited by kicking the gas particles. (Booth & Schaye, 2009)
+       *
+       * Note: The unit of EjectaThermalEnergy = ergs/cm^3, not ergs/g.
+       */
+      float EjectaDensity = -1.0, EjectaMetalDensity = 0.0;
+      float mdot, mdot_cgs, accrate;
+      float EjectaVolumeCGS, EjectaVolume, BHMass, eddrate;
+      float SmartStarDiskEnergyCoupling, NumCells, EjectaThermalEnergy, EjectaThermalEnergyCGS;
+      float EjectaThermalEnergyDensity, EjectaThermalEnergyDensity_CGS;
+
+      /* thermal feedback sphere radius in terms of current cell width */
+      FLOAT BHThermalFeedbackRadius = 128*dx;
+      fprintf(stderr, "%s: AccretionRadius = %e (code) BHThermalFeedbackRadius = %e (code). "
+                      "BHThermalFeedbackRadius is %e times bigger. \n", __FUNCTION__, SS->AccretionRadius,
+                      BHThermalFeedbackRadius, BHThermalFeedbackRadius/SS->AccretionRadius);
+      if (SmartStarBHThermalFeedback == TRUE) {
+          /* find epsilon = radiative efficiency of accretion */
+          fprintf("%s: eta_disk = %f\n", __FUNCTION__, SS->eta_disk);
+          float epsilon = SS->eta_disk/(1 - SS->eta_disk);
+
+          /* find mdot */
+          mdot = SS->AccretionRate[SS->TimeIndex];  // CodeMass/CodeTime
+          accrate = mdot*MassUnits/(SolarMass*TimeUnits)*3.154e7; // Msolar/yr
+          mdot_cgs = mdot*MassUnits/TimeUnits; // g/s
+          fprintf(stderr, "%s: AccretionRate = %e Msolar/yr %e (code) TimeIndex = %d\n", __FUNCTION__,
+                   accrate, mdot, SS->TimeIndex);
+
+          /* find ejecta volume */
+          EjectaVolumeCGS = 4.0/3.0 * PI * pow(BHThermalFeedbackRadius*LengthUnits, 3);
+          EjectaVolume = 4.0/3.0 * PI * pow(BHThermalFeedbackRadius, 3);
+
+          /* Eddington rate */
+          BHMass =  SS->ReturnMass()*MassConversion/SolarMass; //In solar masses
+          eddrate = 4*M_PI*GravConst*BHMass*mh/(SS->eta_disk*clight*sigma_thompson); // Msolar/s
+          eddrate = eddrate*3.154e7; //in Msolar/yr
+          fprintf(stderr, "%s: Eddrate = %e Msolar/yr AccRate = %e Msolar/yr\n", __FUNCTION__, eddrate, accrate);
+          if(SmartStarSuperEddingtonAdjustment == TRUE) {
+              if(accrate > eddrate) {
+                  fprintf(stderr, "%s: We are accreting at super-Eddington rates. Modifying radiative efficiency\n",
+                          __FUNCTION__);
+                  float mue = 1.22, a = 0.7;
+                  float Ledd = 4*M_PI*GravConst*BHMass*SolarMass*mh*mue*clight/sigma_thompson; //cgs
+                  float medddot = 16.0*Ledd/(clight*clight); //cgs
+                  /* Apply Madau fit to calculate Luminosity */
+                  float LSuperEdd = Ledd*MadauFit(a, accrate*SolarMass/3.154e7, medddot); //cgs
+                  epsilon = LSuperEdd/(mdot_cgs*clight*clight);
+                  printf("%s: Using the Madau fit raditive efficiency calculated as %e\n", __FUNCTION__, epsilon);
+              }
+          } // END SmartStarSuperEddingtonAdjustment
+
+          /* When injected energy is uniform throughout the volume;
+           * The unit of EjectaThermalEnergy is CodeMass*CodeVelocity^2 EjectaThermalEnergy is added to each cell
+           * normalised by the totalEjectaVolume. Hence the units of EjectaThermalEnergy are EnergyUnits/VolumeUnits.
+           * We calculate the SmartStarDiskEnergyCoupling as (v_wind/(2*c)). To do this we must fix v_wind.
+           * For v_wind we choose 0.1 c (C.-A. Faucher-Giguere, E. Quataert Arxiv:1204.2547)
+           */
+          SmartStarDiskEnergyCoupling = 0.05;
+          /*
+           * This is the total energy created by the accretion process and dumped into an area surrounding the
+           * black hole. This is NOT the specific energy. This is simply the energy deposited homogeneously into
+           * each surrounding cell. I then (in Grid_ApplySphericalFeedbackToGrid) deposit this energy into each
+           * cell and divide by the mass. This gives the specific energy at that point.
+           */
+          NumCells = EjectaVolume/(dx*dx*dx);
+
+          /* EjectaThermalEnergy in code energy/volume units*/
+          EjectaThermalEnergyDensity = SmartStarDiskEnergyCoupling * epsilon * dt * mdot*clight*clight
+                  /(VelocityUnits*VelocityUnits*EjectaVolume);
+
+          /* EjectaThermalEnergy in ergs/cm^3 */
+          EjectaThermalEnergyDensity_CGS = SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight
+                  /EjectaVolumeCGS;
+
+          fprintf(stderr, "%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
+                  __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight);
+
+          fprintf(stderr, "EjectaThermalEnergyDensity_CGS = %e ergs/cm^3 \n", EjectaThermalEnergyDenisty_CGS);
+          fprintf(stderr, "EjectaThermalEnergyDensity = %e code energy/code length^3 \n", EjectaThermalEnergyDensity);
+
+          /* apply changes to GE baryon field */
+          this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyDensity,
+                                             EjectaMetalDensity, BHThermalFeedbackRadius);
+	
+      } // END BHThermalFeedback
   
       /***********************************************************************
                                  MBH_JETS
