@@ -407,8 +407,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	fprintf(stderr, "%s: AccretionRate = %e Msolar/yr %e (code) TimeIndex = %d\n", __FUNCTION__,
 	       accrate, SS->AccretionRate[SS->TimeIndex], SS->TimeIndex);
 
-          fprintf(stderr, "%s: AccretionRadius = %e (code) %e MBHRadius = %d (code)\n", __FUNCTION__,
-                  SS->AccretionRadius, MBHRadius);
+          fprintf(stderr, "%s: AccretionRadius = %e (code) MBHRadius = %e (code). MBHRadius is %e times bigger. \n", __FUNCTION__,
+                  SS->AccretionRadius, MBHRadius, MBHRadius/SS->AccretionRadius);
 	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(SS->AccretionRadius*LengthUnits, 3); //SG. use accretion radius instead of MBHRadius
 	float EjectaVolume = 4.0/3.0 * PI * pow(SS->AccretionRadius, 3);
 	
@@ -482,8 +482,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     float energy_saved, EjectaThermalEnergyNew;
     energy_saved = SS->EnergySaved; // in ergs/cm^3
     if (EjectaThermalEnergy_CGS > CriticalThermalEnergy3){
-        EjectaThermalEnergy_CGS = CriticalThermalEnergy3;
         energy_saved += (EjectaThermalEnergy_CGS - CriticalThermalEnergy3); // add difference to saved energy
+        EjectaThermalEnergy_CGS = CriticalThermalEnergy3;
     } else {
         EjectaThermalEnergyNew = EjectaThermalEnergy_CGS;
         EjectaThermalEnergyNew += energy_saved; // add saved energy
@@ -494,8 +494,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     }
 
     SS->EnergySaved = energy_saved;
-    fprintf(stderr, "%s: Energy saved in this dt is %e ergs/cm^3, energy_saved = %e \n", __FUNCTION__,
-            (CriticalThermalEnergy3 - EjectaThermalEnergy_CGS), energy_saved);
+    fprintf(stderr, "%s: energy_saved = ergs/cm^3 %e \n", __FUNCTION__, energy_saved);
 	
 	/* Ramp up over RAMPTIME yrs */
 	float Age = Time - SS->BirthTime;
@@ -508,7 +507,9 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	EjectaDensity = -1.0;
 	EjectaMetalDensity = 0.0;
     fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy_CGS);
-	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
+    float EjectaThermalEnergyUpdated =  POW(EjectaThermalEnergy_CGS*LengthUnits, 3)/(MassUnits*VelocityUnits*VelocityUnits);
+    fprintf(stderr, "EjectaThermalEnergyUpdated = %e code energy/code length^3 \n", EjectaThermalEnergyUpdated);
+	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyUpdated,
                                        EjectaMetalDensity);
 	
       }

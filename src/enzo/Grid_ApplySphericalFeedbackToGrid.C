@@ -59,7 +59,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   MetalNum = max(Metal2Num, SNColourNum);
   MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
   ActiveParticleType_SmartStar *SS = static_cast<ActiveParticleType_SmartStar*>(* ThisParticle);
-  FLOAT radius = max(64*this->CellWidth[0][0], SS->InfluenceRadius);
+  FLOAT radius = max(64*this->CellWidth[0][0], SS->AccretionRadius); // SG. Change from InfluenceRadius.
   fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, radius/this->CellWidth[0][0]);
   float MetalRadius = 1.0;
   FLOAT MetalRadius2 = radius * radius * MetalRadius * MetalRadius;
