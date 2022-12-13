@@ -27,7 +27,7 @@
 
 int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float EjectaDensity,
                                        float EjectaThermalEnergyDensity, float EjectaMetalDensity,
-                                       FLOAT BHThermalFeedbackRadius){
+                                       FLOAT Radius){
   float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1, TimeUnits = 1, VelocityUnits = 1,
   PressureUnits = 0, GEUnits = 0, VelUnits = 0;
   double MassUnits = 1.0;
@@ -59,7 +59,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   /* metals */
   MetalNum = max(Metal2Num, SNColourNum);
   MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
-  FLOAT radius = max(64*this->CellWidth[0][0], SS->AccretionRadius); // SG. Change from InfluenceRadius.
+  FLOAT radius = max(64*this->CellWidth[0][0], SS->InfluenceRadius); // SG. Change from InfluenceRadius.
   fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, radius/this->CellWidth[0][0]);
   float MetalRadius = 1.0;
   FLOAT MetalRadius2 = radius * radius * MetalRadius * MetalRadius;
@@ -70,7 +70,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   FLOAT *pos = SS->ReturnPosition();
 
   /* outer radius */
-  FLOAT outerRadius2 = POW(BHThermalFeedbackRadius, 2.0); // SG. Change from 1.2*radius to BHThermalFeedbackRadius.
+  FLOAT outerRadius2 = POW(Radius, 2.0); // SG. Change from 1.2*radius to BHThermalFeedbackRadius.
 
   /* max gas energy from max temperature = 1e8 K */
   float maxGE = MAX_TEMPERATURE / (TemperatureUnits * (Gamma-1.0) * 0.6);

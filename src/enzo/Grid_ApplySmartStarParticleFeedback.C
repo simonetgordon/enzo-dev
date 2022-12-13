@@ -175,7 +175,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	  VelocityUnits;
 	
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity);
+					   EjectaMetalDensity, Radius);
 
       } else{ /* SMS converts directly into DCBH (ORIGINAL) */
 	SS->ParticleClass = BH;
@@ -236,7 +236,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	  VelocityUnits;
 	
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity);
+					   EjectaMetalDensity, Radius);
 	printf("%s: PISN Feedback completed. Delete particle\n", __FUNCTION__);
       } 
       
@@ -289,7 +289,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	  VelocityUnits;
 
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity);
+					   EjectaMetalDensity, Radius); // SN Radius
       } // SG. End 11 <= M <= 40.1.
 
       /* DCBH: 40.1 msun <  Mstar < 140 msun - BH has mass set by HW relation */
@@ -364,7 +364,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	FLOAT EjectaThermalEnergy = StarClusterSNEnergy / SolarMass /   
 	  (VelocityUnits * VelocityUnits); 
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity);
+					   EjectaMetalDensity, Radius);
 	/* Remove mass from star following supernova feedback */
 	double old_mass = SS->Mass;
 	SS->Mass -= Delta_SF * SolarMass / MassConversion; /*Convert to code density */  
@@ -411,7 +411,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
                       BHThermalFeedbackRadius, BHThermalFeedbackRadius/SS->AccretionRadius);
       if (SmartStarBHThermalFeedback == TRUE) {
           /* find epsilon = radiative efficiency of accretion */
-          fprintf("%s: eta_disk = %f\n", __FUNCTION__, SS->eta_disk);
+          fprintf("%s: eta_disk = %e\n", __FUNCTION__, SS->eta_disk);
           float epsilon = SS->eta_disk/(1 - SS->eta_disk);
 
           /* find mdot */
@@ -470,7 +470,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           fprintf(stderr, "%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
                   __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight);
 
-          fprintf(stderr, "EjectaThermalEnergyDensity_CGS = %e ergs/cm^3 \n", EjectaThermalEnergyDenisty_CGS);
+          fprintf(stderr, "EjectaThermalEnergyDensity_CGS = %e ergs/cm^3 \n", EjectaThermalEnergyDensity_CGS);
           fprintf(stderr, "EjectaThermalEnergyDensity = %e code energy/code length^3 \n", EjectaThermalEnergyDensity);
 
           /* apply changes to GE baryon field */
