@@ -482,7 +482,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
         EjectaThermalEnergyNew = EjectaThermalEnergy;
         EjectaThermalEnergyNew += energy_saved; // add saved energy
         if (EjectaThermalEnergyNew > CriticalThermalEnergy3) { // if it now exceeds critical energy,
-            energy_saved -= (CritcalThermalEnergy3 - EjectaThermalEnergy); // remove the difference,
+            energy_saved -= (CriticalThermalEnergy3 - EjectaThermalEnergy); // remove the difference,
             EjectaThermalEnergy = CriticalThermalEnergy3; // and set the energy to the critical value
             }
     }
