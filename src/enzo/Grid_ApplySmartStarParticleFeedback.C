@@ -453,6 +453,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     fprintf(stderr, "%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
            __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*
            TimeUnits*mdot_cgs*clight*clight);
+    fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy);
 
     /* SG. Budgeted thermal energy ramping in cgs*/
     float dTcrit = 10000000; // K
@@ -464,13 +465,16 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
                                         ((gamma - 1) * mu * mhydrogen);
     float CriticalThermalEnergy2 = (dt * TimeUnits * k_b * NumCells * dTcrit) / ((gamma - 1) * mu * mhydrogen);
     float CriticalThermalEnergy3 = (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit) /
-                                         ((gamma - 1) * mu * mhydrogen * EjectaVolume * POW(LengthUnits,3));
+                                         ((gamma - 1) * mu * mhydrogen * EjectaVolumeCGS);
+    fprintf(stderr, "mdot_cgs = %e g/s, dt = %e s, EjectaVolume = %e cm^3 \n", mdot_cgs, dt*TimeUnits,
+            EjectaVolumeCGS);
+
     // SG. 1 g cm^2 s^-2 = 1 erg
     fprintf(stderr, "%s: Critical Thermal Energy 1 is %e ergs, 2 = %e ergs, 3 = %e ergs/cm^3\n", __FUNCTION__,
             CriticalThermalEnergy1, CriticalThermalEnergy2, CriticalThermalEnergy3);
     fprintf(stderr, "%s: numerator 3 is %e, denominator 3 = %e \n", __FUNCTION__,
             (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit),
-            ((gamma - 1) * mu * mhydrogen * EjectaVolume));
+            ((gamma - 1) * mu * mhydrogen * EjectaVolumeCGS);
 
     // SG. Update energy budget attribute.
     float energy_saved, EjectaThermalEnergyNew;
