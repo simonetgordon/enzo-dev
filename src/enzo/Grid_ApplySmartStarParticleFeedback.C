@@ -464,7 +464,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
                                         ((gamma - 1) * mu * mhydrogen);
     float CriticalThermalEnergy2 = (dt * TimeUnits * k_b * NumCells * dTcrit) / ((gamma - 1) * mu * mhydrogen);
     float CriticalThermalEnergy3 = (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit) /
-                                         ((gamma - 1) * mu * mhydrogen * EjectaVolume);
+                                         ((gamma - 1) * mu * mhydrogen * EjectaVolume * POW(LengthUnits,3));
     // SG. 1 g cm^2 s^-2 = 1 erg
     fprintf(stderr, "%s: Critical Thermal Energy 1 is %e ergs, 2 = %e ergs, 3 = %e ergs/cm^3\n", __FUNCTION__,
             CriticalThermalEnergy1, CriticalThermalEnergy2, CriticalThermalEnergy3);
