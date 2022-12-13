@@ -409,8 +409,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 
           fprintf(stderr, "%s: AccretionRadius = %e (code) MBHRadius = %e (code). MBHRadius is %e times bigger. \n", __FUNCTION__,
                   SS->AccretionRadius, MBHRadius, MBHRadius/SS->AccretionRadius);
-	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(SS->AccretionRadius*LengthUnits, 3); //SG. use accretion radius instead of MBHRadius
-	float EjectaVolume = 4.0/3.0 * PI * pow(SS->AccretionRadius, 3);
+	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(MBHRadius*LengthUnits, 3);
+	float EjectaVolume = 4.0/3.0 * PI * pow(MBHRadius, 3);
 	
 	float BHMass =  SS->ReturnMass()*MassConversion/SolarMass; //In solar masses
 	float eddrate = 4*M_PI*GravConst*BHMass*mh/(SS->eta_disk*clight*sigma_thompson); // Msolar/s
@@ -442,7 +442,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     This is the total energy created by the accretion process and dumped into an
     area surrounding the black hole. This is NOT the specific energy. This is simply the
     energy deposited homogeneously into each surrounding cell.
-    I then (in Grid_ApplySpehericalFeedbackToGrid) deposit this energy
+    I then (in Grid_ApplySphericalFeedbackToGrid) deposit this energy
     into each cell and divide by the mass. This
     gives the specific energy at that point.
     */

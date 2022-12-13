@@ -99,7 +99,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
 
               /* When injected energy is uniform throughout the volume;
               EjectaThermalEnergy in EnergyUnits/VolumeUnits */
-              float oldGE =  this->BaryonField[GENum][index];
+              float oldGE =  this->BaryonField[GENum][index]; // ergs/gram - specific energy
+              // BIG E = ergs,  ergs/vol = E/vol, e = specific energy = E/m_cell
               fprintf(stderr,"%s: oldGE = %e\t OldDensity = %e\n", __FUNCTION__, oldGE, OldDensity);
               float newGE = 0.0;
 
