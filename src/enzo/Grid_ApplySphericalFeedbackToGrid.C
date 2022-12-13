@@ -56,6 +56,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                                  MBHColourNum, Galaxy1ColourNum,Galaxy2ColourNum) == FAIL)
     ENZO_FAIL("Error in grid->IdentifyColourFields.\n");
 
+  ActiveParticleType_SmartStar *SS = static_cast<ActiveParticleType_SmartStar*>(* ThisParticle);
+
   /* metals */
   MetalNum = max(Metal2Num, SNColourNum);
   MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
@@ -65,7 +67,6 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   FLOAT MetalRadius2 = radius * radius * MetalRadius * MetalRadius;
 
   /* particle + cell width on grid */
-  ActiveParticleType_SmartStar *SS = static_cast<ActiveParticleType_SmartStar*>(* ThisParticle);
   float dx = float(this->CellWidth[0][0]);
   FLOAT *pos = SS->ReturnPosition();
 

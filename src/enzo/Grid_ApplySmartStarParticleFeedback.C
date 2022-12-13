@@ -411,7 +411,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
                       BHThermalFeedbackRadius, BHThermalFeedbackRadius/SS->AccretionRadius);
       if (SmartStarBHThermalFeedback == TRUE) {
           /* find epsilon = radiative efficiency of accretion */
-          fprintf("%s: eta_disk = %e\n", __FUNCTION__, SS->eta_disk);
+          fprintf(stderr, "%s: eta_disk = %e\n", __FUNCTION__, SS->eta_disk);
           float epsilon = SS->eta_disk/(1 - SS->eta_disk);
 
           /* find mdot */
