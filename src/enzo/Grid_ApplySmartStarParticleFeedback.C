@@ -408,7 +408,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	       accrate, SS->AccretionRate[SS->TimeIndex], SS->TimeIndex);
 	
 	
-	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(MBHRadius*LengthUnits, 3);
+	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(SS->AccretionRadius*LengthUnits, 3); //SG. use accretion radius
 	float EjectaVolume = 4.0/3.0 * PI * pow(MBHRadius, 3);
 	
 	float BHMass =  SS->ReturnMass()*MassConversion/SolarMass; //In solar masses
