@@ -2958,7 +2958,7 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
   int ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle,
 				   float EjectaDenity, 
 				   float EjectaThermalEnergy,
-				   float EjectaMetalDensity
+				   float EjectaMetalDensity,
                    FLOAT BHThermalFeedbackRadius);
 //------------------------------------------------------------------------
 // Radiative transfer methods that don't fit in the TRANSFER define
