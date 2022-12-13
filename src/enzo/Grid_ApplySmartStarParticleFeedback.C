@@ -473,15 +473,15 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
             ((gamma - 1) * mu * mhydrogen * EjectaVolume));
 
     // SG. Update energy budget attribute.
-    float energy_saved;
+    float energy_saved, EjectaThermalEnergyNew;
     energy_saved = SS->EnergySaved; // in ergs/cm^3
-    if EjectaThermalEnergy > CriticalThermalEnergy3{
+    if (EjectaThermalEnergy > CriticalThermalEnergy3){
         EjectaThermalEnergy = CriticalThermalEnergy3;
         energy_saved += (EjectaThermalEnergy - CriticalThermalEnergy3); // add difference to saved energy
     } else {
         EjectaThermalEnergyNew = EjectaThermalEnergy;
         EjectaThermalEnergyNew += energy_saved; // add saved energy
-        if EjectaThermalEnergyNew > CriticalThermalEnergy3{ // if it now exceeds critical energy,
+        if (EjectaThermalEnergyNew > CriticalThermalEnergy3) { // if it now exceeds critical energy,
             energy_saved -= (CritcalThermalEnergy3 - EjectaThermalEnergy); // remove the difference,
             EjectaThermalEnergy = CriticalThermalEnergy3; // and set the energy to the critical value
             }
