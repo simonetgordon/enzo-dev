@@ -447,13 +447,14 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     */
     float NumCells = EjectaVolume/(dx*dx*dx);
 
-    /* EjectaThermalEnergy in code energy units*/
+    /* EjectaThermalEnergy in code energy/volume units*/
 	float EjectaThermalEnergy = SmartStarDiskEnergyCoupling * epsilon * dt * 
 	  mdot*clight*clight/(VelocityUnits*VelocityUnits*EjectaVolume);
+    /* EjectaThermalEnergy in ergs/cm^3 */
+    float EjectaThermalEnergy_CGS = SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight/EjectaVolumeCGS;
     fprintf(stderr, "%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
-           __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*
-           TimeUnits*mdot_cgs*clight*clight);
-    fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy);
+           __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight);
+    fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n",EjectaThermalEnergy_CGS);
 
     /* SG. Budgeted thermal energy ramping in cgs*/
     float dTcrit = 10000000; // K
