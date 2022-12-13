@@ -507,7 +507,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	EjectaDensity = -1.0;
 	EjectaMetalDensity = 0.0;
     fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy_CGS);
-    float EjectaThermalEnergyUpdated =  POW(EjectaThermalEnergy_CGS*LengthUnits, 3)/(MassUnits*VelocityUnits*VelocityUnits);
+    float EjectaThermalEnergyUpdated =  EjectaThermalEnergy_CGS*EjectaVolumeCGS/(MassUnits*VelocityUnits*VelocityUnits*EjectaVolume);
     fprintf(stderr, "EjectaThermalEnergyUpdated = %e code energy/code length^3 \n", EjectaThermalEnergyUpdated);
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyUpdated,
                                        EjectaMetalDensity);
