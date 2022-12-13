@@ -493,7 +493,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
             }
     }
 
-    SS->EnergySaved = energy_saved;
+    SS->EnergySaved += energy_saved;
     fprintf(stderr, "%s: energy_saved = ergs/cm^3 %e \n", __FUNCTION__, energy_saved);
 	
 	/* Ramp up over RAMPTIME yrs */
