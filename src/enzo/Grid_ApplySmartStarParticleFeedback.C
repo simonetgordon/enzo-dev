@@ -488,6 +488,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     }
 
     SS->EnergySaved = energy_saved;
+    fprintf(stderr, "%s: Energy saved in this dt is %e ergs/cm^3, energy_saved = %e \n", __FUNCTION__,
+            (CriticalThermalEnergy3 - EjectaThermalEnergy), energy_saved);
 	
 	/* Ramp up over RAMPTIME yrs */
 	float Age = Time - SS->BirthTime;
