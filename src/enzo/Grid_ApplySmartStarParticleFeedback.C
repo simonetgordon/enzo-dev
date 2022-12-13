@@ -406,10 +406,11 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	//printf("%s: dx = %e\t MassConversion = %e\n", __FUNCTION__, dx, MassConversion);
 	fprintf(stderr, "%s: AccretionRate = %e Msolar/yr %e (code) TimeIndex = %d\n", __FUNCTION__,
 	       accrate, SS->AccretionRate[SS->TimeIndex], SS->TimeIndex);
-	
-	
-	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(SS->AccretionRadius*LengthUnits, 3); //SG. use accretion radius
-	float EjectaVolume = 4.0/3.0 * PI * pow(MBHRadius, 3);
+
+          fprintf(stderr, "%s: AccretionRadius = %e (code) %e MBHRadius = %d (code)\n", __FUNCTION__,
+                  SS->AccretionRadius, MBHRadius);
+	float EjectaVolumeCGS = 4.0/3.0 * PI * pow(SS->AccretionRadius*LengthUnits, 3); //SG. use accretion radius instead of MBHRadius
+	float EjectaVolume = 4.0/3.0 * PI * pow(SS->AccretionRadius, 3);
 	
 	float BHMass =  SS->ReturnMass()*MassConversion/SolarMass; //In solar masses
 	float eddrate = 4*M_PI*GravConst*BHMass*mh/(SS->eta_disk*clight*sigma_thompson); // Msolar/s
@@ -480,21 +481,21 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     // SG. Update energy budget attribute.
     float energy_saved, EjectaThermalEnergyNew;
     energy_saved = SS->EnergySaved; // in ergs/cm^3
-    if (EjectaThermalEnergy > CriticalThermalEnergy3){
-        EjectaThermalEnergy = CriticalThermalEnergy3;
-        energy_saved += (EjectaThermalEnergy - CriticalThermalEnergy3); // add difference to saved energy
+    if (EjectaThermalEnergy_CGS > CriticalThermalEnergy3){
+        EjectaThermalEnergy_CGS = CriticalThermalEnergy3;
+        energy_saved += (EjectaThermalEnergy_CGS - CriticalThermalEnergy3); // add difference to saved energy
     } else {
-        EjectaThermalEnergyNew = EjectaThermalEnergy;
+        EjectaThermalEnergyNew = EjectaThermalEnergy_CGS;
         EjectaThermalEnergyNew += energy_saved; // add saved energy
         if (EjectaThermalEnergyNew > CriticalThermalEnergy3) { // if it now exceeds critical energy,
-            energy_saved -= (CriticalThermalEnergy3 - EjectaThermalEnergy); // remove the difference,
-            EjectaThermalEnergy = CriticalThermalEnergy3; // and set the energy to the critical value
+            energy_saved -= (CriticalThermalEnergy3 - EjectaThermalEnergy_CGS); // remove the difference,
+            EjectaThermalEnergy_CGS = CriticalThermalEnergy3; // and set the energy to the critical value
             }
     }
 
     SS->EnergySaved = energy_saved;
     fprintf(stderr, "%s: Energy saved in this dt is %e ergs/cm^3, energy_saved = %e \n", __FUNCTION__,
-            (CriticalThermalEnergy3 - EjectaThermalEnergy), energy_saved);
+            (CriticalThermalEnergy3 - EjectaThermalEnergy_CGS), energy_saved);
 	
 	/* Ramp up over RAMPTIME yrs */
 	float Age = Time - SS->BirthTime;
@@ -506,7 +507,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 //	  }
 	EjectaDensity = -1.0;
 	EjectaMetalDensity = 0.0;
-    fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy);
+    fprintf(stderr, "EjectaThermalEnergy = %e ergs/cm^3 \n", EjectaThermalEnergy_CGS);
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
                                        EjectaMetalDensity);
 	
