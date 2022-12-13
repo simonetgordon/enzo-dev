@@ -226,6 +226,7 @@ public:
   float beta_jet, epsilon_deltat;
   float Accreted_angmom[MAX_DIMENSION];
   float InfluenceRadius;
+  float EnergySaved; // SG. For budgeted BH thermal feedback energy release.
   static std::vector<ParticleAttributeHandler *> AttributeHandlers;
 };
 

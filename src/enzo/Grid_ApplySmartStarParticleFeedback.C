@@ -265,6 +265,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	SS->ParticleClass = BH;
 	SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
 	SS->RadiationLifetime = 1e20;
+    SS->EnergySaved = 0; // SG. For thermal feedback.
 	
 	/* SG. Set initial accretion radius of BH to something larger than cell width. 
 	   High temperature after SNe results in tiny bondi radius, but no accretion can occur.
@@ -300,6 +301,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	  SS->ParticleClass = BH; // Particle class change
 	  SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
 	  SS->RadiationLifetime = 1e20;
+      SS->EnergySaved = 0; // SG. For thermal feedback.
 	  printf("%s: DCBH Created from Heger-Woosley relation: ParticleClass now %d\t Stellar Age = %f Myr\t "\
 		 "Lifetime = %f Myr\n", __FUNCTION__,
 		 SS->ParticleClass, SS->StellarAge*TimeUnits/Myr_s,
@@ -311,6 +313,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	  SS->ParticleClass = BH;
 	  SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
 	  SS->RadiationLifetime = 1e20;
+      SS->EnergySaved = 0; // SG. For thermal feedback.
 	  printf("%s: DCBH Created from POPIII: ParticleClass now %d\t Stellar Age = %f Myr\t " \
 		 "Lifetime = %f Myr\n", __FUNCTION__,
 		 SS->ParticleClass, SS->StellarAge*TimeUnits/Myr_s,
@@ -401,7 +404,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	float accrate = mdot*MassUnits/(SolarMass*TimeUnits)*3.154e7; //in Msolar/yr
 	float mdot_cgs = mdot*MassUnits/TimeUnits; //g/s
 	//printf("%s: dx = %e\t MassConversion = %e\n", __FUNCTION__, dx, MassConversion);
-	printf("%s: AccretionRate = %e Msolar/yr %e (code) TimeIndex = %d\n", __FUNCTION__,
+	fprintf(stderr, "%s: AccretionRate = %e Msolar/yr %e (code) TimeIndex = %d\n", __FUNCTION__,
 	       accrate, SS->AccretionRate[SS->TimeIndex], SS->TimeIndex);
 	
 	
@@ -411,11 +414,11 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	float BHMass =  SS->ReturnMass()*MassConversion/SolarMass; //In solar masses
 	float eddrate = 4*M_PI*GravConst*BHMass*mh/(SS->eta_disk*clight*sigma_thompson); // Msolar/s
 	eddrate = eddrate*3.154e7; //in Msolar/yr
-	printf("%s: Eddrate = %e Msolar/yr AccRate = %e Msolar/yr\n", __FUNCTION__, 
+	fprintf(stderr, "%s: Eddrate = %e Msolar/yr AccRate = %e Msolar/yr\n", __FUNCTION__,
 	       eddrate, accrate);
 	if(SmartStarSuperEddingtonAdjustment == TRUE) {
 	  if(accrate > eddrate) {
-	    printf("%s: We are accreting at super-Eddington rates. Modifying radiative efficiency\n", __FUNCTION__);
+	    fprintf(stderr, "%s: We are accreting at super-Eddington rates. Modifying radiative efficiency\n", __FUNCTION__);
 	    float mue = 1.22, a = 0.7;
 	    float Ledd = 4*M_PI*GravConst*BHMass*SolarMass*mh*mue*clight/sigma_thompson; //cgs
 	    float medddot = 16.0*Ledd/(clight*clight); //cgs
@@ -451,34 +454,40 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
            __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*
            TimeUnits*mdot_cgs*clight*clight);
 
-    /* SG. Budgeted thermal energy ramping */
+    /* SG. Budgeted thermal energy ramping in cgs*/
     float dTcrit = 10000000; // K
     float k_b = 1.3807e-16; // cm^2 g s^-2 K^-1
-    float gamma = 1.4;
-    float mu = 0.58; // SG. For fully ionised gas. Values between this and 1.
+    float gamma = 1.3;
+    float mu = 0.58; // SG. For fully ionised gas. Values between this and 1. Mean molecular weight, dimensionless.
     float mhydrogen = 1.6735575e-24; // g
-    float CriticalThermalEnergy1 = (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * mdot_cgs * NumCells * dTcrit) / ((gamma - 1) * mu * mhydrogen);
+    float CriticalThermalEnergy1 = (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit) /
+                                        ((gamma - 1) * mu * mhydrogen);
     float CriticalThermalEnergy2 = (dt * TimeUnits * k_b * NumCells * dTcrit) / ((gamma - 1) * mu * mhydrogen);
     float CriticalThermalEnergy3 = (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit) /
-                                         ((gamma - 1) * mu * mhydrogen);
-    fprintf(stderr, "%s: Critical Thermal Energy 1 is %e ergs, 2 = %e ergs, 3 = %e ergs\n", __FUNCTION__, CriticalThermalEnergy1,
-           CriticalThermalEnergy2, CriticalThermalEnergy3);
-    fprintf(stderr, "%s: numerator is %e, denominator = %e \n", __FUNCTION__,
-           (SmartStarDiskEnergyCoupling * epsilon * dt * mdot_cgs * NumCells * dTcrit),
-           ((gamma - 1) * mu * mhydrogen));
+                                         ((gamma - 1) * mu * mhydrogen * EjectaVolume);
+    // SG. 1 g cm^2 s^-2 = 1 erg
+    fprintf(stderr, "%s: Critical Thermal Energy 1 is %e ergs, 2 = %e ergs, 3 = %e ergs/cm^3\n", __FUNCTION__,
+            CriticalThermalEnergy1, CriticalThermalEnergy2, CriticalThermalEnergy3);
+    fprintf(stderr, "%s: numerator 3 is %e, denominator 3 = %e \n", __FUNCTION__,
+            (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit),
+            ((gamma - 1) * mu * mhydrogen * EjectaVolume));
 
-//    // SG. Update energy budget array de.
-//    if EjectaThermalEnergy > CriticalThermalEnergy{
-//        EjectaThermalEnergy = CriticalThermalEnergy;
-//        de += (EjectaThermalEnergy - CriticalThermalEnergy);
-//    } else {
-//        EjectaThermalEnergyNew = EjectaThermalEnergy;
-//        EjectaThermalEnergyNew += de;
-//        if EjectaThermalEnergyNew > CriticalThermalEnergy{
-//            de -= CritcalThermalEnergy - EjectaThermalEnergy;
-//            EjectaThermalEnergy = CriticalThermalEnergy;
-//            }
-//    }
+    // SG. Update energy budget attribute.
+    float energy_saved;
+    energy_saved = SS->EnergySaved; // in ergs/cm^3
+    if EjectaThermalEnergy > CriticalThermalEnergy3{
+        EjectaThermalEnergy = CriticalThermalEnergy3;
+        energy_saved += (EjectaThermalEnergy - CriticalThermalEnergy3); // add difference to saved energy
+    } else {
+        EjectaThermalEnergyNew = EjectaThermalEnergy;
+        EjectaThermalEnergyNew += energy_saved; // add saved energy
+        if EjectaThermalEnergyNew > CriticalThermalEnergy3{ // if it now exceeds critical energy,
+            energy_saved -= (CritcalThermalEnergy3 - EjectaThermalEnergy); // remove the difference,
+            EjectaThermalEnergy = CriticalThermalEnergy3; // and set the energy to the critical value
+            }
+    }
+
+    SS->EnergySaved = energy_saved;
 	
 	/* Ramp up over RAMPTIME yrs */
 	float Age = Time - SS->BirthTime;
@@ -712,7 +721,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	
 	/* Ramp up over RAMPTIME yrs */
 	float Age = this->ReturnTime() - SS->BirthTime;
-	Age = Age*TimeUnits/3.154e7;
+	Age = Age*TimeUnits/3.154e7; // yrs
 	if(Age < RAMPTIME)
 	  {
 	    printf("%s: Too early for jets. Age = %f yrs\n", __FUNCTION__, Age);
