@@ -474,7 +474,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
             CriticalThermalEnergy1, CriticalThermalEnergy2, CriticalThermalEnergy3);
     fprintf(stderr, "%s: numerator 3 is %e, denominator 3 = %e \n", __FUNCTION__,
             (SmartStarDiskEnergyCoupling * epsilon * k_b * dt * TimeUnits * mdot_cgs * dTcrit),
-            ((gamma - 1) * mu * mhydrogen * EjectaVolumeCGS);
+            ((gamma - 1) * mu * mhydrogen * EjectaVolumeCGS));
 
     // SG. Update energy budget attribute.
     float energy_saved, EjectaThermalEnergyNew;
