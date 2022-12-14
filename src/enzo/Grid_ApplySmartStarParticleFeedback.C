@@ -482,10 +482,10 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
                   __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight);
 
           fprintf(stderr, "EjectaThermalEnergyPerCell = %e code energy/cell \n", EjectaThermalEnergyPerCell);
-          fprintf(stderr, "EjectaThermalEnergyPerCell_CGS = %e ergs/cell \n", EjectaThermalEnergyPerCell_CGS);
+          fprintf(stderr, "EjectaThermalEnergyPerCell_CGS = %e ergs/cell \n", EjectaThermalEnergyPerCell);
 
           /* apply changes to GE baryon field */
-          this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyPerCell_CGS,
+          this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyPerCell,
                                              EjectaMetalDensity, BHThermalFeedbackRadius);
 	
       } // END BHThermalFeedback

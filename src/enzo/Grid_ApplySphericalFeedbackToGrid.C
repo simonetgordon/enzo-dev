@@ -126,22 +126,23 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 /* Black Hole accretion Thermal feedback */
                 float cell_density, k_b, dT_max, mu;
                 float dGE, dGE_max, cellmass;
-                float EjectaThermalEnergyPerCell = EjectaThermalEnergyDensity; // ergs/cell
+                float EjectaThermalEnergyPerCell = EjectaThermalEnergyDensity; // EnergyUnits/cell
                 cell_density = this->BaryonField[DensNum][index];
-                cellmass = cell_density*dx*dx*dx; // from g/cellvol -> g.
+                cellmass = cell_density*dx*dx*dx; // from cell mass /cellvol -> cell mass in code units.
 
                 k_b = 1.3807e-16; // cm^2 g s^-2 K^-1
                 dT_max = 1e7; // K
                 mu = 0.58; // SG. Fully ionised gas. Values between this and 1. Mean molecular weight, dimensionless.
 
                 /* define changes in specific energy (ergs/g) */
-                oldGE = this->BaryonField[GENum][index]; // ergs/g
-                dGE = EjectaThermalEnergyPerCell/cellmass; // ergs/g
-                dGE_max = (k_b * dT_max) / (TemperatureUnits*(Gamma - 1) * mu * mh); // ergs/g
+                oldGE = this->BaryonField[GENum][index]; // EnergyUnits/ MassUnits
+                dGE = EjectaThermalEnergyPerCell/cellmass; // EnergyUnits/MassUnits
+                dGE_max = (dT_max) / (TemperatureUnits*(Gamma - 1) * mu); // EnergyUnits/MassUnits
 
-                fprintf(stderr, "%s: EjectaThermalEnergyPerCell = %e ergs/cell \t cell mass = %e g \n", __FUNCTION__ ,
-                        EjectaThermalEnergyPerCell, cellmass);
-                fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t dGE_max = %"GSYM" ergs/g, \t oldGE = %e ergs/g,\t SS->EnergySaved = %e ergs/g \n",
+                fprintf(stderr, "%s: EjectaThermalEnergyPerCell = %e ergs/cell (%e code) \t cell mass = %e g (%e code)\n",
+                        __FUNCTION__ , EjectaThermalEnergyPerCell*VelocityUnits*VelocityUnits,
+                        EjectaThermalEnergyPerCell, cellmass*MassUnits, cellmass);
+                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t dGE_max = %"GSYM" code units, \t oldGE = %e code units,\t SS->EnergySaved = %e code units \n",
                           __FUNCTION__, dGE, dGE_max, oldGE, SS->EnergySaved);
                 /* energy budgeting */
                 if (dGE > dGE_max) { // adding to saved energy
