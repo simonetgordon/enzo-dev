@@ -144,8 +144,7 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
         OtherDim[dim]   = 1;
         Dim[dim]        = 1;
       }
-      fprintf(stderr, "%s: before dim loop", __FUNCTION__);
-     
+
       for (dim = 0; dim < GridRank; dim++){
         if (GridDimension[dim] > 1) {
         shift_temp = period[dim] * FLOAT(shift[dim]);
@@ -213,10 +212,10 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
          StartOther to reflect the fact that we are only copying part of
          the grid. */
      
-      if (TRUE){
-        fprintf(stderr, "CopyZones SendRegion from %"ISYM" to %"ISYM", SEND_FIELD = %"ISYM"\n",
-            ProcessorNumber, OtherGrid->ProcessorNumber, SendField);
-      };
+//      if (TRUE){
+//        fprintf(stderr, "CopyZones SendRegion from %"ISYM" to %"ISYM", SEND_FIELD = %"ISYM"\n",
+//            ProcessorNumber, OtherGrid->ProcessorNumber, SendField);
+//      };
       if (ProcessorNumber != OtherGrid->ProcessorNumber) {
         OtherGrid->CommunicationSendRegion(OtherGrid, ProcessorNumber,
                            SendField, NEW_ONLY, StartOther, Dim);
