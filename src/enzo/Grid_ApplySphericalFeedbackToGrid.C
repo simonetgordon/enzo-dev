@@ -84,7 +84,6 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
-          numcells += 1;
 
 	    fprintf(stderr,"%s: index = %e, numcells in feedback zone = %"ISYM"\n", __FUNCTION__, index, numcells);
         fprintf(stderr,"%s: current density = %e (this), %e\n", __FUNCTION__, this->BaryonField[DensNum][index],
@@ -93,6 +92,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 POW(CellLeftEdge[2][k] + 0.5*dx - pos[2],2.0);
 
         if (radius2 < outerRadius2) {
+            numcells += 1;
             float r1 = sqrt(radius2) / radius;
             float norm = 0.98;
             float ramp = norm*(0.5 - 0.5 * tanh(10.0*(r1-1.0)));

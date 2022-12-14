@@ -95,7 +95,6 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
      The loop breaks when check_overlap returns -1.
    */
   int overlap = 0;
-  fprintf(stderr, "%s: before while loop", __FUNCTION__);
   while (true)
     {
    
@@ -240,7 +239,6 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
         }
     
       if (SendField == ALL_FIELDS) {
-          fprintf(stderr, "sending all fields");
           for (int field = 0; field < NumberOfBaryonFields; field++) {
             FORTRAN_NAME(copy3drel)(OtherGrid->BaryonField[field], BaryonField[field],
                         Dim, Dim+1, Dim+2,
