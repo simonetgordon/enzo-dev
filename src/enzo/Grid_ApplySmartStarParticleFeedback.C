@@ -409,6 +409,14 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       fprintf(stderr, "%s: AccretionRadius = %e (code) BHThermalFeedbackRadius = %e (code). "
                       "BHThermalFeedbackRadius is %e times bigger. \n", __FUNCTION__, SS->AccretionRadius,
                       BHThermalFeedbackRadius, BHThermalFeedbackRadius/SS->AccretionRadius);
+
+      /* Find number of cells on this grid (FeedbackZone) to define BHThermalFeedbackRadius */
+      int NumberOfCells;
+      if (MyProcessorNumber == this->GridData->ReturnProcessorNumber()) {
+          NumberOfCells = this->GridData->GetActiveSize();
+      }
+      fprintf(stderr, "%s: NumberOfCells = %"ISYM" \n", __FUNCTION__, NumberOfCells);
+
       if (SmartStarBHThermalFeedback == TRUE) {
           /* find epsilon = radiative efficiency of accretion */
           fprintf(stderr, "%s: eta_disk = %e\n", __FUNCTION__, SS->eta_disk);
