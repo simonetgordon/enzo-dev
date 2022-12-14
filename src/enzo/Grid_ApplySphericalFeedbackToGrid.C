@@ -134,7 +134,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 /* define changes in specific energy (ergs/g) */
                 oldGE = this->BaryonField[GENum][index]; // ergs/g
                 dGE = EjectaThermalEnergyDensity/cell_density; // ergs cm^-3/ g cm^-3 = ergs/g
-                dGE_max = (k_b * dT_max) / ((Gamma - 1) * mu * mh); // ergs/g
+                dGE_max = (k_b * dT_max) / (TemperatureUnits*(Gamma - 1) * mu * mh); // ergs/g
 
                 /* energy budgeting */
                 if (dGE > dGE_max) { // adding to saved energy
@@ -150,7 +150,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                     }
                 }
                 newGE = oldGE + dGE; // ergs/g
-                fprintf(stderr,"%s: dGE = %"GSYM"\t ergs/g, dGE_max = %"GSYM"\t ergs/g, newGE = %e ergs/g, \t, SS->EnergySaved = %e ergs/g \n",
+                fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t dGE_max = %"GSYM" ergs/g, \t newGE = %e ergs/g,\t SS->EnergySaved = %e ergs/g \n",
                         __FUNCTION__, dGE, dGE_max, newGE);
 
               } // END EjectaDensity < 0.0 (BH thermal feedback scheme)
@@ -165,8 +165,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                   this->BaryonField[TENum][index] += 0.5 * this->BaryonField[Vel1Num+dim][index] *
                           this->BaryonField[Vel1Num+dim][index];
 
-              fprintf(stderr, "%s: In DualEnergy formalism Increase in GE energy is %e\n", __FUNCTION__,
-                        (newGE - oldGE)/oldGE);
+              fprintf(stderr, "%s: In DualEnergy formalism Increase in GE energy is %e percent.\n", __FUNCTION__,
+                        (newGE - oldGE)*100.0/oldGE);
             } else {
                 float newGE = 0.0;
                 if(EjectaDensity > 0.0) {
