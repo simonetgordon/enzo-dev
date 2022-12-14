@@ -72,7 +72,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
 
   /* outer radius */
   FLOAT outerRadius2 = POW(Radius, 2.0); // SG. Change from 1.2*radius to BHThermalFeedbackRadius.
-  fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, Radius;
+  fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, Radius/dx);
 
   /* max gas energy from max temperature = 1e8 K */
   float maxGE = MAX_TEMPERATURE / (TemperatureUnits * (Gamma-1.0) * 0.58);
