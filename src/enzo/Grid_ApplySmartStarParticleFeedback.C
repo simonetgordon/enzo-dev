@@ -411,7 +411,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
                       BHThermalFeedbackRadius, BHThermalFeedbackRadius/SS->AccretionRadius);
 
       /* Find number of cells on this grid (FeedbackZone) to define BHThermalFeedbackRadius */
-      int NumberOfCells;
+      int NumberOfCells, NumberOfCells2;
       if (MyProcessorNumber == this->ReturnProcessorNumber()) {
           NumberOfCells = this->GetActiveSize();
           NumberOfCells2 = this->GetGridSize();
