@@ -474,7 +474,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           fprintf(stderr, "EjectaThermalEnergyDensity = %e code energy/code length^3 \n", EjectaThermalEnergyDensity);
 
           /* apply changes to GE baryon field */
-          this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyDensity,
+          this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyDensity_CGS,
                                              EjectaMetalDensity, BHThermalFeedbackRadius);
 	
       } // END BHThermalFeedback
