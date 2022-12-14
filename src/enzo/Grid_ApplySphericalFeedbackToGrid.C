@@ -63,7 +63,6 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   MetalNum = max(Metal2Num, SNColourNum);
   MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
   FLOAT radius = max(64*this->CellWidth[0][0], SS->InfluenceRadius); // SG. Change from InfluenceRadius.
-  fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, radius/this->CellWidth[0][0]);
   float MetalRadius = 1.0;
   FLOAT MetalRadius2 = radius * radius * MetalRadius * MetalRadius;
 
@@ -73,18 +72,21 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
 
   /* outer radius */
   FLOAT outerRadius2 = POW(Radius, 2.0); // SG. Change from 1.2*radius to BHThermalFeedbackRadius.
+  fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, Radius;
 
   /* max gas energy from max temperature = 1e8 K */
   float maxGE = MAX_TEMPERATURE / (TemperatureUnits * (Gamma-1.0) * 0.58);
   float delta_fz = 0.0;
+  int numcells = 0;
 
   // Loop over all cells on grid
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
+          numcells += 1;
 
-	    fprintf(stderr,"%s: index = %e\n", __FUNCTION__, index);
+	    fprintf(stderr,"%s: index = %e, numcells in feedback zone = %"ISYM"\n", __FUNCTION__, index, numcells);
         fprintf(stderr,"%s: current density = %e (this), %e\n", __FUNCTION__, this->BaryonField[DensNum][index],
                 BaryonField[DensNum][index]);
 	    FLOAT radius2 = POW(CellLeftEdge[0][i] + 0.5*dx - pos[0],2.0) + POW(CellLeftEdge[1][j] + 0.5*dx - pos[1],2.0) +
