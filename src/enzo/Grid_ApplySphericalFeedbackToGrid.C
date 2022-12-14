@@ -126,8 +126,6 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 /* Black Hole accretion Thermal feedback */
                 float cell_density, k_b, dT_max, mu;
                 float dGE, dGE_max;
-                fprintf(stderr,"%s: Ejecta_CGS = %e, Ejecta = %e \n", __FUNCTION__,
-                        EjectaThermalEnergyDensity);
                 float EjectaThermalEnergyPerCell = EjectaThermalEnergyDensity; // ergs/cell
                 float cellmass = cell_density/dx*dx*dx; // from g/cellvol -> g.
                 cell_density = this->BaryonField[DensNum][index];
@@ -140,6 +138,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 dGE = EjectaThermalEnergyPerCell/cellmass; // ergs/g
                 dGE_max = (k_b * dT_max) / (TemperatureUnits*(Gamma - 1) * mu * mh); // ergs/g
 
+                fprintf(stderr, "%s: EjectaThermalEnergyPerCell = %e ergs/cell \t cell mass = %e g \n", __FUNCTION__ ,
+                        EjectaThermalEnergyPerCell, cellmass);
                 fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t dGE_max = %"GSYM" ergs/g, \t oldGE = %e ergs/g,\t SS->EnergySaved = %e ergs/g \n",
                           __FUNCTION__, dGE, dGE_max, oldGE, SS->EnergySaved);
                 /* energy budgeting */
