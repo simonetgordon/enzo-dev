@@ -125,10 +125,11 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
               else if (EjectaDensity < 0.0) {
                 /* Black Hole accretion Thermal feedback */
                 float cell_density, k_b, dT_max, mu;
-                float dGE, dGE_max;
+                float dGE, dGE_max, cellmass;
                 float EjectaThermalEnergyPerCell = EjectaThermalEnergyDensity; // ergs/cell
-                float cellmass = cell_density/dx*dx*dx; // from g/cellvol -> g.
                 cell_density = this->BaryonField[DensNum][index];
+                cellmass = cell_density*dx*dx*dx; // from g/cellvol -> g.
+
                 k_b = 1.3807e-16; // cm^2 g s^-2 K^-1
                 dT_max = 1e7; // K
                 mu = 0.58; // SG. Fully ionised gas. Values between this and 1. Mean molecular weight, dimensionless.
