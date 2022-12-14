@@ -475,8 +475,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
            */
           float EjectaThermalEnergyPerCell = SmartStarDiskEnergyCoupling * epsilon * dt * mdot*clight*clight
                   /(VelocityUnits*VelocityUnits*NumCells);
-          float EjectaThermalEnergyPerCell_CGS = SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight
-                  /NumCells
+          float EjectaThermalEnergyPerCell_CGS = (SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight)
+                  /NumCells;
 
           fprintf(stderr, "%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
                   __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight);
