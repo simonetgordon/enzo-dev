@@ -35,6 +35,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
 	       &TimeUnits, &VelocityUnits, this->ReturnTime()) == FAIL) {
       ENZO_FAIL("Error in GetUnits.");
   }
+  MassUnits = DensityUnits * POW(LengthUnits,3);
   int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
   if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
          Vel3Num, TENum) == FAIL) {
