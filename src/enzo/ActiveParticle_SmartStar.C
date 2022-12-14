@@ -1156,7 +1156,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         }
 
         // SG/BS Put feedback zone inside processor num
-        grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius*2/dx), dx, Grids,
+        grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius*10/dx), dx, Grids,
                                                    NumberOfGrids, ALL_FIELDS);
         grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
 
@@ -1364,7 +1364,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
         if(pclass == BH){
             fprintf(stderr, "%s: AccretionRadius = %e, FLOAT(AccretionRadius/dx_sg) = %e \n", __FUNCTION__ ,
                     AccretionRadius, FLOAT(AccretionRadius/dx_sg));
-            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius*2/dx_sg), dx_sg,
+            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius*10/dx_sg), dx_sg,
                                                        Grids, NumberOfGrids, ALL_FIELDS);
             if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
                 if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
@@ -1387,7 +1387,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
 	        delete FeedbackZone;
         } // SG. End BH class condition.
 	    else if (pclass == POPIII){ // SG. Add POPIII class condition
-            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius*2/dx_sg), dx_sg,
+            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius*10/dx_sg), dx_sg,
                                                        Grids, NumberOfGrids, ALL_FIELDS);
 
 		    // SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
