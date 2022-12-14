@@ -416,7 +416,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           NumberOfCells = this->GetActiveSize();
           NumberOfCells2 = this->GetGridSize();
       }
-      fprintf(stderr, "%s: NumberOfCells = %"ISYM", NumberOfCells2 = %\"ISYM\" \n", __FUNCTION__, NumberOfCells,
+      fprintf(stderr, "%s: NumberOfCells = %"ISYM", NumberOfCells2 = %"ISYM"\n", __FUNCTION__, NumberOfCells,
               NumberOfCells2);
 
       if (SmartStarBHThermalFeedback == TRUE) {
