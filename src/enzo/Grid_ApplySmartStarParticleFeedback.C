@@ -475,17 +475,20 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
            */
           float EjectaThermalEnergyPerCell = SmartStarDiskEnergyCoupling * epsilon * dt * mdot*clight*clight
                   /(VelocityUnits*VelocityUnits*NumCells);
+          float EjectaThermalEnergy = SmartStarDiskEnergyCoupling * epsilon * dt * mdot*clight*clight
+                                             /(VelocityUnits*VelocityUnits);
           float EjectaThermalEnergyPerCell_CGS = (SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight)
                   /NumCells;
 
-          fprintf(stderr, "%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
-                  __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight);
+          fprintf(stderr, "%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs (%e code)\n",
+                  __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight,
+                  EjectaThermalEnergy);
 
           fprintf(stderr, "EjectaThermalEnergyPerCell = %e code energy/cell \n", EjectaThermalEnergyPerCell);
-          fprintf(stderr, "EjectaThermalEnergyPerCell_CGS = %e ergs/cell \n", EjectaThermalEnergyPerCell);
+          fprintf(stderr, "EjectaThermalEnergyPerCell_CGS = %e ergs/cell \n", EjectaThermalEnergyPerCell_CGS);
 
           /* apply changes to GE baryon field */
-          this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyPerCell,
+          this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
                                              EjectaMetalDensity, BHThermalFeedbackRadius);
 	
       } // END BHThermalFeedback
