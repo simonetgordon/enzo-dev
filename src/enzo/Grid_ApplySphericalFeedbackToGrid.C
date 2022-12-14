@@ -75,7 +75,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   FLOAT outerRadius2 = POW(Radius, 2.0); // SG. Change from 1.2*radius to BHThermalFeedbackRadius.
 
   /* max gas energy from max temperature = 1e8 K */
-  float maxGE = MAX_TEMPERATURE / (TemperatureUnits * (Gamma-1.0) * 0.6);
+  float maxGE = MAX_TEMPERATURE / (TemperatureUnits * (Gamma-1.0) * 0.58);
   float delta_fz = 0.0;
 
   // Loop over all cells on grid
@@ -164,7 +164,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
 
               } // END EjectaDensity < 0.0 (BH thermal feedback scheme)
 
-              newGE = min(newGE, maxGE);
+              //newGE = min(newGE, maxGE); // SG. Disabling this for BH thermal feedback.
               fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %e code units \n", __FUNCTION__,
                      oldGE, newGE, maxGE);
 
