@@ -141,7 +141,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 dGE_max = (dT_max) / (TemperatureUnits*(Gamma - 1) * mu); // EnergyUnits/MassUnits
 
                 fprintf(stderr, "%s: EjectaThermalEnergy = %e ergs (%e code) \t cell mass = %e g (%e code)\n",
-                        __FUNCTION__ , EjectaThermalEnergy*VelocityUnits*VelocityUnits,
+                        __FUNCTION__ , EjectaThermalEnergy*VelocityUnits*VelocityUnits*MassUnits,
                         EjectaThermalEnergy, cellmass*MassUnits, cellmass);
                 fprintf(stderr,"%s: dGE = %"GSYM" code units, \t dGE_max = %"GSYM" code units, \t oldGE = %e code units,\t SS->EnergySaved = %e code units \n",
                           __FUNCTION__, dGE, dGE_max, oldGE, SS->EnergySaved);
@@ -159,13 +159,13 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                     }
                 }
                 newGE = oldGE + dGE; // ergs/g
-                fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t dGE_max = %"GSYM" ergs/g, \t newGE = %e ergs/g,\t SS->EnergySaved = %e ergs/g \n",
+                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t dGE_max = %"GSYM" code units, \t newGE = %e code units,\t SS->EnergySaved = %e code units \n",
                         __FUNCTION__, dGE, dGE_max, newGE, SS->EnergySaved);
 
               } // END EjectaDensity < 0.0 (BH thermal feedback scheme)
 
               newGE = min(newGE, maxGE);
-              fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %e ergs/g \n", __FUNCTION__,
+              fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %e code units \n", __FUNCTION__,
                      oldGE, newGE, maxGE);
 
               this->BaryonField[TENum][index] = newGE;
