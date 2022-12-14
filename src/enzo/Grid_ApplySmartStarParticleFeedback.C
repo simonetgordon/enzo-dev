@@ -414,8 +414,10 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       int NumberOfCells;
       if (MyProcessorNumber == this->ReturnProcessorNumber()) {
           NumberOfCells = this->GetActiveSize();
+          NumberOfCells2 = this->GetGridSize();
       }
-      fprintf(stderr, "%s: NumberOfCells = %"ISYM" \n", __FUNCTION__, NumberOfCells);
+      fprintf(stderr, "%s: NumberOfCells = %"ISYM", NumberOfCells2 = %\"ISYM\" \n", __FUNCTION__, NumberOfCells,
+              NumberOfCells2);
 
       if (SmartStarBHThermalFeedback == TRUE) {
           /* find epsilon = radiative efficiency of accretion */
