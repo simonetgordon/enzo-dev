@@ -412,8 +412,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 
       /* Find number of cells on this grid (FeedbackZone) to define BHThermalFeedbackRadius */
       int NumberOfCells;
-      if (MyProcessorNumber == this->GridData->ReturnProcessorNumber()) {
-          NumberOfCells = this->GridData->GetActiveSize();
+      if (MyProcessorNumber == this->ReturnProcessorNumber()) {
+          NumberOfCells = this->GetActiveSize();
       }
       fprintf(stderr, "%s: NumberOfCells = %"ISYM" \n", __FUNCTION__, NumberOfCells);
 
