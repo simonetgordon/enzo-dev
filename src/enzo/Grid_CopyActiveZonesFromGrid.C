@@ -68,8 +68,8 @@ int grid::CopyActiveZonesFromGrid(grid *OtherGrid, FLOAT EdgeOffset[MAX_DIMENSIO
 
   /* Compute the left and right edges of this grid (including ghost zones). */
 
-  fprintf(stderr, "%s: GOT PAST exit 3\n", __FUNCTION__);
-  fprintf(stderr, "%s: fb cell width = %e,\t other cell width = %e\n", __FUNCTION__,
+//  fprintf(stderr, "%s: GOT PAST exit 3\n", __FUNCTION__);
+//  fprintf(stderr, "%s: fb cell width = %e,\t other cell width = %e\n", __FUNCTION__,
           this->GetCellWidth(0,0), OtherGrid->GetCellWidth(0,0));
 //  fprintf(stderr, "%s: exit 1, ProcNum = %"ISYM", MyProcNum = %"ISYM", OtherGrid->ProcessorNumber = %"ISYM"\n",
 //            __FUNCTION__, ProcessorNumber, MyProcessorNumber, OtherGrid->ProcessorNumber);
