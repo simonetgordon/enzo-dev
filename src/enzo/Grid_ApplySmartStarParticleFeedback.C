@@ -459,22 +459,33 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
            */
           NumCells = EjectaVolume/(dx*dx*dx);
 
-          /* EjectaThermalEnergy in code energy/volume units*/
+          /* EjectaThermalEnergyDensity in code energy/volume units*/
           EjectaThermalEnergyDensity = SmartStarDiskEnergyCoupling * epsilon * dt * mdot*clight*clight
                   /(VelocityUnits*VelocityUnits*EjectaVolume);
 
-          /* EjectaThermalEnergy in ergs/cm^3 */
+          /* EjectaThermalEnergyDensity in ergs/cm^3 */
           EjectaThermalEnergyDensity_CGS = SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight
                   /EjectaVolumeCGS;
+
+          /* EjectaThermalEnergy per cell in code energy units*/
+          /* This is the total energy created by the accretion process and dumped into an area surrounding the
+           * black hole. This is NOT the specific energy. This is simply the energy deposited homogeneously
+           * into each surrounding cell. I then (in Grid_ApplySpehericalFeedbackToGrid) deposit this energy into
+           * each cell and divide by the mass. This gives the specific energy at that point.
+           */
+          float EjectaThermalEnergyPerCell = SmartStarDiskEnergyCoupling * epsilon * dt * mdot*clight*clight
+                  /(VelocityUnits*VelocityUnits*NumCells);
+          float EjectaThermalEnergyPerCell_CGS = SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight
+                  /NumCells
 
           fprintf(stderr, "%s: Total Thermal Energy deposited (into %1.1f cells) by the black hole is %e ergs\n",
                   __FUNCTION__, NumCells, SmartStarDiskEnergyCoupling*epsilon*dt*TimeUnits*mdot_cgs*clight*clight);
 
-          fprintf(stderr, "EjectaThermalEnergyDensity_CGS = %e ergs/cm^3 \n", EjectaThermalEnergyDensity_CGS);
-          fprintf(stderr, "EjectaThermalEnergyDensity = %e code energy/code length^3 \n", EjectaThermalEnergyDensity);
+          fprintf(stderr, "EjectaThermalEnergyPerCell = %e code energy/cell \n", EjectaThermalEnergyPerCell);
+          fprintf(stderr, "EjectaThermalEnergyPerCell_CGS = %e ergs/cell \n", EjectaThermalEnergyPerCell_CGS);
 
           /* apply changes to GE baryon field */
-          this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyDensity_CGS,
+          this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergyPerCell,
                                              EjectaMetalDensity, BHThermalFeedbackRadius);
 	
       } // END BHThermalFeedback

@@ -126,9 +126,10 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 /* Black Hole accretion Thermal feedback */
                 float cell_density, k_b, dT_max, mu;
                 float dGE, dGE_max;
-                float EjectaThermalEnergyDensity_CGS = pow(EjectaThermalEnergyDensity*LengthUnits, 3);
-                fprintf(stderr,"%s: Ejecta_CGS = %e, Ejecta = %e \n", __FUNCTION__, EjectaThermalEnergyDensity_CGS,
+                fprintf(stderr,"%s: Ejecta_CGS = %e, Ejecta = %e \n", __FUNCTION__,
                         EjectaThermalEnergyDensity);
+                float EjectaThermalEnergyPerCell = EjectaThermalEnergyDensity; // ergs/cell
+                float cellmass = cell_density/dx*dx*dx; // from g/cellvol -> g.
                 cell_density = this->BaryonField[DensNum][index];
                 k_b = 1.3807e-16; // cm^2 g s^-2 K^-1
                 dT_max = 1e7; // K
@@ -136,11 +137,11 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
 
                 /* define changes in specific energy (ergs/g) */
                 oldGE = this->BaryonField[GENum][index]; // ergs/g
-                dGE = EjectaThermalEnergyDensity*pow(dx*LengthUnits,3)/cell_density*dx*dx*dx; // ergs cm^-3/ g cm^-3 = ergs/g
+                dGE = EjectaThermalEnergyPerCell/cellmass; // ergs/g
                 dGE_max = (k_b * dT_max) / (TemperatureUnits*(Gamma - 1) * mu * mh); // ergs/g
 
                 fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t dGE_max = %"GSYM" ergs/g, \t oldGE = %e ergs/g,\t SS->EnergySaved = %e ergs/g \n",
-                          __FUNCTION__, dGE, dGE_max, newGE, SS->EnergySaved);
+                          __FUNCTION__, dGE, dGE_max, oldGE, SS->EnergySaved);
                 /* energy budgeting */
                 if (dGE > dGE_max) { // adding to saved energy
                     SS->EnergySaved += (dGE - dGE_max);
