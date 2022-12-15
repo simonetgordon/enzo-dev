@@ -381,8 +381,6 @@ int ActiveParticleType_AccretingParticle::SetFlaggingField(
       AccretingParticleList);
 
   /* Calculate CellWidth on maximum refinement level */
-
-  // SG. Do I need to change the MaximumRefinementLevel here?
   dx = (DomainRightEdge[0] - DomainLeftEdge[0]) /
     (TopGridDims[0]*POW(FLOAT(RefineBy),FLOAT(MaximumRefinementLevel)));
 

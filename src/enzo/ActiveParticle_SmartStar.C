@@ -1156,7 +1156,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         }
 
         // SG/BS Put feedback zone inside processor num
-        grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius*10/dx), dx, Grids,
+        grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx, Grids,
                                                    NumberOfGrids, ALL_FIELDS);
         grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
 
@@ -1298,8 +1298,9 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
             }
 
 			/* SG. Check for when accrad = 0 in the first 100 kyr of BH's life. */
-			if (accrad < 1e-30)
-			continue;
+//			if (accrad < 1e-30){
+//                continue;
+//            }
 
 			/* SG. Calculate user-set dx_bondi and dx_bondi in pc*/
 			double dx_bondi = (double) accrad/SmartStarBondiRadiusRefinementFactor;
@@ -1317,7 +1318,7 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
 //                 fprintf(stderr,"%s: BondiRadius/factor = %e pc is less than cell width = %e pc. Deposit refinement zone.\n",
 //                 	__FUNCTION__, dx_bondi_pc, dx_pc);
                 // SG Deposit refinement zone with dx_bondi
-                if (Temp->GridData->DepositRefinementZone(level,pos,dx_bondi*10) == FAIL) {
+                if (Temp->GridData->DepositRefinementZone(level,pos,dx*5) == FAIL) {
                     ENZO_FAIL("Error in grid->DepositRefinementZone.\n")
                 } // end IF
             } // end FOR
@@ -1364,7 +1365,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
         if(pclass == BH){
             fprintf(stderr, "%s: AccretionRadius = %e, FLOAT(AccretionRadius/dx_sg) = %e \n", __FUNCTION__ ,
                     AccretionRadius, FLOAT(AccretionRadius/dx_sg));
-            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius*10/dx_sg), dx_sg,
+            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg,
                                                        Grids, NumberOfGrids, ALL_FIELDS);
             if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
                 if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
@@ -1387,7 +1388,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
 	        delete FeedbackZone;
         } // SG. End BH class condition.
 	    else if (pclass == POPIII){ // SG. Add POPIII class condition
-            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(AccretionRadius*10/dx_sg), dx_sg,
+            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg,
                                                        Grids, NumberOfGrids, ALL_FIELDS);
 
 		    // SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
