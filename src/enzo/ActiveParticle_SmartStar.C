@@ -1298,9 +1298,9 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
             }
 
 			/* SG. Check for when accrad = 0 in the first 100 kyr of BH's life. */
-//			if (accrad < 1e-30){
-//                continue;
-//            }
+			if (accrad < 1e-30){
+                continue;
+            }
 
 			/* SG. Calculate user-set dx_bondi and dx_bondi in pc*/
 			double dx_bondi = (double) accrad/SmartStarBondiRadiusRefinementFactor;
