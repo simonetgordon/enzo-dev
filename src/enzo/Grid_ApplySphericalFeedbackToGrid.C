@@ -145,8 +145,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 fprintf(stderr, "%s: dEjectaThermalEnergy = %e ergs (%e code) \t cell mass = %e g (%e code)\n",
                         __FUNCTION__ , dEjectaThermalEnergy*VelocityUnits*VelocityUnits*MassUnits,
                         dEjectaThermalEnergy, cellmass*MassUnits, cellmass);
-                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t dGE_max = %"GSYM" code units, \t oldGE = %e code units,\t SS->EnergySaved = %e code units \n",
-                          __FUNCTION__, dGE, dGE_max, oldGE, SS->EnergySaved);
+                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t oldGE = %e code units,\t SS->EnergySaved = %e code units \n",
+                          __FUNCTION__, dGE, GE_max, oldGE, SS->EnergySaved);
 
                 /* energy budgeting */
                 SS->EnergySaved += dEjectaThermalEnergy; // ergs equivalent in code units
@@ -158,10 +158,10 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 newGE = oldGE + dGE; // ergs/g
                 SS->EnergySaved -= EnergyDeposited;
 
-                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t dGE_max = %"GSYM" code units, \t newGE = %e code units \n",
-                        __FUNCTION__, dGE, dGE_max, newGE);
-                fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t dGE_max = %"GSYM" ergs/g, \t newGE = %e ergs/g \n",
-                        __FUNCTION__, dGE*VelocityUnits*VelocityUnits, dGE_max*VelocityUnits*VelocityUnits,
+                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t newGE = %e code units \n",
+                        __FUNCTION__, dGE, GE_max, newGE);
+                fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t GE_max = %"GSYM" ergs/g, \t newGE = %e ergs/g \n",
+                        __FUNCTION__, dGE*VelocityUnits*VelocityUnits, GE_max*VelocityUnits*VelocityUnits,
                         newGE*VelocityUnits*VelocityUnits);
                 fprintf(stderr,"%s: SS->EnergySaved = %e code units \t EnergyDeposited = %e \n",
                         __FUNCTION__, SS->EnergySaved, EnergyDeposited);
