@@ -413,10 +413,11 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       float EjectaThermalEnergyDensity, EjectaThermalEnergyDensity_CGS;
 
       /* thermal feedback sphere radius in terms of current cell width */
-      FLOAT BHThermalFeedbackRadius = 4*dx;
-      fprintf(stderr, "%s: x10 AccretionRadius = %e (code) BHThermalFeedbackRadius = %e (code). "
-                      "BHThermalFeedbackRadius is %e times bigger. \n", __FUNCTION__, SS->AccretionRadius*10,
-                      BHThermalFeedbackRadius, BHThermalFeedbackRadius/SS->AccretionRadius*10);
+      FLOAT BHThermalFeedbackRadius = 5*dx;
+      fprintf(stderr, "%s: BHThermalFeedbackRadius in cell widths = %e (%e pc). "
+                      "AccretionRadius is %e pc. \n", __FUNCTION__,
+                      BHThermalFeedbackRadius/dx, BHThermalFeedbackRadius*LengthUnits/pc_cm,
+                      SS->AccretionRadius*LengthUnits/pc_cm);
 
       /* Find number of cells on this grid (FeedbackZone) to define BHThermalFeedbackRadius */
       int NumberOfCells, NumberOfCells2;
@@ -429,9 +430,10 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           cells[dim] = (this->GetGridRightEdge(dim) - this->GetGridLeftEdge(dim)) / this->GetCellWidth(dim, 0);
       }
 
-      fprintf(stderr, "%s: NumberOfCells = %"ISYM", NumberOfCells2 = %"ISYM"\n", __FUNCTION__, NumberOfCells,
+      fprintf(stderr, "%s: NumberOfCells = %"ISYM", NumberOfCells + buffer cells = %"ISYM"\n", __FUNCTION__, NumberOfCells,
               NumberOfCells2);
-      fprintf(stderr, "%s: cells1 = %e, cells2 = %e, cells3 = %e \n", __FUNCTION__, cells[0], cells[1], cells[2]);
+      fprintf(stderr, "%s: cells1 = %"ISYM", cells2 = %"ISYM", cells3 = %"ISYM" \n", __FUNCTION__, cells[0], cells[1],
+              cells[2]);
 
       if (SmartStarBHThermalFeedback == TRUE) {
           /* find epsilon = radiative efficiency of accretion */
