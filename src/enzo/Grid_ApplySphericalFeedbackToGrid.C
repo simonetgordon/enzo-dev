@@ -27,7 +27,7 @@
 
 int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float EjectaDensity,
                                        float EjectaThermalEnergyDensity, float EjectaMetalDensity,
-                                       FLOAT Radius){
+                                       FLOAT Radius, int NumCells){
   float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1, TimeUnits = 1, VelocityUnits = 1,
   PressureUnits = 0, GEUnits = 0, VelUnits = 0;
   double MassUnits = 1.0;
@@ -90,7 +90,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 BaryonField[DensNum][index]);
 	    FLOAT radius2 = POW(CellLeftEdge[0][i] + 0.5*dx - pos[0],2.0) + POW(CellLeftEdge[1][j] + 0.5*dx - pos[1],2.0) +
                 POW(CellLeftEdge[2][k] + 0.5*dx - pos[2],2.0);
-
+        float cell_density = this->BaryonField[DensNum][index];
+        float cellmass = cell_density*dx*dx*dx; // from cell mass /cellvol -> cell mass in code units.
         if (radius2 < outerRadius2) {
             numcells += 1;
             float r1 = sqrt(radius2) / radius;
@@ -111,7 +112,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
 
               /* When injected energy is uniform throughout the volume;
               EjectaThermalEnergyDensity in EnergyUnits/VolumeUnits */
-              float oldGE =  this->BaryonField[GENum][index]; // ergs/gram - specific energy
+              float oldGE =  this->BaryonField[GENum][index];
               // BIG E = ergs,  ergs/vol = E/vol, e = specific energy = E/m_cell
               fprintf(stderr,"%s: oldGE = %e\t OldDensity = %e\n", __FUNCTION__, oldGE, OldDensity);
               float newGE = 0.0;
@@ -128,41 +129,42 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
               else if (EjectaDensity < 0.0) {
                 /* Black Hole accretion Thermal feedback */
                 float cell_density, k_b, dT_max, mu;
-                float dGE, dGE_max, cellmass;
-                float EjectaThermalEnergy = EjectaThermalEnergyDensity; // EnergyUnits/cell
-                cell_density = this->BaryonField[DensNum][index];
-                cellmass = cell_density*dx*dx*dx; // from cell mass /cellvol -> cell mass in code units.
-
+                float dGE, GE_max, dEjectaThermalEnergy, dEnergyPerCell, EnergyDeposited;
                 k_b = 1.3807e-16; // cm^2 g s^-2 K^-1
                 dT_max = 1e8; // K
                 mu = 0.58; // SG. Fully ionised gas. Values between this and 1. Mean molecular weight, dimensionless.
 
-                /* define changes in specific energy (ergs/g) */
-                oldGE = this->BaryonField[GENum][index]; // EnergyUnits/ MassUnits
-                dGE = EjectaThermalEnergy/cellmass; // EnergyUnits/MassUnits
-                dGE_max = (dT_max) / (TemperatureUnits*(Gamma - 1) * mu); // EnergyUnits/MassUnits
+                /* define changes in energy (ergs) and in ergs/cell */
+                dEjectaThermalEnergy = EjectaThermalEnergyDensity; // code energy * cellmass = ergs
+                dEnergyPerCell = dEjectaThermalEnergy/NumCells; // ergs/cell equivalent
 
-                fprintf(stderr, "%s: EjectaThermalEnergy = %e ergs (%e code) \t cell mass = %e g (%e code)\n",
-                        __FUNCTION__ , EjectaThermalEnergy*VelocityUnits*VelocityUnits*MassUnits,
-                        EjectaThermalEnergy, cellmass*MassUnits, cellmass);
+                /* define changes in specific energy (ergs/g) */
+                dGE = dEnergyPerCell/cellmass; // EnergyUnits/MassUnits
+                GE_max = (dT_max) / (TemperatureUnits * (Gamma - 1) * mu); // EnergyUnits/MassUnits
+
+                fprintf(stderr, "%s: dEjectaThermalEnergy = %e ergs (%e code) \t cell mass = %e g (%e code)\n",
+                        __FUNCTION__ , dEjectaThermalEnergy*VelocityUnits*VelocityUnits*MassUnits,
+                        dEjectaThermalEnergy, cellmass*MassUnits, cellmass);
                 fprintf(stderr,"%s: dGE = %"GSYM" code units, \t dGE_max = %"GSYM" code units, \t oldGE = %e code units,\t SS->EnergySaved = %e code units \n",
                           __FUNCTION__, dGE, dGE_max, oldGE, SS->EnergySaved);
+
                 /* energy budgeting */
-                if (dGE > dGE_max) { // adding to saved energy
-                    SS->EnergySaved += (dGE - dGE_max);
-                    dGE = dGE_max;
-                } else {
-                    if ((dGE + SS->EnergySaved) > dGE_max){ // taking from saved energy
-                        SS->EnergySaved -= (dGE_max - dGE);
-                        dGE = dGE_max;
-                    } else{ // using remainder of saved energy
-                        dGE += SS->EnergySaved;
-                        SS->EnergySaved = 0.0;
-                    }
-                }
+                SS->EnergySaved += dEjectaThermalEnergy; // ergs equivalent in code units
+                dEnergyPerCell = SS->EnergySaved/NumCells;
+                dGE = min(max((GE_max - oldGE), 0), dGE); // temperature hard capping
+                EnergyDeposited = dGE * cellmass;
+                EnergyDeposited = min(EnergyDeposited, SS->EnergySaved);
+                dGE = EnergyDeposited/cellmass;
                 newGE = oldGE + dGE; // ergs/g
-                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t dGE_max = %"GSYM" code units, \t newGE = %e code units,\t SS->EnergySaved = %e code units \n",
-                        __FUNCTION__, dGE, dGE_max, newGE, SS->EnergySaved);
+                SS->EnergySaved -= EnergyDeposited;
+
+                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t dGE_max = %"GSYM" code units, \t newGE = %e code units \n",
+                        __FUNCTION__, dGE, dGE_max, newGE);
+                fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t dGE_max = %"GSYM" ergs/g, \t newGE = %e ergs/g \n",
+                        __FUNCTION__, dGE*VelocityUnits*VelocityUnits, dGE_max*VelocityUnits*VelocityUnits,
+                        newGE*VelocityUnits*VelocityUnits);
+                fprintf(stderr,"%s: SS->EnergySaved = %e code units \t EnergyDeposited = %e \n",
+                        __FUNCTION__, SS->EnergySaved, EnergyDeposited);
 
               } // END EjectaDensity < 0.0 (BH thermal feedback scheme)
 

@@ -173,9 +173,10 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	EjectaMetalDensity = MetalMass * SolarMass / EjectaVolume / DensityUnits;
 	EjectaThermalEnergy = SNEnergy / (StellarMass * SolarMass) / VelocityUnits /
 	  VelocityUnits;
-	
+
+	int NumCells = 1;
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity, Radius);
+					   EjectaMetalDensity, Radius, NumCells);
 
       } else{ /* SMS converts directly into DCBH (ORIGINAL) */
 	SS->ParticleClass = BH;
@@ -234,9 +235,9 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	printf("%s: PISN detected. Particle set for deletion.\n", __FUNCTION__);
 	EjectaThermalEnergy = SNEnergy / (StellarMass * SolarMass) / VelocityUnits /
 	  VelocityUnits;
-	
+	int NumCells = 1;
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity, Radius);
+					   EjectaMetalDensity, Radius, NumCells);
 	printf("%s: PISN Feedback completed. Delete particle\n", __FUNCTION__);
       } 
       
@@ -287,9 +288,9 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	EjectaMetalDensity = MetalMass * SolarMass / EjectaVolume / DensityUnits;
 	EjectaThermalEnergy = SNEnergy / (StellarMass * SolarMass) / VelocityUnits /
 	  VelocityUnits;
-
+    int NumCells = 1;
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity, Radius); // SN Radius
+					   EjectaMetalDensity, Radius, NumCells); // SN Radius
       } // SG. End 11 <= M <= 40.1.
 
       /* DCBH: 40.1 msun <  Mstar < 140 msun - BH has mass set by HW relation */
@@ -362,9 +363,10 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	FLOAT EjectaDensity = Delta_SF * SolarMass / EjectaVolume / DensityUnits;   /* code density */
 	FLOAT EjectaMetalDensity = EjectaDensity * StarMetalYield; /* code density */
 	FLOAT EjectaThermalEnergy = StarClusterSNEnergy / SolarMass /   
-	  (VelocityUnits * VelocityUnits); 
+	  (VelocityUnits * VelocityUnits);
+    int NumCells = 1;
 	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity, Radius);
+					   EjectaMetalDensity, Radius, NumCells);
 	/* Remove mass from star following supernova feedback */
 	double old_mass = SS->Mass;
 	SS->Mass -= Delta_SF * SolarMass / MassConversion; /*Convert to code density */  
@@ -505,7 +507,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 
           /* apply changes to GE baryon field */
           this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-                                             EjectaMetalDensity, BHThermalFeedbackRadius);
+                                             EjectaMetalDensity, BHThermalFeedbackRadius, NumCells);
 	
       } // END BHThermalFeedback
   
