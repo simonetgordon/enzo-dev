@@ -82,6 +82,7 @@ int grid::AccreteOntoSmartStarParticle(
   float mparticle = SS->ReturnMass()*CellVolume; //code mass
   float MassConversion = (float) (dx*dx*dx * double(MassUnits));  //convert to g
   FLOAT KernelRadius = 0.0, SumOfWeights = 0.0; /*Required for weighting cells for accretion */
+  // SG. Shouldn't CalculateSmartStarAccretionRate be acting on a grid?
   *AccretionRate = CalculateSmartStarAccretionRate(ThisParticle, AccretionRadius,
 						   &KernelRadius, &SumOfWeights);
 #if NO_ACCRETION

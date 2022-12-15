@@ -1184,14 +1184,15 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
             /* Check what the Bondi-Hoyle radius is - we should accrete out to that if required */
             float mparticle = ParticleList[i]->ReturnMass()*dx*dx*dx;
             float *vparticle = ParticleList[i]->ReturnVelocity();
-            int size = APGrid->GetGridSize();
+            int size = FeedbackZone->GetGridSize();
+            fprintf(stderr, "%s: FeedbackZone size = %"ISYM" \n", __FUNCTION__, size);
             float *Temperature = new float[size]();
-            APGrid->ComputeTemperatureField(Temperature);
+            FeedbackZone->ComputeTemperatureField(Temperature);
 
             // SG print
             fprintf(stderr, "%s: mparticle = %e Msun.\n", __FUNCTION__, mparticle*MassUnits/SolarMass);
 
-            FLOAT BondiHoyleRadius = APGrid->CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
+            FLOAT BondiHoyleRadius = FeedbackZone->CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
 
             fprintf(stderr, "%s: BondiHoyleRadius = %e pc.\n", __FUNCTION__,
                     BondiHoyleRadius*LengthUnits/pc_cm);

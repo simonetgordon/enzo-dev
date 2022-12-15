@@ -38,7 +38,7 @@ int GetUnits(float *DensityUnits, float *LengthUnits,
 	     float *VelocityUnits, FLOAT Time);
 int CosmologyComputeExpansionFactor(FLOAT time, FLOAT *a, FLOAT *dadt);
  
-float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, 
+float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
 					    FLOAT AccretionRadius, FLOAT *KernelRadius,
 					    FLOAT *SumOfWeights)
 {
@@ -79,6 +79,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     kenew, mnew = 0;
   /* Find the Bondi-Hoyle radius */
   int size = this->GetGridSize();
+  fprintf(stderr, "%s: this size = %"ISYM" \n", __FUNCTION__, size);
   float *Temperature = new float[size]();
   this->ComputeTemperatureField(Temperature);
   /* Get indices in BaryonField for density, internal energy, thermal energy,
