@@ -134,6 +134,11 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 dT_max = 1e8; // K
                 mu = 0.58; // SG. Fully ionised gas. Values between this and 1. Mean molecular weight, dimensionless.
 
+                /* can be 0 at start */
+                if (SS->EnergySaved < 0.0){
+                    SS->EnergySaved = 0.0;
+                }
+
                 /* define changes in energy (ergs) and in ergs/cell */
                 dEjectaThermalEnergy = EjectaThermalEnergyDensity; // code energy * cellmass = ergs
                 dEnergyPerCell = dEjectaThermalEnergy/NumCells; // ergs/cell equivalent
