@@ -387,33 +387,35 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
       double MassUnits;
       GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits, &VelocityUnits, Time);
 
-      //   // SG. Return if ThisLevel != APGrid level -> doesn't work as particle traverses levels.
-      // for (int i = 0; i < nParticles; i++) {
-      //   grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
-			// 	int MyLevel = APGrid->GridLevel;
-			// 	if (ThisLevel != MyLevel){
-      //     return SUCCESS;
-      //   }
-      // }
-
       ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID,
         ParticleList);
 
       /* Return if there are no smartstar particles */
-
       if (nParticles == 0){
         return SUCCESS;
-      } // end if
+      }
 
-      ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID,
-        ParticleList);
-    
+      LevelHierarchyEntry *Temp = NULL;
+      HierarchyEntry *Temp2 = NULL;
+      Temp = LevelArray[ThisLevel];
+      while (Temp != NULL) {
+
+        /* Zero under subgrid field */
+        Temp->GridData->ZeroSolutionUnderSubgrid(NULL, ZERO_UNDER_SUBGRID_FIELD);
+        Temp2 = Temp->GridHierarchyEntry->NextGridNextLevel;
+        while (Temp2 != NULL) { // SG. this is doing the check 1 or 0 in baryon refinement field
+            Temp->GridData->ZeroSolutionUnderSubgrid(Temp2->GridData, ZERO_UNDER_SUBGRID_FIELD);
+            Temp2 = Temp2->NextGridThisLevel;
+        }
+        Temp = Temp->NextGridThisLevel; // how we loop over all grids on the level.
+        } // END: Grids
+
+      ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID, ParticleList);
 
       /* Calculate CellWidth on maximum refinement level */
-      // SG. May need to fix this.
-      FLOAT dx = (DomainRightEdge[0] - DomainLeftEdge[0]) /
-        (MetaData->TopGridDims[0]*POW(FLOAT(RefineBy),FLOAT(14))); // SG. Replaced MaximumRefinementLevel with ThisLevel.
-      // //fprintf(stderr,"%s: CellWidth dx = %e and ThisLevel = %"ISYM" (but dx calculated for level 14).\n", __FUNCTION__, dx*LengthUnits/pc_cm, ThisLevel); fflush(stdout);
+      // SG. Replaced MaximumRefinementLevel with ThisLevel.
+      FLOAT dx = LevelArray[ThisLevel]->GridData->GetCellWidth(0,0);
+      fprintf(stderr,"%s: CellWidth dx = %e and ThisLevel = %"ISYM".\n", __FUNCTION__, dx*LengthUnits/pc_cm, ThisLevel);
 
       /* Remove mass from grid from newly formed particles */
       RemoveMassFromGridAfterFormation(nParticles, ParticleList, 
@@ -421,30 +423,29 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
  
       /* Clean any particles marked for deletion */
       for (i = 0; i<nParticles; i++) {
-	if(ParticleList[i]->ShouldDelete() == true) {
-	  printf("%s: Delete SS %d following RemoveMassFromGridAfterFormation\n", __FUNCTION__,
-		 static_cast<ActiveParticleType_SmartStar*>(ParticleList[i])->ReturnID());
-	  fflush(stdout);
-	  ParticleList.erase(i);
-	  i = -1;
-	  nParticles--;
-	}
+          if(ParticleList[i]->ShouldDelete() == true) {
+              printf("%s: Delete SS %d following RemoveMassFromGridAfterFormation\n", __FUNCTION__,
+                     static_cast<ActiveParticleType_SmartStar*>(ParticleList[i])->ReturnID());
+              fflush(stdout);
+              ParticleList.erase(i);
+              i = -1;
+              nParticles--;
+          }
       }
+
       ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID,
       			    ParticleList);
-      if (AssignActiveParticlesToGrids(ParticleList, nParticles, 
-      				       LevelArray) == FAIL)
-	return FAIL;
+      if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
+          return FAIL;
       if (debug)
-	fprintf(stderr,"%s: Number of particles before merging: %"ISYM"\n",__FUNCTION__, nParticles);fflush(stdout);
+          fprintf(stderr,"%s: Number of particles before merging: %"ISYM"\n",__FUNCTION__, nParticles);fflush(stdout);
+
       /* Do Merging   */
       ActiveParticleList<active_particle_class> MergedParticles;
       
       /* Generate new merged list of sink particles */
-      
-      MergeSmartStars<active_particle_class>(
-          &nParticles, ParticleList, 
-          &NumberOfMergedParticles, LevelArray, ThisLevel, MergedParticles);
+      MergeSmartStars<active_particle_class>(&nParticles, ParticleList, &NumberOfMergedParticles, LevelArray,
+                                             ThisLevel, MergedParticles);
 
       ParticleList.clear();
 
@@ -453,8 +454,7 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
 
       for (i = 0; i<NumberOfMergedParticles; i++)
       {
-        ParticleList.copy_and_insert(
-            *(static_cast<ActiveParticleType*>(MergedParticles[i])));
+        ParticleList.copy_and_insert(*(static_cast<ActiveParticleType*>(MergedParticles[i])));
       }
 
       MergedParticles.clear();
@@ -466,83 +466,65 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
       ParticleList.clear();
       
       if (debug)
-        fprintf(stderr,"%s: Number of particles after merging: %"ISYM"\n",__FUNCTION__, NumberOfMergedParticles);fflush(stdout);
+          fprintf(stderr,"%s: Number of particles after merging: %"ISYM"\n",__FUNCTION__, NumberOfMergedParticles);fflush(stdout);
       
       /* Assign local particles to grids */
       /* Do Merging   */
-     
       ParticleList.reserve(NumberOfMergedParticles);
       
       // need to use a bit of redirection because C++ pointer arrays have
       // trouble with polymorphism
       for (i = 0; i<NumberOfMergedParticles; i++)
       {
-        ParticleList.copy_and_insert(
-            *(static_cast<ActiveParticleType*>(MergedParticles[i])));
+        ParticleList.copy_and_insert(*(static_cast<ActiveParticleType*>(MergedParticles[i])));
       }
 
-      if (AssignActiveParticlesToGrids(ParticleList, NumberOfMergedParticles, 
-              LevelArray) == FAIL)
-        return FAIL;
+      if (AssignActiveParticlesToGrids(ParticleList, NumberOfMergedParticles, LevelArray) == FAIL)
+          return FAIL;
 
       ParticleList.clear();
       MergedParticles.clear();
     
       /* Regenerate the global active particle list */
       
-      ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID, 
-        ParticleList);
+      ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID, ParticleList);
 
       /* Do accretion */
-
-      if (Accrete(nParticles, ParticleList, accradius, LevelArray, // SG. Error is being thrown here. AFTER AssignActiveParticlesToGrid was called before it.
-              ThisLevel, SmartStarID) == FAIL)
+      if (Accrete(nParticles, ParticleList, accradius, LevelArray, ThisLevel, SmartStarID) == FAIL)
         ENZO_FAIL("SmartStar Particle accretion failed. \n");
 
       if(UpdateAccretionRateStats(nParticles, ParticleList, LevelArray, ThisLevel) == FAIL)
 	      ENZO_FAIL("Failed to update accretion rate stats. \n");
 
-    //  // SG. For debugging.
-    //   fprintf(stderr, "%s: edge 0 = %e, edge 1 = %e and edge 3 = %e.\n", __FUNCTION__, APGrid->GetGridLeftEdge(0), APGrid->GetGridLeftEdge(1), APGrid->GetGridLeftEdge(2));
-		// 	fprintf(stderr, "%s: edge 0 = %e, edge 1 = %e and edge 3 = %e.\n", __FUNCTION__, APGrid->GetGridRightEdge(0), APGrid->GetGridRightEdge(1), APGrid->GetGridRightEdge(2));
       if(UpdateRadiationLifetimes(nParticles, ParticleList, LevelArray, ThisLevel) == FAIL)
-	ENZO_FAIL("Failed to update radiation lifetimes. \n");
+          ENZO_FAIL("Failed to update radiation lifetimes. \n");
 
-    //  // SG. For debugging.
-    //   fprintf(stderr, "%s: edge 0 = %e, edge 1 = %e and edge 3 = %e.\n", __FUNCTION__, APGrid->GetGridLeftEdge(0), APGrid->GetGridLeftEdge(1), APGrid->GetGridLeftEdge(2));
-		// 	fprintf(stderr, "%s: edge 0 = %e, edge 1 = %e and edge 3 = %e.\n", __FUNCTION__, APGrid->GetGridRightEdge(0), APGrid->GetGridRightEdge(1), APGrid->GetGridRightEdge(2));
-    
       /* Apply feedback */
-      if (SmartStarParticleFeedback(nParticles, ParticleList,
-        dx, LevelArray, ThisLevel, SmartStarID) == FAIL)
-	ENZO_FAIL("SmartStar Particle Feedback failed. \n");
+      if (SmartStarParticleFeedback(nParticles, ParticleList, dx, LevelArray, ThisLevel, SmartStarID) == FAIL)
+          ENZO_FAIL("SmartStar Particle Feedback failed. \n");
 
       
       /* Clean any particles marked for deletion. 
        * After each deletion I need to reloop and check it again. 
        */
       for (i = 0; i<nParticles; i++) {
-	if(ParticleList[i]->ShouldDelete() == true) { 
-	  printf("%s: Delete SS %d following Feedback\n", __FUNCTION__,
-		 static_cast<ActiveParticleType_SmartStar*>(ParticleList[i])->ReturnID());
-	  fflush(stdout);
-	  ParticleList.erase(i);
-	  i = -1; //reset counter
-	  nParticles--;
-	}
+          if(ParticleList[i]->ShouldDelete() == true) {
+              printf("%s: Delete SS %d following Feedback\n", __FUNCTION__,
+                     static_cast<ActiveParticleType_SmartStar*>(ParticleList[i])->ReturnID());
+              fflush(stdout);
+              ParticleList.erase(i);
+              i = -1; //reset counter
+              nParticles--;
+          }
       }
+
       ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID, 
        ParticleList);
       /* This applies all of the updates made above */
-      if (AssignActiveParticlesToGrids(ParticleList, nParticles, 
-              LevelArray) == FAIL)
-        return FAIL;      
+      if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
+          return FAIL;
       ParticleList.clear();
 
-      //       }
-      //     }
-      //   }
-      // }
   return SUCCESS;
 } // End AfterEvolveLevel function
 
