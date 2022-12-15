@@ -405,37 +405,6 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
         return SUCCESS;
       } // end if
 
-      LevelHierarchyEntry *Temp = NULL;
-	    HierarchyEntry *Temp2 = NULL;
-      Temp = LevelArray[ThisLevel];
-
-      while (Temp != NULL) {
-
-        // // SG. Check we're on the maximum LOCAL refinement level from the get-go.
-        // for (k = Temp->GridStartIndex[2]; k <= Temp->GridEndIndex[2]; k++) {
-        //   for (j = Temp->GridStartIndex[1]; j <= Temp->GridEndIndex[1]; j++) {
-        //   index = GRIDINDEX_NOGHOST(Temp->GridStartIndex[0], j, k);
-        //     for (i = Temp->GridStartIndex[0]; i <= Temp->GridEndIndex[0]; i++, index++) {
-        // if (Temp->BaryonField[Temp->NumberOfBaryonFields][index] != 0.0){
-        //   return SUCCESS;
-        // } else{
-        
-        /* Zero under subgrid field */
-      
-          Temp->GridData->
-      ZeroSolutionUnderSubgrid(NULL, ZERO_UNDER_SUBGRID_FIELD);
-          Temp2 = Temp->GridHierarchyEntry->NextGridNextLevel;
-          while (Temp2 != NULL) { // SG. this is doing the check 1 or 0 in baryon refinement field
-      Temp->GridData->ZeroSolutionUnderSubgrid(Temp2->GridData, 
-                ZERO_UNDER_SUBGRID_FIELD);
-      Temp2 = Temp2->NextGridThisLevel;
-          }
-        
-        Temp = Temp->NextGridThisLevel; // how we loop over all grids on the level.
-
-      } // END: Grids
-
-
       ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID,
         ParticleList);
     
