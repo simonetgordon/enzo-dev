@@ -266,7 +266,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	SS->ParticleClass = BH;
 	SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
 	SS->RadiationLifetime = 1e20;
-    SS->EnergySaved = 0; // SG. For thermal feedback.
+    SS->EnergySaved = 0.0; // SG. For thermal feedback.
 	
 	/* SG. Set initial accretion radius of BH to something larger than cell width. 
 	   High temperature after SNe results in tiny bondi radius, but no accretion can occur.
@@ -302,7 +302,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	  SS->ParticleClass = BH; // Particle class change
 	  SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
 	  SS->RadiationLifetime = 1e20;
-      SS->EnergySaved = 0; // SG. For thermal feedback.
+      SS->EnergySaved = 0.0; // SG. For thermal feedback.
 	  printf("%s: DCBH Created from Heger-Woosley relation: ParticleClass now %d\t Stellar Age = %f Myr\t "\
 		 "Lifetime = %f Myr\n", __FUNCTION__,
 		 SS->ParticleClass, SS->StellarAge*TimeUnits/Myr_s,
@@ -314,11 +314,11 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 	  SS->ParticleClass = BH;
 	  SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
 	  SS->RadiationLifetime = 1e20;
-      SS->EnergySaved = 0; // SG. For thermal feedback.
+      SS->EnergySaved = 0.0; // SG. For thermal feedback.
 	  printf("%s: DCBH Created from POPIII: ParticleClass now %d\t Stellar Age = %f Myr\t " \
-		 "Lifetime = %f Myr\n", __FUNCTION__,
+		 "Lifetime = %f Myr, EnergySaved initialised to %e \n", __FUNCTION__,
 		 SS->ParticleClass, SS->StellarAge*TimeUnits/Myr_s,
-		 SS->RadiationLifetime*TimeUnits/Myr_s);
+		 SS->RadiationLifetime*TimeUnits/Myr_s, SS->EnergySaved);
 	}
 
       }
