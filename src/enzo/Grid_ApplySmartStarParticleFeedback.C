@@ -392,6 +392,12 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       if(SmartStarBHFeedback == FALSE) {
           return SUCCESS;
       }
+      FLOAT Time = this->ReturnTime();
+      float Age = Time - SS->BirthTime;
+      fprintf(stderr, "%s: bh age = %e (code)\n", __FUNCTION__, Age);
+      if (Age == 0.0) {
+          return SUCCESS;
+      }
       /*
        * BHs inject a fixed fraction of the rest mass energy of the gas they accrete into the surrounding medium.
        * The feedback is implemented thermally, that is: energy is deposited into the surrounding gas by increasing

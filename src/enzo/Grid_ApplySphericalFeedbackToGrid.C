@@ -77,7 +77,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   /* max gas energy from max temperature = 1e8 K */
   float maxGE = MAX_TEMPERATURE / (TemperatureUnits * (Gamma-1.0) * 0.58);
   float delta_fz = 0.0;
-  int numcells = 0;
+  int FBnumcells = 0;
 
   // Loop over all cells on grid
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
@@ -85,7 +85,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
 
-	    fprintf(stderr,"%s: index = %e, numcells in feedback zone = %"ISYM"\n", __FUNCTION__, index, numcells);
+	    fprintf(stderr,"%s: index = %e, numcells in feedback zone = %"ISYM"\n", __FUNCTION__, index, FBnumcells);
         fprintf(stderr,"%s: current density = %e (this), %e\n", __FUNCTION__, this->BaryonField[DensNum][index],
                 BaryonField[DensNum][index]);
 	    FLOAT radius2 = POW(CellLeftEdge[0][i] + 0.5*dx - pos[0],2.0) + POW(CellLeftEdge[1][j] + 0.5*dx - pos[1],2.0) +
@@ -93,7 +93,6 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
         float cell_density = this->BaryonField[DensNum][index];
         float cellmass = cell_density*dx*dx*dx; // from cell mass /cellvol -> cell mass in code units.
         if (radius2 < outerRadius2) {
-            numcells += 1;
             float r1 = sqrt(radius2) / radius;
             float norm = 0.98;
             float ramp = norm*(0.5 - 0.5 * tanh(10.0*(r1-1.0)));
@@ -127,6 +126,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 newGE = EjectaThermalEnergyDensity;
               }
               else if (EjectaDensity < 0.0) {
+                  FBnumcells += 1;
                 /* Black Hole accretion Thermal feedback */
                 float cell_density, k_b, dT_max, mu;
                 float dGE, GE_max, dEjectaThermalEnergy, dEnergyPerCell, EnergyDeposited;
@@ -134,7 +134,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 dT_max = 1e8; // K
                 mu = 0.58; // SG. Fully ionised gas. Values between this and 1. Mean molecular weight, dimensionless.
 
-                /* can be 0 at start */
+                /* can be < 0 at start - TODO*/
                 if (SS->EnergySaved < 0.0){
                     SS->EnergySaved = 0.0;
                 }
@@ -150,7 +150,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 fprintf(stderr, "%s: dEjectaThermalEnergy = %e ergs (%e code) \t cell mass = %e g (%e code)\n",
                         __FUNCTION__ , dEjectaThermalEnergy*VelocityUnits*VelocityUnits*MassUnits,
                         dEjectaThermalEnergy, cellmass*MassUnits, cellmass);
-                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t oldGE = %e code units,\t SS->EnergySaved = %e code units \n",
+                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t oldGE = %"GSYM" code units,\t SS->EnergySaved = %e code units \n",
                           __FUNCTION__, dGE, GE_max, oldGE, SS->EnergySaved);
 
                 /* energy budgeting */
@@ -163,18 +163,19 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 newGE = oldGE + dGE; // ergs/g
                 SS->EnergySaved -= EnergyDeposited;
 
-                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t newGE = %e code units \n",
+                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t newGE = %"GSYM" code units \n",
                         __FUNCTION__, dGE, GE_max, newGE);
                 fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t GE_max = %"GSYM" ergs/g, \t newGE = %e ergs/g \n",
                         __FUNCTION__, dGE*VelocityUnits*VelocityUnits, GE_max*VelocityUnits*VelocityUnits,
                         newGE*VelocityUnits*VelocityUnits);
-                fprintf(stderr,"%s: SS->EnergySaved = %e code units \t EnergyDeposited = %e \n",
-                        __FUNCTION__, SS->EnergySaved, EnergyDeposited);
+                fprintf(stderr,"%s: SS->EnergySaved = %e code units (%e ergs) \t EnergyDeposited = %e (%e ergs)\n",
+                        __FUNCTION__, SS->EnergySaved, SS->EnergySaved*VelocityUnits*VelocityUnits*MassUnits,
+                        EnergyDeposited, EnergyDeposited*VelocityUnits*VelocityUnits*MassUnits);
 
               } // END EjectaDensity < 0.0 (BH thermal feedback scheme)
 
               //newGE = min(newGE, maxGE); // SG. Disabling this for BH thermal feedback.
-              fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %e code units \n", __FUNCTION__,
+              fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %"GSYM" code units \n", __FUNCTION__,
                      oldGE, newGE, maxGE);
 
               this->BaryonField[TENum][index] = newGE;
@@ -183,7 +184,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                   this->BaryonField[TENum][index] += 0.5 * this->BaryonField[Vel1Num+dim][index] *
                           this->BaryonField[Vel1Num+dim][index];
 
-              fprintf(stderr, "%s: In DualEnergy formalism Increase in GE energy is %e percent.\n", __FUNCTION__,
+              fprintf(stderr, "%s: In DualEnergy formalism Increase in GE energy is %"GSYM" percent.\n", __FUNCTION__,
                         (newGE - oldGE)*100.0/oldGE);
             } else {
                 float newGE = 0.0;
@@ -241,5 +242,6 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
           } // END i-direction
         } // END j-direction
      } // END k-direction
+     fprintf(stderr, "%s: Final FBnumcells count = %"ISYM" \n", __FUNCTION__, FBnumcells);
   return SUCCESS;
 }
