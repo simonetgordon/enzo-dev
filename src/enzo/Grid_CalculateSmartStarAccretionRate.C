@@ -77,9 +77,9 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0,  AccretedMomentum[3],
     vgas[3], etot, eint, ke,  maccreted, etotnew, rhonew, eintnew,
     kenew, mnew = 0;
+
   /* Find the Bondi-Hoyle radius */
   int size = this->GetGridSize();
-  fprintf(stderr, "%s: this size = %"ISYM" \n", __FUNCTION__, size);
   float *Temperature = new float[size]();
   this->ComputeTemperatureField(Temperature);
   /* Get indices in BaryonField for density, internal energy, thermal energy,
@@ -90,10 +90,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   {
     ENZO_FAIL("Error in IdentifyPhysicalQuantities.");
   }
-
  
   /* Set the units. */
- 
   float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1,
     TimeUnits = 1, VelocityUnits = 1,
     PressureUnits = 0, GEUnits = 0, VelUnits = 0;
@@ -127,7 +125,6 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     LengthUnits*TimeUnits;
   // SG. Temperature is computed on line 83
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
-  fprintf(stderr, "%s:  AccretionRadius = %e pc\n", __FUNCTION__,  AccretionRadius*LengthUnits/pc_cm);
   
   /* Impose a kernel radius that regulates the weighting cells get as a function of radius */
   if (BondiHoyleRadius < CellWidth[0][0]/4.0) {  /* For BHs whose Bondi radius is not resolved */
@@ -660,12 +657,13 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
 
   float cInfinity = sqrt(Gamma * kboltz * CellTemperature / (Mu * mh)) /
     LengthUnits*TimeUnits;
-    // SG. GravConst = 6.67e-8 cgs units cm^3 kg^-1 s^-2
+
+  // SG. GravConst = 6.67e-8 cgs units cm^3 kg^-1 s^-2
   float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
   fprintf(stderr,"%s: vInfinity = %f km/s\n", __FUNCTION__,  (vInfinity*VelocityUnits)/1e5);
   fprintf(stderr,"%s: cInfinity = %f km/s\n", __FUNCTION__,  (cInfinity*VelocityUnits)/1e5);
-  fprintf(stderr,"%s: CellTemperature = %f K\n", __FUNCTION__, CellTemperature);
-  fprintf(stderr,"%s: Celllength = %e pc\n", __FUNCTION__, CellWidth[0][0]*LengthUnits/pc_cm);
+  fprintf(stderr,"%s: CellTemperature = %"GSYM" K\n", __FUNCTION__, CellTemperature);
+  fprintf(stderr,"%s: CellWidth = %e pc\n", __FUNCTION__, CellWidth[0][0]*LengthUnits/pc_cm);
   FLOAT ret = FLOAT(2*Gcode*mparticle/(1 + POW(cInfinity,2)));
   return ret;
 } // SG. End of function.

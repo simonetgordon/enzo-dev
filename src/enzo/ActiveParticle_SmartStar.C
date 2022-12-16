@@ -1189,20 +1189,15 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
             float *Temperature = new float[size]();
             FeedbackZone->ComputeTemperatureField(Temperature);
 
-            // SG print
-            fprintf(stderr, "%s: mparticle = %e Msun.\n", __FUNCTION__, mparticle*MassUnits/SolarMass);
-
             FLOAT BondiHoyleRadius = FeedbackZone->CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
 
-            fprintf(stderr, "%s: BondiHoyleRadius = %e pc.\n", __FUNCTION__,
-                    BondiHoyleRadius*LengthUnits/pc_cm);
-            fprintf(stderr, "%s: AccretionRadius = %e pc.\n", __FUNCTION__,
-                    SS->AccretionRadius*LengthUnits/pc_cm);
+            fprintf(stderr, "%s: AccretionRadius = %e pc.\n", __FUNCTION__, SS->AccretionRadius*LengthUnits/pc_cm);
+
             /*
-            SG Comment: the accretion radius will be reassigned to the Bondi radius when the accretion radius
+            SG: the accretion radius will be reassigned to the Bondi radius when the accretion radius
             falls outside of the tolerance.
             */
-            FLOAT tol = 0.000001*BondiHoyleRadius;
+            FLOAT tol = 0.000000000001*BondiHoyleRadius;
             if(BondiHoyleRadius + tol < SS->AccretionRadius || SS->AccretionRadius < BondiHoyleRadius - tol) {
                 SS->AccretionRadius = BondiHoyleRadius;
                 fprintf(stderr, "%s: Updating accretion radius to Bondi radius = %e pc (%f cells)\n",
@@ -1217,9 +1212,9 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
             delete [] Temperature;
             Temperature = NULL;
 #endif
-	/* No need to communicate the accretion rate to the other CPUs since this particle is already local.
-	 * Need to decide how often I update the accretion history
-	 * */
+        /* No need to communicate the accretion rate to the other CPUs since this particle is already local.
+         * Need to decide how often I update the accretion history
+         * */
         } // SG. End processor.
 
         // SG. Communicate with all processors the updated accretion radius.
