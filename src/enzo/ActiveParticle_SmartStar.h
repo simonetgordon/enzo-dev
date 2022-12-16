@@ -371,21 +371,16 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
     int ThisLevel, int TotalStarParticleCountPrevious[],
     int SmartStarID)
 {
-// SG. Working with all grids on ThisLevel. Maybe try to grab level the SS is on?
-
-
-      /* SmartStar particles live on the maximum refinement level.  If we are on a lower level, this does not concern us */
-      int i,j,k,index;
-
       /* Generate a list of all sink particles in the simulation box */
-      int nParticles = 0, NumberOfMergedParticles = 0;
+      int i, nParticles = 0, NumberOfMergedParticles = 0;
       ActiveParticleList<ActiveParticleType> ParticleList;
       FLOAT accradius = -10.0; //dummy
       // SG. Units for dx to pc conversion.
       float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits, VelocityUnits;
       FLOAT Time = LevelArray[ThisLevel]->GridData->ReturnTime();
       double MassUnits;
-      GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits, &VelocityUnits, Time);
+      GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits,
+               &VelocityUnits, Time);
 
       ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID,
         ParticleList);
@@ -395,6 +390,18 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
         return SUCCESS;
       }
 
+    /* SmartStar particles live on the maximum refinement level. If we are on a lower level, this does not concern us */
+      FLOAT dx = LevelArray[ThisLevel]->GridData->GetCellWidth(0,0);
+      grid* APGrid;
+      for (i = 0; i<nParticles; i++) {
+          APGrid = ParticleList[i]->ReturnCurrentGrid();
+          if (APGrid->GetCellWidth(0,0) != dx){
+              return SUCCESS;
+          }
+      }
+
+      /* SmartStar particles live on the maximum refinement level. If we are on a lower level, this does not concern us */
+      // SG. This allows pass only grids which do not have a subgrid?
       LevelHierarchyEntry *Temp = NULL;
       HierarchyEntry *Temp2 = NULL;
       Temp = LevelArray[ThisLevel];
@@ -414,12 +421,10 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
 
       /* Calculate CellWidth on maximum refinement level */
       // SG. Replaced MaximumRefinementLevel with ThisLevel.
-      FLOAT dx = LevelArray[ThisLevel]->GridData->GetCellWidth(0,0);
       fprintf(stderr,"%s: CellWidth dx = %e and ThisLevel = %"ISYM".\n", __FUNCTION__, dx*LengthUnits/pc_cm, ThisLevel);
 
       /* Remove mass from grid from newly formed particles */
-      RemoveMassFromGridAfterFormation(nParticles, ParticleList, 
-				       LevelArray, ThisLevel);
+      RemoveMassFromGridAfterFormation(nParticles, ParticleList, LevelArray, ThisLevel);
  
       /* Clean any particles marked for deletion */
       for (i = 0; i<nParticles; i++) {
