@@ -1262,7 +1262,7 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
     GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
              &TimeUnits, &VelocityUnits, Time);
     int i, nParticles, pclass;
-    double accrad, dx, dx_bondi, dx_pc, dx_bondi_px;
+    double accrad, dx, dx_bondi, dx_pc, dx_bondi_pc;
     FLOAT *pos = NULL;
     ActiveParticleList<ActiveParticleType> SmartStarList;
     LevelHierarchyEntry *Temp = NULL;
@@ -1306,9 +1306,9 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
             /* SG. Only print out accretion radius if we're on the SS processor */
             APGrid = SS->ReturnCurrentGrid();
             if (MyProcessorNumber == APGrid->ReturnProcessorNumber()){
-                fprintf(stderr, "%s: SS->AccretionRadius = %e pc (Bondi radius), \t SmartStarBondiRadiusRefinementFactor "
+                fprintf(stderr, "%s: SS->AccretionRadius = %e pc (Bondi radius), \t SmartStarBondiRadiusRefinementFactor " \
                                 " = %e, \t and cell_width = %e pc (%e times the Bondi radius).\n",
-                        __FUNCTION__, accrad*LengthUnits/pc_cm, SmartStarBondiRadiusRefinementFactor, dx_pc
+                        __FUNCTION__, accrad*LengthUnits/pc_cm, SmartStarBondiRadiusRefinementFactor, dx_pc,
                         dx/accrad);
             }
 
@@ -1351,7 +1351,8 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
     MassUnits = DensityUnits * POW(LengthUnits,3);
     int NumberOfGrids;
     HierarchyEntry **Grids = NULL;
-    grid* APGrid, FeedbackZone;
+    grid* APGrid;
+    grid* FeedbackZone;
     NumberOfGrids = GenerateGridArray(LevelArray, ThisLevel, &Grids);
     FLOAT dx_sg = LevelArray[ThisLevel]->GridData->CellWidth[0][0]; // SG. Grid cell width.
 
