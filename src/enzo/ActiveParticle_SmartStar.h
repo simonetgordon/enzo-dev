@@ -390,16 +390,6 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
         return SUCCESS;
       }
 
-    /* SmartStar particles live on the maximum refinement level. If we are on a lower level, this does not concern us */
-      FLOAT dx = LevelArray[ThisLevel]->GridData->GetCellWidth(0,0);
-      grid* APGrid;
-      for (i = 0; i<nParticles; i++) {
-          APGrid = ParticleList[i]->ReturnCurrentGrid();
-          if (APGrid->GetCellWidth(0,0) != dx){
-              return SUCCESS;
-          }
-      }
-
       /* SmartStar particles live on the maximum refinement level. If we are on a lower level, this does not concern us */
       // SG. This allows pass only grids which do not have a subgrid?
       LevelHierarchyEntry *Temp = NULL;
@@ -415,7 +405,17 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
             Temp2 = Temp2->NextGridThisLevel;
         }
         Temp = Temp->NextGridThisLevel; // how we loop over all grids on the level.
-        } // END: Grids
+      } // END: Grids
+
+      /* SmartStar particles live on the maximum refinement level. If we are on a lower level, this does not concern us */
+      FLOAT dx = LevelArray[ThisLevel]->GridData->GetCellWidth(0,0);
+      grid* APGrid;
+      for (i = 0; i<nParticles; i++) {
+          APGrid = ParticleList[i]->ReturnCurrentGrid();
+          if (APGrid->GetCellWidth(0,0) != dx){
+              return SUCCESS;
+          }
+      }
 
       ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID, ParticleList);
 
