@@ -1114,7 +1114,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         //SG.
         if (ThisLevel != MyLevel){
             continue;
-            }
+        }
 
         if(pclass == POPIII){
             /*
@@ -1233,12 +1233,13 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         SS->pos[1] = positions[1];
         SS->pos[2] = positions[2];
 
+        /* Copy data from the 'fake' feedback zone grid back to the real grids */
         DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
         delete FeedbackZone;
     } // END particles
 
     if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
-    return FAIL;
+        return FAIL;
 
     delete [] Grids;
     return SUCCESS;
@@ -1254,28 +1255,30 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
      * Only if dx > dx_bondi is DepositRefinementZone triggered.
      * */
 
-    /* Generate a list of all sink particles in the simulation box */
-    int i, nParticles;
-    FLOAT *pos = NULL;
-    ActiveParticleList<ActiveParticleType> SmartStarList;
-    LevelHierarchyEntry *Temp = NULL;
-    double dx = LevelArray[level]->GridData->CellWidth[0][0]; // SG. Grid cell width.
-
-    // SG. Get units for conversion to pc for dx in print statement.
+    /* Get units for conversion to pc for dx in print statement and initialise objects.*/
     FLOAT Time = LevelArray[level]->GridData->ReturnTime();
     float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits, VelocityUnits;
     double MassUnits;
     GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
              &TimeUnits, &VelocityUnits, Time);
+    int i, nParticles, pclass;
+    double accrad, dx, dx_bondi, dx_pc, dx_bondi_px;
+    FLOAT *pos = NULL;
+    ActiveParticleList<ActiveParticleType> SmartStarList;
+    LevelHierarchyEntry *Temp = NULL;
+    ActiveParticleType_SmartStar* SS;
+    grid* APGrid;
 
-    // Find all smartstar particles
+    /* obtain cell width on this level */
+    dx = LevelArray[level]->GridData->CellWidth[0][0];
+
+    /* Generate a list of all sink particles in the simulation box */
     ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID,
                           SmartStarList);
 
     for (i=0 ; i<nParticles; i++){
-        ActiveParticleType_SmartStar* SS;
         SS = static_cast<ActiveParticleType_SmartStar*>(SmartStarList[i]);
-        int pclass = SS->ParticleClass;
+        pclass = SS->ParticleClass;
 
         /* POPIII case*/
         if (pclass == POPIII){
@@ -1287,38 +1290,38 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
 		  }
         /* BH case*/
         else{
-			/* Define position and accrad of BH */
-			pos = SmartStarList[i]->ReturnPosition();
-			double accrad = static_cast<ActiveParticleType_SmartStar*>(SmartStarList[i])->AccretionRadius;
+            /* Define position and accrad of BH */
+            pos = SmartStarList[i]->ReturnPosition();
+            accrad = SS->AccretionRadius;
 
-			/* SG. Only print out accretion radius if we're on the SS grid */
-			grid* APGrid = SS->ReturnCurrentGrid();
-			if (MyProcessorNumber == APGrid->ReturnProcessorNumber()){
-			fprintf(stderr, "%s: Accretion radius = %e (Bondi radius) and bondi factor = %e and cell_width = %e.\n",
-                    __FUNCTION__, accrad, SmartStarBondiRadiusRefinementFactor, dx);
-            }
-
-			/* SG. Check for when accrad = 0 in the first 100 kyr of BH's life. */
-			if (accrad < 1e-30){
+            /* SG. Check for when accrad = 0 in the first years of BH's life. */
+            if (accrad < 1e-30){
                 continue;
             }
+            /* SG. Calculate user-set dx_bondi and dx_bondi in pc*/
+            dx_bondi = (double) accrad/SmartStarBondiRadiusRefinementFactor;
+            dx_pc = dx*LengthUnits/pc_cm;
+            dx_bondi_pc = dx_bondi*LengthUnits/pc_cm;
 
-			/* SG. Calculate user-set dx_bondi and dx_bondi in pc*/
-			double dx_bondi = (double) accrad/SmartStarBondiRadiusRefinementFactor;
-			double dx_pc = dx*LengthUnits/pc_cm;   //in pc
-			double dx_bondi_pc = dx_bondi*LengthUnits/pc_cm; //in pc
-	
-			/* if dx_bondi > dx, don't deposit refinement zone */
-			if (dx_bondi > dx){
-				//fprintf(stderr,"%s: dx_bondi = %"GSYM" pc (%"GSYM" in code units) is greater than cell width = %e pc.
+            /* SG. Only print out accretion radius if we're on the SS processor */
+            APGrid = SS->ReturnCurrentGrid();
+            if (MyProcessorNumber == APGrid->ReturnProcessorNumber()){
+                fprintf(stderr, "%s: SS->AccretionRadius = %e pc (Bondi radius), \t SmartStarBondiRadiusRefinementFactor "
+                                " = %e, \t and cell_width = %e pc (%e times the Bondi radius).\n",
+                        __FUNCTION__, accrad*LengthUnits/pc_cm, SmartStarBondiRadiusRefinementFactor, dx_pc
+                        dx/accrad);
+            }
+
+            /* SG. if dx_bondi > dx, don't deposit refinement zone */
+            if (dx_bondi > dx){
+                //fprintf(stderr,"%s: dx_bondi = %"GSYM" pc (%"GSYM" in code units) is greater than cell width = %e pc.
                 // Don't deposit refinement zone.\n",
-				//__FUNCTION__, dx_bondi_pc, dx_bondi, dx_pc);
+                // __FUNCTION__, dx_bondi_pc, dx_bondi, dx_pc);
                 continue;
-			}
+            }
 			for (Temp = LevelArray[level]; Temp; Temp = Temp->NextGridThisLevel){
-//                 fprintf(stderr,"%s: BondiRadius/factor = %e pc is less than cell width = %e pc. Deposit refinement zone.\n",
-//                 	__FUNCTION__, dx_bondi_pc, dx_pc);
-                // SG Deposit refinement zone with dx_bondi
+                // fprintf(stderr,"%s: BondiRadius/factor = %e pc is less than cell width = %e pc. Deposit
+                // refinement zone.\n", __FUNCTION__, dx_bondi_pc, dx_pc);
                 if (Temp->GridData->DepositRefinementZone(level,pos,dx*5) == FAIL) {
                     ENZO_FAIL("Error in grid->DepositRefinementZone.\n")
                 } // end IF
@@ -1348,12 +1351,18 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
     MassUnits = DensityUnits * POW(LengthUnits,3);
     int NumberOfGrids;
     HierarchyEntry **Grids = NULL;
+    grid* APGrid, FeedbackZone;
     NumberOfGrids = GenerateGridArray(LevelArray, ThisLevel, &Grids);
     FLOAT dx_sg = LevelArray[ThisLevel]->GridData->CellWidth[0][0]; // SG. Grid cell width.
 
     for (int i = 0; i < nParticles; i++) {
         if (SmartStarFeedback == FALSE){
             continue;
+        }
+
+        APGrid = ParticleList[i]->ReturnCurrentGrid();
+        if (APGrid->GetCellWidth(0,0) != dx){
+            return SUCCESS;
         }
 
         ActiveParticleType_SmartStar* SS;
@@ -1364,10 +1373,9 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
 
         // SG. BH class.
         if(pclass == BH){
-            fprintf(stderr, "%s: AccretionRadius = %e, FLOAT(AccretionRadius/dx_sg) = %e \n", __FUNCTION__ ,
-                    AccretionRadius, FLOAT(AccretionRadius/dx_sg));
-            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg,
-                                                       Grids, NumberOfGrids, ALL_FIELDS);
+
+            FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
+
             if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
                 if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
                     return FAIL;
@@ -1383,22 +1391,23 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
                        static_cast<ActiveParticleType_SmartStar*>(ParticleList[i])->ReturnID());
                 fflush(stdout);
             }
+
 	        ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID,
                                   ParticleList);
+
+            /* Copy data from the 'fake' feedback zone grid back to the real grids */
 	        DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
 	        delete FeedbackZone;
         } // SG. End BH class condition.
 	    else if (pclass == POPIII){ // SG. Add POPIII class condition
-            grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg,
-                                                       Grids, NumberOfGrids, ALL_FIELDS);
+            FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
+            /* SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
+             * CommunicateAllSumValues(). */
+            FLOAT positions[3] = {0,0,0};
+            FLOAT NewAccretionRadius = 0;
+            FLOAT* pos;
 
-		    // SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
-            // CommunicateAllSumValues().
-		    FLOAT positions[3] = {0,0,0}; // SG. All elements initialised to zero.
-		    FLOAT NewAccretionRadius = 0;
-		    FLOAT* pos;
-
-		    if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
+            if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
                 if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
                     return FAIL;
 
@@ -1419,6 +1428,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
             SS->pos[1] = positions[1];
             SS->pos[2] = positions[2];
 
+            /* Copy data from the 'fake' feedback zone grid back to the real grids */
             DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
             delete FeedbackZone;
 
@@ -1498,9 +1508,9 @@ static void UpdateAccretionRadius(ActiveParticleType*  ThisParticle, float newma
     float Temperature = avgtemp;
     FLOAT soundspeed2 = kboltz*Temperature*Gamma/(Mu*mh);
     // SG. NewAccretionRadius = Bondi Radius. Is OldAccretionRadius = 4 cell widths?
-    FLOAT NewAccretionRadius = (2 * GravConst * newmass * MassConversion / soundspeed2) / length_units; //in code_length
-    fprintf(stderr,"%s: NewAccretionRadius = %e and OldAccretionRadius = %e.\n", __FUNCTION__,
-            NewAccretionRadius, OldAccretionRadius); // SG. Debug comment.
+    FLOAT NewAccretionRadius = (2 * GravConst * newmass * MassConversion / soundspeed2) / length_units; //in code units
+//    fprintf(stderr,"%s: NewAccretionRadius = %e and OldAccretionRadius = %e.\n", __FUNCTION__,
+//            NewAccretionRadius, OldAccretionRadius);
     SS->AccretionRadius = NewAccretionRadius;
     return;
 }
@@ -1535,11 +1545,11 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
 
         /* If not on APGrid level or mass is 0, continue */
         if (ThisLevel != MyLevel){
-        return SUCCESS;
+            continue;
         }
 
         if (SS->Mass == 0){
-            fprintf(stderr,"%s: SS Mass is zero. TimeIndex not incremented. Continue.\n", __FUNCTION__);
+            // fprintf(stderr,"%s: SS Mass is zero. TimeIndex not incremented. Continue.\n", __FUNCTION__);
             continue;
         }
 
