@@ -407,20 +407,11 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
         Temp = Temp->NextGridThisLevel; // how we loop over all grids on the level.
       } // END: Grids
 
-      /* SmartStar particles live on the maximum refinement level. If we are on a lower level, this does not concern us */
-      FLOAT dx = LevelArray[ThisLevel]->GridData->GetCellWidth(0,0);
-      grid* APGrid;
-      for (i = 0; i<nParticles; i++) {
-          APGrid = ParticleList[i]->ReturnCurrentGrid();
-          if (APGrid->GetCellWidth(0,0) != dx){
-              return SUCCESS;
-          }
-      }
-
       ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID, ParticleList);
 
       /* Calculate CellWidth on maximum refinement level */
-      // SG. Replaced MaximumRefinementLevel with ThisLevel.
+      // SG. Replaced MaximumRefinementLevel with ThisLevel. Can't do dx check here as PopIIIFormationFromSphere starts
+      // at ThisLevel.
       fprintf(stderr,"%s: CellWidth dx = %e and ThisLevel = %"ISYM".\n", __FUNCTION__, dx*LengthUnits/pc_cm, ThisLevel);
 
       /* Remove mass from grid from newly formed particles */
