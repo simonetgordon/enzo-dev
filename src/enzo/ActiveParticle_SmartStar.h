@@ -412,7 +412,8 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
       /* Calculate CellWidth on maximum refinement level */
       // SG. Replaced MaximumRefinementLevel with ThisLevel. Can't do dx check here as PopIIIFormationFromSphere starts
       // at ThisLevel.
-      fprintf(stderr,"%s: CellWidth dx = %e and ThisLevel = %"ISYM".\n", __FUNCTION__, dx*LengthUnits/pc_cm, ThisLevel);
+      FLOAT dx = LevelArray[ThisLevel]->GridData->GetCellWidth(0,0);
+      // fprintf(stderr,"%s: CellWidth dx = %e and ThisLevel = %"ISYM".\n", __FUNCTION__, dx*LengthUnits/pc_cm, ThisLevel);
 
       /* Remove mass from grid from newly formed particles */
       RemoveMassFromGridAfterFormation(nParticles, ParticleList, LevelArray, ThisLevel);
