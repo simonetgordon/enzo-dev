@@ -394,8 +394,13 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       }
       FLOAT Time = this->ReturnTime();
       float Age = Time - SS->BirthTime;
-      fprintf(stderr, "%s: bh age = %e (code)\n", __FUNCTION__, Age);
+      // fprintf(stderr, "%s: bh age = %e (code)\n", __FUNCTION__, Age);
       if (Age == 0.0) {
+          return SUCCESS;
+      }
+
+      /* SG. Check for when accrad = 0 in the first years of BH's life. */
+      if (SS->AccretionRadius < 1e-30){
           return SUCCESS;
       }
       /*
@@ -413,7 +418,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       float EjectaThermalEnergyDensity, EjectaThermalEnergyDensity_CGS;
 
       /* thermal feedback sphere radius in terms of current cell width */
-      FLOAT BHThermalFeedbackRadius = 5*dx;
+      FLOAT BHThermalFeedbackRadius = 6*dx;
       fprintf(stderr, "%s: BHThermalFeedbackRadius in cell widths = %e (%e pc). "
                       "AccretionRadius is %e pc. \n", __FUNCTION__,
                       BHThermalFeedbackRadius/dx, BHThermalFeedbackRadius*LengthUnits/pc_cm,
@@ -435,14 +440,13 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 
       if (SmartStarBHThermalFeedback == TRUE) {
           /* find epsilon = radiative efficiency of accretion */
-          fprintf(stderr, "%s: eta_disk = %e\n", __FUNCTION__, SS->eta_disk);
-          float epsilon = SS->eta_disk/(1 - SS->eta_disk);
+          float epsilon = SS->eta_disk/(1 - SS->eta_disk); // 0.1
 
           /* find mdot */
           mdot = SS->AccretionRate[SS->TimeIndex];  // CodeMass/CodeTime
           accrate = mdot*MassUnits/(SolarMass*TimeUnits)*3.154e7; // Msolar/yr
           mdot_cgs = mdot*MassUnits/TimeUnits; // g/s
-          fprintf(stderr, "%s: AccretionRate = %e Msolar/yr %e (code) TimeIndex = %d\n", __FUNCTION__,
+          fprintf(stderr, "%s: AccretionRate = %e Msolar/yr %e (code) \t TimeIndex = %d\n", __FUNCTION__,
                    accrate, mdot, SS->TimeIndex);
 
           /* find ejecta volume */

@@ -147,7 +147,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 dGE = dEnergyPerCell/cellmass; // EnergyUnits/MassUnits
                 GE_max = (dT_max) / (TemperatureUnits * (Gamma - 1) * mu); // EnergyUnits/MassUnits
 
-                fprintf(stderr, "====================================================================================");
+                fprintf(stderr, "====================================================================================\n");
                 fprintf(stderr, "%s: dEjectaThermalEnergy = %e ergs (%e code) \t cell mass = %e g (%e code)\n",
                         __FUNCTION__ , dEjectaThermalEnergy*VelocityUnits*VelocityUnits*MassUnits,
                         dEjectaThermalEnergy, cellmass*MassUnits, cellmass);
