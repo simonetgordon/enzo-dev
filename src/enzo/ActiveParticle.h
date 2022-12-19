@@ -86,7 +86,7 @@ public:
     if (oldmass < 0.0){
       oldmass *= -1;
     }
-    fprintf(stderr, "%s: oldmass = %e.\n", __FUNCTION__, oldmass); 
+    // fprintf(stderr, "%s: oldmass = %e.\n", __FUNCTION__, oldmass);
     }; // SG. Correct for negative values.
   void  AdjustVelocity(float VelocityIncrement[]);
   void  SetVelocity(float NewVelocity[]);
