@@ -446,8 +446,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           mdot = SS->AccretionRate[SS->TimeIndex];  // CodeMass/CodeTime
           accrate = mdot*MassUnits/(SolarMass*TimeUnits)*3.154e7; // Msolar/yr
           mdot_cgs = mdot*MassUnits/TimeUnits; // g/s
-          fprintf(stderr, "%s: AccretionRate = %e Msolar/yr %e (code) \t TimeIndex = %d\n", __FUNCTION__,
-                   accrate, mdot, SS->TimeIndex);
+//          fprintf(stderr, "%s: AccretionRate = %e Msolar/yr %e (code) \t TimeIndex = %d\n", __FUNCTION__,
+//                   accrate, mdot, SS->TimeIndex);
 
           /* find ejecta volume */
           EjectaVolumeCGS = 4.0/3.0 * PI * pow(BHThermalFeedbackRadius*LengthUnits, 3);
@@ -457,7 +457,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           BHMass =  SS->ReturnMass()*MassConversion/SolarMass; //In solar masses
           eddrate = 4*M_PI*GravConst*BHMass*mh/(SS->eta_disk*clight*sigma_thompson); // Msolar/s
           eddrate = eddrate*3.154e7; //in Msolar/yr
-          fprintf(stderr, "%s: Eddrate = %e Msolar/yr AccRate = %e Msolar/yr\n", __FUNCTION__, eddrate, accrate);
+          fprintf(stderr, "%s: Eddrate = %e Msolar/yr\t AccretionRate = %e Msolar/yr\t TimeIndex = %"ISYM" \n",
+                  __FUNCTION__, eddrate, accrate, SS->TimeIndex);
           if(SmartStarSuperEddingtonAdjustment == TRUE) {
               if(accrate > eddrate) {
                   fprintf(stderr, "%s: We are accreting at super-Eddington rates. Modifying radiative efficiency\n",

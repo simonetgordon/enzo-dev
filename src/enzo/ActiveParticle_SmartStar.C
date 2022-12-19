@@ -1185,13 +1185,10 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
             float mparticle = ParticleList[i]->ReturnMass()*dx*dx*dx;
             float *vparticle = ParticleList[i]->ReturnVelocity();
             int size = FeedbackZone->GetGridSize();
-            fprintf(stderr, "%s: FeedbackZone size = %"ISYM" \n", __FUNCTION__, size);
             float *Temperature = new float[size]();
             FeedbackZone->ComputeTemperatureField(Temperature);
 
             FLOAT BondiHoyleRadius = FeedbackZone->CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
-
-            fprintf(stderr, "%s: AccretionRadius = %e pc.\n", __FUNCTION__, SS->AccretionRadius*LengthUnits/pc_cm);
 
             /*
             SG: the accretion radius will be reassigned to the Bondi radius when the accretion radius

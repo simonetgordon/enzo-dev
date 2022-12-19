@@ -189,11 +189,11 @@ int grid::RemoveMassFromSphere(ActiveParticleType* SS,
   }  // END k-direction
 
 
-  fprintf(stderr, "%s: Mass removed from radius = %e pc, cells modified = %"ISYM", fractional decrease = %e.\n", 
-          __FUNCTION__,
-          radius * LengthUnits / pc_cm,
-          CellsModified,
-          decrease);
+//  fprintf(stderr, "%s: Mass removed from radius = %e pc, cells modified = %"ISYM", fractional decrease = %e.\n",
+//          __FUNCTION__,
+//          radius * LengthUnits / pc_cm,
+//          CellsModified,
+//          decrease);
   
   return SUCCESS;
 
