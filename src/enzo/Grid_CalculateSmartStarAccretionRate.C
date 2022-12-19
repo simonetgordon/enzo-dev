@@ -660,10 +660,9 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
 
   // SG. GravConst = 6.67e-8 cgs units cm^3 kg^-1 s^-2
   float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
-  fprintf(stderr,"%s: vInfinity = %f km/s\n", __FUNCTION__,  (vInfinity*VelocityUnits)/1e5);
-  fprintf(stderr,"%s: cInfinity = %f km/s\n", __FUNCTION__,  (cInfinity*VelocityUnits)/1e5);
-  fprintf(stderr,"%s: CellTemperature = %"GSYM" K\n", __FUNCTION__, CellTemperature);
-  fprintf(stderr,"%s: CellWidth = %e pc\n", __FUNCTION__, CellWidth[0][0]*LengthUnits/pc_cm);
+  fprintf(stderr,"%s: vInfinity = %f km/s,\t cInfinity = %f km/s,\t CellTemperature = %"GSYM" K,\t CellWidth = %e pc\n",
+          __FUNCTION__, (vInfinity*VelocityUnits)/1e5, (cInfinity*VelocityUnits)/1e5, CellTemperature,
+          CellWidth[0][0]*LengthUnits/pc_cm);
   FLOAT ret = FLOAT(2*Gcode*mparticle/(1 + POW(cInfinity,2)));
   return ret;
 } // SG. End of function.
