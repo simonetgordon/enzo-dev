@@ -406,7 +406,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       /* SG. Check if accrad < dx */
       double dx_bondi = (double) SS->AccretionRadius/SmartStarBondiRadiusRefinementFactor;
       if (dx_bondi < dx){
-          fprintf(stderr, "%s: refinement zone needs to be deposited before feedback can be done.\n". __FUNCTION__);
+          fprintf(stderr, "%s: refinement zone needs to be deposited before feedback can be done.\n", __FUNCTION__);
           return SUCCESS;
       }
       /*
