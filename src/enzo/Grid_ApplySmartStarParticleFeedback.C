@@ -399,13 +399,9 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           return SUCCESS;
       }
 
-      /* SG. Check for when accrad = 0 in the first years of BH's life. */
-      if (SS->AccretionRadius < 1e-30){
-          return SUCCESS;
-      }
       /* SG. Check if accrad < dx */
       double dx_bondi = (double) SS->AccretionRadius/SmartStarBondiRadiusRefinementFactor;
-      if (dx_bondi < dx){
+      if ((dx_bondi + 0.1*dx_bondi) < dx){
           fprintf(stderr, "%s: refinement zone needs to be deposited before feedback can be done.\n", __FUNCTION__);
           return SUCCESS;
       }
@@ -425,7 +421,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 
       /* thermal feedback sphere radius in terms of current cell width */
       FLOAT BHThermalFeedbackRadius = 5*dx;
-      fprintf(stderr, "%s: BHThermalFeedbackRadius in cell widths = %e (%e pc). "
+      fprintf(stderr, "%s: BHThermalFeedbackRadius in cell widths = %"GSYM" (%e pc). "
                       "AccretionRadius is %e pc. \n", __FUNCTION__,
                       BHThermalFeedbackRadius/dx, BHThermalFeedbackRadius*LengthUnits/pc_cm,
                       SS->AccretionRadius*LengthUnits/pc_cm);
@@ -441,8 +437,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           cells[dim] = (this->GetGridRightEdge(dim) - this->GetGridLeftEdge(dim)) / this->GetCellWidth(dim, 0);
       }
 
-      fprintf(stderr, "%s: NumberOfCells = %"ISYM", NumberOfCells + buffer cells = %"ISYM"\n", __FUNCTION__, NumberOfCells,
-              NumberOfCells2);
+//      fprintf(stderr, "%s: NumberOfCells = %"ISYM", NumberOfCells + buffer cells = %"ISYM"\n", __FUNCTION__, NumberOfCells,
+//              NumberOfCells2);
 
       if (SmartStarBHThermalFeedback == TRUE) {
           /* find epsilon = radiative efficiency of accretion */
@@ -505,7 +501,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           /* EjectaThermalEnergy per cell in code energy units*/
           /* This is the total energy created by the accretion process and dumped into an area surrounding the
            * black hole. This is NOT the specific energy. This is simply the energy deposited homogeneously
-           * into each surrounding cell. I then (in Grid_ApplySpehericalFeedbackToGrid) deposit this energy into
+           * into each surrounding cell. I then (in Grid_ApplySphericalFeedbackToGrid) deposit this energy into
            * each cell and divide by the mass. This gives the specific energy at that point.
            */
           float EjectaThermalEnergyPerCell = SmartStarDiskEnergyCoupling * epsilon * dt * mdot*clight*clight
