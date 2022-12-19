@@ -403,6 +403,12 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       if (SS->AccretionRadius < 1e-30){
           return SUCCESS;
       }
+      /* SG. Check if accrad < dx */
+      double dx_bondi = (double) SS->AccretionRadius/SmartStarBondiRadiusRefinementFactor;
+      if (dx_bondi < dx){
+          fprintf(stderr, "%s: refinement zone needs to be deposited before feedback can be done.\n". __FUNCTION__);
+          return SUCCESS;
+      }
       /*
        * BHs inject a fixed fraction of the rest mass energy of the gas they accrete into the surrounding medium.
        * The feedback is implemented thermally, that is: energy is deposited into the surrounding gas by increasing
