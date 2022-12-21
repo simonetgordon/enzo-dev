@@ -134,7 +134,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 dT_max = 1e8; // K
                 mu = 0.58; // SG. Fully ionised gas. Values between this and 1. Mean molecular weight, dimensionless.
 
-                /* can be < 0 at start - TODO*/
+                /* can be < 0 at start */
                 if (SS->EnergySaved < 0.0){
                     SS->EnergySaved = 0.0;
                 }
@@ -157,11 +157,14 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 /* energy budgeting */
                 SS->EnergySaved += dEjectaThermalEnergy; // ergs equivalent in code units
                 dEnergyPerCell = SS->EnergySaved/NumCells;
-                dGE = min(max((GE_max - oldGE), 0), dGE); // temperature hard capping
-                EnergyDeposited = dGE * cellmass;
-                EnergyDeposited = min(EnergyDeposited, SS->EnergySaved);
+                dGE = min(max((GE_max - oldGE), 0), dGE); // temperature hard capping ergs/g
+                EnergyDeposited = min(dGE * cellmass, SS->EnergySaved); // ergs
                 dGE = EnergyDeposited/cellmass;
                 newGE = oldGE + dGE; // ergs/g
+                if (newGE > GE_max){
+                    newGE = GE_max;
+                    SS->EnergySaved += (newGE - GE_max);
+                }
                 SS->EnergySaved -= EnergyDeposited;
 
                 fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t newGE = %"GSYM" code units \n",
