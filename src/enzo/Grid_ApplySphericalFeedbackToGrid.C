@@ -72,7 +72,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
 
   /* outer radius */
   FLOAT outerRadius2 = POW(Radius, 2.0); // SG. Change from 1.2*radius to BHThermalFeedbackRadius.
-  fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, Radius/dx);
+//  fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, Radius/dx);
 
   /* max gas energy from max temperature = 1e8 K */
   float maxGE = MAX_TEMPERATURE / (TemperatureUnits * (Gamma-1.0) * 0.58);
@@ -113,7 +113,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
               EjectaThermalEnergyDensity in EnergyUnits/VolumeUnits */
               float oldGE =  this->BaryonField[GENum][index];
               // BIG E = ergs,  ergs/vol = E/vol, e = specific energy = E/m_cell
-              fprintf(stderr,"%s: oldGE = %e\t OldDensity = %e\n", __FUNCTION__, oldGE, OldDensity);
+//              fprintf(stderr,"%s: oldGE = %e\t OldDensity = %e\n", __FUNCTION__, oldGE, OldDensity);
               float newGE = 0.0;
 
               if(EjectaDensity > 0.0) { /* SuperNovae */
@@ -147,12 +147,12 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 dGE = dEnergyPerCell/cellmass; // EnergyUnits/MassUnits
                 GE_max = (dT_max) / (TemperatureUnits * (Gamma - 1) * mu); // EnergyUnits/MassUnits
 
-                fprintf(stderr, "====================================================================================\n");
-                fprintf(stderr, "%s: dEjectaThermalEnergy = %e ergs (%e code) \t cell mass = %e g (%e code)\n",
-                        __FUNCTION__ , dEjectaThermalEnergy*VelocityUnits*VelocityUnits*MassUnits,
-                        dEjectaThermalEnergy, cellmass*MassUnits, cellmass);
-                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t oldGE = %"GSYM" code units,\t SS->EnergySaved = %e code units \n",
-                          __FUNCTION__, dGE, GE_max, oldGE, SS->EnergySaved);
+//                fprintf(stderr, "====================================================================================\n");
+//                fprintf(stderr, "%s: dEjectaThermalEnergy = %e ergs (%e code) \t cell mass = %e g (%e code)\n",
+//                        __FUNCTION__ , dEjectaThermalEnergy*VelocityUnits*VelocityUnits*MassUnits,
+//                        dEjectaThermalEnergy, cellmass*MassUnits, cellmass);
+//                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t oldGE = %"GSYM" code units,\t SS->EnergySaved = %e code units \n",
+//                          __FUNCTION__, dGE, GE_max, oldGE, SS->EnergySaved);
 
                 /* energy budgeting */
                 SS->EnergySaved += dEjectaThermalEnergy; // ergs equivalent in code units
@@ -167,20 +167,20 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                 }
                 SS->EnergySaved -= EnergyDeposited;
 
-                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t newGE = %"GSYM" code units \n",
-                        __FUNCTION__, dGE, GE_max, newGE);
-                fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t GE_max = %"GSYM" ergs/g, \t newGE = %e ergs/g \n",
-                        __FUNCTION__, dGE*VelocityUnits*VelocityUnits, GE_max*VelocityUnits*VelocityUnits,
-                        newGE*VelocityUnits*VelocityUnits);
-                fprintf(stderr,"%s: SS->EnergySaved = %e code units (%e ergs) \t EnergyDeposited = %e (%e ergs)\n",
-                        __FUNCTION__, SS->EnergySaved, SS->EnergySaved*VelocityUnits*VelocityUnits*MassUnits,
-                        EnergyDeposited, EnergyDeposited*VelocityUnits*VelocityUnits*MassUnits);
+//                fprintf(stderr,"%s: dGE = %"GSYM" code units, \t GE_max = %"GSYM" code units, \t newGE = %"GSYM" code units \n",
+//                        __FUNCTION__, dGE, GE_max, newGE);
+//                fprintf(stderr,"%s: dGE = %"GSYM" ergs/g, \t GE_max = %"GSYM" ergs/g, \t newGE = %e ergs/g \n",
+//                        __FUNCTION__, dGE*VelocityUnits*VelocityUnits, GE_max*VelocityUnits*VelocityUnits,
+//                        newGE*VelocityUnits*VelocityUnits);
+//                fprintf(stderr,"%s: SS->EnergySaved = %e code units (%e ergs) \t EnergyDeposited = %e (%e ergs)\n",
+//                        __FUNCTION__, SS->EnergySaved, SS->EnergySaved*VelocityUnits*VelocityUnits*MassUnits,
+//                        EnergyDeposited, EnergyDeposited*VelocityUnits*VelocityUnits*MassUnits);
 
               } // END EjectaDensity < 0.0 (BH thermal feedback scheme)
 
               //newGE = min(newGE, maxGE); // SG. Disabling this for BH thermal feedback.
-              fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %"GSYM" code units \n", __FUNCTION__,
-                     oldGE, newGE, maxGE);
+//              fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %"GSYM" code units \n", __FUNCTION__,
+//                     oldGE, newGE, maxGE);
 
               this->BaryonField[TENum][index] = newGE;
 
@@ -188,8 +188,8 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
                   this->BaryonField[TENum][index] += 0.5 * this->BaryonField[Vel1Num+dim][index] *
                           this->BaryonField[Vel1Num+dim][index];
 
-              fprintf(stderr, "%s: In DualEnergy formalism Increase in GE energy is %"GSYM" percent.\n", __FUNCTION__,
-                        (newGE - oldGE)*100.0/oldGE);
+//              fprintf(stderr, "%s: In DualEnergy formalism Increase in GE energy is %"GSYM" percent.\n", __FUNCTION__,
+//                        (newGE - oldGE)*100.0/oldGE);
             } else {
                 float newGE = 0.0;
                 if(EjectaDensity > 0.0) {
@@ -246,6 +246,6 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
           } // END i-direction
         } // END j-direction
      } // END k-direction
-     fprintf(stderr, "%s: Final FBnumcells count = %"ISYM" \n", __FUNCTION__, FBnumcells);
+//     fprintf(stderr, "%s: Final FBnumcells count = %"ISYM" \n", __FUNCTION__, FBnumcells);
   return SUCCESS;
 }
