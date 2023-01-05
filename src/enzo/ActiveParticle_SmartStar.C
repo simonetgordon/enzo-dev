@@ -1602,6 +1602,12 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
                 SS->AccretionRateTime[timeindex] = ctime;
                 SS->TimeIndex = timeindex;
 
+                /* avoid negative accretion rates when 40msun star -> 10.8msun BH */
+                if ((SS->TimeIndex <= 2) && (SS->AccretionRate[timeindex] < 0)){
+                  fprintf(stderr, "%s: setting accretion rate to 0 following transition to BH \n", __FUNCTION__);
+                  SS->AccretionRate[timeindex] = 0.0;
+                }
+
                 /* Prints */
                 fprintf(stderr, "old_mass = %e Msolar\t cmass = (%e code) %e Msolar\n", omass*MassConversion,
                     cmass, cmass*MassConversion);
