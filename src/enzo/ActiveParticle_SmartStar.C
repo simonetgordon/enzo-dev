@@ -737,7 +737,7 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		#else
 		SS->RadiationLifetime = CalculatePopIIILifetime(SS->Mass); // code time
 		SS->RadiationLifetime*= yr_s/TimeUnits;
-        #endif
+    #endif
 		SS->BirthTime = APGrid->ReturnTime();
 		Age = Time - SS->BirthTime;
 
