@@ -260,7 +260,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           SNEnergy = 1e51 * (SNExplosionEnergy[bin] + frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
           MetalMass = (SNExplosionMetals[bin] + frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
 
-          fprintf(stderr, "%s: SN Kinetic Energy = %1.2f Myr\t MetalMass = %1.2f Myr\n",
+          fprintf(stderr, "%s: SN Kinetic Energy = %"GSYM" \t MetalMass = %"GSYM" \n",
                   __FUNCTION__, SNEnergy, MetalMass);
 
           // Heger-Woosley (2002) relation for BHMass
