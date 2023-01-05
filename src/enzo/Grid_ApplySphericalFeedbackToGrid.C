@@ -119,9 +119,11 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
             if(EjectaDensity > 0.0) { /* SuperNovae */
                newGE = (OldDensity * this->BaryonField[GENum][index] +
                  ramp * factor * EjectaThermalEnergyDensity * EjectaDensity) / BaryonField[DensNum][index];
+               float newGE_no_ramp = (OldDensity * this->BaryonField[GENum][index] +
+                 EjectaThermalEnergyDensity * EjectaDensity) / BaryonField[DensNum][index];
 
-               fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t maxGE = %"GSYM" code units \n", __FUNCTION__,
-                       oldGE, newGE, maxGE);
+               fprintf(stderr,"%s: oldGE = %"GSYM"\t newGE = %"GSYM"\t newGE_no_ramp = %"GSYM"\t maxGE = %"GSYM" code units \n",
+                       __FUNCTION__, oldGE, newGE, newGE_no_ramp, maxGE);
 
                newGE = min(newGE, maxGE);
             }
