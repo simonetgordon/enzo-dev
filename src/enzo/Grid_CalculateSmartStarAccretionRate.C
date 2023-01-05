@@ -196,7 +196,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
 
     // SG. Replaces above two lines. We want denom^2/3, not ^1/2. In line with derivation and Beckmann (2018).
     AccretionRate = (4*pi*RhoInfinity*POW(BondiHoyleRadius,2)*POW(POW(lambda_c*cInfinity,2) + POW(vInfinity,2), 1.5));
-    fprintf(stderr, "%s: spherical BHL accretion rate = %"GSYM"\n", AccretionRate);
+    fprintf(stderr, "%s: spherical BHL accretion rate = %"GSYM"\n", __FUNCTION__, AccretionRate);
 
     /* Include Vorticity component if specified */
     if(SPHERICAL_BONDI_HOYLE_FORMALISM_WITH_VORTICITY == SmartStarAccretion) {
