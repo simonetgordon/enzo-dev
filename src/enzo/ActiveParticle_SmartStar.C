@@ -1349,49 +1349,53 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
     FLOAT dx_sg = LevelArray[ThisLevel]->GridData->CellWidth[0][0]; // SG. Grid cell width.
 
     for (int i = 0; i < nParticles; i++) {
-        if (SmartStarFeedback == FALSE){
-            continue;
-        }
+      if (SmartStarFeedback == FALSE){
+        continue;
+      }
 
-        APGrid = ParticleList[i]->ReturnCurrentGrid();
-        if (APGrid->GetCellWidth(0,0) != dx){
-            return SUCCESS;
-        }
+      // SG. Check we're on APGrid level.
+      APGrid = ParticleList[i]->ReturnCurrentGrid();
+      if (APGrid->GetCellWidth(0,0) != dx){
+        return SUCCESS;
+      }
 
-        ActiveParticleType_SmartStar* SS;
-        SS = static_cast<ActiveParticleType_SmartStar*>(ParticleList[i]);
+      ActiveParticleType_SmartStar* SS;
+      SS = static_cast<ActiveParticleType_SmartStar*>(ParticleList[i]);
 	    int pclass = SS->ParticleClass;
-        float OldMassCheck = SS->oldmass; // SG. Checking.
-        FLOAT AccretionRadius = SS->AccretionRadius;
+      float OldMassCheck = SS->oldmass; // SG. Checking.
+      FLOAT AccretionRadius = SS->AccretionRadius;
 
-        // SG. BH class.
-        if(pclass == BH){
+      // SG. BH class.
+      if(pclass == BH){
 
-            FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
+        FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
 
-            if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
-                if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
-                    return FAIL;
-            }
+        if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
+          if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
+            return FAIL;
+        }
 
-            /* If a PISN just went off then we can safely delete the particle. */
-            if(ParticleList[i]->ShouldDelete() == true) {
-                printf("%s: Delete SS %d following PISN\n", __FUNCTION__,
-                       static_cast<ActiveParticleType_SmartStar*>(ParticleList[i])->ReturnID());
-                fflush(stdout);
-                ParticleList[i]->DisableParticle(LevelArray,FeedbackZone->ReturnProcessorNumber());
-                printf("%s: SS %d deleted\n", __FUNCTION__,
-                       static_cast<ActiveParticleType_SmartStar*>(ParticleList[i])->ReturnID());
-                fflush(stdout);
-            }
+        /* If a PISN just went off then we can safely delete the particle. */
+        if(ParticleList[i]->ShouldDelete() == true) {
+          printf("%s: Delete SS %d following PISN\n", __FUNCTION__,
+                 static_cast<ActiveParticleType_SmartStar*>(ParticleList[i])->ReturnID());
+          fflush(stdout);
 
-	        ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID,
-                                  ParticleList);
+          ParticleList[i]->DisableParticle(LevelArray,FeedbackZone->ReturnProcessorNumber());
 
-            /* Copy data from the 'fake' feedback zone grid back to the real grids */
-	        DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
-	        delete FeedbackZone;
-        } // SG. End BH class condition.
+          printf("%s: SS %d deleted\n", __FUNCTION__,
+                 static_cast<ActiveParticleType_SmartStar*>(ParticleList[i])->ReturnID());
+          fflush(stdout);
+        }
+
+        ActiveParticleFindAll(LevelArray, &nParticles, SmartStarID,
+                              ParticleList);
+
+        /* Copy data from the 'fake' feedback zone grid back to the real grids */
+        DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
+        delete FeedbackZone;
+      } // SG. End BH class condition.
+
 	    else if (pclass == POPIII){ // SG. Add POPIII class condition
             FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
             /* SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
