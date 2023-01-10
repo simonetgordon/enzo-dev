@@ -86,8 +86,9 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
   float dx = float(this->CellWidth[0][0]);
   FLOAT dV = POW(dx, 3.0);
   float dt = float(this->ReturnTimeStep());
+
   /* Set the units. */
- 
+
   float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1,
     TimeUnits = 1, VelocityUnits = 1,
     PressureUnits = 0, GEUnits = 0, VelUnits = 0;
@@ -143,47 +144,47 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       printf("%s: StellarMass = %lf\n", __FUNCTION__, StellarMass);
       
       if (StellarMass >= TypeIILowerMass && StellarMass <= (TypeIIUpperMass + 1)) { 
-	printf("%s: Star going Supernova!\n", __FUNCTION__);
-	printf("%s: Age = %1.2f Myr\t RadiationLifetime = %1.2f Myr\n", __FUNCTION__,
-	     Age*TimeUnits/Myr_s, SS->RadiationLifetime*TimeUnits/Myr_s);
-	double SNEnergy, HeliumCoreMass, Delta_SF, MetalMass;
-	FLOAT Radius = PopIIISupernovaRadius * pc_cm / LengthUnits;
-	FLOAT StarLevelCellWidth = this->CellWidth[0][0];
-	Radius = max(Radius, 3.5*StarLevelCellWidth);
-	FLOAT EjectaVolume = 4.0/3.0 * pi * pow(Radius*LengthUnits, 3);
-	FLOAT EjectaDensity = StellarMass * SolarMass / EjectaVolume / DensityUnits;
-	FLOAT EjectaMetalDensity = 0.0, EjectaThermalEnergy = 0.0;
-	// Core-collapse
-	int bin = search_lower_bound((float*)SNExplosionMass, StellarMass, 0, 5, 5);
-	float frac = (SNExplosionMass[bin+1] - StellarMass) / 
-	  (SNExplosionMass[bin+1] - SNExplosionMass[bin]);
-	SNEnergy = 1e51 * (SNExplosionEnergy[bin] + 
-			   frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
-	MetalMass = (SNExplosionMetals[bin] + frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
-	// Heger-Woosley (2002) relation for BHMass
-	HeliumCoreMass = (13./24.) * (StellarMass - 20);
-	StellarMass = HeliumCoreMass; //msun
-	SS->Mass = StellarMass*SolarMass/MassConversion; //code density
-	
-	SS->ParticleClass = BH;
-	SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
-	SS->RadiationLifetime = 1e20;
-	printf("%s: Post-SNe (SMS): ParticleClass now %d\t Lifetime = %f Myr\n", __FUNCTION__,
-	       SS->ParticleClass, SS->RadiationLifetime*TimeUnits/Myr_s);
-	EjectaMetalDensity = MetalMass * SolarMass / EjectaVolume / DensityUnits;
-	EjectaThermalEnergy = SNEnergy / (StellarMass * SolarMass) / VelocityUnits /
-	  VelocityUnits;
+        printf("%s: Star going Supernova!\n", __FUNCTION__);
+        printf("%s: Age = %1.2f Myr\t RadiationLifetime = %1.2f Myr\n", __FUNCTION__,
+             Age*TimeUnits/Myr_s, SS->RadiationLifetime*TimeUnits/Myr_s);
+        double SNEnergy, HeliumCoreMass, Delta_SF, MetalMass;
+        FLOAT Radius = PopIIISupernovaRadius * pc_cm / LengthUnits;
+        FLOAT StarLevelCellWidth = this->CellWidth[0][0];
+        Radius = max(Radius, 3.5*StarLevelCellWidth);
+        FLOAT EjectaVolume = 4.0/3.0 * pi * pow(Radius*LengthUnits, 3);
+        FLOAT EjectaDensity = StellarMass * SolarMass / EjectaVolume / DensityUnits;
+        FLOAT EjectaMetalDensity = 0.0, EjectaThermalEnergy = 0.0;
+        // Core-collapse
+        int bin = search_lower_bound((float*)SNExplosionMass, StellarMass, 0, 5, 5);
+        float frac = (SNExplosionMass[bin+1] - StellarMass) /
+          (SNExplosionMass[bin+1] - SNExplosionMass[bin]);
+        SNEnergy = 1e51 * (SNExplosionEnergy[bin] +
+               frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
+        MetalMass = (SNExplosionMetals[bin] + frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
+        // Heger-Woosley (2002) relation for BHMass
+        HeliumCoreMass = (13./24.) * (StellarMass - 20);
+        StellarMass = HeliumCoreMass; //msun
+        SS->Mass = StellarMass*SolarMass/MassConversion; //code density
 
-	int NumCells = 1;
-	this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
-					   EjectaMetalDensity, Radius, NumCells);
+        SS->ParticleClass = BH;
+        SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
+        SS->RadiationLifetime = 1e20;
+        printf("%s: Post-SNe (SMS): ParticleClass now %d\t Lifetime = %f Myr\n", __FUNCTION__,
+               SS->ParticleClass, SS->RadiationLifetime*TimeUnits/Myr_s);
+        EjectaMetalDensity = MetalMass * SolarMass / EjectaVolume / DensityUnits;
+        EjectaThermalEnergy = SNEnergy / (StellarMass * SolarMass) / VelocityUnits /
+          VelocityUnits;
+
+        int NumCells = 1;
+        this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
+                   EjectaMetalDensity, Radius, NumCells);
 
       } else{ /* SMS converts directly into DCBH (ORIGINAL) */
-	SS->ParticleClass = BH;
-	SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
-	SS->RadiationLifetime = 1e20;
-	printf("%s: DCBH Created from SMS: ParticleClass now %d\t Stellar Age = %f Myr\t " \
-	     "Lifetime = %f Myr\n", __FUNCTION__,
+        SS->ParticleClass = BH;
+        SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
+        SS->RadiationLifetime = 1e20;
+        printf("%s: DCBH Created from SMS: ParticleClass now %d\t Stellar Age = %f Myr\t " \
+             "Lifetime = %f Myr\n", __FUNCTION__,
 	     SS->ParticleClass, SS->StellarAge*TimeUnits/Myr_s,
 	     SS->RadiationLifetime*TimeUnits/Myr_s);
       }
@@ -323,7 +324,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
         SS->ParticleClass = BH;
         SS->StellarAge = SS->RadiationLifetime; //Record last stellar age
         SS->RadiationLifetime = 1e20;
-          SS->EnergySaved = 0.0; // SG. For thermal feedback.
+        SS->EnergySaved = 0.0; // SG. For thermal feedback.
         printf("%s: DCBH Created from POPIII: ParticleClass now %d\t Stellar Age = %f Myr\t " \
          "Lifetime = %f Myr, EnergySaved initialised to %e \n", __FUNCTION__,
          SS->ParticleClass, SS->StellarAge*TimeUnits/Myr_s,
