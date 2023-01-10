@@ -62,7 +62,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   /* metals */
   MetalNum = max(Metal2Num, SNColourNum);
   MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
-  FLOAT radius = max(64*this->CellWidth[0][0], SS->InfluenceRadius); // SG. Change from InfluenceRadius.
+  FLOAT radius = max(64*this->CellWidth[0][0], SS->InfluenceRadius);
   float MetalRadius = 1.0;
   FLOAT MetalRadius2 = radius * radius * MetalRadius * MetalRadius;
 
@@ -71,7 +71,7 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
   FLOAT *pos = SS->ReturnPosition();
 
   /* outer radius */
-  FLOAT outerRadius2 = POW(Radius, 2.0); // SG. Change from 1.2*radius to BHThermalFeedbackRadius.
+  FLOAT outerRadius2 = POW(Radius, 2.0); // SG. Change from 1.2*radius to Radius (input to function).
 // fprintf(stderr, "%s: radius (in cellwidths) = %f\n", __FUNCTION__, Radius/dx);
 
   /* max gas energy from max temperature = 1e8 K */
@@ -85,24 +85,32 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
 
+        float cell_density, cellmass, r1, norm, ramp, factor, OldDensity;
+        FLOAT radius2;
+
 //	    fprintf(stderr,"%s: index = %e \n", __FUNCTION__, index);
 //      fprintf(stderr,"%s: current density = %e (this), %e\n", __FUNCTION__, this->BaryonField[DensNum][index],
 //              BaryonField[DensNum][index]);
-	    FLOAT radius2 = POW(CellLeftEdge[0][i] + 0.5*dx - pos[0],2.0) + POW(CellLeftEdge[1][j] + 0.5*dx - pos[1],2.0) +
-                POW(CellLeftEdge[2][k] + 0.5*dx - pos[2],2.0);
-        float cell_density = this->BaryonField[DensNum][index];
-        float cellmass = cell_density*dx*dx*dx; // from cell mass /cellvol -> cell mass in code units.
+
+        radius2 = POW(CellLeftEdge[0][i] + 0.5*dx - pos[0],2.0) + POW(CellLeftEdge[1][j] + 0.5*dx - pos[1],2.0) +
+                POW(CellLeftEdge[2][k] + 0.5*dx - pos[2], 2.0);
+        cell_density = this->BaryonField[DensNum][index];
+        cellmass = cell_density*dx*dx*dx; // from cell mass /cellvol -> cell mass in code units.
         if (radius2 < outerRadius2) {
-          float r1 = sqrt(radius2) / radius;
-          float norm = 0.98;
-          float ramp = norm*(0.5 - 0.5 * tanh(10.0*(r1-1.0)));
+          r1 = sqrt(radius2) / radius;
+          norm = 0.98;
+          ramp = norm*(0.5 - 0.5 * tanh(10.0*(r1-1.0)));
+
           /* 1/1.2^3 factor to dilute the density since we're
              depositing a uniform ejecta in a sphere of 1.2*radius
              without a ramp.  The ramp is only applied to the
              energy*density factor. */
-          float factor = 0.578704;
+          factor = 0.578704;
 
-          float OldDensity = this->BaryonField[DensNum][index];
+          OldDensity = this->BaryonField[DensNum][index];
+
+          /* EjectaDensity cases */
+
           if(EjectaDensity > 0.0){
               BaryonField[DensNum][index] += factor*EjectaDensity;
           }
