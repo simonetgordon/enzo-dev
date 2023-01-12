@@ -779,12 +779,12 @@ int ActiveParticleType_SmartStar::RemoveMassFromGridAfterFormation(int nParticle
 
 	/* Set the units. */
 	FLOAT Time = LevelArray[ThisLevel]->GridData->ReturnTime();
-    float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits, VelocityUnits;
-    double MassUnits;
+  float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits, VelocityUnits;
+  double MassUnits;
 	int SSparticles[nParticles] = {-1};
-    GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
-             &TimeUnits, &VelocityUnits, Time);
-    MassUnits = DensityUnits * POW(LengthUnits,3);
+  GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
+           &TimeUnits, &VelocityUnits, Time);
+  MassUnits = DensityUnits * POW(LengthUnits,3);
 
 	/*
 		* Order particles in order of SMS, PopIII, PopII
@@ -793,7 +793,7 @@ int ActiveParticleType_SmartStar::RemoveMassFromGridAfterFormation(int nParticle
 	*/
 	int k = 0, num_new_sms_stars = 0, num_new_popiii_stars = 0, num_new_popii_stars = 0;
 	for (int i = 0; i < nParticles; i++) {
-        grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
+    grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
 		if (MyProcessorNumber == APGrid->ReturnProcessorNumber()) {
 			ActiveParticleType_SmartStar* SS;
 			SS = static_cast<ActiveParticleType_SmartStar*>(ParticleList[i]);
@@ -834,7 +834,7 @@ int ActiveParticleType_SmartStar::RemoveMassFromGridAfterFormation(int nParticle
 	}
 
 
-    /* Instantiate common attributes of all SS particle types */
+  /* Instantiate common attributes of all SS particle types */
 	ActiveParticleType_SmartStar* SS;
 	LevelHierarchyEntry *Temp;
 	grid* APGrid;
@@ -891,19 +891,19 @@ int ActiveParticleType_SmartStar::RemoveMassFromGridAfterFormation(int nParticle
 		**********************************************************************/
 
 		if(SMS == SS->ParticleClass) {
-			/* 
+      /*
 			If resolution is sufficent, accrete as normal - 
 			just remove mass from the cell 
 			*/
 
-		    /* Find DensNum */
+      /* Find DensNum */
 			int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
 			if (APGrid->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
 				Vel3Num, TENum) == FAIL){
 					ENZO_FAIL("Error in IdentifyPhysicalQuantities.");
 					}
 
-		    /* Define ParticleDensity and newcelldensity (only known to owning processor) */
+      /* Define ParticleDensity and newcelldensity (only known to owning processor) */
 			density = APGrid->BaryonField[DensNum];
 			DensityThreshold = ActiveParticleDensityThreshold*mh/DensityUnits;
 			ParticleDensity = density[cellindex] - DensityThreshold;
