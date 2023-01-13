@@ -100,7 +100,7 @@ int StarParticleAddFeedback(TopGridData *MetaData,
       MassLoss = cstar->CalculateMassLoss(SNe_dt);
       cstar->SetAccretionMass(-MassLoss);
     }
-// SG: what is this routine doing? Seems to exclude == FORMATION feedback? 
+
     if ((cstar->ReturnFeedbackFlag() != MBH_THERMAL) &&
 	(cstar->ReturnFeedbackFlag() != MBH_JETS) &&
 	!cstar->ApplyFeedbackTrue(SNe_dt))
