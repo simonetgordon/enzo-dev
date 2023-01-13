@@ -88,6 +88,10 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
         float cell_density, cellmass, r1, norm, ramp, factor, OldDensity;
         FLOAT radius2;
 
+        /* cooling time calculation - needs to go in loop over cells */
+        fprintf(stderr, "%s: Calculate cooling time: %e, and temp = %e.\n", __FUNCTION__, data.CoolingTime[index],
+                data.Temperature[index]);
+
 //	    fprintf(stderr,"%s: index = %e \n", __FUNCTION__, index);
 //      fprintf(stderr,"%s: current density = %e (this), %e\n", __FUNCTION__, this->BaryonField[DensNum][index],
 //              BaryonField[DensNum][index]);
