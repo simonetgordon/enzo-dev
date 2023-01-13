@@ -124,368 +124,344 @@ int ActiveParticleType_SmartStar::InitializeParticleType()
 int ActiveParticleType_SmartStar::EvaluateFormation
 (grid *thisgrid_orig, ActiveParticleFormationData &data)
 {
-    // SG. If we just want one SmartStar in simulation.
-    // SG. Temporarily disable star formation other than the current particle.
-    if (ONE_PARTICLE_ONLY) {
-        return SUCCESS;
-    }
-    // No need to do the rest if we're not on the maximum refinement level/ local max level of refinement
-    SmartStarGrid *thisGrid =
-    static_cast<SmartStarGrid *>(thisgrid_orig);
+  // SG. If we just want one SmartStar in simulation.
+  // SG. Temporarily disable star formation other than the current particle.
+  if (ONE_PARTICLE_ONLY) {
+    return SUCCESS;
+  }
+  // No need to do the rest if we're not on the maximum refinement level/ local max level of refinement
+  SmartStarGrid *thisGrid = static_cast<SmartStarGrid *>(thisgrid_orig);
 
-    //static int shu_collapse = 0;
-    int i,j,k,index,method,MassRefinementMethod;
-
-    float *density = thisGrid->BaryonField[data.DensNum];
-
-    float* velx = thisGrid->BaryonField[data.Vel1Num];
-    float* vely = thisGrid->BaryonField[data.Vel2Num];
-    float* velz = thisGrid->BaryonField[data.Vel3Num];
-    float div = 0.0, divx = 0.0, divy = 0.0, divz = 0.0, dtot = 0.0, tdyn = 0.0;
-    float mass = 0.0;
-    float JeansDensityUnitConversion = (Gamma*pi*kboltz) / (Mu*mh*GravConst);
-    float CellTemperature = 0;
-    float JeansDensity = 0, JeansMass = 0;
-    float MassRefinementDensity = 0;
-    float DensityThreshold = ActiveParticleDensityThreshold*mh/data.DensityUnits;   //in code density
-    float ExtraDensity = 0;
-    float GravitationalMinimum = 0.0;
-    float ThermalEnergy = 0.0, GravitationalEnergy = 0.0, KineticEnergy = 0.0, CalcTotalEnergy = 0.0,
-    TotalMass = 0.0;
-    int GridDimension[3] = {thisGrid->GridDimension[0],
-                          thisGrid->GridDimension[1],
+  // static int shu_collapse = 0;
+  int i,j,k,index,method,MassRefinementMethod;
+  float *density = thisGrid->BaryonField[data.DensNum];
+  float* velx = thisGrid->BaryonField[data.Vel1Num];
+  float* vely = thisGrid->BaryonField[data.Vel2Num];
+  float* velz = thisGrid->BaryonField[data.Vel3Num];
+  float div = 0.0, divx = 0.0, divy = 0.0, divz = 0.0, dtot = 0.0, tdyn = 0.0, mass = 0.0;
+  float JeansDensityUnitConversion = (Gamma*pi*kboltz) / (Mu*mh*GravConst);
+  float CellTemperature = 0, JeansDensity = 0, JeansMass = 0, MassRefinementDensity = 0;
+  float DensityThreshold = ActiveParticleDensityThreshold*mh/data.DensityUnits;   //in code density
+  float ExtraDensity = 0.0, GravitationalMinimum = 0.0;
+  float ThermalEnergy = 0.0, GravitationalEnergy = 0.0, KineticEnergy = 0.0, CalcTotalEnergy = 0.0, TotalMass = 0.0;
+  int GridDimension[3] = {thisGrid->GridDimension[0],thisGrid->GridDimension[1],
                           thisGrid->GridDimension[2]};
-    int size = GridDimension[0]*GridDimension[1]*GridDimension[2];
-    float ConverttoSolar = data.DensityUnits*POW(data.LengthUnits, 3.0)/SolarMass;
-    FLOAT dx = thisGrid->CellWidth[0][0], centralpos[3];
+  int size = GridDimension[0]*GridDimension[1]*GridDimension[2];
+  float ConverttoSolar = data.DensityUnits*POW(data.LengthUnits, 3.0)/SolarMass;
+  FLOAT dx = thisGrid->CellWidth[0][0], centralpos[3];
 
-    bool HasMetalField = (data.MetalNum != -1 || data.ColourNum != -1);
-    bool JeansRefinement = false;
-    bool MassRefinement = false;
-    float *PotentialField  = NULL;
-    if(data.GravPotentialNum >= 0)
+  bool HasMetalField = (data.MetalNum != -1 || data.ColourNum != -1);
+  bool JeansRefinement = false, MassRefinement = false;
+
+  float *PotentialField  = NULL;
+  if(data.GravPotentialNum >= 0)
     PotentialField = thisGrid->BaryonField[data.GravPotentialNum];
-    FLOAT dx_pc = dx*data.LengthUnits/pc_cm;   //in pc
+  FLOAT dx_pc = dx*data.LengthUnits/pc_cm;   //in pc
 
-    const int offset[] = {1, GridDimension[0], GridDimension[0]*GridDimension[1]};
+  const int offset[] = {1, GridDimension[0], GridDimension[0]*GridDimension[1]};
 
-    // determine refinement criteria
-    for (method = 0; method < MAX_FLAGGING_METHODS; method++) {
+  // determine refinement criteria
+  for (method = 0; method < MAX_FLAGGING_METHODS; method++) {
     if (CellFlaggingMethod[method] == 2) {
       MassRefinement = true;
       MassRefinementMethod = method;
     }
     if (CellFlaggingMethod[method] == 6)
       JeansRefinement = true;
-    }
+  }
 
-#if MASSTHRESHOLDCHECK
-    JeansMass = thisGrid->CalculateJeansMass(data.DensNum, data.Temperature, data.DensityUnits);  //In Msolar
-#endif
+  #if MASSTHRESHOLDCHECK
+  JeansMass = thisGrid->CalculateJeansMass(data.DensNum, data.Temperature, data.DensityUnits);  //In Msolar
+  #endif
 
-// SG. Check we're on the maximum LOCAL refinement level from the get-go. 
-    for (k = thisGrid->GridStartIndex[2]; k <= thisGrid->GridEndIndex[2]; k++) {
-        for (j = thisGrid->GridStartIndex[1]; j <= thisGrid->GridEndIndex[1]; j++) {
-            index = GRIDINDEX_NOGHOST(thisGrid->GridStartIndex[0], j, k);
-            for (i = thisGrid->GridStartIndex[0]; i <= thisGrid->GridEndIndex[0]; i++, index++) {
-                if (thisGrid->BaryonField[thisGrid->NumberOfBaryonFields][index] != 0.0){
-                    continue;
-                } else{
+  // SG. Check we're on the maximum LOCAL refinement level from the get-go.
+  for (k = thisGrid->GridStartIndex[2]; k <= thisGrid->GridEndIndex[2]; k++) {
+    for (j = thisGrid->GridStartIndex[1]; j <= thisGrid->GridEndIndex[1]; j++) {
+      index = GRIDINDEX_NOGHOST(thisGrid->GridStartIndex[0], j, k);
+      for (i = thisGrid->GridStartIndex[0]; i <= thisGrid->GridEndIndex[0]; i++, index++) {
+        if (thisGrid->BaryonField[thisGrid->NumberOfBaryonFields][index] != 0.0){
+          continue;
+        } else{
+          DensityThreshold = ActiveParticleDensityThreshold*mh/data.DensityUnits;
+          // If no more room for particles, throw an ENZO_FAIL
+          if (data.NumberOfNewParticles >= data.MaxNumberOfNewParticles)
+            return FAIL;
+          // 1. Check we're on the maximum refinement level - already done at start of function
+          // SG. Check we're on the maximum LOCAL refinement level from the get-go.
+          if (thisGrid->BaryonField[thisGrid->NumberOfBaryonFields][index] != 0.0)
+           continue;
 
-	DensityThreshold = ActiveParticleDensityThreshold*mh/data.DensityUnits;
-	// If no more room for particles, throw an ENZO_FAIL
-	if (data.NumberOfNewParticles >= data.MaxNumberOfNewParticles)
-	  return FAIL;
-	// 1. Check we're on the maximum refinement level - already done at start of function
-	// SG. Check we're on the maximum LOCAL refinement level from the get-go.
-	if (thisGrid->BaryonField[thisGrid->NumberOfBaryonFields][index] != 0.0)
-	 continue;
+          // 2. Does this cell violate the Jeans condition or overdensity threshold
+          // Fedderath condition #1
+          #if JEANSREFINEMENT
+          if (JeansRefinement) {
+            CellTemperature = (JeansRefinementColdTemperature > 0) ?
+              JeansRefinementColdTemperature : data.Temperature[index];
+            /*
+             * The density threshold is exceeded here once the Jeans
+             * Density in one cell is exceeded - see Krumholz et al. (2004)
+             * Krumholz et al. use a Jeans factor of 4, I found that
+             * pushing this to 2 (i.e. making the threshold higher) is
+             * more accurate.
+             */
+            int JeansFactor = JEANS_FACTOR;
+            JeansDensity = JeansDensityUnitConversion * 1.01 * CellTemperature /
+              POW(data.LengthUnits*dx*JeansFactor,2);
 
-	// 2. Does this cell violate the Jeans condition or overdensity threshold
-	// Fedderath condition #1
-#if JEANSREFINEMENT
-	if (JeansRefinement) {
-	  CellTemperature = (JeansRefinementColdTemperature > 0) ? JeansRefinementColdTemperature : data.Temperature[index];
-	  /*
-	   * The density threshold is exceeded here once the Jeans
-	   * Density in one cell is exceeded - see Krumholz et al. (2004)
-	   * Krumholz et al. use a Jeans factor of 4, I found that
-	   * pushing this to 2 (i.e. making the threshold higher) is
-	   * more accurate.
-	   */
-	  int JeansFactor = JEANS_FACTOR;
-	  JeansDensity = JeansDensityUnitConversion * 1.01 * CellTemperature /
-	    POW(data.LengthUnits*dx*JeansFactor,2);
+            JeansDensity /= data.DensityUnits;
+            DensityThreshold = min(DensityThreshold,JeansDensity);
+          }
+          if (DensityThreshold == huge_number)
+            ENZO_VFAIL("Error in Accreting Particles: DensityThreshold = huge_number! \n"
+                       "JeansDensity = %"GOUTSYM" \n"
+                       "data.DensityUnits = %"GOUTSYM" \n"
+                       "CellTemperature = %"GOUTSYM" \n",
+                       JeansDensity, data.DensityUnits, CellTemperature);
+          #endif
+          if (density[index] <= DensityThreshold){
+            continue;
+          }
+          mass = density[index]*dx*dx*dx;
+          #if SSDEBUG
+          fprintf(stdout, "%s: Excellent! Density threshold exceeded - density = %g cm^-3\n",
+                  __FUNCTION__, density[index]*data.DensityUnits/mh);
+          #endif
+          /* 3. Negative divergence: For ZEUS, the velocities are
+             face-centered, and all of the other routines have
+             cell-centered velocities. */
 
-	  JeansDensity /= data.DensityUnits;
-	  DensityThreshold = min(DensityThreshold,JeansDensity);
-	}
-	if (DensityThreshold == huge_number)
-	  ENZO_VFAIL("Error in Accreting Particles: DensityThreshold = huge_number! \n"
-		     "JeansDensity = %"GOUTSYM" \n"
-		     "data.DensityUnits = %"GOUTSYM" \n"
-		     "CellTemperature = %"GOUTSYM" \n",
-		     JeansDensity, data.DensityUnits, CellTemperature);
-#endif
-
-	if (density[index] <= DensityThreshold){
-		continue;
-	}
-	mass = density[index]*dx*dx*dx;
-#if SSDEBUG
-	fprintf(stdout, "%s: Excellent! Density threshold exceeeded - density = %g cm^-3\n",
-			__FUNCTION__, density[index]*data.DensityUnits/mh);
-#endif
-	/* 3. Negative divergence: For ZEUS, the velocities are
-	   face-centered, and all of the other routines have
-	   cell-centered velocities. */
-
-	if (HydroMethod == Zeus_Hydro) {
-	  divx = velx[index + offset[0]] - velx[index];
-	  divy = vely[index + offset[1]] - vely[index];
-	  divz = velz[index + offset[2]] - velz[index];
-	  div = divx + divy + divz;
-	} else {
-	  divx = velx[index + offset[0]] - velx[index - offset[0]];
-	  divy = vely[index + offset[1]] - vely[index - offset[1]];
-	  divz = velz[index + offset[2]] - velz[index - offset[2]];
-	  div = divx + divy + divz;
-	}
-	/* All three components must be negative to pass the test */
-	if (divx > 0.0 || divy > 0.0 || divz > 0.0) continue;
-#if SSDEBUG
-        fprintf(stderr, "%s: Negative Divergence passed\n", __FUNCTION__);
-#endif
+          if (HydroMethod == Zeus_Hydro) {
+            divx = velx[index + offset[0]] - velx[index];
+            divy = vely[index + offset[1]] - vely[index];
+            divz = velz[index + offset[2]] - velz[index];
+            div = divx + divy + divz;
+          } else {
+            divx = velx[index + offset[0]] - velx[index - offset[0]];
+            divy = vely[index + offset[1]] - vely[index - offset[1]];
+            divz = velz[index + offset[2]] - velz[index - offset[2]];
+            div = divx + divy + divz;
+          }
+          /* All three components must be negative to pass the test */
+          if (divx > 0.0 || divy > 0.0 || divz > 0.0) continue;
+          #if SSDEBUG
+          fprintf(stderr, "%s: Negative Divergence passed\n", __FUNCTION__);
+          #endif
 	
-	/* We now need to define a control volume - this is the region within
-	   an accretion radius of the cell identified */
-	centralpos[0] = thisGrid->CellLeftEdge[0][i] + 0.5*thisGrid->CellWidth[0][i];
-	centralpos[1] = thisGrid->CellLeftEdge[1][j] + 0.5*thisGrid->CellWidth[1][j];
-	centralpos[2] = thisGrid->CellLeftEdge[2][k] + 0.5*thisGrid->CellWidth[2][k];
+          /* We now need to define a control volume - this is the region within
+             an accretion radius of the cell identified */
+          centralpos[0] = thisGrid->CellLeftEdge[0][i] + 0.5*thisGrid->CellWidth[0][i];
+          centralpos[1] = thisGrid->CellLeftEdge[1][j] + 0.5*thisGrid->CellWidth[1][j];
+          centralpos[2] = thisGrid->CellLeftEdge[2][k] + 0.5*thisGrid->CellWidth[2][k];
 
-#if COOLING_TIME
-#if SSDEBUG
-        fprintf(stdout, "%s: Calculate cooling time\n", __FUNCTION__);
-#endif
+          #if COOLING_TIME
+          #if SSDEBUG
+          fprintf(stdout, "%s: Calculate cooling time\n", __FUNCTION__);
+          #endif
 
-	// 4. t_cool < t_freefall (skip if T > 11000 K)
-	dtot = ( density[index] + data.DarkMatterDensity[index] ) *
-	  data.DensityUnits;
-	tdyn = sqrt(3.0 * M_PI / 32.0 / GravConst / dtot) / data.TimeUnits;
-	fprintf(stderr, "%s: Calculate cooling time: %e, and temp = %e.\n", __FUNCTION__, data.CoolingTime[index], data.Temperature[index]);
-	if (tdyn < data.CoolingTime[index] &&
-	    data.Temperature[index] > 1.1e4)
-	  continue;
-#endif
+          // 4. t_cool < t_freefall (skip if T > 11000 K)
+          dtot = ( density[index] + data.DarkMatterDensity[index] ) * data.DensityUnits;
+          tdyn = sqrt(3.0 * M_PI / 32.0 / GravConst / dtot) / data.TimeUnits;
+          fprintf(stderr, "%s: Calculate cooling time: %e, and temp = %e.\n", __FUNCTION__, data.CoolingTime[index],
+                  data.Temperature[index]);
+          if (tdyn < data.CoolingTime[index] && data.Temperature[index] > 1.1e4) continue;
+          #endif
 
-#if MASSTHRESHOLDCHECK
-#if SSDEBUG
-        fprintf(stdout, "%s: Calculate Mass Threshold Check\n", __FUNCTION__);
-#endif
+          #if MASSTHRESHOLDCHECK
+          #if SSDEBUG
+          fprintf(stdout, "%s: Calculate Mass Threshold Check\n", __FUNCTION__);
+          #endif
+          TotalMass = thisGrid->FindMassinGrid(data.DensNum);
+          /* Mass Threshold check */
+          /* The control region should contain a mass greater than the mass threshold */
+          if(TotalMass*ConverttoSolar < (double)MASSTHRESHOLD) {
+            continue;
+          }
+          #if SSDEBUG
+          fprintf(stderr, "%s: Total Mass in Accretion Region = %g Msolar (Threshold = %g)\n", __FUNCTION__,
+                 TotalMass*ConverttoSolar, (double)MASSTHRESHOLD);
+          #endif
+          #endif
+          #if MINIMUMPOTENTIAL
+          #if CALCDIRECTPOTENTIAL
+          if(PotentialField == NULL) {
+            PotentialField = new float[size];
+            thisGrid->CalculatePotentialField(PotentialField, data.DensNum, data.DensityUnits,
+                                              data.TimeUnits,data.LengthUnits);
+          }
+          #endif
+          if(PotentialField) {
 
-	TotalMass = thisGrid->FindMassinGrid(data.DensNum);
-	/* Mass Threshold check */
-	/* The control region should contain a mass greater than the mass threshold */
-	if(TotalMass*ConverttoSolar < (double)MASSTHRESHOLD) {
-        continue;
-	}
-#if SSDEBUG
-	printf("%s: Total Mass in Accretion Region = %g Msolar (Threshold = %g)\n", __FUNCTION__,
-	       TotalMass*ConverttoSolar, (double)MASSTHRESHOLD);
-#endif
-#endif
-#if MINIMUMPOTENTIAL
-#if CALCDIRECTPOTENTIAL
-	if(PotentialField == NULL) {
-	  PotentialField = new float[size];
-	  thisGrid->CalculatePotentialField(PotentialField, data.DensNum, data.DensityUnits, data.TimeUnits,data.LengthUnits);
-	}
-#endif
-	if(PotentialField) {
+            #if SSDEBUG
+	          fprintf(stdout, "%s: Calculate Gravitational Potential\n", __FUNCTION__);
+            #endif
+            /* 4. Gravitational Minimum Check */
+            /*
+             * Find the minimum of the potential over a Jeans Length.
+             */
+            double JLength = JeansLength(CellTemperature, density[index],
+                       data.DensityUnits)/data.LengthUnits;
+            FLOAT search_radius = JLength;
+            GravitationalMinimum  = thisGrid->FindMinimumPotential(centralpos, search_radius, PotentialField);
+            if(PotentialField[index] > GravitationalMinimum) {
+              #if SSDEBUG
+              printf("FAILURE: GravitationalMinimum = %g\t "		\
+               "PotentialField[index] = %g\n\n", GravitationalMinimum, PotentialField[index]);
+              printf("%s: Cellwidth = %e\t JLength = %e\n", __FUNCTION__, dx, JLength);
+              printf("%s: search_radius (in cellwidths) = %f\n", __FUNCTION__, search_radius/dx);
+              #endif
+              continue;
+            }
+            #if SSDEBUG
+            printf("%s: Cellwidth = %e\t JLength = %e\n", __FUNCTION__, dx, JLength);
+            printf("%s: search_radius (in cellwidths) = %f\n", __FUNCTION__, search_radius/dx);
+            fprintf(stdout, "%s: Gravitational Potential Passed!\n", __FUNCTION__);
+            #endif
+          }
+        #endif
+        #ifdef GRAVENERGY
+        static int mincount = 0;
+        /* 5. Jeans Instability Check */
 
-#if SSDEBUG
-	  fprintf(stdout, "%s: Calculate Gravitational Potential\n", __FUNCTION__);
-#endif
-	  /* 4. Gravitational Minimum Check */
-	  /*
-	   * Find the minimum of the potential over a Jeans Length.
-	   */
-	  double JLength = JeansLength(CellTemperature, density[index],
-				       data.DensityUnits)/data.LengthUnits;
-	  FLOAT search_radius = JLength;
-	  GravitationalMinimum  = thisGrid->FindMinimumPotential(centralpos,
-				  search_radius,
-				  PotentialField);
-	  if(PotentialField[index] > GravitationalMinimum) {
-#if SSDEBUG
-	    printf("FAILURE: GravitationalMinimum = %g\t "		\
-		   "PotentialField[index] = %g\n\n", GravitationalMinimum, PotentialField[index]);
-	    printf("%s: Cellwidth = %e\t JLength = %e\n", __FUNCTION__, dx, JLength);
-	    printf("%s: search_radius (in cellwidths) = %f\n", __FUNCTION__, search_radius/dx);
-#endif
-	    continue;
-	  }
-#if SSDEBUG
-	  printf("%s: Cellwidth = %e\t JLength = %e\n", __FUNCTION__, dx, JLength);
-	  printf("%s: search_radius (in cellwidths) = %f\n", __FUNCTION__, search_radius/dx);
-	  fprintf(stdout, "%s: Gravitational Potential Passed!\n", __FUNCTION__);
-#endif
-	}
+        /* This is the internal energy of the gas */
+        ThermalEnergy = thisGrid->FindTotalThermalEnergy(centralpos, LinkingLength*dx, data.GENum);
 
-#endif
-#ifdef GRAVENERGY
-	static int mincount = 0;
-	/* 5. Jeans Instability Check */
+        /* This is the internal energy plus the kinetic energy */
+        CalcTotalEnergy = thisGrid->FindTotalEnergy(centralpos, LinkingLength*dx, data.TENum);
 
-	/* This is the internal energy of the gas */
-	ThermalEnergy = thisGrid->FindTotalThermalEnergy(centralpos, LinkingLength*dx,
-							 data.GENum);
-	/* This is the internal energy plus the kinetic energy */
-	CalcTotalEnergy = thisGrid->FindTotalEnergy(centralpos, LinkingLength*dx,
-						data.TENum);
+        GravitationalEnergy += gpot[index];
 
-	GravitationalEnergy += gpot[index];
+        if(fabs(GravitationalEnergy) <= 2*ThermalEnergy) continue;
 
-	if(fabs(GravitationalEnergy) <= 2*ThermalEnergy) continue;
+        /* 6. Bound state check */
+        KineticEnergy = thisGrid->FindTotalKineticEnergy(centralpos, LinkingLength*dx,
+                     data.DensNum, data.Vel1Num, data.Vel2Num, data.Vel3Num);
+        if(KineticEnergy + ThermalEnergy + GravitationalEnergy >= 0.0) continue;
+        #endif
 
-	/* 6. Bound state check */
-	KineticEnergy = thisGrid->FindTotalKineticEnergy(centralpos, LinkingLength*dx,
-							 data.DensNum, data.Vel1Num, data.Vel2Num,
-							 data.Vel3Num);
-	if(KineticEnergy + ThermalEnergy + GravitationalEnergy >= 0.0) continue;
+        /*
+         * Now we need to check the H2 fraction and the accretion rate now.
+         * If the H2fraction > PopIIIH2CriticalFraction then we are ok to form a PopIII star
+         * If H2fraction < PopIIIH2CriticalFraction then we should form a SMS only if the
+         * accretion rate onto the protostar (cell) is above a critical value
+         *
+         */
+        float *cellvel = new float[MAX_DIMENSION];
+        cellvel[0] = velx[index]; cellvel[1] = vely[index]; cellvel[2] = velz[index];
+        float accrate	= thisGrid->ConvergentMassFlow(data.DensNum, data.Vel1Num,dx*ACCRETIONRADIUS, centralpos,
+                                                      cellvel, -1, -1, -1);
 
-#endif
+        ExtraDensity = density[index] - DensityThreshold;
+        /* We have the main conditions for SF now but we need to decide on the type of star
+        *  that forms now. There are a few cases to consider:
+        * 1. If the metallicity is high then a cluster of PopII stars can form
+        * 2. If the metallicity is low but the H2 fraction is high then a PopIII star forms
+        * 3. If the metallicty is low and the H2 fraction is low but the accretion rate is high
+        *    then a SMS can form
+        * 4. Otherwise star formation is suppressed
+        * We want to avoid spurious SF in a minihalo that is being heated (e.g. by LW or dynamical
+        * heating). Therefore we insist on the mass accretion criteria. If the mass accretion rate
+        * is low we don't allow the SMS pathway to trigger spurious SF.
+        */
+        int stellar_type = -99999;
+        // SG. Want to print out level POPIII particle forms on.
+        int ThisLevel = thisGrid->GridLevel;
 
-	/*
-	 * Now we need to check the H2 fraction and the accretion rate now.
-	 * If the H2fraction > PopIIIH2CriticalFraction then we are ok to form a PopIII star
-	 * If H2fraction < PopIIIH2CriticalFraction then we should form a SMS only if the
-	 * accretion rate onto the protostar (cell) is above a critical value
-	 *
-	 */
-	float *cellvel = new float[MAX_DIMENSION];
-	cellvel[0] = velx[index]; cellvel[1] = vely[index]; cellvel[2] = velz[index];
-	float accrate	= thisGrid->ConvergentMassFlow(data.DensNum, data.Vel1Num,
-					     dx*ACCRETIONRADIUS, centralpos,
-					     cellvel, -1, -1, -1);
-
-	ExtraDensity = density[index] - DensityThreshold;
-	 /* We have the main conditions for SF now but we need to decide on the type of star 
-	  *  that forms now. There are a few cases to consider:
-	  * 1. If the metallicity is high then a cluster of PopII stars can form
-	  * 2. If the metallicity is low but the H2 fraction is high then a PopIII star forms
-	  * 3. If the metallicty is low and the H2 fraction is low but the accretion rate is high
-	  *    then a SMS can form
-	  * 4. Otherwise star formation is suppressed
-	  * We want to avoid spurious SF in a minihalo that is being heated (e.g. by LW or dynamical 
-	  * heating). Therefore we insist on the mass accretion criteria. If the mass accretion rate 
-	  * is low we don't allow the SMS pathway to trigger spurious SF. 
-	  */
-	int stellar_type = -99999;
-	// SG. Want to print out level POPIII particle forms on.
-	int ThisLevel = thisGrid->GridLevel;
-
-	//if(shu_collapse == 1)
-	//  continue;
-	if(ProblemType == 27) { //collapse test 
-	  stellar_type = POPIII;
-	}
-	else if(HasMetalField &&    data.TotalMetals[index] > PopIIIMetalCriticalFraction) {
-	  stellar_type = POPII;
-	}
-	else if(data.H2Fraction[index] >  PopIIIH2CriticalFraction) {
-	  stellar_type = POPIII;
-	  fprintf(stderr, "POPIII particles(%d) created and done in %s on level %"ISYM".\n", data.NumberOfNewParticles + 1,
-              __FUNCTION__, ThisLevel);
-
-	}
-	else if((accrate*3.154e7*ConverttoSolar/data.TimeUnits > CRITICAL_ACCRETION_RATE*10000000.0)
-		&& (dx_pc < SMS_RESOLUTION)) { // SG. Increasing x10 to x10000000 to suppress SMS formation.
-	  /* 
-	   * The threshold for initially forming the SMS is set at 10 times the critical rates. This 
-	   * ensures we get regions of truly high accretion
-	   */
-	  stellar_type = SMS;
-	  fprintf(stderr, "!!!!!!!!SMS Formed\t accrate = %e Msolar/yr",
-		 accrate*3.154e7*ConverttoSolar/data.TimeUnits);
-	}
+        //if(shu_collapse == 1)
+        //  continue;
+        if(ProblemType == 27) { //collapse test
+          stellar_type = POPIII;
+        }
+        else if(HasMetalField && data.TotalMetals[index] > PopIIIMetalCriticalFraction) {
+          stellar_type = POPII;
+        }
+        else if(data.H2Fraction[index] >  PopIIIH2CriticalFraction) {
+          stellar_type = POPIII;
+          fprintf(stderr, "POPIII particles(%d) created and done in %s on level %"ISYM".\n",
+                  data.NumberOfNewParticles+1, __FUNCTION__, ThisLevel);
+        }
+        else if((accrate*3.154e7*ConverttoSolar/data.TimeUnits > CRITICAL_ACCRETION_RATE*10000000.0)
+        && (dx_pc < SMS_RESOLUTION)) { // SG. Increasing x10 to x10000000 to suppress SMS formation.
+          /*
+           * The threshold for initially forming the SMS is set at 10 times the critical rates. This
+           * ensures we get regions of truly high accretion
+           */
+          stellar_type = SMS;
+          fprintf(stderr, "!!!!!!!!SMS Formed\t accrate = %e Msolar/yr", accrate*3.154e7*ConverttoSolar/data.TimeUnits);
+        }
+        if(stellar_type < 0)
+          continue;
 	
-	if(stellar_type < 0)
-	 continue;
-	
-	ActiveParticleType_SmartStar *np = new ActiveParticleType_SmartStar();
-	data.NumberOfNewParticles++;
-	data.NewParticles.insert(*np);
+        ActiveParticleType_SmartStar *np = new ActiveParticleType_SmartStar();
+        data.NumberOfNewParticles++;
+        data.NewParticles.insert(*np);
+        np->type = np->GetEnabledParticleID();
+        /*
+         * Set Birthtime to -1.0 initially. If everything is ok and the
+         * star particle can form then we can update this to its correct value.
+         */
+        np->BirthTime = -1.0;
+        np->ParticleClass = stellar_type;
+        np->level = data.level;
+        np->GridID = data.GridID;
+        np->CurrentGrid = thisGrid;
+        np->pos[0] = thisGrid->CellLeftEdge[0][i] + 0.5*thisGrid->CellWidth[0][i];
+        np->pos[1] = thisGrid->CellLeftEdge[1][j] + 0.5*thisGrid->CellWidth[1][j];
+        np->pos[2] = thisGrid->CellLeftEdge[2][k] + 0.5*thisGrid->CellWidth[2][k];
 
-	
-	np->type = np->GetEnabledParticleID();
-	/* 
-	 * Set Birthtime to -1.0 initially. If everything is ok and the 
-	 * star particle can form then we can update this to its correct value. 
-	 */
-	np->BirthTime = -1.0;
-	np->ParticleClass = stellar_type;
-	np->level = data.level;
-	np->GridID = data.GridID;
-	np->CurrentGrid = thisGrid;
-	np->pos[0] = thisGrid->CellLeftEdge[0][i] + 0.5*thisGrid->CellWidth[0][i];
-	np->pos[1] = thisGrid->CellLeftEdge[1][j] + 0.5*thisGrid->CellWidth[1][j];
-	np->pos[2] = thisGrid->CellLeftEdge[2][k] + 0.5*thisGrid->CellWidth[2][k];
+        float *apvel = new float[MAX_DIMENSION];
+        /* Calculate AP velocity by taking average of
+         * surrounding 125 cells
+         */
+        apvel = thisGrid->AveragedVelocityAtCell3D(index, data.DensNum, data.Vel1Num);
+        np->vel[0] = apvel[0];
+        np->vel[1] = apvel[1];
+        np->vel[2] = apvel[2];
+        if(ProblemType == 27) { //special case of pure spherical collapse
+          np->vel[0] = cellvel[0]; /* alternatively this could be set to zero */
+          np->vel[1] = cellvel[1]; /* but the velocity of the cell is more consistent */
+          np->vel[2] = cellvel[2];
+        }
 
-	float *apvel = new float[MAX_DIMENSION];
-	/* Calculate AP velocity by taking average of 
-	 * surrounding 125 cells 
-	 */
-	apvel = thisGrid->AveragedVelocityAtCell3D(index, data.DensNum, data.Vel1Num);
-	np->vel[0] = apvel[0];
-	np->vel[1] = apvel[1];
-	np->vel[2] = apvel[2];
-	if(ProblemType == 27) { //special case of pure spherical collapse
-	  np->vel[0] = cellvel[0]; /* alternatively this could be set to zero */
-	  np->vel[1] = cellvel[1]; /* but the velocity of the cell is more consistent */
-	  np->vel[2] = cellvel[2];
-	}
-	
-	if (HasMetalField)
-	  np->Metallicity = data.TotalMetals[index];
-	else
-	  np->Metallicity = 0.0;
+        if (HasMetalField)
+          np->Metallicity = data.TotalMetals[index];
+        else
+          np->Metallicity = 0.0;
 
-	np->TimeIndex = 0; //Start at 0 - we'll increment at the start of the update function.
-	
-	if (np->ParticleClass == POPIII){
-		np->AccretionRadius = dx*ACCRETIONRADIUS; // SG. Turning off and on accretion radius for testing purposes.
-		// np->AccretionRadius = dx*ACCRETIONRADIUS;
-	}else{
-		np->AccretionRadius = dx*ACCRETIONRADIUS;
-	}
-	for(int acc = 1; acc < NTIMES; acc++) {
-	  np->AccretionRate[acc] = -11111.0;
-	  np->AccretionRateTime[acc] = -11111.0;
-	}
-	
-	/* Calculate initial accretion rate onto cell */
-	np->AccretionRate[0] = accrate;
-	np->AccretionRateTime[0] = np->BirthTime;
-	np->RadiationLifetime= 0.0; 
-	np->StellarAge = 0.0;
-	np->NotEjectedMass = 0.0;
-       
-	/* The mass of the particles formed depends on the resolution and is handled 
-	 * in a call to `RemoveMassFromGridAfterFormation` which is called from 
-	 * `AfterEvolveLevel`. np->Mass is initally set here but can get overwritten 
-	 *  AfterFormation. The cell values are not updated here but 
-		*
-	 * instead are updated in `AfterFormation`.
-	 * We set the initial mass to zero so that merging works ok i.e. nothing spurious 
-	 * happens in this case. 
-	 */
-	
-	np->Mass = 0.0;
-	np->oldmass = 0.0; // SG.
-	fprintf(stderr,"%s: Total Mass in Accretion Region = %g Msolar (Threshold = %g)\n", __FUNCTION__,
-	     TotalMass*ConverttoSolar, (double)MASSTHRESHOLD);
-    } // end else
+        np->TimeIndex = 0; //Start at 0 - we'll increment at the start of the update function.
+
+        if (np->ParticleClass == POPIII){
+          np->AccretionRadius = dx*ACCRETIONRADIUS; // SG. Turning off and on accretion radius for testing purposes.
+          // np->AccretionRadius = dx*ACCRETIONRADIUS;
+        }else{
+          np->AccretionRadius = dx*ACCRETIONRADIUS;
+        }
+        for(int acc = 1; acc < NTIMES; acc++) {
+          np->AccretionRate[acc] = -11111.0;
+          np->AccretionRateTime[acc] = -11111.0;
+        }
+
+        /* Calculate initial accretion rate onto cell */
+        np->AccretionRate[0] = accrate;
+        np->AccretionRateTime[0] = np->BirthTime;
+        np->RadiationLifetime= 0.0;
+        np->StellarAge = 0.0;
+        np->NotEjectedMass = 0.0;
+
+        /* The mass of the particles formed depends on the resolution and is handled
+         * in a call to `RemoveMassFromGridAfterFormation` which is called from
+         * `AfterEvolveLevel`. np->Mass is initally set here but can get overwritten
+         *  AfterFormation. The cell values are not updated here but
+         *
+         * instead are updated in `AfterFormation`.
+         * We set the initial mass to zero so that merging works ok i.e. nothing spurious
+         * happens in this case.
+         */
+
+        np->Mass = 0.0;
+        np->oldmass = 0.0; // SG.
+        fprintf(stderr,"%s: Total Mass in Accretion Region = %g Msolar (Threshold = %g)\n", __FUNCTION__,
+                TotalMass*ConverttoSolar, (double)MASSTHRESHOLD);
+        } // end else
       } // i
     } // j
   } // k
@@ -667,7 +643,7 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		MassUnits = DensityUnits * POW(LengthUnits,3);
 		
 		/* Initialise attributes of PopIII class
-		+ intstantiate sphere variables */
+		+ instantiate sphere variables */
 		float Radius = 0.0, SphereRadius, SphereMass, Age;
 		float MassEnclosed = 0, ColdGasMass = 0, ColdGasFraction = 0;
 		float Metallicity2 = 0, Metallicity3 = 0, Subtraction;
@@ -690,20 +666,19 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		SphereContainedNextLevel = FALSE;
 		
 		if (LevelArray[ThisLevel+1] != NULL) {
-//			fprintf(stderr, "%s: Checking if sphere can be found on next highest level.\n", __FUNCTION__);
+      // fprintf(stderr, "%s: Checking if sphere can be found on next highest level.\n", __FUNCTION__);
 			SS->FindAccretionSphere(LevelArray, ThisLevel+1, StarLevelCellWidth, Radius,
-                                    TargetSphereMass,MassEnclosed, Metallicity2, Metallicity3, ColdGasMass,
-                                    ColdGasFraction,SphereContainedNextLevel, MarkedSubgrids);
+                              TargetSphereMass,MassEnclosed, Metallicity2, Metallicity3, ColdGasMass,
+                              ColdGasFraction,SphereContainedNextLevel, MarkedSubgrids);
 		}
 
 		/* Quit this routine when 
 		(1) sphere is not contained, or 
 		(2) sphere is contained, but the next level can contain the sphere too. */ 
 
-		if ((SphereContained == FALSE) || 
-		(SphereContained == TRUE && SphereContainedNextLevel == TRUE)){
-//			fprintf(stderr, "%s: Sphere not contained or sphere contained on next level.\n",
-//				__FUNCTION__, SphereContained);
+		if ((SphereContained == FALSE) || (SphereContained == TRUE && SphereContainedNextLevel == TRUE)){
+      // fprintf(stderr, "%s: Sphere not contained or sphere contained on next level.\n",
+      // __FUNCTION__, SphereContained);
 			return SUCCESS;
 		}
 
@@ -937,64 +912,64 @@ int ActiveParticleType_SmartStar::RemoveMassFromGridAfterFormation(int nParticle
 		**********************************************************************/
 
 		else if (SS->ParticleClass == POPIII){
-			/* 
+      /*
 			SG. If stellar accretion is off, pop3 star forms with final mass taken
 			from sphere. The target pop3 stellar mass is set with the parameter
 			'PopIIIStarMass' which is set by the user in the parameter file.
 			A sphere will step out by one cell width until it reaches a radius which
 			contains twice the PopIIIStarMass value. 
 			*/
-		    #if STELLAR_ACCRETION_OFF
-			PopIIIFormationFromSphere(SS, APGrid, ThisProcessorNum, StarLevelCellWidth,
-			CellVolumeStarLevel, Time, LevelArray, Temp, ThisLevel);
+#if STELLAR_ACCRETION_OFF
+			PopIIIFormationFromSphere(SS, APGrid, ThisProcessorNum, StarLevelCellWidth,CellVolumeStarLevel,
+                                Time, LevelArray, Temp, ThisLevel);
 			continue;
-		    #endif
-
-		    /* If stellar accretion not off and resolution is sufficent, accrete as normal -
-		     * just remove mass from the cell */
-            if (MyProcessorNumber != APGrid->ReturnProcessorNumber()){
-                continue;
-            }
+#endif
+      /* If stellar accretion not off and resolution is sufficent, accrete as normal -
+      * just remove mass from the cell */
+      if (MyProcessorNumber != APGrid->ReturnProcessorNumber()){
+        continue;
+      }
 
 			/* Find DensNum */
-            int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
-            if (APGrid->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,Vel3Num, TENum) == FAIL){
-                    ENZO_FAIL("Error in IdentifyPhysicalQuantities.");
-                    }
+      int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
+      if (APGrid->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
+                                             Vel3Num, TENum) == FAIL){
+        ENZO_FAIL("Error in IdentifyPhysicalQuantities.");
+      }
 
-            /* Define ParticleDensity and newcelldensity (only known to owning processor) */
-            density = APGrid->BaryonField[DensNum];
-            DensityThreshold = ActiveParticleDensityThreshold*mh/DensityUnits;
-            ParticleDensity = density[cellindex] - DensityThreshold;
-            newcelldensity = density[cellindex] - ParticleDensity;
+      /* Define ParticleDensity and newcelldensity (only known to owning processor) */
+      density = APGrid->BaryonField[DensNum];
+      DensityThreshold = ActiveParticleDensityThreshold*mh/DensityUnits;
+      ParticleDensity = density[cellindex] - DensityThreshold;
+      newcelldensity = density[cellindex] - ParticleDensity;
 
-            /* Update density, set SS attributes */
-            if(dx_pc <= POPIII_RESOLUTION) {
-               density[cellindex] = newcelldensity;
-               SS->BirthTime = APGrid->ReturnTime();
-               SS->Mass = ParticleDensity;
-               SS->oldmass = 0.0;
+      /* Update density, set SS attributes */
+      if(dx_pc <= POPIII_RESOLUTION) {
+         density[cellindex] = newcelldensity;
+         SS->BirthTime = APGrid->ReturnTime();
+         SS->Mass = ParticleDensity;
+         SS->oldmass = 0.0;
 
-               /* Pathological case */
-               if(ParticleDensity < 0.0) {
-                   printf("%s: cellindex = %d\n", __FUNCTION__, cellindex);
-                   printf("density[cellindex] = %e cm^-3\n", density[cellindex]*DensityUnits/mh);
-                   printf("DensityThreshold = %e cm^-3\n", DensityThreshold*DensityUnits/mh);
-                   printf("SS->ParticleClass = %d\n", SS->ParticleClass); fflush(stdout);
-                   ENZO_FAIL("Particle Density is negative. Oh dear.\n");
-               }
-                #if SSDEBUG
-                fprintf(stderr, "%s: Particle with initial mass %e (%e) Msolar created\n", __FUNCTION__,
-                        SS->Mass*pow(StarLevelCellWidth,3)*MassUnits/SolarMass, SS->Mass);
-                #endif
-                continue;
-			} // END resolution check
+         /* Pathological case */
+         if(ParticleDensity < 0.0) {
+             printf("%s: cellindex = %d\n", __FUNCTION__, cellindex);
+             printf("density[cellindex] = %e cm^-3\n", density[cellindex]*DensityUnits/mh);
+             printf("DensityThreshold = %e cm^-3\n", DensityThreshold*DensityUnits/mh);
+             printf("SS->ParticleClass = %d\n", SS->ParticleClass); fflush(stdout);
+             ENZO_FAIL("Particle Density is negative. Oh dear.\n");
+         }
+          #if SSDEBUG
+          fprintf(stderr, "%s: Particle with initial mass %e (%e) Msolar created\n", __FUNCTION__,
+                  SS->Mass*pow(StarLevelCellWidth,3)*MassUnits/SolarMass, SS->Mass);
+          #endif
+          continue;
+      } // END resolution check
 			else {
-				PopIIIFormationFromSphere(SS, APGrid, ThisProcessorNum, StarLevelCellWidth,
-                                          CellVolumeStarLevel, Time, LevelArray, Temp, ThisLevel);
+				PopIIIFormationFromSphere(SS, APGrid, ThisProcessorNum, StarLevelCellWidth, CellVolumeStarLevel,
+                                  Time, LevelArray, Temp, ThisLevel);
 				continue;
-            }
-		} // END PopIII
+      }
+    } // END PopIII
 
 
 		/*********************************************************************
@@ -1038,11 +1013,11 @@ int ActiveParticleType_SmartStar::RemoveMassFromGridAfterFormation(int nParticle
 				}
 				printf("POPII: cellindex %d updated - next.\n\n", cellindex);
 
-				continue;
-			} // END mass check
+        continue;
+      } // END mass check
 		 continue; // No low-res POPII case implemented yet.
-         } // END POPII
-         } // END num_new_stars loop
+    } // END POPII
+  } // END num_new_stars loop
 	return SUCCESS;
 } // END RemoveMassFromGridAfterFormation
 
