@@ -648,22 +648,32 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
   {
     ENZO_FAIL("Error in IdentifyPhysicalQuantities.");
   }
-  /* Estimate the relative velocity */
-  float vInfinity = sqrt(pow(vparticle[0] - BaryonField[Vel1Num][cgindex],2) +
-			 pow(vparticle[1] - BaryonField[Vel2Num][cgindex],2) +
-			 pow(vparticle[2] - BaryonField[Vel3Num][cgindex],2));
-  float CellTemperature = Temperature[cgindex];
+  /* Instantiate variables */
+  float vInfinity, cInfinity, CellTemperature, Gcode;
+  FLOAT ret;
+
+  /* Estimate the relative velocity, cell temperature and relative sound speed */
+  vInfinity = sqrt(pow(vparticle[0] - BaryonField[Vel1Num][cgindex],2) +
+    pow(vparticle[1] - BaryonField[Vel2Num][cgindex],2) +
+    pow(vparticle[2] - BaryonField[Vel3Num][cgindex],2));
+  CellTemperature = Temperature[cgindex];
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
-
-  float cInfinity = sqrt(Gamma * kboltz * CellTemperature / (Mu * mh)) /
-    LengthUnits*TimeUnits;
+  cInfinity = sqrt(Gamma * kboltz * CellTemperature / (Mu * mh)) / LengthUnits*TimeUnits;
 
   // SG. GravConst = 6.67e-8 cgs units cm^3 kg^-1 s^-2
-  float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
+  Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
   fprintf(stderr,"%s: vInfinity = %f km/s,\t cInfinity = %f km/s,\t CellTemperature = %"GSYM" K,\t CellWidth = %e pc\n",
           __FUNCTION__, (vInfinity*VelocityUnits)/1e5, (cInfinity*VelocityUnits)/1e5, CellTemperature,
           CellWidth[0][0]*LengthUnits/pc_cm);
-  FLOAT ret = FLOAT(2*Gcode*mparticle/(1 + POW(cInfinity,2)));
+
+  // SG. Use Bondi radius in subsonic relative motion case: c > v
+  if (cInfinity > vInfinity){
+    ret = FLOAT(2*Gcode*mparticle/(POW(cInfinity,2)));
+  }
+    // SG. Use Hoyle-Lyttleton radius in super-sonic relative motion case: c < v
+  else{
+    ret = FLOAT(2*Gcode*mparticle/(POW(vInfinity,2)));
+  }
   return ret;
 } // SG. End of function.
