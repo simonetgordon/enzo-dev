@@ -197,8 +197,9 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     // SG. Replaces above two lines. We want denom^2/3, not ^1/2. In line with derivation and Beckmann (2018).
     // AccretionRate = (4*pi*RhoInfinity*POW(BondiHoyleRadius,2)*POW(POW(lambda_c*cInfinity,2) + POW(vInfinity,2), 1.5));
     AccretionRate = 4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)/POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5);
-    fprintf(stderr, "%s: spherical BHL accretion rate numerator = %e \n", __FUNCTION__,
-            4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2));
+
+    fprintf(stderr, "%s: spherical BHL accretion rate numerator = %e, rho_infinity = %e, mparticle = %e, Gcode = %e \n",
+            __FUNCTION__, (4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)), RhoInfinity, mparticle, Gcode);
     fprintf(stderr, "%s: spherical BHL accretion rate denominator = %e \n", __FUNCTION__,
             POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5));
     fprintf(stderr, "%s: spherical BHL accretion rate = %e \n", __FUNCTION__, AccretionRate);
