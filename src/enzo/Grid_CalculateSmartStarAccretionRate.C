@@ -141,23 +141,27 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
-	radius2 =
-	  POW((CellLeftEdge[0][i] + 0.5*CellWidth[0][i]) - xparticle[0],2) +
-	  POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
-	  POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
-	
-	if ((AccretionRadius*AccretionRadius) > radius2) {
-	  //printf("Grid:index = %d\n", index);
-	  WeightedSum += BaryonField[DensNum][index]*
-	    exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-	  (*SumOfWeights) += exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-	  AverageT += Temperature[index];
-	  TotalGasMass += BaryonField[DensNum][index]*CellVolume;
-	  numcells++;
-	}
+        radius2 =
+          POW((CellLeftEdge[0][i] + 0.5*CellWidth[0][i]) - xparticle[0],2) +
+          POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
+          POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
+
+        fprintf(stderr, "%s: radius2 = %e, AccretionRadius*AccretionRadius = %e \n", __FUNCTION__, radius2,
+                AccretionRadius*AccretionRadius);
+
+        if ((AccretionRadius*AccretionRadius) > radius2) {
+          //printf("Grid:index = %d\n", index);
+          WeightedSum += BaryonField[DensNum][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
+          (*SumOfWeights) += exp(-radius2/((*KernelRadius)*(*KernelRadius)));
+          AverageT += Temperature[index];
+          TotalGasMass += BaryonField[DensNum][index]*CellVolume;
+          numcells++;
+        }
       }
     }
   }
+  fprintf(stderr, "%s: WeightedSum = %e, SumOfWeights = %e, KernelRadius = %e, AccretionRadius^2 = %e \n", __FUNCTION__,
+          WeightedSum, (*SumOfWeights), (*KernelRadius), AccretionRadius*AccretionRadius);
   delete [] Temperature;
   Weight = 1.0/numcells;
   AverageT *= Weight;
