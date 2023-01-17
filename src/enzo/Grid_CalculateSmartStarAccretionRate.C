@@ -74,7 +74,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   float AverageT=0, TotalGasMass = 0;
   float lambda_c = 0.25*exp(1.5);
   FLOAT radius2 = 0.0;
-  float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0,  AccretedMomentum[3],
+  float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0, AccretedMomentum[3],
     vgas[3], etot, eint, ke,  maccreted, etotnew, rhonew, eintnew,
     kenew, mnew = 0;
 
@@ -146,8 +146,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
           POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
           POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
 
-        fprintf(stderr, "%s: radius2 = %e, AccretionRadius*AccretionRadius = %e \n", __FUNCTION__, radius2,
-                AccretionRadius*AccretionRadius);
+//        fprintf(stderr, "%s: radius2 = %e, AccretionRadius*AccretionRadius = %e \n", __FUNCTION__, radius2,
+//                AccretionRadius*AccretionRadius);
 
         if ((AccretionRadius*AccretionRadius) > radius2) {
           //printf("Grid:index = %d\n", index);
@@ -516,67 +516,63 @@ float grid::ConvergentMassFlow(int DensNum, int Vel1Num, FLOAT AccretionRadius,
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
-	/* Want to calculate the radial velocity velocity vector
-	 * so that a positive radial velocity means gas travelling to the 
-	 * black hole.
-	 * In this case the equation is:
-	 * r_1 = BH position
-	 * r_2 = cell position
-	 * Relpos = r_1 - r_2
-	 * and the same for the velocities.
-	 * The radial velocity is the dot product i.e.
-	 * (v_1 - v_2).((r_1 - r_2)/|r_1 - r_2|)
-	 */
+        /* Want to calculate the radial velocity vector
+         * so that a positive radial velocity means gas travelling to the
+         * black hole.
+         * In this case the equation is:
+         * r_1 = BH position
+         * r_2 = cell position
+         * Relpos = r_1 - r_2
+         * and the same for the velocities.
+         * The radial velocity is the dot product i.e.
+         * (v_1 - v_2).((r_1 - r_2)/|r_1 - r_2|)
+         */
 
-	/* r-1 - r_2 */
-	FLOAT relx = pos[0] - (CellLeftEdge[0][i] + 0.5*CellWidth[0][i]);
-	FLOAT rely = pos[1] - (CellLeftEdge[1][j] + 0.5*CellWidth[1][j]);
-	FLOAT relz = pos[2] - (CellLeftEdge[2][k] + 0.5*CellWidth[2][k]);
-	FLOAT radius2 = POW(relx,2) + POW(rely,2) + POW(relz,2);
-	if ((AccretionRadius*AccretionRadius) > radius2 &&
-	    ((AccretionRadius-epsilon)*(AccretionRadius-epsilon)) < radius2) {
-	  FLOAT relposmag = sqrt(radius2);
-	  FLOAT relpos[3] = { relx/relposmag, rely/relposmag, relz/relposmag};
-	  FLOAT vrel[3] = {vel[0] - gasvelx[index],
-	  		   vel[1] - gasvely[index],
-	  		   vel[2] - gasvelz[index]};
-	  FLOAT radialvelocity = (vrel[0]*relpos[0] +
-				  vrel[1]*relpos[1] +
-				  vrel[2]*relpos[2] );
-	  float accrate = 0.0; 
-	  if(radialvelocity < 0) {
-#if USEBOUNDEDNESS
-	    if(SSMass > 0.0){
-	      float ke = pow(gasvelx[index], 2.0) + pow(gasvely[index], 2.0) + pow(gasvelz[index], 2.0);
-	      float te = BaryonField[GENum][index];
-	      FLOAT dist = sqrt(radius2);
-	      float ge = Gcode*SSmass/dist;
-	      if(ke+te-ge<0) { /*Only add if we are bound */
-		continue;
-	      }
-	    }
-	    else
-	      ;
-#endif
-	    numincells++;
-	    accrate = density[index]*relposmag*relposmag*radialvelocity;
-	  }
-	  else
-	    numoutcells++;
-	  //mdot += density[index]*relposmag*relposmag*radialvelocity;
-	  //float accrate = density[index] * pow(AccretionRadius, 2.0) * div;
-	  //printf("%s: Accretion Rate = %g\n", __FUNCTION__, accrate*4.0*M_PI);
-	  mdot += accrate;
-	}
+        /* r-1 - r_2 */
+        FLOAT relx = pos[0] - (CellLeftEdge[0][i] + 0.5*CellWidth[0][i]);
+        FLOAT rely = pos[1] - (CellLeftEdge[1][j] + 0.5*CellWidth[1][j]);
+        FLOAT relz = pos[2] - (CellLeftEdge[2][k] + 0.5*CellWidth[2][k]);
+        FLOAT radius2 = POW(relx,2) + POW(rely,2) + POW(relz,2);
+        if ((AccretionRadius*AccretionRadius) > radius2 &&
+        ((AccretionRadius-epsilon)*(AccretionRadius-epsilon)) < radius2) {
+          FLOAT relposmag = sqrt(radius2);
+          FLOAT relpos[3] = { relx/relposmag, rely/relposmag, relz/relposmag};
+          FLOAT vrel[3] = {vel[0] - gasvelx[index],
+                 vel[1] - gasvely[index],
+                 vel[2] - gasvelz[index]};
+          FLOAT radialvelocity = (vrel[0]*relpos[0] + vrel[1]*relpos[1] + vrel[2]*relpos[2] );
+          float accrate = 0.0;
+          if(radialvelocity < 0) {
+          #if USEBOUNDEDNESS
+            if(SSMass > 0.0){
+              float ke = pow(gasvelx[index], 2.0) + pow(gasvely[index], 2.0) + pow(gasvelz[index], 2.0);
+              float te = BaryonField[GENum][index];
+              FLOAT dist = sqrt(radius2);
+              float ge = Gcode*SSmass/dist;
+              if(ke+te-ge<0) { /*Only add if we are bound */
+                continue;
+              }
+            }
+            else
+              ;
+          #endif
+            numincells++;
+            accrate = density[index]*relposmag*relposmag*radialvelocity;
+          }
+          else
+            numoutcells++;
+          //mdot += density[index]*relposmag*relposmag*radialvelocity;
+          //float accrate = density[index] * pow(AccretionRadius, 2.0) * div;
+          //printf("%s: Accretion Rate = %g\n", __FUNCTION__, accrate*4.0*M_PI);
+          mdot += accrate;
+        }
       }
     }
-  }
+  } // END loop over cells
   // mdot = -4*pi*rho*R^2*V_radial
   mdot = fabs(4*M_PI*mdot); //return the accretion rate as a positive quantity
-#ifdef DEBUG_AP
-  printf("%s: Num InFlow cells = %d\t Num OutflowCells = %d\t mdot = %e\n", __FUNCTION__, numincells,
-	 numoutcells, mdot);
-#endif
+  fprintf(stderr, "%s: Num InFlow cells = %d\t Num OutflowCells = %d\t mdot = %e\n", __FUNCTION__,
+          numincells, numoutcells, mdot);
   return mdot;
 }
 

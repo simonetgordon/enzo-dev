@@ -57,7 +57,7 @@ int grid::AccreteOntoSmartStarParticle(
       (GridRightEdge[2] < zsink-AccretionRadius))
     return SUCCESS;
  
-  /* Delcare and initialize local variables */
+  /* Declare and initialize local variables */
 
   float delta_vpart[3] = {0.0, 0.0, 0.0};
   float AccretedMass = 0;  
@@ -83,8 +83,7 @@ int grid::AccreteOntoSmartStarParticle(
   float MassConversion = (float) (dx*dx*dx * double(MassUnits));  //convert to g
   FLOAT KernelRadius = 0.0, SumOfWeights = 0.0; /*Required for weighting cells for accretion */
   // SG. Shouldn't CalculateSmartStarAccretionRate be acting on a grid?
-  *AccretionRate = CalculateSmartStarAccretionRate(ThisParticle, AccretionRadius,
-						   &KernelRadius, &SumOfWeights);
+  *AccretionRate = CalculateSmartStarAccretionRate(ThisParticle, AccretionRadius, &KernelRadius, &SumOfWeights);
 #if NO_ACCRETION
   *AccretionRate = 0.0;
 #endif
@@ -117,9 +116,8 @@ int grid::AccreteOntoSmartStarParticle(
    * is closer to what the black hole would actually accrete. 
    */
  
-  RemoveMassFromGrid(ThisParticle,AccretionRadius, *AccretionRate,
-		     &AccretedMass, delta_vpart,
-		     KernelRadius, SumOfWeights, MaxAccretionRate);
+  RemoveMassFromGrid(ThisParticle,AccretionRadius, *AccretionRate, &AccretedMass, delta_vpart,
+                     KernelRadius, SumOfWeights, MaxAccretionRate);
 #if  ACCRETE_DEBUG
   printf("%s: DeltaV = %e %e %e\n", __FUNCTION__,
 	 delta_vpart[0], delta_vpart[1], delta_vpart[2]);
@@ -193,7 +191,7 @@ int grid::AccreteOntoSmartStarParticle(
       SS->MassToBeEjected = 0.0;
 #if  ACCRETE_DEBUG
       printf("%s: Eddrate = %e Msolar/yr AccRate = %e Msolar/yr\t Ratio = %f\n", __FUNCTION__,
-	     eddrate, accrate_msolar, accrate_msolar/eddrate);
+             eddrate, accrate_msolar, accrate_msolar/eddrate);
 #endif
       if(accrate_msolar > eddrate) {
 	
@@ -223,8 +221,8 @@ int grid::AccreteOntoSmartStarParticle(
 #endif
 	;
       }
-    }
-  }
+    } // END BHJets
+  } // END BH && SmartStarBHFeedback
   
   AccretedMass = (*AccretionRate)*this->dtFixed;
   ThisParticle->AddMass(AccretedMass);
