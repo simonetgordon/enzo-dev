@@ -1068,7 +1068,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
    * of 100,000 years which accounts for end of snowplough 
    * period
     */
-    float TimeDelay = 0*yr_s/TimeUnits; //set to 100 kyr - SG change to 0 yr for BH only.
+    float TimeDelay = 100*yr_s/TimeUnits; //set to 100 kyr - SG change to 100 yr for BH only run.
     for (i = 0; i < nParticles; i++) {
         /*
          * Accretion is only allowed if it makes sense:
