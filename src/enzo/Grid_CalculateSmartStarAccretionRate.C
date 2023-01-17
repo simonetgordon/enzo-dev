@@ -192,7 +192,10 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
 
     // SG. Replaces above two lines. We want rho_inf = avg dens in accretion sphere.
     // This alpha factor has the effect of reducing rho_inf when dx <~ bondi_radius.
-    RhoInfinity = AverageDensity;
+    // RhoInfinity = AverageDensity;
+    // SG. We want rho_inf to be the density of the particle cell
+    // (this is approximated as the cell in the centre of the grid)
+    RhoInfinity = BaryonField[DensNum][cgindex];
 
     /* Bondi Hoyle */
     // AccretionRate = (4*pi*RhoInfinity*POW(BondiHoyleRadius,2)*
