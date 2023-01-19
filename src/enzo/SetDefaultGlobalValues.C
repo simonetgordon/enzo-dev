@@ -1042,6 +1042,7 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   SmartStarAccretion = 8;
 
   SmartStarBondiRadiusRefinementFactor = 1;
+  SmartStarMassFluxScaleRadius = 1e-6; // in pc
   SmartStarFeedback = FALSE;
   SmartStarEddingtonCap = FALSE;
   SmartStarBHFeedback = FALSE;

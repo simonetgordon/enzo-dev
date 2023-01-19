@@ -1179,6 +1179,12 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
                 fprintf(stderr, "%s: Accretion Radius = %e pc (%f cells). No update needed.\n",
                         __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
             }
+            if (SmartStarBondiRadiusRefinementFactor > 1){
+              SS->AccretionRadius = SmartStarMassFluxScaleRadius*pc_cm/LengthUnits;
+              fprintf(stderr, "%s: SmartStarBondiRadiusRefinementFactor > 1. Using user-set scale radius for refinement. "
+                              "Accretion Radius = %e pc (%f cells).\n",
+                      __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
+            }
             AccretionRadius = SS->AccretionRadius;
             NewAccretionRadius = AccretionRadius;
             delete [] Temperature;

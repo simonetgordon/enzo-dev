@@ -1374,13 +1374,14 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     ret += sscanf(line, "SmartStarAccretion    = %"ISYM, &SmartStarAccretion);
 
     ret += sscanf(line, "SmartStarBondiRadiusRefinementFactor    = %"FSYM, &SmartStarBondiRadiusRefinementFactor);
-    ret += sscanf(line, "SmartStarFeedback     = %"ISYM, &SmartStarFeedback);
-    ret += sscanf(line, "SmartStarEddingtonCap = %"ISYM, &SmartStarEddingtonCap);
-    ret += sscanf(line, "SmartStarBHFeedback = %"ISYM, &SmartStarBHFeedback);
-    ret += sscanf(line, "SmartStarBHJetFeedback  = %"ISYM, &SmartStarBHJetFeedback);
-    ret += sscanf(line, "SmartStarBHThermalFeedback  = %"ISYM, &SmartStarBHThermalFeedback);
-    ret += sscanf(line, "SmartStarBHRadiativeFeedback = %"ISYM, &SmartStarBHRadiativeFeedback);
-    ret += sscanf(line, "SmartStarStellarRadiativeFeedback = %"ISYM, &SmartStarStellarRadiativeFeedback);
+    ret += sscanf(line, "SmartStarMassFluxScaleRadius            = %"FSYM, &SmartStarMassFluxScaleRadius);
+    ret += sscanf(line, "SmartStarFeedback                       = %"ISYM, &SmartStarFeedback);
+    ret += sscanf(line, "SmartStarEddingtonCap                   = %"ISYM, &SmartStarEddingtonCap);
+    ret += sscanf(line, "SmartStarBHFeedback                     = %"ISYM, &SmartStarBHFeedback);
+    ret += sscanf(line, "SmartStarBHJetFeedback                  = %"ISYM, &SmartStarBHJetFeedback);
+    ret += sscanf(line, "SmartStarBHThermalFeedback              = %"ISYM, &SmartStarBHThermalFeedback);
+    ret += sscanf(line, "SmartStarBHRadiativeFeedback            = %"ISYM, &SmartStarBHRadiativeFeedback);
+    ret += sscanf(line, "SmartStarStellarRadiativeFeedback       = %"ISYM, &SmartStarStellarRadiativeFeedback);
 
     ret += sscanf(line, "SmartStarFeedbackEnergyCoupling       = %"FSYM, &SmartStarFeedbackEnergyCoupling);
     ret += sscanf(line, "SmartStarFeedbackJetsThresholdMass    = %"FSYM, &SmartStarFeedbackJetsThresholdMass);
