@@ -681,7 +681,7 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
   fprintf(stderr,"%s: vInfinity = %f km/s,\t cInfinity = %f km/s,\t "
                  "CellTemperature = %"GSYM" K,\t CellWidth = %e pc\t, mparticle = %e Msun (%e code)\n",
           __FUNCTION__, (vInfinity*VelocityUnits)/1e5, (cInfinity*VelocityUnits)/1e5, CellTemperature,
-          CellWidth[0][0]*LengthUnits/pc_cm, mparticle*MassUnits/SolarMass/CellVolume, mparticle);
+          CellWidth[0][0]*LengthUnits/pc_cm, mparticle*MassUnits/SolarMass, mparticle);
 
   // SG. Use Bondi radius in subsonic relative motion case: c > v
   if (cInfinity > vInfinity){
