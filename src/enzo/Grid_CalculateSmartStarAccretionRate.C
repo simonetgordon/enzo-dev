@@ -692,7 +692,8 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
     // SG. Use Hoyle-Lyttleton radius in super-sonic relative motion case: c < v
   else{
     ret = FLOAT(2*Gcode*mparticle/(POW(vInfinity,2)));
-    fprintf(stderr, "%s: Hoyle-Lyttleton radius used = %f pc (%e code)", __FUNCTION__, ret*LengthUnits/pc_cm, ret);
+    fprintf(stderr, "%s: Hoyle-Lyttleton radius used = %f pc (%e code), dividing by cell volume = %f pc (%f code)\n",
+            __FUNCTION__, ret*LengthUnits/pc_cm, ret, ret*LengthUnits/(pc_cm*CellVolume), ret/CellVolume);
   }
 
   return ret;
