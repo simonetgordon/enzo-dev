@@ -1181,7 +1181,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
             }
             if (SmartStarUseFixedRadiusForRefinement == 1){
               SS->AccretionRadius = SmartStarMassFluxScaleRadius*pc_cm/LengthUnits;
-              fprintf(stderr, "%s: SmartStarBondiRadiusRefinementFactor > 1. Using user-set scale radius for refinement. "
+              fprintf(stderr, "%s: SmartStarUseFixedRadiusForRefinement == 1. Using user-set scale radius for refinement. "
                               "Accretion Radius = %e pc (%f cells).\n",
                       __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
             }
