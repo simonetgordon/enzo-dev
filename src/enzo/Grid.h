@@ -2945,6 +2945,7 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
   float CalculateCirculisationSpeed(int Vel1Num, FLOAT AccretionRadius,
 				    FLOAT *pos, float *vel);
   FLOAT CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature);
+  FLOAT CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature);
   int AddMassAndMomentumToAccretingParticle(float GlobalSubtractedMass,
 					    float GlobalSubtractedMomentum[], 
 					    ActiveParticleType* ThisParticle,
