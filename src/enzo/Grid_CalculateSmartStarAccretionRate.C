@@ -127,15 +127,15 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     LengthUnits*TimeUnits;
   // SG. Temperature is computed on line 83
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
-  FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature);
+  FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
   
   /* Impose a kernel radius that regulates the weighting cells get as a function of radius */
   FLOAT dx = (CellWidth[0][0] + CellWidth[1][0] + CellWidth[2][0])/3;
-  if (BondiHoyleRadius < dx) {  /* For BHs whose Bondi radius is not resolved */
+  if (BondiHoyleRadius_Interpolated < dx) {  /* For BHs whose Bondi radius is not resolved */
     fprintf(stderr, "%s: Setting kernel radius to CellWidth, BH not resolved\n", __FUNCTION__);
     *KernelRadius = dx;
   }
-  else if(dx < BondiHoyleRadius < 2*dx) { /*Accrete out to the BH radius */
+  else if(dx < BondiHoyleRadius_Interpolated < 2*dx) { /*Accrete out to the BH radius */
     fprintf(stderr, "%s: Setting kernel radius to BondiHoyleRadius\n", __FUNCTION__);
     *KernelRadius = BondiHoyleRadius;
   }
@@ -145,8 +145,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   }
 
   int numcells=0;
-  float Average_v1, Average_v2, Average_v3 = 0.0, AverageT = 0.0, WeightedSum_T = 0.0, WeightedSum_v = 0.0,
-  Average_vInfinity;
+  float Average_v1, Average_v2, Average_v3 = 0.0, WeightedSum_T = 0.0, WeightedSum_v1 = 0.0, WeightedSum_v2 = 0.0,
+  WeightedSum_v3 = 0.0, Average_vInfinity;
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
@@ -186,7 +186,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   Average_v2 = WeightedSum_v2/(*SumOfWeights);
   Average_v3 = WeightedSum_v3/(*SumOfWeights);
   /* Estimate the relative velocity */
-  float Average_vInfinity = sqrt(pow(vparticle[0] - Average_v1,2) +
+  Average_vInfinity = sqrt(pow(vparticle[0] - Average_v1,2) +
     pow(vparticle[1] - Average_v2,2) + pow(vparticle[2] - Average_v3,2));
 
   if(AverageT <= 0.0)
@@ -663,27 +663,6 @@ float grid::CalculateCirculisationSpeed(int Vel1Num, FLOAT AccretionRadius,
 
 FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature)
 {
-  /* SG/BS get location of particle and cell index from that. */
-  FLOAT relx, rely, relz;
-  int bhindex, cindex, cgindex;
-
-  for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
-    for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
-      int index = GRIDINDEX_NOGHOST(GridStartIndex[0], j, k);
-      for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
-        relx = (CellLeftEdge[0][i] + 0.5 * CellWidth[0][i]) - pos[0];
-        rely = (CellLeftEdge[1][j] + 0.5 * CellWidth[1][j]) - pos[1];
-        relz = (CellLeftEdge[2][k] + 0.5 * CellWidth[2][k]) - pos[2];
-
-        if ((relx <= 0.5 * CellWidth[0][i]) && (rely <= 0.5 * CellWidth[1][j]) && (relz <= 0.5 * CellWidth[2][k])) {
-          bhindex = GRIDINDEX_NOGHOST(i, j, k);
-          fprintf(stderr, "%s: bhindex = %"ISYM"\n", __FUNCTION__, bhindex);
-          break;
-        }
-      }
-    }
-  }
-
   /* grab index of cell in centre of grid */
   cindex = (GridEndIndex[0] - GridStartIndex[0])/2 + GridStartIndex[0];
   cgindex = GRIDINDEX_NOGHOST(cindex,cindex,cindex);
@@ -753,19 +732,20 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
 } // SG. End of function.
 
 
-FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature)
+FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature, FLOATxparticle [3])
 {
   /* SG/BS get location of particle and cell index from that. */
   FLOAT relx, rely, relz;
   int bhindex, cindex, cgindex;
 
+
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0], j, k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
-        relx = (CellLeftEdge[0][i] + 0.5 * CellWidth[0][i]) - pos[0];
-        rely = (CellLeftEdge[1][j] + 0.5 * CellWidth[1][j]) - pos[1];
-        relz = (CellLeftEdge[2][k] + 0.5 * CellWidth[2][k]) - pos[2];
+        relx = (CellLeftEdge[0][i] + 0.5 * CellWidth[0][i]) - xparticle[0];
+        rely = (CellLeftEdge[1][j] + 0.5 * CellWidth[1][j]) - xparticle[1];
+        relz = (CellLeftEdge[2][k] + 0.5 * CellWidth[2][k]) - xparticle[2];
 
         if ((relx <= 0.5 * CellWidth[0][i]) && (rely <= 0.5 * CellWidth[1][j]) && (relz <= 0.5 * CellWidth[2][k])) {
           bhindex = GRIDINDEX_NOGHOST(i, j, k);
