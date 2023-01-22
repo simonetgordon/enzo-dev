@@ -663,6 +663,7 @@ float grid::CalculateCirculisationSpeed(int Vel1Num, FLOAT AccretionRadius,
 
 FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature)
 {
+  int cindex, cgindex;
   /* grab index of cell in centre of grid */
   cindex = (GridEndIndex[0] - GridStartIndex[0])/2 + GridStartIndex[0];
   cgindex = GRIDINDEX_NOGHOST(cindex,cindex,cindex);
@@ -732,7 +733,8 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
 } // SG. End of function.
 
 
-FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature, FLOATxparticle [3])
+FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparticle, float *Temperature,
+                                                  FLOAT xparticle[3])
 {
   /* SG/BS get location of particle and cell index from that. */
   FLOAT relx, rely, relz;
