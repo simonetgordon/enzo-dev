@@ -53,9 +53,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   {ENZO_FAIL("Error in IdentifyPhysicalQuantities.");}
 
   /* Set the units. */
-  float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1,
-    TimeUnits = 1, VelocityUnits = 1,
-    PressureUnits = 0, GEUnits = 0, VelUnits = 0;
+  float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1, TimeUnits = 1, VelocityUnits = 1,
+  PressureUnits = 0, GEUnits = 0, VelUnits = 0, ConvertToNumberDensity;
   double MassUnits = 1;
   if (GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
                &TimeUnits, &VelocityUnits, Time) == FAIL) {
@@ -65,6 +64,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   GEUnits = POW(LengthUnits,2) / POW(TimeUnits, 2);
   VelUnits = LengthUnits/(TimeUnits*1e5); //convert to km/s
   MassUnits = DensityUnits * POW(LengthUnits,3);
+  ConvertToNumberDensity = DensityUnits/mh;
   /* end units */
 
 
@@ -190,11 +190,12 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     AverageT = Temperature[cgindex];
   AverageDensity = WeightedSum / (*SumOfWeights);
   fprintf(stderr, "%s: AverageDensity = %g cm^-3, AverageTemp = %e K, Average vInfinity = %e km/s\n", __FUNCTION__,
-          AverageDensity*DensityUnits/MassUnits, AverageT, Average_vInfinity*VelocityUnits/1e5);
+          AverageDensity*ConvertToNumberDensity, AverageT, Average_vInfinity*VelocityUnits/1e5);
 
   /* Calculate the accretion rate based on prescription specified */
   float AccretionRate = 0.0;
   SS->mass_in_accretion_sphere = TotalGasMass/CellVolume; //convert to density for consistency
+  fprintf(stderr, "SS->mass_in_accretion_sphere = %e Msun\n", SS->mass_in_accretion_sphere*MassUnits/SolarMass);
 
   /* 
    * Traditional Bondi-Hoyle Prescription using the formalism
@@ -204,7 +205,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
    * accretion radius.
    */
   if(SmartStarAccretion == SPHERICAL_BONDI_HOYLE_FORMALISM ||
-     SmartStarAccretion == SPHERICAL_BONDI_HOYLE_FORMALISM_WITH_VORTICITY) {
+  SmartStarAccretion == SPHERICAL_BONDI_HOYLE_FORMALISM_WITH_VORTICITY) {
     fprintf(stderr, "Doing SPHERICAL_BONDI_HOYLE_FORMALISM, SmartStarAccretion = %d\n", SmartStarAccretion);
     // RhoInfinity = AverageDensity /
     //   bondi_alpha(1.2*CellWidth[0][0] / BondiHoyleRadius);
@@ -216,7 +217,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     // (this is approximated as the cell in the centre of the grid)
     // RhoInfinity = BaryonField[DensNum][cgindex];
 
-    /* Bondi Hoyle */
+    /* Bondi Hoyle Accretion */
     float cInfinity = sqrt(Gamma * kboltz * AverageT / (Mu * mh)) / LengthUnits*TimeUnits;
     vInfinity = Average_vInfinity;
 
@@ -230,12 +231,12 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     float AccretionRate_old = 4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)/
                               POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5);
 
-    fprintf(stderr, "%s: spherical BHL accretion rate with average values = %e Msun/yr  (%e code)\n", __FUNCTION__,
-            AccretionRate*MassUnits/TimeUnits/SolarMass/yr_s);
+    fprintf(stderr, "%s: spherical BHL accretion rate with average values (this is SS->AccretionRate) = "
+                    "%e Msun/yr (%e code)\n", __FUNCTION__, AccretionRate*MassUnits/TimeUnits/SolarMass/yr_s,
+                    AccretionRate);
 
-    fprintf(stderr, "%s: old spherical BHL accretion rate with cell values = %e Msun/yr  (%e code)\n", __FUNCTION__,
-            AccretionRate_old*MassUnits/TimeUnits/SolarMass/yr_s);
-
+    fprintf(stderr, "%s: old spherical BHL accretion rate with cell values = %e Msun/yr (%e code)\n", __FUNCTION__,
+            AccretionRate_old*MassUnits*yr_s/(TimeUnits*SolarMass), AccretionRate_old);
 
     /* Include Vorticity component if specified */
     if(SPHERICAL_BONDI_HOYLE_FORMALISM_WITH_VORTICITY == SmartStarAccretion) {
@@ -734,9 +735,10 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
                                                   FLOAT xparticle[3])
 {
   /* SG/BS get location of particle and cell index from that. */
-  FLOAT relx, rely, relz;
+  FLOAT relx, rely, relz, bh_x, bh_y, bh_z;
   int bhindex, cindex, cgindex;
 
+  bh_x, bh_y, bh_z = 1.0;
 
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
@@ -746,10 +748,12 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
         rely = (CellLeftEdge[1][j] + 0.5 * CellWidth[1][j]) - xparticle[1];
         relz = (CellLeftEdge[2][k] + 0.5 * CellWidth[2][k]) - xparticle[2];
 
-        if ((relx <= 0.5 * CellWidth[0][i]) && (rely <= 0.5 * CellWidth[1][j]) && (relz <= 0.5 * CellWidth[2][k])) {
+        if ((relx*relx + rely*rely + relz*relz) < (bh_x*bh_x + bh_y*bh_y + bh_z*bh_z)) {
+          bh_x = relx;
+          bh_y = rely;
+          bh_z = relz;
           bhindex = GRIDINDEX_NOGHOST(i, j, k);
           fprintf(stderr, "%s: bhindex = %"ISYM"\n", __FUNCTION__, bhindex);
-          break;
         }
       }
     }

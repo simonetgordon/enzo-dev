@@ -1033,30 +1033,24 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
     the edges of two regions at the maximum refinement level
      */
 
-    // if (ThisLevel < MaximumRefinementLevel)
-    //   return SUCCESS;
-
     FLOAT Time = LevelArray[ThisLevel]->GridData->ReturnTime();
     float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits, VelocityUnits;
     double MassUnits;
     GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits,
              &VelocityUnits, Time);
     MassUnits = DensityUnits * POW(LengthUnits,3);
+
     // SG. Find dx from grid data.
     FLOAT dx = LevelArray[ThisLevel]->GridData->CellWidth[0][0];
     FLOAT dx_pc = dx*LengthUnits/pc_cm;   //in pc
-    double MassConversion = (double) (dx*dx*dx * double(MassUnits));  //convert to g
 
-    // For each particle, loop over all the grids and do accretion if the grid overlaps with the accretion zone
+    double MassConversion = (double) (dx*dx*dx * double(MassUnits));  //convert to g
     int i, NumberOfGrids;
     int *FeedbackRadius = NULL;
     HierarchyEntry **Grids = NULL;
     grid *sinkGrid = NULL;
-
     bool SinkIsOnThisProc, SinkIsOnThisGrid;
-
     float SubtractedMass, SubtractedMomentum[3] = {};
-
     NumberOfGrids = GenerateGridArray(LevelArray, ThisLevel, &Grids);
     float ctime = LevelArray[ThisLevel]->GridData->ReturnTime();
 
@@ -1068,151 +1062,151 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
    * of 100,000 years which accounts for end of snowplough 
    * period
     */
-    float TimeDelay = 100*yr_s/TimeUnits; //set to 100 kyr - SG change to 100 yr for BH only run.
+    float TimeDelay = 100*yr_s/TimeUnits; // set to 100 kyr - SG change to 100 yr for BH only run.
+    // For each particle, loop over all the grids and do accretion if the grid overlaps with the accretion zone
     for (i = 0; i < nParticles; i++) {
+      /*
+       * Accretion is only allowed if it makes sense:
+       * 1. Black Holes in general are always allowed to accrete.
+       * 2. SMS can accrete if there is sufficient resolution to do so
+       * 3. PopIII stars can accrete if there is sufficient resolution
+       * 4. PopII stars never accrete
+       */
+      ActiveParticleType_SmartStar* SS;
+      SS = static_cast<ActiveParticleType_SmartStar*>(ParticleList[i]);
+      float MassInSolar = ParticleList[i]->ReturnMass()*MassConversion/SolarMass;
+      AccretionRadius = SS->AccretionRadius;
+      int pclass = SS->ParticleClass;
+      float Stellar_Age = SS->StellarAge;
+      float p_age = ctime - SS->BirthTime;
+      int MyLevel = SS->ReturnLevel(); // SG.
+
+      //SG.
+      if (ThisLevel != MyLevel){
+        continue;
+      }
+
+      if(pclass == POPIII){
         /*
-         * Accretion is only allowed if it makes sense:
-         * 1. Black Holes in general are always allowed to accrete.
-         * 2. SMS can accrete if there is sufficient resolution to do so
-         * 3. PopIII stars can accrete if there is sufficient resolution
-         * 4. PopII stars never accrete
-         */
-        ActiveParticleType_SmartStar* SS;
-        SS = static_cast<ActiveParticleType_SmartStar*>(ParticleList[i]);
-        float MassInSolar = ParticleList[i]->ReturnMass()*MassConversion/SolarMass;
-        AccretionRadius = SS->AccretionRadius;
-        int pclass = SS->ParticleClass;
-        float Stellar_Age = SS->StellarAge;
-        float p_age = ctime - SS->BirthTime;
-        int MyLevel = SS->ReturnLevel(); // SG.
-
-        //SG.
-        if (ThisLevel != MyLevel){
+         * We only accrete onto POPIII stars if our maximum
+         * spatial resolution is better than 1e-3 pc
+         * */
+        if(dx_pc > POPIII_RESOLUTION) // we don't have sufficient resolution
+          continue;
+        // SG.
+        if (MassInSolar >= PopIIIStarMass || MassInSolar == 0){
+          fprintf(stderr,"%s: Accrete is skipped.\n", __FUNCTION__);
+          continue; // SG. Change to return SUCCESS? In order to skip particle assignment
+        }
+      }
+      else if(pclass == SMS){
+        /*
+         * We only accrete onto SMSs if our maximum
+         * spatial resolution is better than 1e-1 pc
+         * */
+        if(dx_pc > SMS_RESOLUTION) // we don't have sufficient resolution
+          continue;
+      }
+      else if(pclass == BH){
+          /* We always accrete onto BHs. The only restriction is that
+           * we can optionally employ a time delay following a SNe explosion to
+           * avoid spurious accretion.
+          */
+          if(p_age < Stellar_Age + TimeDelay){
+            fprintf(stderr, "%s: no accretion due to TimeDelay (%e yrs). p_age = %e yrs. "
+                            "Stellar_Age = %e yrs.\n",
+                            __FUNCTION__, TimeDelay*TimeUnits/yr_s, p_age*TimeUnits/yr_s, Stellar_Age*TimeUnits/yr_s);
             continue;
-        }
+          }
+      }
+      else if(pclass == POPII){
+        /* We never accrete onto POPII stars */
+        continue;
+      }
 
-        if(pclass == POPIII){
-            /*
-             * We only accrete onto POPIII stars if our maximum
-             * spatial resolution is better than 1e-3 pc
-             * */
-            if(dx_pc > POPIII_RESOLUTION) // we don't have sufficient resolution
-              continue;
-            // SG.
-            if (MassInSolar >= PopIIIStarMass || MassInSolar == 0){
-                fprintf(stderr,"%s: Accrete is skipped.\n", __FUNCTION__);
-                continue; // SG. Change to return SUCCESS? In order to skip particle assignment
-            }
-        }
-        else if(pclass == SMS){
-            /*
-             * We only accrete onto SMSs if our maximum
-             * spatial resolution is better than 1e-1 pc
-             * */
-            if(dx_pc > SMS_RESOLUTION) // we don't have sufficient resolution
-                continue;
-        }
-        else if(pclass == BH){
-            /* We always accrete onto BHs. The only restriction is that
-             * we can optionally employ a time delay following a SNe explosion to
-             * avoid spurious accretion.
-            */
-            // time delay.
-            if(p_age < Stellar_Age + TimeDelay){
-                fprintf(stderr, "%s: no accretion due to TimeDelay (%e yrs). p_age = %e yrs. "
-                                "Stellar_Age = %e yrs.\n",
-                        __FUNCTION__, TimeDelay*TimeUnits/yr_s, p_age*TimeUnits/yr_s, Stellar_Age*TimeUnits/yr_s);
-                continue;
-            }
-        }
-        else if(pclass == POPII){
-            /* We never accrete onto POPII stars */
-            continue;
-        }
+      // SG/BS Put feedback zone inside processor num
+      grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx, Grids, NumberOfGrids, ALL_FIELDS);
+      grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
 
-        // SG/BS Put feedback zone inside processor num
-        grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx, Grids,
-                                                   NumberOfGrids, ALL_FIELDS);
-        grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
+      // SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
+      // CommunicateAllSumValues().
+      FLOAT positions[3] = {0,0,0}; // SG. All elements initialised to zero.
+      FLOAT NewAccretionRadius = 0;
+      FLOAT* pos[3];
+      pos = SS->pos;
 
-        // SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
-        // CommunicateAllSumValues().
-        FLOAT positions[3] = {0,0,0}; // SG. All elements initialised to zero.
-        FLOAT NewAccretionRadius = 0;
-        FLOAT* pos;
+      // SG/BS change to continue and !=.
+      if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
+        float AccretionRate = 0;
+        if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate) == FAIL)
+          return FAIL;
 
-        // SG/BS change to continue and !=.
-        if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
-            float AccretionRate = 0;
-
-            if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i],
-			      AccretionRadius, &AccretionRate) == FAIL)
-                return FAIL;
-
-            // SG. positions is the array of de-referenced particle positions in each dim.
-            positions[0] = ParticleList[i]->ReturnPosition()[0];
-            positions[1] = ParticleList[i]->ReturnPosition()[1];
-            positions[2] = ParticleList[i]->ReturnPosition()[2];
+        // SG. positions is the array of de-referenced particle positions in each dim.
+        positions[0] = ParticleList[i]->ReturnPosition()[0];
+        positions[1] = ParticleList[i]->ReturnPosition()[1];
+        positions[2] = ParticleList[i]->ReturnPosition()[2];
 
 
 #if BONDIHOYLERADIUS
-            /* Check what the Bondi-Hoyle radius is - we should accrete out to that if required */
-            float mparticle = ParticleList[i]->ReturnMass()*dx*dx*dx;
-            float *vparticle = ParticleList[i]->ReturnVelocity();
-            int size = FeedbackZone->GetGridSize();
-            float *Temperature = new float[size]();
-            FeedbackZone->ComputeTemperatureField(Temperature);
+        /* Check what the Bondi-Hoyle radius is - we should accrete out to that if required */
+        float mparticle = ParticleList[i]->ReturnMass()*dx*dx*dx;
+        float *vparticle = ParticleList[i]->ReturnVelocity();
+        int size = FeedbackZone->GetGridSize();
+        float *Temperature = new float[size]();
+        FeedbackZone->ComputeTemperatureField(Temperature);
 
-            FLOAT BondiHoyleRadius = FeedbackZone->CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
+        /* SG. Use interpolated BHL radius with values from the bhindex */
+        FLOAT BondiHoyleRadius = FeedbackZone->CalculateInterpolatedBondiHoyleRadius(mparticle,vparticle,
+                                                                                     Temperature, pos);
 
-            /*
-            SG: the accretion radius will be reassigned to the Bondi radius when the accretion radius
-            falls outside of the tolerance.
-            */
-            FLOAT tol = 0.000000000001*BondiHoyleRadius;
-            if(BondiHoyleRadius + tol < SS->AccretionRadius || SS->AccretionRadius < BondiHoyleRadius - tol) {
-                SS->AccretionRadius = BondiHoyleRadius;
-                fprintf(stderr, "%s: Updating accretion radius to Bondi radius = %e pc (%f cells)\n",
-                        __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm,SS->AccretionRadius/dx);
-            }
-            else{
-                fprintf(stderr, "%s: Accretion Radius = %e pc (%f cells). No update needed.\n",
-                        __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
-            }
-            if (SmartStarUseFixedRadiusForRefinement == 1){
-              SS->AccretionRadius = SmartStarMassFluxScaleRadius*pc_cm/LengthUnits;
-              fprintf(stderr, "%s: SmartStarUseFixedRadiusForRefinement == 1. Using user-set scale radius for refinement. "
-                              "Accretion Radius = %e pc (%f cells).\n",
-                      __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
-            }
-            AccretionRadius = SS->AccretionRadius;
-            NewAccretionRadius = AccretionRadius;
-            delete [] Temperature;
-            Temperature = NULL;
-#endif
-        /* No need to communicate the accretion rate to the other CPUs since this particle is already local.
-         * Need to decide how often I update the accretion history
-         * */
-        } // SG. End processor.
-
-        // SG. Communicate with all processors the updated accretion radius.
-        CommunicationAllSumValues(&NewAccretionRadius, 1);
-        CommunicationAllSumValues(positions, 3);
-
-        SS->AccretionRadius = NewAccretionRadius;
+        /*
+        SG: the accretion radius will be reassigned to the Bondi radius when the accretion radius
+        falls outside of the tolerance.
+        */
+        FLOAT tol = 0.000000000001*BondiHoyleRadius;
+        if(BondiHoyleRadius + tol < SS->AccretionRadius || SS->AccretionRadius < BondiHoyleRadius - tol) {
+          SS->AccretionRadius = BondiHoyleRadius;
+          fprintf(stderr, "%s: Updating accretion radius to Bondi radius = %e pc (%f cells)\n",
+                  __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm,SS->AccretionRadius/dx);
+        }
+        else{
+          fprintf(stderr, "%s: Accretion Radius = %e pc (%f cells). No update needed.\n",
+                  __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
+        }
+        if (SmartStarUseFixedRadiusForRefinement == 1){
+          SS->AccretionRadius = SmartStarMassFluxScaleRadius*pc_cm/LengthUnits;
+          fprintf(stderr, "%s: SmartStarUseFixedRadiusForRefinement == 1. Using user-set scale radius for refinement. "
+                          "Accretion Radius = %e pc (%f cells).\n",
+                  __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
+        }
         AccretionRadius = SS->AccretionRadius;
+        NewAccretionRadius = AccretionRadius;
+        delete [] Temperature;
+        Temperature = NULL;
+#endif
+    /* No need to communicate the accretion rate to the other CPUs since this particle is already local.
+     * Need to decide how often I update the accretion history
+     * */
+      } // SG. End processor.
 
-        SS->pos[0] = positions[0];
-        SS->pos[1] = positions[1];
-        SS->pos[2] = positions[2];
+      // SG. Communicate with all processors the updated accretion radius.
+      CommunicationAllSumValues(&NewAccretionRadius, 1);
+      CommunicationAllSumValues(positions, 3);
 
-        /* Copy data from the 'fake' feedback zone grid back to the real grids */
-        DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
-        delete FeedbackZone;
+      SS->AccretionRadius = NewAccretionRadius;
+      AccretionRadius = SS->AccretionRadius;
+
+      SS->pos[0] = positions[0];
+      SS->pos[1] = positions[1];
+      SS->pos[2] = positions[2];
+
+      /* Copy data from the 'fake' feedback zone grid back to the real grids */
+      DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
+      delete FeedbackZone;
     } // END particles
 
     if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
-        return FAIL;
+      return FAIL;
 
     delete [] Grids;
     return SUCCESS;
