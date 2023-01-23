@@ -70,11 +70,12 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   float WeightedSum = 0, AverageDensity = 0, RhoInfinity = 0.0, AverageT = 0, TotalGasMass = 0, mparticle,
   AccretionRate = 0.0;
   float vInfinity, cInfinity, CellTemperature, RegionTemperature, Avg_vInfinity, Avg_cInfinity;;
-  FLOAT radius2 = 0.0, xparticle[3], vparticle[3], dx;
+  FLOAT radius2 = 0.0, dx;
   float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0, AccretedMomentum[3], vgas[3], etot, eint,
   ke, maccreted, etotnew, rhonew, eintnew, kenew, mnew = 0, rhocell = 0.0, mcell = 0.0, CellVolume = 1.0;
   int cindex, cgindex, size;
-  float *Temperature = new float[size](), avg_values;
+  float *Temperature = new float[size]();
+  float *avg_values = {0, 0, 0};
   ActiveParticleType_SmartStar* SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
   SS->mass_in_accretion_sphere = 0.0;
 
@@ -86,13 +87,13 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   ************************************************************************/
 
   /* 1) cell position */
-  xparticle[3] = {
+  float xparticle[3] = {
     ThisParticle->ReturnPosition()[0],
     ThisParticle->ReturnPosition()[1],
     ThisParticle->ReturnPosition()[2]
   };
   /* 2) cell velocity + particle relative velocity */
-  vparticle[3] = {
+  float vparticle[3] = {
     ThisParticle->ReturnVelocity()[0],
     ThisParticle->ReturnVelocity()[1],
     ThisParticle->ReturnVelocity()[2]
