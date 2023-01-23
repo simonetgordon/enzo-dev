@@ -75,7 +75,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   ke, maccreted, etotnew, rhonew, eintnew, kenew, mnew = 0, rhocell = 0.0, mcell = 0.0, CellVolume = 1.0;
   int cindex, cgindex, size;
   float *Temperature = new float[size]();
-  float *avg_values = {0, 0, 0};
+  float *avg_values = NULL;
   ActiveParticleType_SmartStar* SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
   SS->mass_in_accretion_sphere = 0.0;
 
