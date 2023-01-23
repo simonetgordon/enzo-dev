@@ -87,6 +87,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   {
     CellVolume*=CellWidth[dim][0];
   }
+  FLOAT dx = CellWidth[0][0];
   float mparticle = ThisParticle->ReturnMass()*CellVolume;
   ActiveParticleType_SmartStar* SS;
   SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
@@ -129,8 +130,11 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
 
-  auto [AverageDensity, Avg_cInfinity, Avg_vInfinity] = CalculateBondiHoyleRadius_AvgValues(
-    dx, BondiHoyleRadius_Interpolated, KernelRadius, CellVolume, xparticle, Temperature, TotalGasMass);
+  float* avg_values = CalculateBondiHoyleRadius_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius, CellVolume,
+                                                          xparticle, Temperature, TotalGasMass, SumOfWeights);
+  AverageDensity = avg_values[0];
+  Avg_vInfinity = avg_values[1];
+  Avg_cInfinity = avg_values[2];
 
   delete [] Temperature;
 
@@ -753,7 +757,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
 
 float* grid::CalculateBondiHoyleRadius_AvgValues(
   FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT xparticle[3],
-  float *Temperature, float &TotalGasMass){
+  FLOAT vparticle[3], float *Temperature, float &TotalGasMass, FLOAT *SumOfWeights){
   /* Get indices in BaryonField for density, internal energy, thermal energy, velocity */
   int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
   if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
@@ -763,7 +767,7 @@ float* grid::CalculateBondiHoyleRadius_AvgValues(
   /* Set the units. */
   float DensityUnits = 1, LengthUnits = 1, TimeUnits = 1, VelocityUnits = 1, VelUnits = 0, ConvertToNumberDensity;
   double MassUnits = 1;
-  if (GetUnits(&DensityUnits, &LengthUnits, &TimeUnits, &VelocityUnits, Time) == FAIL) {
+  if (GetUnits(&DensityUnits, &LengthUnits, &TimeUnits, &VelocityUnits) == FAIL) {
     ENZO_FAIL("Error in GetUnits.");}
   VelUnits = LengthUnits/(TimeUnits*1e5); //convert to km/s
   MassUnits = DensityUnits * POW(LengthUnits,3);
@@ -786,7 +790,8 @@ float* grid::CalculateBondiHoyleRadius_AvgValues(
 
   int numcells=0;
   float Average_v1, Average_v2, Average_v3 = 0.0, Average_cInfinity, WeightedSum_T = 0.0, WeightedSum_v1 = 0.0,
-    WeightedSum_v2 = 0.0, WeightedSum_v3 = 0.0, Average_vInfinity;
+    WeightedSum_v2 = 0.0, WeightedSum_v3 = 0.0, Average_vInfinity, AverageT, AverageDensity, WeightedSum = 0.0;
+  FLOAT radius2;
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
@@ -811,9 +816,8 @@ float* grid::CalculateBondiHoyleRadius_AvgValues(
       }
     }
   }
-  fprintf(stderr, "%s: Numcells = %e, WeightedSum = %e, SumOfWeights = %e, KernelRadius = %e pc, AccretionRadius = %e pc \n",
-          __FUNCTION__, numcells, WeightedSum, (*SumOfWeights), (*KernelRadius)*LengthUnits/pc_cm,
-          AccretionRadius*LengthUnits/pc_cm);
+  fprintf(stderr, "%s: Numcells = %e, WeightedSum = %e, SumOfWeights = %e, KernelRadius = %e pc \n",
+          __FUNCTION__, numcells, WeightedSum, (*SumOfWeights), (*KernelRadius)*LengthUnits/pc_cm);
 
   /* Estimate the relative velocity */
   Average_v1 = WeightedSum_v1/(*SumOfWeights);
@@ -831,7 +835,7 @@ float* grid::CalculateBondiHoyleRadius_AvgValues(
 
   fprintf(stderr, "%s: AverageDensity = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
                   "Average vInfinity = %e km/s\n", __FUNCTION__, AverageDensity*ConvertToNumberDensity,
-          AverageT, Average_vInfinity*VelUnits, Average_cInfinity*VelUnits;
+          AverageT, Average_vInfinity*VelUnits, Average_cInfinity*VelUnits);
 
   float ret[3] = {0,0,0};
   ret[0] = AverageDensity;

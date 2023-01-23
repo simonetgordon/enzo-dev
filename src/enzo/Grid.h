@@ -2950,7 +2950,7 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
   float* CalculateBondiHoyleRadius_AvgValues(FLOAT dx, FLOAT BondiHoyleRadius_Interpolated,
                                                                         FLOAT *KernelRadius, float CellVolume,
                                                                         FLOAT xparticle[3], float *Temperature,
-                                                                        float &TotalGasMass);
+                                                                        float &TotalGasMass, FLOAT *SumOfWeights);
   int AddMassAndMomentumToAccretingParticle(float GlobalSubtractedMass,
 					    float GlobalSubtractedMomentum[], 
 					    ActiveParticleType* ThisParticle,
