@@ -232,7 +232,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
                               POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5);
 
     fprintf(stderr, "%s: spherical BHL accretion rate with average values (this is SS->AccretionRate) = "
-                    "%e Msun/yr (%e code)\n", __FUNCTION__, AccretionRate*MassUnits/TimeUnits/SolarMass/yr_s,
+                    "%e Msun/yr (%e code)\n", __FUNCTION__, AccretionRate*MassUnits*yr_s/(TimeUnits*SolarMass),
                     AccretionRate);
 
     fprintf(stderr, "%s: old spherical BHL accretion rate with cell values = %e Msun/yr (%e code)\n", __FUNCTION__,
