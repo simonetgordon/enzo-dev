@@ -1182,7 +1182,7 @@ EXTERN float ActiveParticleDensityThreshold;
 EXTERN int SmartStarAccretion;
 EXTERN FLOAT SmartStarBondiRadiusRefinementFactor; // SG. New parameter for adjusting refinement around BH.
 EXTERN FLOAT SmartStarMassFluxScaleRadius; // SG. New parameter for sampling cell properties when using mass-flux accretion scheme.
-EXTERN FLOAT SmartStarUseFixedRadiusForRefinement; // SG. New parameter for turning on above refinement radius.
+EXTERN int SmartStarUseFixedRadiusForRefinement; // SG. New parameter for turning on above refinement radius.
 EXTERN int SmartStarFeedback;
 EXTERN int SmartStarEddingtonCap;
 EXTERN int SmartStarBHFeedback;
