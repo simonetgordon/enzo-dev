@@ -751,7 +751,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
 } // SG. End of function.
 
 
-tuple<float, float, float> grid::CalculateBondiHoyleRadius_AvgValues(
+float* grid::CalculateBondiHoyleRadius_AvgValues(
   FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT xparticle[3],
   float *Temperature, float &TotalGasMass){
   /* Get indices in BaryonField for density, internal energy, thermal energy, velocity */
@@ -833,5 +833,10 @@ tuple<float, float, float> grid::CalculateBondiHoyleRadius_AvgValues(
                   "Average vInfinity = %e km/s\n", __FUNCTION__, AverageDensity*ConvertToNumberDensity,
           AverageT, Average_vInfinity*VelUnits, Average_cInfinity*VelUnits;
 
-  return {AverageDensity, Average_vInfinity, Average_cInfinity};
+  float ret[3] = {0,0,0};
+  ret[0] = AverageDensity;
+  ret[1] = Average_vInfinity;
+  ret[2] = Average_cInfinity;
+
+  return ret;
 } // SG. End CalculateBondiHoyleRadius_AvgValues
