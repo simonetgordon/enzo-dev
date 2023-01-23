@@ -1039,6 +1039,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
     GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits,
              &VelocityUnits, Time);
     MassUnits = DensityUnits * POW(LengthUnits,3);
+    float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
 
     // SG. Find dx from grid data.
     FLOAT dx = LevelArray[ThisLevel]->GridData->CellWidth[0][0];
@@ -1153,13 +1154,37 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         /* Check what the Bondi-Hoyle radius is - we should accrete out to that if required */
         float mparticle = ParticleList[i]->ReturnMass()*dx*dx*dx;
         float *vparticle = ParticleList[i]->ReturnVelocity();
+        float *xparticle = ParticleList[i]->ReturnPosition();
         int size = FeedbackZone->GetGridSize();
+        float TotalGasMass = 0;
         float *Temperature = new float[size]();
+        float *avg_values = NULL;
+        FLOAT *KernelRadius = NULL;
+        FLOAT *SumOfWeights = NULL;
+        FLOAT BondiHoyleRadius, BondiHoyleRadius_Interpolated;
         FeedbackZone->ComputeTemperatureField(Temperature);
 
-        /* SG. Use interpolated BHL radius with values from the bhindex */
-        FLOAT BondiHoyleRadius = FeedbackZone->CalculateInterpolatedBondiHoyleRadius(mparticle,vparticle,
-                                                                                     Temperature, pos);
+        /* Get interpolated BHL radius with values from the bh cell index to input to avg_values */
+        BondiHoyleRadius_Interpolated = FeedbackZone->CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle,
+                                                                                                  Temperature, pos);
+
+        /* Calculate average values to use in scale radius formula */
+        avg_values = FeedbackZone->CalculateBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius,
+                                                                 dx*dx*dx, xparticle, vparticle, Temperature,
+                                                                 TotalGasMass, SumOfWeights);
+        Avg_vInfinity = avg_values[1];
+        Avg_cInfinity = avg_values[2];
+
+        /* Choose which scale radius to use for refinement, with average cell properties as input */
+        if (Avg_vInfinity > Avg_cInfinity){
+          BondiHoyleRadius = FLOAT(2*Gcode*mparticle/pow(Avg_vInfinity, 2));
+          fprintf(stderr, "%s: Using HL radius for refinement = %e pc (%f cells)\n",
+                  __FUNCTION__,BondiHoyleRadius*LengthUnits/pc_cm, BondiHoyleRadius/dx);
+        } else{
+          BondiHoyleRadius = FLOAT(Gcode*mparticle/pow(Avg_cInfinity, 2));
+          fprintf(stderr, "%s: Using Bondi radius for refinement = %e pc (%f cells)\n",
+                  __FUNCTION__,BondiHoyleRadius*LengthUnits/pc_cm, BondiHoyleRadius/dx);
+        }
 
         /*
         SG: the accretion radius will be reassigned to the Bondi radius when the accretion radius
@@ -1168,9 +1193,6 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         FLOAT tol = 0.000000000001*BondiHoyleRadius;
         if(BondiHoyleRadius + tol < SS->AccretionRadius || SS->AccretionRadius < BondiHoyleRadius - tol) {
           SS->AccretionRadius = BondiHoyleRadius;
-          fprintf(stderr, "%s: Updating accretion radius to Bondi radius = %e pc (%f cells)\n",
-                  __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm,SS->AccretionRadius/dx);
-        }
         else{
           fprintf(stderr, "%s: Accretion Radius = %e pc (%f cells). No update needed.\n",
                   __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
