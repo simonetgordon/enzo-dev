@@ -136,11 +136,11 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     *KernelRadius = dx;
   }
   else if(dx < BondiHoyleRadius_Interpolated < 2*dx) { /*Accrete out to the BH radius */
-    fprintf(stderr, "%s: Setting kernel radius to BondiHoyleRadius\n", __FUNCTION__);
+    fprintf(stderr, "%s: Setting kernel radius to BondiHoyleRadius, BH marginally resolved\n", __FUNCTION__);
     *KernelRadius = BondiHoyleRadius;
   }
   else {
-    fprintf(stderr, "%s: Setting kernel radius to 2*CellWidth, BH not resolved\n", __FUNCTION__);
+    fprintf(stderr, "%s: Setting kernel radius to 2*CellWidth, BH is resolved\n", __FUNCTION__);
     *KernelRadius = 2*dx;
   }
 
