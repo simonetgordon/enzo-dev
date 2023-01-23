@@ -1132,7 +1132,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       // CommunicateAllSumValues().
       FLOAT positions[3] = {0,0,0}; // SG. All elements initialised to zero.
       FLOAT NewAccretionRadius = 0;
-      FLOAT* pos[3];
+      FLOAT pos[3];
       pos = SS->pos;
 
       // SG/BS change to continue and !=.
