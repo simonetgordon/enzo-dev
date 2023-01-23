@@ -766,7 +766,8 @@ float* grid::CalculateBondiHoyleRadius_AvgValues(
     ENZO_FAIL("Error in IdentifyPhysicalQuantities.");}
 
   /* Set the units. */
-  float DensityUnits = 1, LengthUnits = 1, TimeUnits = 1, VelocityUnits = 1, VelUnits = 0, ConvertToNumberDensity;
+  float DensityUnits = 1, LengthUnits = 1, TimeUnits = 1, VelocityUnits = 1, VelUnits = 0, TemperatureUnits = 1,
+  MassUnits = 1, ConvertToNumberDensity;
   double MassUnits = 1;
   if (GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits, &VelocityUnits, &MassUnits, Time) == FAIL) {
     ENZO_FAIL("Error in GetUnits.");}
