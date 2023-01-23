@@ -1156,7 +1156,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         float *vparticle = ParticleList[i]->ReturnVelocity();
         float *xparticle = ParticleList[i]->ReturnPosition();
         int size = FeedbackZone->GetGridSize();
-        float TotalGasMass = 0;
+        float TotalGasMass = 0, Avg_vInfinity, Avg_cInfinity;
         float *Temperature = new float[size]();
         float *avg_values = NULL;
         FLOAT *KernelRadius = NULL;
@@ -1193,7 +1193,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         FLOAT tol = 0.000000000001*BondiHoyleRadius;
         if(BondiHoyleRadius + tol < SS->AccretionRadius || SS->AccretionRadius < BondiHoyleRadius - tol) {
           SS->AccretionRadius = BondiHoyleRadius;
-        else{
+        } else{
           fprintf(stderr, "%s: Accretion Radius = %e pc (%f cells). No update needed.\n",
                   __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
         }
