@@ -38,9 +38,8 @@ int GetUnits(float *DensityUnits, float *LengthUnits,
 	     float *VelocityUnits, FLOAT Time);
 int CosmologyComputeExpansionFactor(FLOAT time, FLOAT *a, FLOAT *dadt);
  
-float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
-					    FLOAT AccretionRadius, FLOAT *KernelRadius,
-					    FLOAT *SumOfWeights)
+float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FLOAT AccretionRadius,
+                                            FLOAT *KernelRadius, FLOAT *SumOfWeights)
 {
   /* Return if this doesn't concern us. */
   if (ProcessorNumber != MyProcessorNumber)
@@ -131,8 +130,9 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
 
   float Avg_vInfinity, Avg_cInfinity;
+  //float *vparticle = ThisParticle->ReturnVelocity();
   float* avg_values = CalculateBondiHoyleRadius_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius, CellVolume,
-                                                          xparticle, Temperature, TotalGasMass, SumOfWeights);
+                                                          xparticle, vparticle, Temperature, TotalGasMass, SumOfWeights);
   AverageDensity = avg_values[0];
   Avg_vInfinity = avg_values[1];
   Avg_cInfinity = avg_values[2];
@@ -757,8 +757,8 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
 
 
 float* grid::CalculateBondiHoyleRadius_AvgValues(
-  FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT* xparticle,
-  float* vparticle, float *Temperature, float &TotalGasMass, FLOAT *SumOfWeights){
+  FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT xparticle[3],
+  float vparticle[3], float *Temperature, float &TotalGasMass, FLOAT *SumOfWeights){
   /* Get indices in BaryonField for density, internal energy, thermal energy, velocity */
   int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
   if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
