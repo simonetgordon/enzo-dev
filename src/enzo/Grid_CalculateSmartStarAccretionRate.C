@@ -768,7 +768,7 @@ float* grid::CalculateBondiHoyleRadius_AvgValues(
   /* Set the units. */
   float DensityUnits = 1, LengthUnits = 1, TimeUnits = 1, VelocityUnits = 1, VelUnits = 0, ConvertToNumberDensity;
   double MassUnits = 1;
-  if (GetUnits(&DensityUnits, &LengthUnits, &TimeUnits, &VelocityUnits) == FAIL) {
+  if (GetUnits(&DensityUnits, &LengthUnits, &TimeUnits, &VelocityUnits, Time) == FAIL) {
     ENZO_FAIL("Error in GetUnits.");}
   VelUnits = LengthUnits/(TimeUnits*1e5); //convert to km/s
   MassUnits = DensityUnits * POW(LengthUnits,3);
