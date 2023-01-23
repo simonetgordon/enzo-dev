@@ -1132,8 +1132,10 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       // CommunicateAllSumValues().
       FLOAT positions[3] = {0,0,0}; // SG. All elements initialised to zero.
       FLOAT NewAccretionRadius = 0;
-      FLOAT pos[3];
-      pos = SS->pos;
+      FLOAT pos[3] = {0,0,0};
+      pos[0] = SS->pos[0];
+      pos[1] = SS->pos[1];
+      pos[2] = SS->pos[2];
 
       // SG/BS change to continue and !=.
       if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
