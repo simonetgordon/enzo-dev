@@ -1166,7 +1166,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
         /* Get interpolated BHL radius with values from the bh cell index to input to avg_values */
         BondiHoyleRadius_Interpolated = FeedbackZone->CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle,
-                                                                                                  Temperature, pos);
+                                                                                            Temperature, pos);
 
         /* Calculate average values to use in scale radius formula */
         avg_values = FeedbackZone->CalculateBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius,

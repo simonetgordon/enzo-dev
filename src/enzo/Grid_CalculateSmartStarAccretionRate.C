@@ -82,6 +82,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   float lambda_c = 0.25*exp(1.5);
   float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
 
+  fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 1);
   /***********************************************************************
   /         Get properties of particle and local gas environment
   ************************************************************************/
@@ -131,26 +132,26 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   RhoInfinity = BaryonField[DensNum][cgindex];
 
   SmEint = max(SmallP * PressureUnits / ((Gamma - 1)*SmallRho), 1.5 * kboltz * SmallT / (Mu*mh)) / GEUnits;
-
+  fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 2);
   /* Calculate BondiHoyleRadius(either r_Bondi or r_HL)
    * Calculate BondiHoyleRadius_Interpolated (combination of both r_Bondi or r_HL, smaller than both)
    * Calculate CalculateBondiHoyle_AvgValues - Average Density, Average vInfinity, Average cInfinity over a region of
    * max 2dx from particle.
    */
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
+  fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 3);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
-
+  fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 4);
   avg_values = CalculateBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius, CellVolume,
                                              xparticle, vparticle, Temperature, TotalGasMass, SumOfWeights);
   AverageDensity = avg_values[0];
   Avg_vInfinity = avg_values[1];
   Avg_cInfinity = avg_values[2];
-
-  delete [] Temperature; // defined with 'new'
+  fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 5);
 
   SS->mass_in_accretion_sphere = TotalGasMass/CellVolume; //convert to density for consistency
   fprintf(stderr, "SS->mass_in_accretion_sphere = %e Msun\n", SS->mass_in_accretion_sphere*MassUnits/SolarMass);
-
+  fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 6);
   /***********************************************************************
   /                      Accretion Schemes
   ************************************************************************/
@@ -771,7 +772,8 @@ float* grid::CalculateBondiHoyle_AvgValues(
     ENZO_FAIL("Error in IdentifyPhysicalQuantities.");}
 
   /* Set the units. */
-  float DensityUnits = 1, LengthUnits = 1, TimeUnits = 1, VelocityUnits = 1, VelUnits = 0, TemperatureUnits = 1, ConvertToNumberDensity;
+  float DensityUnits = 1, LengthUnits = 1, TimeUnits = 1, VelocityUnits = 1, VelUnits = 0, TemperatureUnits = 1,
+  ConvertToNumberDensity;
   double MassUnits = 1;
   if (GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits, &VelocityUnits, Time) == FAIL){
     ENZO_FAIL("Error in GetUnits.");}
@@ -847,6 +849,8 @@ float* grid::CalculateBondiHoyle_AvgValues(
   ret[0] = AverageDensity;
   ret[1] = Average_vInfinity;
   ret[2] = Average_cInfinity;
+
+  delete [] Temperature; // defined with 'new'
 
   return ret;
 } // SG. End CalculateBondiHoyleRadius_AvgValues
