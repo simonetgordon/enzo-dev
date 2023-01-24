@@ -1171,7 +1171,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         /* Calculate average values to use in scale radius formula */
         avg_values = FeedbackZone->CalculateBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius,
                                                                  dx*dx*dx, xparticle, vparticle, Temperature,
-                                                                 TotalGasMass, SumOfWeights);
+                                                                 TotalGasMass, SumOfWeights, SS);
         Avg_vInfinity = avg_values[1];
         Avg_cInfinity = avg_values[2];
 
