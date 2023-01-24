@@ -803,9 +803,9 @@ int grid::SetParticleBondiHoyle_AvgValues(
           POW((CellLeftEdge[0][i] + 0.5*CellWidth[0][i]) - xparticle[0],2) +
           POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
           POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
-
+        fprintf(stderr, "%s: radius2 = %e pc \n", __FUNCTION__, radius2*LengthUnits/pc_cm);
         if (POW(*KernelRadius,2) > radius2) { // SG. Using kernel radius instead of accretion radius.
-          //printf("Grid:index = %d\n", index);
+          fprintf(stderr, "Grid:index = %d\n", index);
           WeightedSum += BaryonField[DensNum][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
           (*SumOfWeights) += exp(-radius2/((*KernelRadius)*(*KernelRadius)));
           AverageT += Temperature[index];
