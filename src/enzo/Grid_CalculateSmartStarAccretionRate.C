@@ -850,9 +850,9 @@ float* grid::CalculateBondiHoyle_AvgValues(
   ret[1] = Average_vInfinity;
   ret[2] = Average_cInfinity;
 
-  SS->AverageDensity = AverageDensity;
-  SS->Average_vInfinity = Average_vInfinity;
-  SS->Average_cInfinity = Average_cInfinity;
+  ThisParticle->AverageDensity = AverageDensity;
+  ThisParticle->Average_vInfinity = Average_vInfinity;
+  ThisParticle->Average_cInfinity = Average_cInfinity;
 
   delete [] Temperature; // defined with 'new'
 
