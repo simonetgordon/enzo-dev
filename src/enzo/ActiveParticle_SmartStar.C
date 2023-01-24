@@ -1230,7 +1230,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       return FAIL;
 
     delete [] Grids;
-    Grid = NULL;
+    Grids = NULL;
     return SUCCESS;
 } // END Accrete
 
