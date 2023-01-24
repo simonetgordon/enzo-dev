@@ -1169,11 +1169,12 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
                                                                                             Temperature, pos);
 
         /* Calculate average values to use in scale radius formula */
-        avg_values = FeedbackZone->CalculateBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius,
-                                                                 dx*dx*dx, xparticle, vparticle, Temperature,
-                                                                 TotalGasMass, SumOfWeights, SS);
-        Avg_vInfinity = avg_values[1];
-        Avg_cInfinity = avg_values[2];
+        FeedbackZone->SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius,
+                                                      dx*dx*dx, xparticle, vparticle, Temperature,
+                                                      TotalGasMass, SumOfWeights, SS);
+        AverageDensity = SS->AverageDensity;
+        Avg_vInfinity = SS->Average_vInfinity;
+        Avg_cInfinity = SS->Average_cInfinity;
 
         /* Choose which scale radius to use for refinement, with average cell properties as input */
         if (Avg_vInfinity > Avg_cInfinity){
