@@ -202,13 +202,17 @@ public:
               LevelHierarchyEntry *LevelArray[], int ThisLevel);
 
   // SG. New Func within RemoveMassFromGridAfterFormation.
-  static int  PopIIIFormationFromSphere(ActiveParticleType_SmartStar* SS, 
+  static int  PopIIIFormationFromSphere(ActiveParticleType_SmartStar* SS,
               grid* APGrid, int ThisProcessorNum, FLOAT StarLevelCellWidth, 
               FLOAT CellVolumeStarLevel,FLOAT Time, LevelHierarchyEntry *LevelArray[], 
               LevelHierarchyEntry *Temp, int ThisLevel);
 
   static float EjectedMassThreshold;
-  FLOAT AccretionRadius;   // in units of CellWidth on the maximum refinement level
+  FLOAT AccretionRadius;
+  float Average_cInfinity; // SG. These 3 are for SmartStars BH accretion scheme.
+  float Average_vInfinity;
+  float AverageDensity;
+
  
   static double LuminosityPerSolarMass;
   static int RadiationSEDNumberOfBins;

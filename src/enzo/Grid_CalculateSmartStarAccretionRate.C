@@ -143,7 +143,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
   fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 4);
   avg_values = CalculateBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius, CellVolume,
-                                             xparticle, vparticle, Temperature, TotalGasMass, SumOfWeights);
+                                             xparticle, vparticle, Temperature, TotalGasMass, SumOfWeights, SS);
   AverageDensity = avg_values[0];
   Avg_vInfinity = avg_values[1];
   Avg_cInfinity = avg_values[2];
@@ -764,7 +764,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
 
 float* grid::CalculateBondiHoyle_AvgValues(
   FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT xparticle[3],
-  float vparticle[3], float *Temperature, float &TotalGasMass, FLOAT *SumOfWeights){
+  float vparticle[3], float *Temperature, float &TotalGasMass, FLOAT *SumOfWeights, ActiveParticleType_SmartStar* SS){
   /* Get indices in BaryonField for density, internal energy, thermal energy, velocity */
   int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
   if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
@@ -845,10 +845,14 @@ float* grid::CalculateBondiHoyle_AvgValues(
                   "Average vInfinity = %e km/s\n", __FUNCTION__, AverageDensity*ConvertToNumberDensity,
           AverageT, Average_vInfinity*VelUnits, Average_cInfinity*VelUnits);
 
-  float ret[3] = {0,0,0};
-  ret[0] = AverageDensity;
-  ret[1] = Average_vInfinity;
-  ret[2] = Average_cInfinity;
+  float* ret = NULL;
+  ret[0] = &AverageDensity;
+  ret[1] = &Average_vInfinity;
+  ret[2] = &Average_cInfinity;
+
+  SS->AverageDensity = AverageDensity;
+  SS->Average_vInfinity = Average_vInfinity;
+  SS->Average_cInfinity = Average_cInfinity;
 
   delete [] Temperature; // defined with 'new'
 
