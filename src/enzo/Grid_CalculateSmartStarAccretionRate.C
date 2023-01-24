@@ -137,8 +137,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
    */
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
-  SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, *KernelRadius, CellVolume, xparticle, vparticle,
-                                  Temperature, &TotalGasMass, *SumOfWeights, SS);
+  SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius, CellVolume, xparticle, vparticle,
+                                  Temperature, &TotalGasMass, SumOfWeights, SS);
   Avg_Density = SS->AverageDensity;
   Avg_vInfinity = SS->Average_vInfinity;
   Avg_cInfinity = SS->Average_cInfinity;
@@ -813,7 +813,7 @@ int grid::SetParticleBondiHoyle_AvgValues(
           WeightedSum_v2 += BaryonField[Vel2Num][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
           WeightedSum_v3 += BaryonField[Vel3Num][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
           WeightedSum_T += Temperature[index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          TotalGasMass += BaryonField[DensNum][index]*CellVolume;
+          (*TotalGasMass) += BaryonField[DensNum][index]*CellVolume;
           numcells++;
         }
       }
