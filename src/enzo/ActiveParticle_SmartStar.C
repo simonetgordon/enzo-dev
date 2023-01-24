@@ -1140,7 +1140,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
       // SG/BS change to continue and !=.
       if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
-        float AccretionRate = 0;
+        float AccretionRate = 0.0;
         if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate) == FAIL)
           return FAIL;
 
@@ -1204,7 +1204,6 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         AccretionRadius = SS->AccretionRadius;
         NewAccretionRadius = AccretionRadius;
         delete [] Temperature;
-        Temperature = NULL;
 #endif
     /* No need to communicate the accretion rate to the other CPUs since this particle is already local.
      * Need to decide how often I update the accretion history
