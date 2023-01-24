@@ -145,7 +145,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   Avg_cInfinity = SS->Average_cInfinity;
 
   SS->mass_in_accretion_sphere = TotalGasMass/CellVolume; //convert to density for consistency
-  fprintf(stderr, "TotalGasMass = %e Msun\n", TotalGasMass*MassUnits/SolarMass);
+  fprintf(stderr, "TotalGasMass in accretion sphere (max 2dx from BH) = %e Msun\n", TotalGasMass*MassUnits/SolarMass);
   delete [] Temperature; // defined with 'new'
   Temperature = NULL;
 

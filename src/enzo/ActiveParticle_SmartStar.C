@@ -1127,7 +1127,6 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
       // SG/BS Put feedback zone inside processor num
       grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx, Grids, NumberOfGrids, ALL_FIELDS);
-      grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
 
       // SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
       // CommunicateAllSumValues().
@@ -1204,6 +1203,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         AccretionRadius = SS->AccretionRadius;
         NewAccretionRadius = AccretionRadius;
         delete [] Temperature;
+        Temperature = NULL;
 #endif
     /* No need to communicate the accretion rate to the other CPUs since this particle is already local.
      * Need to decide how often I update the accretion history
@@ -1230,6 +1230,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       return FAIL;
 
     delete [] Grids;
+    Grid = NULL;
     return SUCCESS;
 } // END Accrete
 
