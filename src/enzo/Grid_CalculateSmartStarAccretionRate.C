@@ -108,7 +108,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   /* 4) cell volume and cell width */
   for (int dim = 0; dim < GridRank; dim++)
   {CellVolume*=CellWidth[dim][0];}
-  dx = CellWidth[0][0];
+  dx = this->CellWidth[0][0];
+  fprintf(stderr, "%s: cell width = %e pc (%e code) \n", __FUNCTION__, dx*LengthUnits/pc_cm, dx);
 
   /* 5) mass of particle */
   mparticle = ThisParticle->ReturnMass()*CellVolume;
@@ -118,7 +119,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   this->ComputeTemperatureField(Temperature);
   CellTemperature = Temperature[cgindex];
   RegionTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, 2.0*dx);
-  fprintf(stderr, "%s: RegionTemperature (within 2dx) = %e K, CellTemperature \n", __FUNCTION__, RegionTemperature,
+  fprintf(stderr, "%s: RegionTemperature (within 2dx) = %e K, CellTemperature = %e K\n", __FUNCTION__, RegionTemperature,
           CellTemperature);
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
@@ -146,6 +147,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   SS->mass_in_accretion_sphere = TotalGasMass/CellVolume; //convert to density for consistency
   fprintf(stderr, "TotalGasMass = %e Msun\n", TotalGasMass*MassUnits/SolarMass);
   delete [] Temperature; // defined with 'new'
+  Temperature = NULL;
 
   /***********************************************************************
   /                      Accretion Schemes

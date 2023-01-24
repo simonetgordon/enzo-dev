@@ -117,6 +117,8 @@ void ActiveParticleFindAll(
 
 	} 
 
+	delete [] Grids;
+	Grids = NULL;
 	delete [] NumberOfActiveParticlesInGrids;
 	NumberOfActiveParticlesInGrids = NULL;
 
