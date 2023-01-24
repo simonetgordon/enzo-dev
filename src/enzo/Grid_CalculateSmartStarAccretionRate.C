@@ -75,7 +75,6 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   ke, maccreted, etotnew, rhonew, eintnew, kenew, mnew = 0, rhocell = 0.0, mcell = 0.0, CellVolume = 1.0;
   int cindex, cgindex, size;
   float *Temperature = new float[size]();
-  float *avg_values = NULL;
   ActiveParticleType_SmartStar* SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
   SS->mass_in_accretion_sphere = 0.0;
 
@@ -143,11 +142,10 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   Avg_Density = SS->AverageDensity;
   Avg_vInfinity = SS->Average_vInfinity;
   Avg_cInfinity = SS->Average_cInfinity;
-  fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 5);
 
   SS->mass_in_accretion_sphere = TotalGasMass/CellVolume; //convert to density for consistency
-  fprintf(stderr, "SS->mass_in_accretion_sphere = %e Msun\n", SS->mass_in_accretion_sphere*MassUnits/SolarMass);
-  fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 6);
+  fprintf(stderr, "TotalGasMass = %e Msun\n", TotalGasMass*MassUnits/SolarMass);
+
   /***********************************************************************
   /                      Accretion Schemes
   ************************************************************************/
@@ -276,7 +274,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
 	   AccretionRate*3.154e7*MassUnits/(SolarMass*TimeUnits));
 
   }
-  
+  fprintf(stderr, "%s: got here = %"ISYM" \n", __FUNCTION__, 1);
+  delete [] Temperature; // defined with 'new'
   return AccretionRate;
 }
 

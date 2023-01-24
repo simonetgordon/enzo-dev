@@ -84,6 +84,7 @@ int grid::AccreteOntoSmartStarParticle(
   FLOAT KernelRadius = 0.0, SumOfWeights = 0.0; /*Required for weighting cells for accretion */
   // SG. Shouldn't CalculateSmartStarAccretionRate be acting on a grid?
   *AccretionRate = CalculateSmartStarAccretionRate(ThisParticle, AccretionRadius, &KernelRadius, &SumOfWeights);
+  fprintf(stderr, "%s: got here = %"ISYM" \n", __FUNCTION__, 2);
 #if NO_ACCRETION
   *AccretionRate = 0.0;
 #endif
