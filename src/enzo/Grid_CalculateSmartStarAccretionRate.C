@@ -844,7 +844,5 @@ int grid::SetParticleBondiHoyle_AvgValues(
   ThisParticle->Average_vInfinity = Average_vInfinity;
   ThisParticle->Average_cInfinity = Average_cInfinity;
 
-  delete [] Temperature; // defined with 'new'
-
   return SUCCESS;
 } // SG. End CalculateBondiHoyleRadius_AvgValues
