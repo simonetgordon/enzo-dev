@@ -137,8 +137,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
    */
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
-  SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius, CellVolume, xparticle, vparticle,
-                                  Temperature, TotalGasMass, SumOfWeights, SS);
+  SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, &KernelRadius, CellVolume, xparticle, vparticle,
+                                  Temperature, &TotalGasMass, &SumOfWeights, SS);
   Avg_Density = SS->AverageDensity;
   Avg_vInfinity = SS->Average_vInfinity;
   Avg_cInfinity = SS->Average_cInfinity;
@@ -759,7 +759,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
 
 int grid::SetParticleBondiHoyle_AvgValues(
   FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT xparticle[3],
-  float vparticle[3], float *Temperature, float &TotalGasMass, FLOAT *SumOfWeights, ActiveParticleType* ThisParticle){
+  float vparticle[3], float *Temperature, float* TotalGasMass, FLOAT *SumOfWeights, ActiveParticleType* ThisParticle){
   /* Get indices in BaryonField for density, internal energy, thermal energy, velocity */
   int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
   if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
