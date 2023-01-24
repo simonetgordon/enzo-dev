@@ -64,12 +64,16 @@ public:
   float ReturnBirthTime(void) { return BirthTime; };
   float ReturnDynamicalTime(void) { return DynamicalTime; };
   float ReturnMetallicity(void) { return Metallicity; };
+  float ReturnAverage_cInfinity(void){ return Average_cInfinity}; // SG. These 3 are for SmartStars BH accretion scheme.
+  float ReturnAverage_vInfinity(void){ return Average_vInfinity};
+  float ReturnAverageDensity(void){ return AverageDensity};
   int   ReturnType(void) { return type; };
   int   ReturnLevel(void) { return level; };
   int   ReturnGridID(void) { return GridID; };
   grid *ReturnCurrentGrid(void) { return CurrentGrid; };
   //float oldmass; // SG. Will delete.
   double ReturnOldMass(void) { return oldmass; };
+
 
 
   void  ReduceLevel(void) { level--; fprintf(stderr, "%s: (void).\n", __FUNCTION__);};
@@ -139,6 +143,9 @@ protected:
   float BirthTime;
   float DynamicalTime;
   float Metallicity;
+  float Average_cInfinity; // SG. These 3 are for SmartStars BH accretion scheme.
+  float Average_vInfinity;
+  float AverageDensity;
   PINT Identifier;
   int level;
   int GridID;

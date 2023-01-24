@@ -209,11 +209,7 @@ public:
 
   static float EjectedMassThreshold;
   FLOAT AccretionRadius;
-  float Average_cInfinity; // SG. These 3 are for SmartStars BH accretion scheme.
-  float Average_vInfinity;
-  float AverageDensity;
 
- 
   static double LuminosityPerSolarMass;
   static int RadiationSEDNumberOfBins;
   static float* RadiationEnergyBins;

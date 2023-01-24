@@ -764,7 +764,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
 
 float* grid::CalculateBondiHoyle_AvgValues(
   FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT xparticle[3],
-  float vparticle[3], float *Temperature, float &TotalGasMass, FLOAT *SumOfWeights, ActiveParticleType* SS){
+  float vparticle[3], float *Temperature, float &TotalGasMass, FLOAT *SumOfWeights, ActiveParticleType* ThisParticle){
   /* Get indices in BaryonField for density, internal energy, thermal energy, velocity */
   int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
   if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
@@ -846,9 +846,9 @@ float* grid::CalculateBondiHoyle_AvgValues(
           AverageT, Average_vInfinity*VelUnits, Average_cInfinity*VelUnits);
 
   float* ret = NULL;
-  ret[0] = &AverageDensity;
-  ret[1] = &Average_vInfinity;
-  ret[2] = &Average_cInfinity;
+  ret[0] = AverageDensity;
+  ret[1] = Average_vInfinity;
+  ret[2] = Average_cInfinity;
 
   SS->AverageDensity = AverageDensity;
   SS->Average_vInfinity = Average_vInfinity;
