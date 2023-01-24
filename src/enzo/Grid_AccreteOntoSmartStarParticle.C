@@ -58,7 +58,6 @@ int grid::AccreteOntoSmartStarParticle(
     return SUCCESS;
  
   /* Declare and initialize local variables */
-
   float delta_vpart[3] = {0.0, 0.0, 0.0};
   float AccretedMass = 0;  
 
@@ -79,6 +78,7 @@ int grid::AccreteOntoSmartStarParticle(
     CellVolume*=CellWidth[dim][0];
   }
   MassUnits = DensityUnits * POW(LengthUnits,3);
+  FLOAT AccretionRadius = SS->AccretionRadius;
   float mparticle = SS->ReturnMass()*CellVolume; //code mass
   float MassConversion = (float) (dx*dx*dx * double(MassUnits));  //convert to g
   FLOAT KernelRadius = 0.0, SumOfWeights = 0.0; /*Required for weighting cells for accretion */
@@ -119,7 +119,7 @@ int grid::AccreteOntoSmartStarParticle(
    * is closer to what the black hole would actually accrete. 
    */
  
-  RemoveMassFromGrid(ThisParticle,AccretionRadius, *AccretionRate, &AccretedMass, delta_vpart,
+  RemoveMassFromGrid(ThisParticle, AccretionRadius, *AccretionRate, &AccretedMass, delta_vpart,
                      KernelRadius, SumOfWeights, MaxAccretionRate);
   fprintf(stderr, "%s: got here = %"ISYM", AccretedMass = %e \n", __FUNCTION__, 3, AccretedMass*MassUnits/SolarMass);
 #if  ACCRETE_DEBUG
