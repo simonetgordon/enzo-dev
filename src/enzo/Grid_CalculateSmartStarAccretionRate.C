@@ -67,9 +67,9 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   /* end units */
 
   /* initialise variables */
-  float WeightedSum = 0, AverageDensity = 0, RhoInfinity = 0.0, AverageT = 0, TotalGasMass = 0, mparticle,
+  float WeightedSum = 0, RhoInfinity = 0.0, AverageT = 0, TotalGasMass = 0, mparticle,
   AccretionRate = 0.0;
-  float vInfinity, cInfinity, CellTemperature, RegionTemperature, Avg_vInfinity, Avg_cInfinity;;
+  float vInfinity, cInfinity, CellTemperature, RegionTemperature, Avg_vInfinity, Avg_cInfinity, Avg_Density;
   FLOAT radius2 = 0.0, dx;
   float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0, AccretedMomentum[3], vgas[3], etot, eint,
   ke, maccreted, etotnew, rhonew, eintnew, kenew, mnew = 0, rhocell = 0.0, mcell = 0.0, CellVolume = 1.0;
