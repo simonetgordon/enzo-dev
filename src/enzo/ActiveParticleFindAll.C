@@ -116,9 +116,7 @@ void ActiveParticleFindAll(
       LocalActiveParticlesOnThisLevel.clear();
 
 	} 
-	
-	delete [] Grids;
-	Grids = NULL;
+
 	delete [] NumberOfActiveParticlesInGrids;
 	NumberOfActiveParticlesInGrids = NULL;
 
