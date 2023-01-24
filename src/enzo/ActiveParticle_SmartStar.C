@@ -1089,8 +1089,6 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         continue;
       }
 
-      if AccretionRadius == 0
-
       if(pclass == POPIII){
         /*
          * We only accrete onto POPIII stars if our maximum
