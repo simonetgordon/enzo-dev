@@ -78,15 +78,15 @@ int grid::AccreteOntoSmartStarParticle(
     CellVolume*=CellWidth[dim][0];
   }
   MassUnits = DensityUnits * POW(LengthUnits,3);
-  AccretionRadius = SS->AccretionRadius;
+  FLOAT Accretion_Radius = this->CellWidth[0][0];
   float mparticle = SS->ReturnMass()*CellVolume; //code mass
   float MassConversion = (float) (dx*dx*dx * double(MassUnits));  //convert to g
   FLOAT KernelRadius = 0.0, SumOfWeights = 0.0; /*Required for weighting cells for accretion */
   // SG. Shouldn't CalculateSmartStarAccretionRate be acting on a grid?
-  (*AccretionRate) = CalculateSmartStarAccretionRate(ThisParticle, AccretionRadius, &KernelRadius, &SumOfWeights);
+  (*AccretionRate) = CalculateSmartStarAccretionRate(ThisParticle, Accretion_Radius, &KernelRadius, &SumOfWeights);
   fprintf(stderr, "%s: got here = %"ISYM" \n", __FUNCTION__, 2);
   fprintf(stderr, "%s: Kernel Radius = %e, Accrate = %e, AccretionRadius = %e \n", __FUNCTION__, KernelRadius,
-          *AccretionRate, AccretionRadius);
+          *AccretionRate, Accretion_Radius);
 #if NO_ACCRETION
   *AccretionRate = 0.0;
 #endif
@@ -119,7 +119,7 @@ int grid::AccreteOntoSmartStarParticle(
    * is closer to what the black hole would actually accrete. 
    */
  
-  RemoveMassFromGrid(ThisParticle, AccretionRadius, *AccretionRate, &AccretedMass, delta_vpart,
+  RemoveMassFromGrid(ThisParticle, Accretion_Radius, *AccretionRate, &AccretedMass, delta_vpart,
                      KernelRadius, SumOfWeights, MaxAccretionRate);
   fprintf(stderr, "%s: got here = %"ISYM", AccretedMass = %e \n", __FUNCTION__, 3, AccretedMass*MassUnits/SolarMass);
 #if  ACCRETE_DEBUG
