@@ -85,6 +85,8 @@ int grid::AccreteOntoSmartStarParticle(
   // SG. Shouldn't CalculateSmartStarAccretionRate be acting on a grid?
   (*AccretionRate) = CalculateSmartStarAccretionRate(ThisParticle, AccretionRadius, &KernelRadius, &SumOfWeights);
   fprintf(stderr, "%s: got here = %"ISYM" \n", __FUNCTION__, 2);
+  fprintf(stderr, "%s: Kernel Radius = %e, Accrate = %e, AccretionRadius = %e \n", __FUNCTION__, KernelRadius,
+          *AccretionRate, AccretionRadius);
 #if NO_ACCRETION
   *AccretionRate = 0.0;
 #endif
@@ -119,6 +121,7 @@ int grid::AccreteOntoSmartStarParticle(
  
   RemoveMassFromGrid(ThisParticle,AccretionRadius, *AccretionRate, &AccretedMass, delta_vpart,
                      KernelRadius, SumOfWeights, MaxAccretionRate);
+  fprintf(stderr, "%s: got here = %"ISYM", AccretedMass = %e \n", __FUNCTION__, 3, AccretedMass*MassUnits/SolarMass);
 #if  ACCRETE_DEBUG
   printf("%s: DeltaV = %e %e %e\n", __FUNCTION__,
 	 delta_vpart[0], delta_vpart[1], delta_vpart[2]);

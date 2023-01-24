@@ -67,8 +67,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   /* end units */
 
   /* initialise variables */
-  float WeightedSum = 0, RhoInfinity = 0.0, AverageT = 0, TotalGasMass = 0, mparticle,
-  AccretionRate = 0.0;
+  float WeightedSum = 0, RhoInfinity = 0.0, AverageT = 0, TotalGasMass = 0, mparticle, AccretionRate = 0.0;
   float vInfinity, cInfinity, CellTemperature, RegionTemperature, Avg_vInfinity, Avg_cInfinity, Avg_Density;
   FLOAT radius2 = 0.0, dx;
   float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0, AccretedMomentum[3], vgas[3], etot, eint,
@@ -166,11 +165,11 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
     // SG. Replace above two lines. We want rho_inf = avg dens in accretion sphere.
     // This alpha factor has the effect of reducing rho_inf when dx <~ bondi_radius.
 
-    AccretionRate = 4*pi*Avg_Density*POW(Gcode,2)*POW(mparticle,2)/
-      POW((POW(Avg_cInfinity, 2) + POW(Avg_vInfinity, 2)), 1.5);
+    AccretionRate = (4*pi*Avg_Density*POW(Gcode,2)*POW(mparticle,2)/
+      POW((POW(Avg_cInfinity, 2) + POW(Avg_vInfinity, 2)), 1.5));
 
-    float AccretionRate_old = 4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)/
-                              POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5);
+    float AccretionRate_old = (4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)/
+                              POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5));
 
     fprintf(stderr, "%s: spherical BHL accretion rate with average values (this is SS->AccretionRate) = "
                     "%e Msun/yr (%e code)\n", __FUNCTION__, AccretionRate*MassUnits*yr_s/(TimeUnits*SolarMass),
