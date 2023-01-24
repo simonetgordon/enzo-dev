@@ -33,7 +33,7 @@ int GetUnits(float *DensityUnits, float *LengthUnits,
 	     float *TemperatureUnits, float *TimeUnits,
 	     float *VelocityUnits, FLOAT Time);
 int grid::AccreteOntoSmartStarParticle(
-  ActiveParticleType* ThisParticle,FLOAT AccretionRadius,
+  ActiveParticleType* ThisParticle, FLOAT AccretionRadius,
   float* AccretionRate)
 {
 

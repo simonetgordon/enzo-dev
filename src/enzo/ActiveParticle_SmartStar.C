@@ -707,6 +707,7 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		/* Assign mass, radius and lifetime to particle */
 		SS->Mass = PopIIIStarMass; // msun
 		SS->InfluenceRadius = SphereRadius; // code units
+    SS->AccretionRadius = APGrid->GetCellWidth(0,0);
 		#if ZEROSTELLARPHASE
 		SS->RadiationLifetime = 0; // SG. Hardcoding lifetime to zero for BH-phase only runs. Replaces above two lines.
 		#else
@@ -722,6 +723,7 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
                 SS->RadiationLifetime*TimeUnits/Myr_s);
 		fprintf(stderr,"%s: Particle Age = %1.1f Myr\n", __FUNCTION__, Age*TimeUnits/Myr_s);
 		fprintf(stderr,"%s: Particle Class = %d\n", __FUNCTION__, SS->ParticleClass);
+    fprintf(stderr,"%s: Particle AccretionRadius = %e pc\n", __FUNCTION__, SS->AccretionRadius*LengthUnits/pc_cm);
 		fprintf(stderr,"%s: Removed mass from sphere of radius %e pc\n", __FUNCTION__,
                 SS->InfluenceRadius*LengthUnits/pc_cm);
 
@@ -1086,6 +1088,8 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       if (ThisLevel != MyLevel){
         continue;
       }
+
+      if AccretionRadius == 0
 
       if(pclass == POPIII){
         /*
