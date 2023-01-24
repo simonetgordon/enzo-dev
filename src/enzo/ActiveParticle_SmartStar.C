@@ -1156,7 +1156,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         float *vparticle = ParticleList[i]->ReturnVelocity();
         float *xparticle = ParticleList[i]->ReturnPosition();
         int size = FeedbackZone->GetGridSize();
-        float TotalGasMass = 0, Avg_vInfinity, Avg_cInfinity;
+        float TotalGasMass = 0, Avg_vInfinity, Avg_cInfinity, Avg_Density;
         float *Temperature = new float[size]();
         float *avg_values = NULL;
         FLOAT *KernelRadius = NULL;
@@ -1172,7 +1172,6 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         FeedbackZone->SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius,
                                                       dx*dx*dx, xparticle, vparticle, Temperature,
                                                       TotalGasMass, SumOfWeights, SS);
-        AverageDensity = SS->AverageDensity;
         Avg_vInfinity = SS->Average_vInfinity;
         Avg_cInfinity = SS->Average_cInfinity;
 

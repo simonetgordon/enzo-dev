@@ -140,7 +140,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
   SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, KernelRadius, CellVolume, xparticle, vparticle,
                                   Temperature, TotalGasMass, SumOfWeights, SS);
-  AverageDensity = SS->AverageDensity;
+  Avg_Density = SS->AverageDensity;
   Avg_vInfinity = SS->Average_vInfinity;
   Avg_cInfinity = SS->Average_cInfinity;
   fprintf(stderr, "%s: got here = %"ISYM"\n", __FUNCTION__, 5);
@@ -165,7 +165,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
     // SG. Replace above two lines. We want rho_inf = avg dens in accretion sphere.
     // This alpha factor has the effect of reducing rho_inf when dx <~ bondi_radius.
 
-    AccretionRate = 4*pi*AverageDensity*POW(Gcode,2)*POW(mparticle,2)/
+    AccretionRate = 4*pi*Avg_Density*POW(Gcode,2)*POW(mparticle,2)/
       POW((POW(Avg_cInfinity, 2) + POW(Avg_vInfinity, 2)), 1.5);
 
     float AccretionRate_old = 4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)/
@@ -212,8 +212,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
   float c_s = sqrt(Gamma * kboltz * AverageT / (Mu * mh)) /
     LengthUnits*TimeUnits;
   AccretionRate = 3.0 * M_PI * alpha * (c_s * c_s) * 
-    (AverageDensity * AccretionRadius) /
-    sqrt(Gcode * AverageDensity * 8.0 + 
+    (Avg_Density * AccretionRadius) /
+    sqrt(Gcode * Avg_Density * 8.0 +
 	 Gcode * (TotalGasMass) / POW(CellWidth[0][0], 3.0));
   }
 
@@ -227,7 +227,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
 #ifdef DEBUG_AP
      printf("Doing ALPHA_DISK_CEN_2012, SmartStarAccretion = %d\n", SmartStarAccretion);
 #endif
-    AccretionRate = CenAccretionRate(AverageDensity, AccretionRadius,
+    AccretionRate = CenAccretionRate(Avg_Density, AccretionRadius,
 				     xparticle, vparticle, mparticle);
   }
 
@@ -243,7 +243,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle, FL
     float c_s = sqrt(Gamma * kboltz * AverageT / (Mu * mh))*TimeUnits/LengthUnits;
     float V_phi = CalculateCirculisationSpeed(Vel1Num, AccretionRadius, xparticle, vparticle);
     /* Bondi Hoyle */
-    RhoInfinity = AverageDensity /
+    RhoInfinity = Avg_Density /
       bondi_alpha(1.2*CellWidth[0][0] / BondiHoyleRadius);
     AccretionRate = (4*pi*RhoInfinity*POW(BondiHoyleRadius,2)*
 			 sqrt(POW(lambda_c*cInfinity,2) + POW(vInfinity,2)));
@@ -794,7 +794,7 @@ int grid::SetParticleBondiHoyle_AvgValues(
 
   int numcells=0;
   float Average_v1, Average_v2, Average_v3 = 0.0, Average_cInfinity, WeightedSum_T = 0.0, WeightedSum_v1 = 0.0,
-    WeightedSum_v2 = 0.0, WeightedSum_v3 = 0.0, Average_vInfinity, AverageT, AverageDensity, WeightedSum = 0.0;
+    WeightedSum_v2 = 0.0, WeightedSum_v3 = 0.0, Average_vInfinity, AverageT, Avg_Density, WeightedSum = 0.0;
   FLOAT radius2;
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
@@ -835,13 +835,13 @@ int grid::SetParticleBondiHoyle_AvgValues(
   Average_cInfinity = sqrt(Gamma * kboltz * AverageT / (Mu * mh)) / LengthUnits*TimeUnits;
 
   /* Estimate the density */
-  AverageDensity = WeightedSum / (*SumOfWeights);
+  Avg_Density = WeightedSum / (*SumOfWeights);
 
-  fprintf(stderr, "%s: AverageDensity = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
-                  "Average vInfinity = %e km/s\n", __FUNCTION__, AverageDensity*ConvertToNumberDensity,
+  fprintf(stderr, "%s: Avg_Density = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
+                  "Average vInfinity = %e km/s\n", __FUNCTION__, Avg_Density*ConvertToNumberDensity,
           AverageT, Average_vInfinity*VelUnits, Average_cInfinity*VelUnits);
 
-  ThisParticle->AverageDensity = AverageDensity;
+  ThisParticle->AverageDensity = Avg_Density;
   ThisParticle->Average_vInfinity = Average_vInfinity;
   ThisParticle->Average_cInfinity = Average_cInfinity;
 
