@@ -1211,19 +1211,6 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
      * */
       } // SG. End processor.
 
-      // SG. Communicate with all processors the updated accretion radius.
-      if (NewAccretionRadius > 0){
-        CommunicationAllSumValues(&NewAccretionRadius, 1);
-        CommunicationAllSumValues(positions, 3);
-
-        SS->AccretionRadius = NewAccretionRadius;
-        AccretionRadius = SS->AccretionRadius;
-
-        SS->pos[0] = positions[0];
-        SS->pos[1] = positions[1];
-        SS->pos[2] = positions[2];
-      }
-
       /* Copy data from the 'fake' feedback zone grid back to the real grids */
       DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
       delete FeedbackZone;
