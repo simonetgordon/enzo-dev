@@ -1049,6 +1049,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
     HierarchyEntry **Grids = NULL;
     NumberOfGrids = GenerateGridArray(LevelArray, ThisLevel, &Grids);
     float ctime = LevelArray[ThisLevel]->GridData->ReturnTime();
+    float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
 
     /*
    * TimeDelay if we want to delay the time between 
@@ -1154,10 +1155,10 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         FeedbackZone->ComputeTemperatureField(Temperature);
 
         /* SG. Use interpolated BHL radius with values from the bhindex */
-        FLOAT BondiHoyleRadius = FeedbackZone->CalculateInterpolatedBondiHoyleRadius(mparticle,vparticle,
+        FLOAT BondiHoyleRadius_Interpolated = FeedbackZone->CalculateInterpolatedBondiHoyleRadius(mparticle,vparticle,
                                                                                      Temperature, pos);
 
-        float TotalGasMass = 0.0, Avg_vInfinity, Avg_cInfinity, Avg_Density;
+        float TotalGasMass = 0.0, Avg_vInfinity, Avg_cInfinity;
         FLOAT KernelRadius = 0.0, SumOfWeights = 0.0;
         FLOAT BondiHoyleRadius, BondiHoyleRadius_Interpolated;
 
@@ -1428,7 +1429,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
         } // SG. End POPIII class condition.
     } // SG. End FOR loop over particles
     delete [] Grids;
-    Grid = NULL;
+    Grids = NULL;
   
     if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
         return FAIL;
