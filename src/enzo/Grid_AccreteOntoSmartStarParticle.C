@@ -33,8 +33,8 @@ int GetUnits(float *DensityUnits, float *LengthUnits,
 	     float *TemperatureUnits, float *TimeUnits,
 	     float *VelocityUnits, FLOAT Time);
 int grid::AccreteOntoSmartStarParticle(
-  ActiveParticleType* ThisParticle,FLOAT AccretionRadius,
-  float* AccretionRate)
+  ActiveParticleType* ThisParticle, FLOAT AccretionRadius, float* AccretionRate,
+  float SumOfWeights, FLOAT KernelRadius)
 {
 
   /* Return if this doesn't involve us */
@@ -81,42 +81,38 @@ int grid::AccreteOntoSmartStarParticle(
   MassUnits = DensityUnits * POW(LengthUnits,3);
   float mparticle = SS->ReturnMass()*CellVolume; //code mass
   float MassConversion = (float) (dx*dx*dx * double(MassUnits));  //convert to g
-  FLOAT KernelRadius = 0.0, SumOfWeights = 0.0; /*Required for weighting cells for accretion */
   // SG. Shouldn't CalculateSmartStarAccretionRate be acting on a grid?
-  *AccretionRate = CalculateSmartStarAccretionRate(ThisParticle, AccretionRadius, &KernelRadius, &SumOfWeights);
+  *AccretionRate = CalculateSmartStarAccretionRate(ThisParticle, AccretionRadius, KernelRadius, SumOfWeights);
 #if NO_ACCRETION
   *AccretionRate = 0.0;
 #endif
- 
-   float MaxAccretionRate = huge_number;
-   /* 
-    * If we want to cap the accretion rate at the Eddington rate the most sensible thing
-    * is to restrict the amount of mass that can be extracted during an accretion event.
-    * Physically I don't like this and you should consider why you want to do this. 
-    * It can be very useful for testing however. 
-    */
-   if(BH == SS->ParticleClass && SmartStarEddingtonCap) {
-     float mdot_edd = 4.0 * PI * GravConst * mparticle*MassUnits * mh / 
-       (clight * SS->eta_disk * sigma_thompson);
-     float accrate_cgs = (*AccretionRate*MassUnits/TimeUnits);
-     // printf("%s: So the accretion rate is %e Msolar/yr and the EddRate is %e Msolar/yr?\n",
-     // 	    __FUNCTION__, accrate_cgs*3.154e7/SolarMass, mdot_edd*3.154e7/SolarMass);
-     if(accrate_cgs > mdot_edd)
-       MaxAccretionRate = mdot_edd*TimeUnits/MassUnits;
-     else
-       MaxAccretionRate = *AccretionRate; 
-   }
-  /* 
-   * Remove mass from the grid in a sensible way using a kernel weighting 
-   * NB: This will almost certainly cause a difference to the 
+  float MaxAccretionRate = huge_number;
+  /*
+  * If we want to cap the accretion rate at the Eddington rate the most sensible thing
+  * is to restrict the amount of mass that can be extracted during an accretion event.
+  * Physically I don't like this and you should consider why you want to do this.
+  * It can be very useful for testing however.
+  */
+  if(BH == SS->ParticleClass && SmartStarEddingtonCap) {
+    float mdot_edd = 4.0 * PI * GravConst * mparticle*MassUnits * mh / (clight * SS->eta_disk * sigma_thompson);
+    float accrate_cgs = (*AccretionRate*MassUnits/TimeUnits);
+    // printf("%s: So the accretion rate is %e Msolar/yr and the EddRate is %e Msolar/yr?\n",
+    // 	    __FUNCTION__, accrate_cgs*3.154e7/SolarMass, mdot_edd*3.154e7/SolarMass);
+    if(accrate_cgs > mdot_edd)
+      MaxAccretionRate = mdot_edd*TimeUnits/MassUnits;
+    else
+      MaxAccretionRate = *AccretionRate;
+  }
+  /*
+   * Remove mass from the grid in a sensible way using a kernel weighting
+   * NB: This will almost certainly cause a difference to the
    * calculated accretion rate above since we apply a weighting kernel.
    * The weighting kernel takes account of the Bondi-Hoyle radius and whether we
-   * are resolving that radius or not. The mass actually accreted (i.e. removed from 
-   * the grid) can then be much less than found from the mass flux for example but 
-   * is closer to what the black hole would actually accrete. 
+   * are resolving that radius or not. The mass actually accreted (i.e. removed from
+   * the grid) can then be much less than found from the mass flux for example but
+   * is closer to what the black hole would actually accrete.
    */
- 
-  RemoveMassFromGrid(ThisParticle,AccretionRadius, *AccretionRate, &AccretedMass, delta_vpart,
+  RemoveMassFromGrid(ThisParticle, AccretionRadius, *AccretionRate, &AccretedMass, delta_vpart,
                      KernelRadius, SumOfWeights, MaxAccretionRate);
 #if  ACCRETE_DEBUG
   printf("%s: DeltaV = %e %e %e\n", __FUNCTION__,
@@ -145,7 +141,6 @@ int grid::AccreteOntoSmartStarParticle(
    * a kernel weighting applied to extract gas from the grid.
    */
   *AccretionRate = AccretedMass/this->dtFixed; //in units of density/time
-
 
    /*
     * The next bit applies to BHs only. 
@@ -226,12 +221,9 @@ int grid::AccreteOntoSmartStarParticle(
   
   AccretedMass = (*AccretionRate)*this->dtFixed;
   ThisParticle->AddMass(AccretedMass);
-#if  ACCRETE_DEBUG
-  printf("%s: AccretedMass = %e Msolar\n", __FUNCTION__, AccretedMass*MassConversion/SolarMass);
-  printf("%s: PrevMass = %e Msolar\t NewMass = %e Msolar\n", __FUNCTION__,
-	 (SS->ReturnMass() - AccretedMass)*MassConversion/SolarMass,
-	 SS->ReturnMass()*MassConversion/SolarMass);
-#endif
+  fprintf(stderr, "%s: AccretedMass = %e Msolar\n", __FUNCTION__, AccretedMass*MassConversion/SolarMass);
+  fprintf(stderr, "%s: PrevMass = %e Msolar\t NewMass = %e Msolar\n", __FUNCTION__,
+          (SS->ReturnMass() - AccretedMass)*MassConversion/SolarMass, SS->ReturnMass()*MassConversion/SolarMass);
   return SUCCESS;
 }
 

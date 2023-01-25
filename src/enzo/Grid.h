@@ -2915,13 +2915,13 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
       float* AccretionRate);
   
   int AccreteOntoSmartStarParticle(ActiveParticleType* ThisParticle, 
-      FLOAT AccretionRadius,
-      float* AccretionRate);
+      FLOAT AccretionRadius, float* AccretionRate,
+      float SumOfWeights, FLOAT KernelRadius);
 
   float CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
 					FLOAT AccretionRadius, 
-					FLOAT *KernelRadius,
-					FLOAT *SumOfWeights);
+					float SumOfWeights,
+					FLOAT KernelRadius);
   int CalculateSpecificQuantities(FLOAT *SinkParticlePos, FLOAT *CLEdge,
 				  float *vgas, float msink,  
 				  float *vsink, int *numpoints);

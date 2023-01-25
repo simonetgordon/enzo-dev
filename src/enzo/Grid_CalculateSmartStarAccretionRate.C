@@ -39,8 +39,7 @@ int GetUnits(float *DensityUnits, float *LengthUnits,
 int CosmologyComputeExpansionFactor(FLOAT time, FLOAT *a, FLOAT *dadt);
  
 float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
-					    FLOAT AccretionRadius, FLOAT *KernelRadius,
-					    FLOAT *SumOfWeights)
+					    FLOAT AccretionRadius, float SumOfWeights, FLOAT KernelRadius)
 {
   /* Return if this doesn't concern us. */
   if (ProcessorNumber != MyProcessorNumber)
@@ -135,72 +134,19 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   /* Compute Bondi Hoyle Radius (either HL or Bondi) and Interpolated BHL Radius */
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
-  
-  /* Impose a kernel radius that regulates the weighting cells get as a function of radius */
-  if (BondiHoyleRadius_Interpolated < dx) {  /* For BHs whose Bondi radius is not resolved */
-    fprintf(stderr, "%s: Setting kernel radius to CellWidth, BH not resolved\n", __FUNCTION__);
-    *KernelRadius = dx;
-  }
-  else if(dx < BondiHoyleRadius_Interpolated < 2*dx) { /*Accrete out to the BH radius */
-    fprintf(stderr, "%s: Setting kernel radius to BondiHoyleRadius, BH marginally resolved\n", __FUNCTION__);
-    *KernelRadius = BondiHoyleRadius;
-  }
-  else {
-    fprintf(stderr, "%s: Setting kernel radius to 2*CellWidth, BH is resolved\n", __FUNCTION__);
-    *KernelRadius = 2*dx;
-  }
-
-  int numcells=0;
-  float Average_v1, Average_v2, Average_v3 = 0.0, WeightedSum_T = 0.0, WeightedSum_v1 = 0.0, WeightedSum_v2 = 0.0,
-  WeightedSum_v3 = 0.0, Average_vInfinity;
-  for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
-    for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
-      int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
-      for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
-        radius2 =
-          POW((CellLeftEdge[0][i] + 0.5*CellWidth[0][i]) - xparticle[0],2) +
-          POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
-          POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
-
-        if (POW(*KernelRadius,2) > radius2) { // SG. Using kernel radius instead of accretion radius.
-          WeightedSum += BaryonField[DensNum][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          (*SumOfWeights) += exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          AverageT += Temperature[index];
-          WeightedSum_v1 += BaryonField[Vel1Num][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          WeightedSum_v2 += BaryonField[Vel2Num][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          WeightedSum_v3 += BaryonField[Vel3Num][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          WeightedSum_T += Temperature[index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          TotalGasMass += BaryonField[DensNum][index]*CellVolume;
-          numcells++;
-        }
-      }
-    }
-  }
-  fprintf(stderr, "%s: WeightedSum = %e, SumOfWeights = %e, KernelRadius = %e pc, AccretionRadius = %e pc \n",
-          __FUNCTION__, WeightedSum, (*SumOfWeights), (*KernelRadius)*LengthUnits/pc_cm,
-          AccretionRadius*LengthUnits/pc_cm);
-
   delete [] Temperature;
-//  Weight = 1.0/numcells; // volume weighted - i.e. average per cell
-//  AverageT *= Weight;
-  AverageT = WeightedSum_T/(*SumOfWeights);
-  Average_v1 = WeightedSum_v1/(*SumOfWeights);
-  Average_v2 = WeightedSum_v2/(*SumOfWeights);
-  Average_v3 = WeightedSum_v3/(*SumOfWeights);
-  /* Estimate the relative velocity */
-  Average_vInfinity = sqrt(pow(vparticle[0] - Average_v1,2) +
-    pow(vparticle[1] - Average_v2,2) + pow(vparticle[2] - Average_v3,2));
+  Temperature = NULL;
 
-  if(AverageT <= 0.0)
-    AverageT = Temperature[cgindex];
-  AverageDensity = WeightedSum / (*SumOfWeights);
-  fprintf(stderr, "%s: AverageDensity = %g cm^-3, AverageTemp = %e K, Average vInfinity = %e km/s\n", __FUNCTION__,
-          AverageDensity*ConvertToNumberDensity, AverageT, Average_vInfinity*VelocityUnits/1e5);
+  Avg_vInfinity = SS->Average_vInfinity;
+  Avg_cInfinity = SS->Average_cInfinity;
+  Avg_Density = SS->AverageDensity;
 
-  /* Calculate the accretion rate based on prescription specified */
-  SS->mass_in_accretion_sphere = TotalGasMass/CellVolume; //convert to density for consistency
-  fprintf(stderr, "SS->mass_in_accretion_sphere = %e Msun\n", SS->mass_in_accretion_sphere*MassUnits/SolarMass);
+  fprintf(stderr, "%s: Avg_Density = %g cm^-3, Avg_cInfinity = %e , Avg_vInfinity = %e km/s\n", __FUNCTION__,
+          Avg_Density*ConvertToNumberDensity, Avg_cInfinity*VelocityUnits/1e5, Avg_vInfinity*VelocityUnits/1e5);
 
+  /***********************************************************************
+  /                      Accretion Schemes
+  ************************************************************************/
   /* 
    * Traditional Bondi-Hoyle Prescription using the formalism
    * presented in Krumholtz et al. (2004)
@@ -213,34 +159,28 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     fprintf(stderr, "Doing SPHERICAL_BONDI_HOYLE_FORMALISM, SmartStarAccretion = %d\n", SmartStarAccretion);
     // RhoInfinity = AverageDensity /
     //   bondi_alpha(1.2*CellWidth[0][0] / BondiHoyleRadius);
-
     // SG. Replaces above two lines. We want rho_inf = avg dens in accretion sphere.
     // This alpha factor has the effect of reducing rho_inf when dx <~ bondi_radius.
-    RhoInfinity = AverageDensity;
-    // SG. We want rho_inf to be the density of the particle cell
-    // (this is approximated as the cell in the centre of the grid)
-    // RhoInfinity = BaryonField[DensNum][cgindex];
 
-    /* Bondi Hoyle Accretion */
-    float cInfinity = sqrt(Gamma * kboltz * AverageT / (Mu * mh)) / LengthUnits*TimeUnits;
-    vInfinity = Average_vInfinity;
+    float AccretionRate_Cell, AccretionRate_Avg;
 
-    // SG. In line with derivation and Beckmann (2018).
-    AccretionRate = 4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)/ POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5);
+    /* Accretion rate calculated from BH cell values */
+    AccretionRate_Cell = (4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)/
+      POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5));
 
-    RhoInfinity = BaryonField[DensNum][cgindex];
-    cInfinity = sqrt(Gamma * kboltz * CellTemperature / (Mu * mh)) / LengthUnits*TimeUnits;
-    vInfinity = vInfinity;
-
-    float AccretionRate_old = 4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)/
-                              POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5);
+    /* Accretion rate calculated from averaged values */
+    AccretionRate_Avg = (4*pi*Avg_Density*POW(Gcode,2)*POW(mparticle,2)/
+      POW((POW(Avg_cInfinity, 2) + POW(Avg_vInfinity, 2)), 1.5));
 
     fprintf(stderr, "%s: spherical BHL accretion rate with average values (this is SS->AccretionRate) = "
-                    "%e Msun/yr (%e code)\n", __FUNCTION__, AccretionRate*MassUnits*yr_s/(TimeUnits*SolarMass),
-                    AccretionRate);
+                    "%e Msun/yr (%e code)\n", __FUNCTION__, AccretionRate_Avg*MassUnits*yr_s/(TimeUnits*SolarMass),
+                      AccretionRate_Avg);
 
-    fprintf(stderr, "%s: old spherical BHL accretion rate with cell values = %e Msun/yr (%e code)\n", __FUNCTION__,
-            AccretionRate_old*MassUnits*yr_s/(TimeUnits*SolarMass), AccretionRate_old);
+    fprintf(stderr, "%s: spherical BHL accretion rate with cell values = %e Msun/yr (%e code)\n", __FUNCTION__,
+            AccretionRate_Cell*MassUnits*yr_s/(TimeUnits*SolarMass), AccretionRate_Cell);
+
+    /* Setting the return value of function */
+    AccretionRate = AccretionRate_Avg;
 
     /* Include Vorticity component if specified */
     if(SPHERICAL_BONDI_HOYLE_FORMALISM_WITH_VORTICITY == SmartStarAccretion) {
@@ -824,7 +764,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
 
 int grid::SetParticleBondiHoyle_AvgValues(
   FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT xparticle[3],
-  float vparticle[3], float *Temperature, float* TotalGasMass, FLOAT *SumOfWeights, ActiveParticleType* ThisParticle){
+  float vparticle[3], float *Temperature, float* TotalGasMass, ActiveParticleType* ThisParticle){
   /* Get indices in BaryonField for density, internal energy, thermal energy, velocity */
   int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
   if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,

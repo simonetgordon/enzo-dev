@@ -1154,6 +1154,11 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         FeedbackZone->SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, &KernelRadius,
                                                       dx*dx*dx, xparticle, vparticle, Temperature,
                                                       &TotalGasMass, &SumOfWeights, SS);
+
+        fprintf(stderr, "%s: WeightedSum = %e, SumOfWeights = %e, KernelRadius = %e pc, TotalGasMass = %e Msun \n",
+                __FUNCTION__, WeightedSum, (*SumOfWeights), (*KernelRadius)*LengthUnits/pc_cm,
+                (*TotalGasMass)*MassUnits/SolarMass);
+
         Avg_vInfinity = SS->Average_vInfinity;
         Avg_cInfinity = SS->Average_cInfinity;
 
@@ -1173,7 +1178,8 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
         /* Doing accretion with updated AccretionRadius */
         AccretionRadius = SS->AccretionRadius;
-        if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate) == FAIL)
+        if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate,
+                                                       (*SumOfWeights), (*KernelRadius) ) == FAIL)
           return FAIL;
 
         delete [] Temperature;
