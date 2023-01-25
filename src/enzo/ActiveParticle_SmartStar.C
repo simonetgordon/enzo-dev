@@ -1137,16 +1137,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       // SG/BS change to continue and !=.
       if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
         float AccretionRate = 0.0;
-        if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate) == FAIL)
-          return FAIL;
 
-        // SG. positions is the array of de-referenced particle positions in each dim.
-        positions[0] = ParticleList[i]->ReturnPosition()[0];
-        positions[1] = ParticleList[i]->ReturnPosition()[1];
-        positions[2] = ParticleList[i]->ReturnPosition()[2];
-
-
-#if BONDIHOYLERADIUS
         /* Check what the Bondi-Hoyle radius is - we should accrete out to that if required */
         float mparticle = ParticleList[i]->ReturnMass()*dx*dx*dx;
         float *vparticle = ParticleList[i]->ReturnVelocity();
@@ -1202,13 +1193,11 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
                   __FUNCTION__,SS->AccretionRadius*LengthUnits/pc_cm, SS->AccretionRadius/dx);
         }
         AccretionRadius = SS->AccretionRadius;
-        NewAccretionRadius = AccretionRadius;
+        if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate) == FAIL)
+          return FAIL;
+
         delete [] Temperature;
         Temperature = NULL;
-#endif
-    /* No need to communicate the accretion rate to the other CPUs since this particle is already local.
-     * Need to decide how often I update the accretion history
-     * */
       } // SG. End processor.
 
       /* Copy data from the 'fake' feedback zone grid back to the real grids */
