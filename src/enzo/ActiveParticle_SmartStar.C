@@ -1046,11 +1046,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
     double MassConversion = (double) (dx*dx*dx * double(MassUnits));  //convert to g
     int i, NumberOfGrids;
-    int *FeedbackRadius = NULL;
     HierarchyEntry **Grids = NULL;
-    grid *sinkGrid = NULL;
-    bool SinkIsOnThisProc, SinkIsOnThisGrid;
-    float SubtractedMass, SubtractedMomentum[3] = {};
     NumberOfGrids = GenerateGridArray(LevelArray, ThisLevel, &Grids);
     float ctime = LevelArray[ThisLevel]->GridData->ReturnTime();
 
@@ -1139,7 +1135,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
       // SG/BS change to continue and !=.
       if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
-        float AccretionRate = 0;
+        float AccretionRate = 0.0;
         if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate) == FAIL)
           return FAIL;
 
@@ -1160,6 +1156,28 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         /* SG. Use interpolated BHL radius with values from the bhindex */
         FLOAT BondiHoyleRadius = FeedbackZone->CalculateInterpolatedBondiHoyleRadius(mparticle,vparticle,
                                                                                      Temperature, pos);
+
+        float TotalGasMass = 0.0, Avg_vInfinity, Avg_cInfinity, Avg_Density;
+        FLOAT KernelRadius = 0.0, SumOfWeights = 0.0;
+        FLOAT BondiHoyleRadius, BondiHoyleRadius_Interpolated;
+
+        /* Calculate average values to use in scale radius formula */
+        FeedbackZone->SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, &KernelRadius,
+                                                      dx*dx*dx, xparticle, vparticle, Temperature,
+                                                      &TotalGasMass, &SumOfWeights, SS);
+        Avg_vInfinity = SS->Average_vInfinity;
+        Avg_cInfinity = SS->Average_cInfinity;
+
+        /* Choose which scale radius to use for refinement, with average cell properties as input */
+        if (Avg_vInfinity > Avg_cInfinity){
+          BondiHoyleRadius = FLOAT(2*Gcode*mparticle/pow(Avg_vInfinity, 2));
+          fprintf(stderr, "%s: Using HL radius for refinement = %e pc (%f cells)\n",
+                  __FUNCTION__,BondiHoyleRadius*LengthUnits/pc_cm, BondiHoyleRadius/dx);
+        } else{
+          BondiHoyleRadius = FLOAT(Gcode*mparticle/pow(Avg_cInfinity, 2));
+          fprintf(stderr, "%s: Using Bondi radius for refinement = %e pc (%f cells)\n",
+                  __FUNCTION__,BondiHoyleRadius*LengthUnits/pc_cm, BondiHoyleRadius/dx);
+        }
 
         /*
         SG: the accretion radius will be reassigned to the Bondi radius when the accretion radius
@@ -1206,11 +1224,12 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
       delete FeedbackZone;
     } // END particles
+    delete [] Grids;
+    Grids = NULL;
 
     if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
       return FAIL;
 
-    delete [] Grids;
     return SUCCESS;
 } // END Accrete
 
@@ -1374,45 +1393,46 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
       } // SG. End BH class condition.
 
 	    else if (pclass == POPIII){ // SG. Add POPIII class condition
-            FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
-            /* SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
-             * CommunicateAllSumValues(). */
-            FLOAT positions[3] = {0,0,0};
-            FLOAT NewAccretionRadius = 0;
-            FLOAT* pos;
+        FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
+        /* SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
+         * CommunicateAllSumValues(). */
+        FLOAT positions[3] = {0,0,0};
+        FLOAT NewAccretionRadius = 0;
+        FLOAT* pos;
 
-            if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
-                if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
-                    return FAIL;
+        if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
+          if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
+              return FAIL;
 
-                // SG. positions is the array of dereferenced particle positions in each dim.
-                positions[0] = SS->ReturnPosition()[0];
-                positions[1] = SS->ReturnPosition()[1];
-                positions[2] = SS->ReturnPosition()[2];
-            } // END my processor
+          // SG. positions is the array of dereferenced particle positions in each dim.
+          positions[0] = SS->ReturnPosition()[0];
+          positions[1] = SS->ReturnPosition()[1];
+          positions[2] = SS->ReturnPosition()[2];
+        } // END my processor
 
-            // SG. Communicate with all procs the updated accretion radius and particle position.
-            CommunicationAllSumValues(&NewAccretionRadius, 1);
-            CommunicationAllSumValues(positions, 3);
+        // SG. Communicate with all procs the updated accretion radius and particle position.
+        CommunicationAllSumValues(&NewAccretionRadius, 1);
+        CommunicationAllSumValues(positions, 3);
 
-            SS->AccretionRadius = NewAccretionRadius;
-            AccretionRadius = SS->AccretionRadius;
+        SS->AccretionRadius = NewAccretionRadius;
+        AccretionRadius = SS->AccretionRadius;
 
-            SS->pos[0] = positions[0];
-            SS->pos[1] = positions[1];
-            SS->pos[2] = positions[2];
+        SS->pos[0] = positions[0];
+        SS->pos[1] = positions[1];
+        SS->pos[2] = positions[2];
 
-            /* Copy data from the 'fake' feedback zone grid back to the real grids */
-            DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
-            delete FeedbackZone;
+        /* Copy data from the 'fake' feedback zone grid back to the real grids */
+        DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
+        delete FeedbackZone;
 
         } // SG. End POPIII class condition.
     } // SG. End FOR loop over particles
+    delete [] Grids;
+    Grid = NULL;
   
     if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
         return FAIL;
 
-    delete [] Grids;
     return SUCCESS;
 } // SG. End SmartStarParticleFeedback function.
 
