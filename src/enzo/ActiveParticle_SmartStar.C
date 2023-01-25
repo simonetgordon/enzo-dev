@@ -1156,8 +1156,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
                                                       &TotalGasMass, &SumOfWeights, SS);
 
         fprintf(stderr, "%s: SumOfWeights = %e, KernelRadius = %e pc, TotalGasMass = %e Msun \n",
-                __FUNCTION__, SumOfWeights, KernelRadius*LengthUnits/pc_cm,
-                (*TotalGasMass)*MassUnits/SolarMass);
+                __FUNCTION__, SumOfWeights, KernelRadius*LengthUnits/pc_cm, TotalGasMass*MassUnits/SolarMass);
 
         Avg_vInfinity = SS->Average_vInfinity;
         Avg_cInfinity = SS->Average_cInfinity;
