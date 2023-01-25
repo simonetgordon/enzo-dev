@@ -1049,9 +1049,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
     double MassConversion = (double) (dx*dx*dx * double(MassUnits));  //convert to g
     int i, NumberOfGrids;
-    int *FeedbackRadius = NULL;
     HierarchyEntry **Grids = NULL;
-    grid *sinkGrid = NULL;
     bool SinkIsOnThisProc, SinkIsOnThisGrid;
     float SubtractedMass, SubtractedMomentum[3] = {};
     NumberOfGrids = GenerateGridArray(LevelArray, ThisLevel, &Grids);
@@ -1226,13 +1224,14 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       /* Copy data from the 'fake' feedback zone grid back to the real grids */
       DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
       delete FeedbackZone;
+      FeedbackZone = NULL;
     } // END particles
+    delete [] Grids;
+    Grids = NULL;
 
     if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
       return FAIL;
 
-    delete [] Grids;
-    Grids = NULL;
     return SUCCESS;
 } // END Accrete
 
