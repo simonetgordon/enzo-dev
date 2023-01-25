@@ -67,70 +67,76 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   ConvertToNumberDensity = DensityUnits/mh;
   /* end units */
 
+  /* initialise variables */
+  float WeightedSum = 0, RhoInfinity = 0.0, AverageT = 0, TotalGasMass = 0, mparticle, AccretionRate = 0.0;
+  float vInfinity, cInfinity, CellTemperature, RegionTemperature, Avg_vInfinity, Avg_cInfinity, Avg_Density;
+  FLOAT radius2 = 0.0, dx;
+  float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0, AccretedMomentum[3], vgas[3], etot, eint,
+    ke, maccreted, etotnew, rhonew, eintnew, kenew, mnew = 0, rhocell = 0.0, mcell = 0.0, CellVolume = 1.0;
+  int cindex, cgindex, size;
+  int size = this->GetGridSize();
+  float *Temperature = new float[size]();
+  ActiveParticleType_SmartStar* SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
+  SS->mass_in_accretion_sphere = 0.0;
 
-  /* Find particle properties */
+  float lambda_c = 0.25*exp(1.5);
+  float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
+
+  // SG. Not sure what this is.
+  SmEint = max(SmallP * PressureUnits / ((Gamma - 1)*SmallRho), 1.5 * kboltz * SmallT / (Mu*mh)) / GEUnits;
+
+  /***********************************************************************
+  /         Get properties of particle and local gas environment
+  ************************************************************************/
+
+  /* 1) cell position */
   FLOAT xparticle[3] = {
     ThisParticle->ReturnPosition()[0],
     ThisParticle->ReturnPosition()[1],
     ThisParticle->ReturnPosition()[2]
   };
+
+  /* 2) cell velocity + particle relative velocity */
   float vparticle[3] = {
     ThisParticle->ReturnVelocity()[0],
     ThisParticle->ReturnVelocity()[1],
     ThisParticle->ReturnVelocity()[2]
   };
-  int cindex = (GridEndIndex[0] - GridStartIndex[0])/2 + GridStartIndex[0];
-  int cgindex = GRIDINDEX_NOGHOST(cindex,cindex,cindex);
-  float rhocell = 0.0, mcell = 0.0, CellVolume = 1.0;
-  /* Calculate cell volume */
-  for (int dim = 0; dim < GridRank; dim++)
-  {
-    CellVolume*=CellWidth[dim][0];
-  }
-  float mparticle = ThisParticle->ReturnMass()*CellVolume;
-  ActiveParticleType_SmartStar* SS;
-  SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
-  SS->mass_in_accretion_sphere = 0.0;
+  vInfinity = sqrt(pow(vparticle[0] - BaryonField[Vel1Num][cgindex],2) +
+                   pow(vparticle[1] - BaryonField[Vel2Num][cgindex],2) +
+                   pow(vparticle[2] - BaryonField[Vel3Num][cgindex],2));
 
-  float WeightedSum = 0, AverageDensity = 0, RhoInfinity = 0.0;
-  float AverageT=0, TotalGasMass = 0;
-  float lambda_c = 0.25*exp(1.5);
-  FLOAT radius2 = 0.0;
-  float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0, AccretedMomentum[3],
-    vgas[3], etot, eint, ke,  maccreted, etotnew, rhonew, eintnew,
-    kenew, mnew = 0;
+  /* 3) particle cell index */
+  cindex = (GridEndIndex[0] - GridStartIndex[0])/2 + GridStartIndex[0];
+  cgindex = GRIDINDEX_NOGHOST(cindex,cindex,cindex);
 
-  /* Find the Bondi-Hoyle radius */
-  int size = this->GetGridSize();
-  float *Temperature = new float[size]();
+  /* 4) cell volume and cell width */
+  for (int dim = 0; dim < GridRank; dim++){
+    CellVolume*=CellWidth[dim][0];}
+  dx = (CellWidth[0][0] + CellWidth[1][0] + CellWidth[2][0])/3;
+
+  /* 5) particle cell mass */
+  mparticle = ThisParticle->ReturnMass()*CellVolume;
+
+  /* 6) temperature field of grid, region temperature over 2*dx, cell temperature */
   this->ComputeTemperatureField(Temperature);
-
-  SmEint = max(
-    SmallP * PressureUnits / ((Gamma - 1)*SmallRho),
-    1.5 * kboltz * SmallT / (Mu*mh)
-    ) / GEUnits;
-
-  /* Estimate the relative velocity */
-  float vInfinity = sqrt(pow(vparticle[0] - BaryonField[Vel1Num][cgindex],2) +
-			 pow(vparticle[1] - BaryonField[Vel2Num][cgindex],2) +
-			 pow(vparticle[2] - BaryonField[Vel3Num][cgindex],2));
-
-  float CellTemperature = Temperature[cgindex];
-  float RegionTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, 2.0*AccretionRadius);
-  fprintf(stderr, "%s: RegionTemperature = %e K \n", __FUNCTION__, RegionTemperature);
+  CellTemperature = Temperature[cgindex];
+  RegionTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, 2.0*AccretionRadius);
+  fprintf(stderr, "%s: RegionTemperature = %e K  (within 2*AccretionRadius) \n", __FUNCTION__, RegionTemperature);
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
 
-  float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
-  // SG. Change CellTemperature -> Temperature[cgindex]
-  float cInfinity = sqrt(Gamma * kboltz * CellTemperature / (Mu * mh)) /
-    LengthUnits*TimeUnits;
-  // SG. Temperature is computed on line 83
+  /* 7) cell sound speed */
+  cInfinity = sqrt(Gamma * kboltz * CellTemperature / (Mu * mh)) / LengthUnits*TimeUnits;
+
+  /* 8) density of particle cell */
+  RhoInfinity = BaryonField[DensNum][cgindex];
+
+  /* Compute Bondi Hoyle Radius (either HL or Bondi) and Interpolated BHL Radius */
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
   
   /* Impose a kernel radius that regulates the weighting cells get as a function of radius */
-  FLOAT dx = (CellWidth[0][0] + CellWidth[1][0] + CellWidth[2][0])/3;
   if (BondiHoyleRadius_Interpolated < dx) {  /* For BHs whose Bondi radius is not resolved */
     fprintf(stderr, "%s: Setting kernel radius to CellWidth, BH not resolved\n", __FUNCTION__);
     *KernelRadius = dx;
@@ -157,7 +163,6 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
           POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
 
         if (POW(*KernelRadius,2) > radius2) { // SG. Using kernel radius instead of accretion radius.
-          //printf("Grid:index = %d\n", index);
           WeightedSum += BaryonField[DensNum][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
           (*SumOfWeights) += exp(-radius2/((*KernelRadius)*(*KernelRadius)));
           AverageT += Temperature[index];
