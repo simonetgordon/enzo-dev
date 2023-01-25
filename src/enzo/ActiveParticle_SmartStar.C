@@ -1136,7 +1136,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
         float mparticle = ParticleList[i]->ReturnMass()*dx*dx*dx;
         float *vparticle = ParticleList[i]->ReturnVelocity();
-        float TotalGasMass = 0.0, Avg_vInfinity, Avg_cInfinity;
+        float TotalGasMass = 0.0, AccretionRate = 0.0, Avg_vInfinity, Avg_cInfinity;
         FLOAT KernelRadius = 0.0, SumOfWeights = 0.0;
         FLOAT BondiHoyleRadius, BondiHoyleRadius_Interpolated;
         float *xparticle = ParticleList[i]->ReturnPosition();
