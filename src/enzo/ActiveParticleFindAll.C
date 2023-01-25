@@ -61,6 +61,7 @@ void ActiveParticleFindAll(
       
       for (level = 0; level <= MaximumRefinementLevel; level++) {
 	NumberOfGrids = GenerateGridArray(LevelArray, level, &Grids);
+  fprinf(stderr, "%s: NumberOfGrids = %"ISYM"\n", __FUNCTION__, NumberOfGrids);
 	NumberOfActiveParticlesInGrids = new int[NumberOfGrids];
 	LocalNumberOfActiveParticlesOnThisLevel = 0;
 

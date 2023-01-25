@@ -1429,11 +1429,12 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
 
         } // SG. End POPIII class condition.
     } // SG. End FOR loop over particles
-  
+    delete [] Grids;
+    Grids = NULL;
+
     if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
         return FAIL;
 
-    delete [] Grids;
     return SUCCESS;
 } // SG. End SmartStarParticleFeedback function.
 
