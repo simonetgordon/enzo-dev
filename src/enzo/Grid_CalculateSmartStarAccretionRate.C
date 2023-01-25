@@ -829,7 +829,8 @@ int grid::SetParticleBondiHoyle_AvgValues(
   Average_v2 = WeightedSum_v2/(*SumOfWeights);
   Average_v3 = WeightedSum_v3/(*SumOfWeights);
   Average_vInfinity = sqrt(pow(vparticle[0] - Average_v1,2) +
-                           pow(vparticle[1] - Average_v2,2) + pow(vparticle[2] - Average_v3,2));
+                           pow(vparticle[1] - Average_v2,2) +
+                           pow(vparticle[2] - Average_v3,2));
 
   /* Estimate the sound speed */
   AverageT = WeightedSum_T/(*SumOfWeights);
@@ -840,7 +841,7 @@ int grid::SetParticleBondiHoyle_AvgValues(
 
   fprintf(stderr, "%s: Avg_Density = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
                   "Average vInfinity = %e km/s\n", __FUNCTION__, Avg_Density*ConvertToNumberDensity,
-          AverageT, Average_cInfinity*VelUnits, Average_vInfinity*VelUnits);
+          AverageT, Average_cInfinity*VelocityUnits/1e5, Average_vInfinity*VelocityUnits/1e5);
 
   ThisParticle->AverageDensity = Avg_Density;
   ThisParticle->Average_vInfinity = Average_vInfinity;
