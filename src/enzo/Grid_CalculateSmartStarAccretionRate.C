@@ -753,7 +753,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
           bh_y = rely;
           bh_z = relz;
           bhindex = GRIDINDEX_NOGHOST(i, j, k);
-          fprintf(stderr, "%s: bhindex = %"ISYM"\n", __FUNCTION__, bhindex);
+          //fprintf(stderr, "%s: bhindex = %"ISYM"\n", __FUNCTION__, bhindex);
         }
       }
     }
@@ -762,7 +762,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
   /* grab index of cell in centre of grid */
   cindex = (GridEndIndex[0] - GridStartIndex[0])/2 + GridStartIndex[0];
   cgindex = GRIDINDEX_NOGHOST(cindex,cindex,cindex);
-  fprintf(stderr, "%s: cgindex = %"ISYM"\n", __FUNCTION__, cgindex);
+  //fprintf(stderr, "%s: cgindex = %"ISYM"\n", __FUNCTION__, cgindex);
 
   /* units */
   float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1,
