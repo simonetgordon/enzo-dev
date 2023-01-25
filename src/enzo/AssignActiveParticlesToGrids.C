@@ -73,17 +73,17 @@ int AssignActiveParticlesToGrids(
       NumberOfLevelGrids = GenerateGridArray(LevelArray, level, &LevelGrids);     
       for (gridnum = 0; gridnum < NumberOfLevelGrids; gridnum++) {
         if (LevelGrids[gridnum]->GridData->PointInGrid(pos1) == true) {
-	      SavedGridOffProc = gridnum;
-	      if (LevelGrids[gridnum]->GridData->ReturnProcessorNumber() == MyProcessorNumber) {
-	        if (LevelGrids[gridnum]->GridData->isLocal() == true) { 
-	          SavedGrid = gridnum;
-	          LevelMax = level;
-            //fprintf(stderr, "%s: SavedGrid = %"ISYM" and LevelMax = %"ISYM".\n", __FUNCTION__, SavedGrid, LevelMax);
-	        }
-	      }
+          SavedGridOffProc = gridnum;
+          if (LevelGrids[gridnum]->GridData->ReturnProcessorNumber() == MyProcessorNumber) {
+            if (LevelGrids[gridnum]->GridData->isLocal() == true) {
+              SavedGrid = gridnum;
+              LevelMax = level;
+              //fprintf(stderr, "%s: SavedGrid = %"ISYM" and LevelMax = %"ISYM".\n", __FUNCTION__, SavedGrid, LevelMax);
+            }
+          }
           GlobalLevelMax = level;
-	    } // if MyProc
-	  } // for gridnum
+        }
+      } // for gridnum
       delete [] LevelGrids;
       LevelGrids = NULL;
     } // SG. End for loop over levels.
@@ -107,8 +107,8 @@ int AssignActiveParticlesToGrids(
     else {
 #ifdef USE_MPI
       /* Find the processor which has the maximum value of
-	  LevelMax and assign the particle to the
-	  SavedGrid on that processor.  */
+       * LevelMax and assign the particle to the
+       * SavedGrid on that processor.  */
       struct { Eint32 value; Eint32 rank; } sendbuf, recvbuf;
       MPI_Comm_rank(MPI_COMM_WORLD, &sendbuf.rank);
       NumberOfGrids = GenerateGridArray(LevelArray, GlobalLevelMax, &LevelGrids); 
@@ -120,10 +120,10 @@ int AssignActiveParticlesToGrids(
       OldGrid->RemoveActiveParticle(ID,LevelGrids[SavedGridOffProc]->GridData->ReturnProcessorNumber());
       // if this is the receiving proc, add it.
       if (LevelMax == GlobalLevelMax) {
-	    if (LevelGrids[SavedGrid]->GridData->AddActiveParticle(
-                static_cast<ActiveParticleType*>(ParticleList[i])) == FAIL) {
-	      ENZO_FAIL("Active particle grid assignment failed"); 
-	    } 
+        if (LevelGrids[SavedGrid]->GridData->AddActiveParticle(
+          static_cast<ActiveParticleType*>(ParticleList[i])) == FAIL) {
+          ENZO_FAIL("Active particle grid assignment failed");
+        }
       }
       LevelMax = GlobalLevelMax;
 #endif // endif parallel
