@@ -176,7 +176,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
             AccretionRate_Cell*MassUnits*yr_s/(TimeUnits*SolarMass), AccretionRate_Cell);
 
     /* Setting the return value of function */
-    AccretionRate = AccretionRate_Avg;
+    AccretionRate = AccretionRate_Cell;
 
     /* Include Vorticity component if specified */
     if(SPHERICAL_BONDI_HOYLE_FORMALISM_WITH_VORTICITY == SmartStarAccretion) {
