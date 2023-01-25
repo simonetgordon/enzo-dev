@@ -140,9 +140,6 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   Avg_cInfinity = SS->Average_cInfinity;
   Avg_Density = SS->AverageDensity;
 
-  fprintf(stderr, "%s: Avg_Density = %g cm^-3, Avg_cInfinity = %e , Avg_vInfinity = %e km/s\n", __FUNCTION__,
-          Avg_Density*ConvertToNumberDensity, Avg_cInfinity*VelocityUnits/1e5, Avg_vInfinity*VelocityUnits/1e5);
-
   /***********************************************************************
   /                      Accretion Schemes
   ************************************************************************/

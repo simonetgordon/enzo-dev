@@ -1052,15 +1052,13 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
     float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
 
     /*
-   * TimeDelay if we want to delay the time between 
-   * turning on accretion following a supernova. 
-   * In testing I didn't observe any difference. 
-   * Hence, the TimeDelay is set to a short period
-   * of 100,000 years which accounts for end of snowplough 
-   * period
-    */
-    float TimeDelay = 100*yr_s/TimeUnits; // set to 100 kyr - SG change to 100 yr for BH only run.
-    // For each particle, loop over all the grids and do accretion if the grid overlaps with the accretion zone
+     * TimeDelay if we want to delay the time between turning on accretion following a supernova.
+     * In testing I didn't observe any difference. Hence, the TimeDelay is set to a short period
+     * of 100,000 years which accounts for end of snowplough period.
+     * For each particle, loop over all the grids and do accretion if the grid overlaps with the
+     * accretion zone.
+     */
+    float TimeDelay = 100*yr_s/TimeUnits; // SG change to 100 yr for BH only run.
     for (i = 0; i < nParticles; i++) {
       /*
        * Accretion is only allowed if it makes sense:
@@ -1078,7 +1076,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       float p_age = ctime - SS->BirthTime;
       int MyLevel = SS->ReturnLevel(); // SG.
 
-      //SG.
+      // SG. We don't accrete unless we're on the particle level of refinement.
       if (ThisLevel != MyLevel){
         continue;
       }
@@ -1105,16 +1103,16 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
           continue;
       }
       else if(pclass == BH){
-          /* We always accrete onto BHs. The only restriction is that
-           * we can optionally employ a time delay following a SNe explosion to
-           * avoid spurious accretion.
-          */
-          if(p_age < Stellar_Age + TimeDelay){
-            fprintf(stderr, "%s: no accretion due to TimeDelay (%e yrs). p_age = %e yrs. "
-                            "Stellar_Age = %e yrs.\n",
-                            __FUNCTION__, TimeDelay*TimeUnits/yr_s, p_age*TimeUnits/yr_s, Stellar_Age*TimeUnits/yr_s);
-            continue;
-          }
+        /* We always accrete onto BHs. The only restriction is that
+         * we can optionally employ a time delay following a SNe explosion to
+         * avoid spurious accretion.
+        */
+        if(p_age < Stellar_Age + TimeDelay){
+          fprintf(stderr, "%s: no accretion due to TimeDelay (%e yrs). p_age = %e yrs. "
+                          "Stellar_Age = %e yrs.\n",
+                          __FUNCTION__, TimeDelay*TimeUnits/yr_s, p_age*TimeUnits/yr_s, Stellar_Age*TimeUnits/yr_s);
+          continue;
+        }
       }
       else if(pclass == POPII){
         /* We never accrete onto POPII stars */
@@ -1123,7 +1121,6 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
       /* Construct feedback zone of 5^3 cells */
       grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx, Grids, NumberOfGrids, ALL_FIELDS);
-      grid* APGrid = ParticleList[i]->ReturnCurrentGrid();
 
       /* Grab particle position */
       FLOAT pos[3] = {0,0,0};
@@ -1148,7 +1145,6 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         /* SG. Use interpolated BHL radius with values from the bhindex */
         BondiHoyleRadius_Interpolated = FeedbackZone->CalculateInterpolatedBondiHoyleRadius(mparticle,vparticle,
                                                                                             Temperature, pos);
-
 
         /* Calculate average values to use in scale radius formula */
         FeedbackZone->SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, &KernelRadius,
@@ -1189,6 +1185,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       DistributeFeedbackZone(FeedbackZone, Grids, NumberOfGrids, ALL_FIELDS);
       delete FeedbackZone;
     } // END particles
+
     delete [] Grids;
     Grids = NULL;
 
@@ -1230,12 +1227,12 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
                           SmartStarList);
 
     for (i=0 ; i<nParticles; i++){
-        SS = static_cast<ActiveParticleType_SmartStar*>(SmartStarList[i]);
-        pclass = SS->ParticleClass;
+      SS = static_cast<ActiveParticleType_SmartStar*>(SmartStarList[i]);
+      pclass = SS->ParticleClass;
 
-        /* POPIII case*/
-        if (pclass == POPIII){
-            continue;
+      /* POPIII case*/
+      if (pclass == POPIII){
+          continue;
 		}
 		 /* SMS case*/
 	    if (pclass == SMS) {
@@ -1243,42 +1240,39 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
 		  }
         /* BH case*/
         else{
-            /* Define position and accrad of BH */
-            pos = SmartStarList[i]->ReturnPosition();
-            accrad = SS->AccretionRadius;
+          /* Define position and accrad of BH */
+          pos = SmartStarList[i]->ReturnPosition();
+          accrad = SS->AccretionRadius;
 
-            /* SG. Check for when accrad = 0 in the first years of BH's life. */
-            if (accrad < 1e-30){
-                continue;
-            }
-            /* SG. Calculate user-set dx_bondi and dx_bondi in pc*/
-            dx_bondi = (double) accrad/SmartStarBondiRadiusRefinementFactor;
-            dx_pc = dx*LengthUnits/pc_cm;
-            dx_bondi_pc = dx_bondi*LengthUnits/pc_cm;
+          /* SG. Check for when accrad = 0 in the first years of BH's life. */
+          if (accrad < 1e-30){
+              continue;
+          }
+          /* SG. Calculate user-set dx_bondi and dx_bondi in pc*/
+          dx_bondi = (double) accrad/SmartStarBondiRadiusRefinementFactor;
+          dx_pc = dx*LengthUnits/pc_cm;
+          dx_bondi_pc = dx_bondi*LengthUnits/pc_cm;
 
-            /* SG. Only print out accretion radius if we're on the SS processor */
-            APGrid = SS->ReturnCurrentGrid();
-            if (MyProcessorNumber == APGrid->ReturnProcessorNumber()){
-                fprintf(stderr, "%s: SS->AccretionRadius = %e pc (Bondi radius),\t BondiRadiusRefinementFactor " \
-                                "= %"GSYM",\t dx = %e pc (%"GSYM" x Bondi radius).\n",
-                        __FUNCTION__, accrad*LengthUnits/pc_cm, SmartStarBondiRadiusRefinementFactor, dx_pc,
-                        dx/accrad);
-            }
+          /* SG. Only print out accretion radius if we're on the SS processor */
+          APGrid = SS->ReturnCurrentGrid();
+          if (MyProcessorNumber == APGrid->ReturnProcessorNumber()){
+            fprintf(stderr, "%s: SS->AccretionRadius = %e pc (Bondi radius),\t BondiRadiusRefinementFactor "
+                            "= %"GSYM",\t dx = %e pc (%"GSYM" x Bondi radius).\n",
+                            __FUNCTION__, accrad*LengthUnits/pc_cm, SmartStarBondiRadiusRefinementFactor, dx_pc,
+                            dx/accrad);
+          }
 
-            /* SG. if dx_bondi > dx, don't deposit refinement zone */
-            if (dx_bondi > dx){
-                //fprintf(stderr,"%s: dx_bondi = %"GSYM" pc (%"GSYM" in code units) is greater than cell width = %e pc.
-                // Don't deposit refinement zone.\n",
-                // __FUNCTION__, dx_bondi_pc, dx_bondi, dx_pc);
-                continue;
-            }
-			for (Temp = LevelArray[level]; Temp; Temp = Temp->NextGridThisLevel){
-                // fprintf(stderr,"%s: BondiRadius/factor = %e pc is less than cell width = %e pc. Deposit
-                // refinement zone.\n", __FUNCTION__, dx_bondi_pc, dx_pc);
-                if (Temp->GridData->DepositRefinementZone(level,pos,dx*5) == FAIL) {
-                    ENZO_FAIL("Error in grid->DepositRefinementZone.\n")
-                } // end IF
-            } // end FOR
+          /* SG. if dx_bondi > dx, don't deposit refinement zone */
+          if (dx_bondi > dx){
+            continue;
+          }
+          for (Temp = LevelArray[level]; Temp; Temp = Temp->NextGridThisLevel){
+            // fprintf(stderr,"%s: BondiRadius/factor = %e pc is less than cell width = %e pc. Deposit
+            // refinement zone.\n", __FUNCTION__, dx_bondi_pc, dx_pc);
+            if (Temp->GridData->DepositRefinementZone(level,pos,dx*5) == FAIL) {
+                ENZO_FAIL("Error in grid->DepositRefinementZone.\n")
+            } // end IF
+          } // end FOR
         } // end ELSE (BH)
     } // end FOR over particles
     return SUCCESS;
