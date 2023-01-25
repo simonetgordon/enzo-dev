@@ -2886,7 +2886,7 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
                            float Subtraction, int &CellsModified);
   int SetParticleBondiHoyle_AvgValues(FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius,
                                       float CellVolume, FLOAT xparticle[3], float vparticle[3], float *Temperature,
-                                      float* TotalGasMass, ActiveParticleType* ThisParticle);
+                                      float* SumOfWeights, float* TotalGasMass, ActiveParticleType* ThisParticle);
 
   int MoveAllStars(int NumberOfGrids, grid* FromGrid[], int TopGridDimension);
 

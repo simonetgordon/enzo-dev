@@ -71,12 +71,11 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   float vInfinity, cInfinity, CellTemperature, RegionTemperature, Avg_vInfinity, Avg_cInfinity, Avg_Density, AverageDensity;
   FLOAT radius2 = 0.0, dx;
   float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0, AccretedMomentum[3], vgas[3], etot, eint,
-    ke, maccreted, etotnew, rhonew, eintnew, kenew, mnew = 0, rhocell = 0.0, mcell = 0.0, CellVolume = 1.0;
+    ke, CellVolume = 1.0;
   int cindex, cgindex;
   int size = this->GetGridSize();
   float *Temperature = new float[size]();
   ActiveParticleType_SmartStar* SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
-  SS->mass_in_accretion_sphere = 0.0;
 
   float lambda_c = 0.25*exp(1.5);
   float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
@@ -764,7 +763,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
 
 int grid::SetParticleBondiHoyle_AvgValues(
   FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT xparticle[3],
-  float vparticle[3], float *Temperature, float* TotalGasMass, ActiveParticleType* ThisParticle){
+  float vparticle[3], float *Temperature, float* TotalGasMass, float* SumOfWeights, ActiveParticleType* ThisParticle){
   /* Get indices in BaryonField for density, internal energy, thermal energy, velocity */
   int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
   if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
