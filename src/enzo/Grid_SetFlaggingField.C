@@ -147,8 +147,7 @@ int grid::SetFlaggingField(int &NumberOfFlaggedCells, int level)
       case 6:
  
 	NumberOfFlaggedCells = this->FlagCellsToBeRefinedByJeansLength();
-	//fprintf(stderr,"%s: %"ISYM" cells detected, Jeans length refinement. Case %"ISYM".\n", __FUNCTION__,
-          NumberOfFlaggedCells, method);
+	//fprintf(stderr,"%s: %"ISYM" cells detected, Jeans length refinement. Case %"ISYM".\n", __FUNCTION__,NumberOfFlaggedCells, method);
 	if (NumberOfFlaggedCells < 0) {
 	  ENZO_FAIL("Error in grid->FlagCellsToBeRefinedByJeansLength.");
 	}
