@@ -1160,7 +1160,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
         float TotalGasMass = 0.0, Avg_vInfinity, Avg_cInfinity;
         FLOAT KernelRadius = 0.0, SumOfWeights = 0.0;
-        FLOAT BondiHoyleRadius, BondiHoyleRadius_Interpolated;
+        FLOAT BondiHoyleRadius;
 
         /* Calculate average values to use in scale radius formula */
         FeedbackZone->SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, &KernelRadius,
