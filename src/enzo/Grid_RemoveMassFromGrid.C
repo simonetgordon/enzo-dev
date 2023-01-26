@@ -136,7 +136,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 	}
 	else
 	  ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
-	Weight = exp(-radius2/(KernelRadius*KernelRadius))/SumOfWeights;
+	Weight = exp(-radius2/(KernelRadius*KernelRadius))/SumOfWeights; // Gaussian kernel
 
 	if ((AccretionRadius) < radius || Weight < SMALL_NUMBER) {
 	  // outside the accretion radius
@@ -200,8 +200,8 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 
 	  if (maccreted > ACCRETION_LIMIT*mcell) {
 	    //#if DEBUG_AP
-	    // printf("Index %d: accretion rate capped - old maccreted = %g new maccreted = %g\n",
-	    //	   index, maccreted, ACCRETION_LIMIT*mcell);
+	     fprintf(stderr, "Index %d: accretion rate capped - old maccreted = %g new maccreted = %g\n",
+	    	   index, maccreted, ACCRETION_LIMIT*mcell);
 	    //#endif
 	    maccreted = ACCRETION_LIMIT*mcell;
 	  }
@@ -213,9 +213,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 	    mnew = SmallRhoFac*SmallRho*CellVolume;
 	    
 	    maccreted = mcell - mnew;
-#if DEBUG_AP
-	    printf("Keeping cell mass above density floor: mnew = %e mcell = %e maccreted = %e\n",mnew, mcell, maccreted);
-#endif
+	    fprintf(stderr, "Keeping cell mass above density floor: mnew = %e mcell = %e maccreted = %e\n",mnew, mcell, maccreted);
 	  }
 
 	  mnew = mcell - maccreted;
@@ -320,8 +318,8 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 					       - ypos*vgas[0]);
 #endif
 	  if(*AccretedMass*CellVolume > MaxAccretionRate*this->dtFixed) {
-	    printf("%s: We have removed the maximum allowed mass from the grid", __FUNCTION__);
-	    printf("%s: Accreted Mass = %e Msolar\t Max Allowed = %e\n", __FUNCTION__,
+	    fprintf(stderr, "%s: We have removed the maximum allowed mass from the grid", __FUNCTION__);
+	    fprintf(stderr, "%s: Accreted Mass = %e Msolar\t Max Allowed = %e\n", __FUNCTION__,
 		   *AccretedMass*CellVolume*MassUnits/SolarMass,  
 		   MaxAccretionRate*this->dtFixed*MassUnits/SolarMass);
 	    return SUCCESS;
@@ -339,7 +337,10 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
   /* Calculate mass weighted average velocity inside accretion sphere. */
   for(int i = 0; i < 3 ; i++)
     AveragedVelocity[i] /= totalmass_before;
-  
+
+  fprintf(stderr, "%s: Calculate mass weighted average velocity inside accretion sphere: %e km/s ", __FUNCTION__,
+          AveragedVelocity*VelocityUnits/1e5);
+
 #if DEBUG_AP
   GasLinearMomentumBefore[0] =  totalmass_before*AveragedVelocity[0];
   GasLinearMomentumBefore[1] =  totalmass_before*AveragedVelocity[1];

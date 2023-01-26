@@ -272,7 +272,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     AccretionRate = ConvergentMassFlow(DensNum, Vel1Num, AccretionRadius, xparticle, vparticle,
 				       mparticle, Gcode, GENum);
 
-    printf("%s: Calculated (mass flux) accretion rate is %e Msolar/yr\n", __FUNCTION__, 
+    fprintf(stderr, "%s: Calculated (mass flux) accretion rate is %e Msolar/yr\n", __FUNCTION__,
 	   AccretionRate*3.154e7*MassUnits/(SolarMass*TimeUnits));
 
   }
@@ -784,18 +784,26 @@ int grid::SetParticleBondiHoyle_AvgValues(
   ConvertToNumberDensity = DensityUnits/mh;
   /* end units */
 
-  /* Impose a kernel radius that regulates the weighting cells get as a function of radius */
-  if (BondiHoyleRadius_Interpolated < dx) {
-    fprintf(stderr, "%s: Setting kernel radius to CellWidth, BH not resolved\n", __FUNCTION__);
-    *KernelRadius = dx;
+  ActiveParticleType_SmartStar *SS = static_cast<ActiveParticleType_SmartStar*>(* ThisParticle);
+
+  if (SmartStarAccretion == SPHERICAL_BONDI_HOYLE_FORMALISM){
+    /* Impose a kernel radius that regulates the weighting cells get as a function of radius */
+    if (BondiHoyleRadius_Interpolated < dx) {
+      fprintf(stderr, "%s: Setting kernel radius to CellWidth, BH not resolved\n", __FUNCTION__);
+      *KernelRadius = dx;
+    }
+    else if(dx < BondiHoyleRadius_Interpolated < 2*dx) { /*Accrete out to the BH radius */
+      fprintf(stderr, "%s: Setting kernel radius to BondiHoyleRadiusInterpolated, BH marginally resolved\n", __FUNCTION__);
+      *KernelRadius = BondiHoyleRadius_Interpolated;
+    }
+    else {
+      fprintf(stderr, "%s: Setting kernel radius to 2*CellWidth, BH is resolved\n", __FUNCTION__);
+      *KernelRadius = 2*dx;
+    }
   }
-  else if(dx < BondiHoyleRadius_Interpolated < 2*dx) { /*Accrete out to the BH radius */
-    fprintf(stderr, "%s: Setting kernel radius to BondiHoyleRadiusInterpolated, BH marginally resolved\n", __FUNCTION__);
-    *KernelRadius = BondiHoyleRadius_Interpolated;
-  }
-  else {
-    fprintf(stderr, "%s: Setting kernel radius to 2*CellWidth, BH is resolved\n", __FUNCTION__);
-    *KernelRadius = 2*dx;
+  else if (SmartStarAccretion == CONVERGING_MASS_FLOW){
+    *KernelRadius = max(SS->AccretionRadius, FLOAT(4*dx));
+    fprintf(stderr, "%s: Setting kernel radius to max of 4*CellWidth or accrad, mass flux scheme\n", __FUNCTION__);
   }
 
   int numcells=0;
