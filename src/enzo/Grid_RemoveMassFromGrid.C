@@ -339,7 +339,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
     AveragedVelocity[i] /= totalmass_before;
 
   fprintf(stderr, "%s: Calculate mass weighted average velocity inside accretion sphere: %e km/s ", __FUNCTION__,
-          AveragedVelocity*VelocityUnits/1e5);
+          (AveragedVelocity[0]+AveragedVelocity[1]+AveragedVelocity[2])*VelocityUnits/(3*1e5));
 
 #if DEBUG_AP
   GasLinearMomentumBefore[0] =  totalmass_before*AveragedVelocity[0];
