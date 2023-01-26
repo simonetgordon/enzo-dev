@@ -201,7 +201,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 	  if (maccreted > ACCRETION_LIMIT*mcell) {
 	    //#if DEBUG_AP
 	     fprintf(stderr, "Index %d: accretion rate capped - old maccreted = %g Msun new maccreted in cell = %g Msun\n",
-	    	   index, maccreted*MassUnits/SolarMass, ACCRETION_LIMIT*mcell*MassUnits/SolarMas);
+	    	   index, maccreted*MassUnits/SolarMass, ACCRETION_LIMIT*mcell*MassUnits/SolarMass);
 	    //#endif
 	    maccreted = ACCRETION_LIMIT*mcell;
 	  }
