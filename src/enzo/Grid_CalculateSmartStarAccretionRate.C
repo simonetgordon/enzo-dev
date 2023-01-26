@@ -784,7 +784,7 @@ int grid::SetParticleBondiHoyle_AvgValues(
   ConvertToNumberDensity = DensityUnits/mh;
   /* end units */
 
-  ActiveParticleType_SmartStar *SS = static_cast<ActiveParticleType_SmartStar*>(* ThisParticle);
+  ActiveParticleType_SmartStar *SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
 
   if (SmartStarAccretion == SPHERICAL_BONDI_HOYLE_FORMALISM){
     /* Impose a kernel radius that regulates the weighting cells get as a function of radius */
