@@ -29,6 +29,7 @@
 #define SNEFEEDBACK 1
 #define ONE_PARTICLE_ONLY 1 // SG. Disabling further particle formation. Must be set to 1 after forming 1 particle.
 #define ZEROSTELLARPHASE 1 // SG. Sets RadiationLifeime = 0 (BH-only runs).
+#define FEEDBACKZONESIZE 8 // SG. (FEEDBACKZONESIZE)^3 is the volume of the most refined grid.
 int DetermineSEDParameters(ActiveParticleType_SmartStar *SS,FLOAT Time, FLOAT dx);
 float CalculatePopIIILifetime(float Mass);
 
@@ -1120,7 +1121,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       }
 
       /* Construct feedback zone of 5^3 cells */
-      grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx, Grids, NumberOfGrids, ALL_FIELDS);
+      grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(FEEDBACKZONESIZE), dx, Grids, NumberOfGrids, ALL_FIELDS);
 
       /* Grab particle position */
       FLOAT pos[3] = {0,0,0};
@@ -1323,7 +1324,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
       // SG. BH class.
       if(pclass == BH){
 
-        FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(5.0), dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
+        FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(FEEDBACKZONESIZE), dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
 
         if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
           if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
@@ -1353,7 +1354,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
       } // SG. End BH class condition.
 
 	    else if (pclass == POPIII){ // SG. Add POPIII class condition
-        FeedbackZone = ConstructFeedbackZone(ParticleList[i], 5.0, dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
+        FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(FEEDBACKZONESIZE), dx_sg, Grids, NumberOfGrids, ALL_FIELDS);
         /* SG. Set to 0 before it's calculated by owning proc and then communicated with other procs in
          * CommunicateAllSumValues(). */
         FLOAT positions[3] = {0,0,0};
