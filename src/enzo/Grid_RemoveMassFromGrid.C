@@ -200,8 +200,8 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 
 	  if (maccreted > ACCRETION_LIMIT*mcell) {
 	    //#if DEBUG_AP
-	     fprintf(stderr, "Index %d: accretion rate capped - old maccreted = %g new maccreted = %g\n",
-	    	   index, maccreted, ACCRETION_LIMIT*mcell);
+	     fprintf(stderr, "Index %d: accretion rate capped - old maccreted = %g Msun new maccreted in cell = %g Msun\n",
+	    	   index, maccreted*MassUnits/SolarMass, ACCRETION_LIMIT*mcell*MassUnits/SolarMas);
 	    //#endif
 	    maccreted = ACCRETION_LIMIT*mcell;
 	  }
@@ -338,7 +338,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
   for(int i = 0; i < 3 ; i++)
     AveragedVelocity[i] /= totalmass_before;
 
-  fprintf(stderr, "%s: Calculate mass weighted average velocity inside accretion sphere: %e km/s ", __FUNCTION__,
+  fprintf(stderr, "%s: Calculate mass weighted average velocity inside accretion sphere: %e km/s \n", __FUNCTION__,
           (AveragedVelocity[0]+AveragedVelocity[1]+AveragedVelocity[2])*VelocityUnits/(3*1e5));
 
 #if DEBUG_AP

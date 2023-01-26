@@ -1573,10 +1573,10 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
                 /* Prints */
                 fprintf(stderr, "old_mass = %e Msolar\t cmass = (%e code) %e Msolar\n", omass*MassConversion,
                     cmass, cmass*MassConversion);
-                fprintf(stderr, "accrate = %1.2e Msolar/yr\t deltatime = %3.3f Myrs\t TimeIndex = %d\t "
+                fprintf(stderr, "accrate = %1.2e Msolar/yr\t deltatime = %3.3f yrs\t TimeIndex = %d\t "
                                 "Particle Mass = %1.2e Msolar\t Age = %1.3f Myr\t Lifetime = %1.2f Myr\t Class = %d\n",
                     (SS->AccretionRate[timeindex]*MassUnits/TimeUnits)*yr_s/SolarMass,
-                    deltatime*TimeUnits/Myr_s,
+                    deltatime*TimeUnits/yr_s,
                     SS->TimeIndex,
                     SS->ReturnMass()*MassConversion,
                     Age*TimeUnits/Myr_s,
