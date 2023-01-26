@@ -26,7 +26,7 @@
 #include "ActiveParticle_SmartStar.h"
 #include "CosmologyParameters.h"
 
-#define USEBOUNDEDNESS      0
+#define USEBOUNDEDNESS      1
 #define TINY_NUMBER         1e-20
 #define SMALL_NUMBER         1e-6
 #define ACCRETION_LIMIT     1e-1
@@ -269,7 +269,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     printf("Doing CONVERGING_MASS_FLOW, SmartStarAccretion = %d\n", SmartStarAccretion);
 #endif
 
-    AccretionRate = ConvergentMassFlow(DensNum, Vel1Num, AccretionRadius, xparticle, vparticle, 
+    AccretionRate = ConvergentMassFlow(DensNum, Vel1Num, AccretionRadius, xparticle, vparticle,
 				       mparticle, Gcode, GENum);
 
     printf("%s: Calculated (mass flux) accretion rate is %e Msolar/yr\n", __FUNCTION__, 
@@ -479,6 +479,12 @@ float grid::ConvergentMassFlow(int DensNum, int Vel1Num, FLOAT AccretionRadius,
   float *gasvelz = BaryonField[Vel1Num++];
   float div = 0.0, divx = 0.0, divy = 0.0, divz = 0.0;
   const int offset[] = {1, GridDimension[0], GridDimension[0]*GridDimension[1]};
+  FLOAT dx = this->CellWidth[0][0];
+  if (AccretionRadius < FLOAT(4*dx)){
+    AccretionRadius = FLOAT(4*dx);
+    fprintf(stderr, "%s: updating AccretionRadius for mass flux scheme only to 4*dx \n", __FUNCTION__);
+  }
+
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
