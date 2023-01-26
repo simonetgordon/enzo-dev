@@ -198,12 +198,13 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 	  // 		 mcell, maccreted, maccreted/mcell);
 #endif
 
-	  if (maccreted > ACCRETION_LIMIT*mcell) {
+	  if (maccreted > SmartStarAccretionLimitFraction*mcell) {
 	    //#if DEBUG_AP
-	     fprintf(stderr, "Index %d: accretion rate capped - old maccreted = %g Msun new maccreted in cell = %g Msun\n",
-	    	   index, maccreted*MassUnits/SolarMass, ACCRETION_LIMIT*mcell*MassUnits/SolarMass);
+	     fprintf(stderr, "Index %d: accretion rate capped at %e percent of mass in cell - old maccreted = %g Msun "
+                       "new maccreted in cell = %g Msun\n", index, SmartStarAccretionLimitFraction*100,
+                       maccreted*MassUnits/SolarMass, SmartStarAccretionLimitFraction*mcell*MassUnits/SolarMass);
 	    //#endif
-	    maccreted = ACCRETION_LIMIT*mcell;
+	    maccreted = SmartStarAccretionLimitFraction*mcell;
 	  }
 	  // Keep cell mass well above density floor
 	  if ((mcell - maccreted)/CellVolume > SmallRhoFac*SmallRho) {
