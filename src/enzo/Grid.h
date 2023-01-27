@@ -2880,11 +2880,14 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
 				     float LengthUnits, float VelocityUnits, 
 				     float TemperatureUnits, float TimeUnits, double EjectaDensity, 
 				     int &CellsModified);
-  // SG. Two new functions.
+  // SG. Below are 3 new functions for SmartStars.
   int RemoveMassFromSphere(ActiveParticleType* ThisParticle, int level, float radius, float DensityUnits,
                            float LengthUnits, float VelocityUnits, float TemperatureUnits, float TimeUnits,
                            float Subtraction, int &CellsModified);
   int SetParticleBondiHoyle_AvgValues(FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius,
+                                      float CellVolume, FLOAT xparticle[3], float vparticle[3], float *Temperature,
+                                      float* SumOfWeights, float* TotalGasMass, ActiveParticleType* ThisParticle);
+  int SetParticleBondiHoyle_AvgValues_MassWeighted(FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius,
                                       float CellVolume, FLOAT xparticle[3], float vparticle[3], float *Temperature,
                                       float* SumOfWeights, float* TotalGasMass, ActiveParticleType* ThisParticle);
 

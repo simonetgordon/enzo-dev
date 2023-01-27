@@ -808,7 +808,8 @@ int grid::SetParticleBondiHoyle_AvgValues(
 
   int numcells=0;
   float Average_v1, Average_v2, Average_v3 = 0.0, Average_cInfinity, WeightedSum_T = 0.0, WeightedSum_v1 = 0.0,
-    WeightedSum_v2 = 0.0, WeightedSum_v3 = 0.0, Average_vInfinity, AverageT, Avg_Density, WeightedSum = 0.0;
+    WeightedSum_v2 = 0.0, WeightedSum_v3 = 0.0, Average_vInfinity, AverageT, Avg_Density, WeightedSum = 0.0,
+    gaussian_w, mcell;
   FLOAT radius2;
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
@@ -819,21 +820,21 @@ int grid::SetParticleBondiHoyle_AvgValues(
           POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
           POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
         if (POW(*KernelRadius,2) > radius2) { // SG. Using kernel radius instead of accretion radius.
-          WeightedSum += BaryonField[DensNum][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          (*SumOfWeights) += exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          AverageT += Temperature[index];
-          WeightedSum_v1 += BaryonField[Vel1Num][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          WeightedSum_v2 += BaryonField[Vel2Num][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          WeightedSum_v3 += BaryonField[Vel3Num][index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          WeightedSum_T += Temperature[index]*exp(-radius2/((*KernelRadius)*(*KernelRadius)));
-          (*TotalGasMass) += BaryonField[DensNum][index]*CellVolume;
+          gaussian_w = exp(-radius2/((*KernelRadius)*(*KernelRadius)));
+          mcell = BaryonField[DensNum][index]*CellVolume;
+
+          (*SumOfWeights) += gaussian_w;
+          WeightedSum += BaryonField[DensNum][index]*gaussian_w;
+          WeightedSum_v1 += BaryonField[Vel1Num][index]*gaussian_w;
+          WeightedSum_v2 += BaryonField[Vel2Num][index]*gaussian_w;
+          WeightedSum_v3 += BaryonField[Vel3Num][index]*gaussian_w;
+          WeightedSum_T += Temperature[index]*gaussian_w;
+          (*TotalGasMass) += mcell;
           numcells++;
         }
       }
     }
   }
-  fprintf(stderr, "%s: Numcells = %"ISYM", WeightedSum = %e, SumOfWeights = %e, KernelRadius = %e pc \n",
-          __FUNCTION__, numcells, WeightedSum, (*SumOfWeights), (*KernelRadius)*LengthUnits/pc_cm);
 
   /* Estimate the relative velocity */
   Average_v1 = WeightedSum_v1/(*SumOfWeights);
@@ -851,12 +852,125 @@ int grid::SetParticleBondiHoyle_AvgValues(
   Avg_Density = WeightedSum / (*SumOfWeights);
 
   fprintf(stderr, "%s: Avg_Density = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
-                  "Average vInfinity = %e km/s\n", __FUNCTION__, Avg_Density*ConvertToNumberDensity,
-          AverageT, Average_cInfinity*VelocityUnits/1e5, Average_vInfinity*VelocityUnits/1e5);
+                  "Average vInfinity = %e km/s, TotalGasMass within Kernel Radius = %e Msun \n",
+          __FUNCTION__, Avg_Density*ConvertToNumberDensity, AverageT, Average_cInfinity*VelocityUnits/1e5,
+          Average_vInfinity*VelocityUnits/1e5, TotalGasMass*MassUnits/SolarMass);
 
   ThisParticle->AverageDensity = Avg_Density;
   ThisParticle->Average_vInfinity = Average_vInfinity;
   ThisParticle->Average_cInfinity = Average_cInfinity;
 
+  /* set TotalGasMass within Kernel Radius as particle attribute */
+  SS->mass_in_accretion_sphere = TotalGasMass;
+
   return SUCCESS;
 } // SG. End CalculateBondiHoyleRadius_AvgValues
+
+
+int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
+  FLOAT dx, FLOAT BondiHoyleRadius_Interpolated, FLOAT *KernelRadius, float CellVolume, FLOAT xparticle[3],
+  float vparticle[3], float *Temperature, float* TotalGasMass, float* SumOfWeights, ActiveParticleType* ThisParticle){
+  /* Get indices in BaryonField for density, internal energy, thermal energy, velocity */
+  int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
+  if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
+                                       Vel3Num, TENum) == FAIL){
+    ENZO_FAIL("Error in IdentifyPhysicalQuantities.");}
+
+  /* Set the units. */
+  float DensityUnits = 1, LengthUnits = 1, TimeUnits = 1, VelocityUnits = 1, VelUnits = 0, TemperatureUnits = 1,
+    ConvertToNumberDensity;
+  double MassUnits = 1;
+  if (GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits, &VelocityUnits, Time) == FAIL){
+    ENZO_FAIL("Error in GetUnits.");}
+  VelUnits = LengthUnits/(TimeUnits*1e5); //convert to km/s
+  MassUnits = DensityUnits * POW(LengthUnits,3);
+  ConvertToNumberDensity = DensityUnits/mh;
+  /* end units */
+
+  ActiveParticleType_SmartStar *SS = static_cast<ActiveParticleType_SmartStar*>(ThisParticle);
+
+  /* Impose a kernel radius that regulates the weighting cells get as a function of radius.
+   * For the BHL scheme of accretion, it can vary to up to 2*dx.
+   * In Mass-Flux, it will always be at least 4*dx.
+   */
+  if (SmartStarAccretion == SPHERICAL_BONDI_HOYLE_FORMALISM){
+    if (BondiHoyleRadius_Interpolated < dx) {
+      fprintf(stderr, "%s: Setting kernel radius to CellWidth, BH not resolved\n", __FUNCTION__);
+      *KernelRadius = dx;
+    }
+    else if(dx < BondiHoyleRadius_Interpolated < 2*dx) { /*Accrete out to the BH radius */
+      fprintf(stderr, "%s: Setting kernel radius to BondiHoyleRadiusInterpolated, BH marginally resolved\n", __FUNCTION__);
+      *KernelRadius = BondiHoyleRadius_Interpolated;
+    }
+    else {
+      fprintf(stderr, "%s: Setting kernel radius to 2*CellWidth, BH is resolved\n", __FUNCTION__);
+      *KernelRadius = 2*dx;
+    }
+  }
+  else if (SmartStarAccretion == CONVERGING_MASS_FLOW){
+    *KernelRadius = max(SS->AccretionRadius, FLOAT(4*dx));
+    fprintf(stderr, "%s: Setting kernel radius to max of 4*CellWidth or accrad, mass flux scheme\n", __FUNCTION__);
+  }
+
+  /* Weight the cells by mass and the Gaussian kernel */
+  int numcells=0;
+  float Average_v1, Average_v2, Average_v3 = 0.0, Average_cInfinity, WeightedSum_T = 0.0, WeightedSum_v1 = 0.0,
+    WeightedSum_v2 = 0.0, WeightedSum_v3 = 0.0, Average_vInfinity, AverageT, Avg_Density, WeightedSum_rho = 0.0,
+    gaussian_w, mcell, sum_mass_kernel;
+  FLOAT radius2;
+  for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
+    for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
+      int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
+      for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
+        radius2 =
+          POW((CellLeftEdge[0][i] + 0.5*CellWidth[0][i]) - xparticle[0],2) +
+          POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
+          POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
+        if (POW(*KernelRadius,2) > radius2) { // SG. Using kernel radius instead of accretion radius.
+          gaussian_w = exp(-radius2/((*KernelRadius)*(*KernelRadius)));
+          mcell = BaryonField[DensNum][index]*CellVolume;
+
+          (*SumOfWeights) += gaussian_w;
+          WeightedSum_rho += BaryonField[DensNum][index] * gaussian_w * mcell;
+          WeightedSum_v1 += BaryonField[Vel1Num][index] * gaussian_w * mcell;
+          WeightedSum_v2 += BaryonField[Vel2Num][index] * gaussian_w * mcell;
+          WeightedSum_v3 += BaryonField[Vel3Num][index] * gaussian_w * mcell;
+          WeightedSum_T += Temperature[index] * gaussian_w * mcell;
+          (*TotalGasMass) += mcell;
+          numcells++;
+        }
+      }
+    }
+  }
+
+  sum_mass_kernel = (*SumOfWeights)*(*TotalGasMass);
+
+  /* Estimate the relative velocity */
+  Average_v1 = WeightedSum_v1/sum_mass_kernel;
+  Average_v2 = WeightedSum_v2/sum_mass_kernel;
+  Average_v3 = WeightedSum_v3/sum_mass_kernel;
+  Average_vInfinity = sqrt(pow(vparticle[0] - Average_v1,2) +
+                           pow(vparticle[1] - Average_v2,2) +
+                           pow(vparticle[2] - Average_v3,2));
+
+  /* Estimate the sound speed */
+  AverageT = WeightedSum_T/sum_mass_kernel;
+  Average_cInfinity = sqrt(Gamma * kboltz * AverageT / (Mu * mh)) / LengthUnits*TimeUnits;
+
+  /* Estimate the density */
+  Avg_Density = WeightedSum_rho/sum_mass_kernel;
+
+  fprintf(stderr, "%s: Avg_Density = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
+                  "Average vInfinity = %e km/s, TotalGasMass within Kernel Radius = %e Msun \n",
+                  __FUNCTION__, Avg_Density*ConvertToNumberDensity, AverageT, Average_cInfinity*VelocityUnits/1e5,
+                  Average_vInfinity*VelocityUnits/1e5, TotalGasMass*MassUnits/SolarMass);
+
+  ThisParticle->AverageDensity = Avg_Density;
+  ThisParticle->Average_vInfinity = Average_vInfinity;
+  ThisParticle->Average_cInfinity = Average_cInfinity;
+
+  /* set TotalGasMass within Kernel Radius as particle attribute */
+  SS->mass_in_accretion_sphere = TotalGasMass;
+
+  return SUCCESS;
+} // SG. End CalculateBondiHoyleRadius_AvgValues_MassWeighted

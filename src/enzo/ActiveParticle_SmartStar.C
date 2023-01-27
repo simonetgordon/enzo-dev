@@ -1152,9 +1152,12 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
                                                       dx*dx*dx, xparticle, vparticle, Temperature,
                                                       &TotalGasMass, &SumOfWeights, SS);
 
-        fprintf(stderr, "%s: SumOfWeights = %e, KernelRadius = %e pc, TotalGasMass within Kernel Radius = %e Msun \n",
-                __FUNCTION__, SumOfWeights, KernelRadius*LengthUnits/pc_cm, TotalGasMass*MassUnits/SolarMass);
+        /* Calculate mass-weighted average values to use in scale radius formula */
+        FeedbackZone->SetParticleBondiHoyle_AvgValues_MassWeighted(dx, BondiHoyleRadius_Interpolated, &KernelRadius,
+                                                      dx*dx*dx, xparticle, vparticle, Temperature,
+                                                      &TotalGasMass, &SumOfWeights, SS);
 
+        /* these are now set to the mass-weighted averages */
         Avg_vInfinity = SS->Average_vInfinity;
         Avg_cInfinity = SS->Average_cInfinity;
 
