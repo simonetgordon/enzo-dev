@@ -1151,12 +1151,13 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         FeedbackZone->SetParticleBondiHoyle_AvgValues(dx, BondiHoyleRadius_Interpolated, &KernelRadius,
                                                       dx*dx*dx, xparticle, vparticle, Temperature,
                                                       &TotalGasMass, &SumOfWeights, SS);
-
-        TotalGasMass = 0.0, SumOfWeights = 0.0, KernelRadius = 0.0;
-        /* Calculate mass-weighted average values to use in scale radius formula */
-        FeedbackZone->SetParticleBondiHoyle_AvgValues_MassWeighted(dx, BondiHoyleRadius_Interpolated, &KernelRadius,
-                                                      dx*dx*dx, xparticle, vparticle, Temperature,
-                                                      &TotalGasMass, &SumOfWeights, SS);
+        if (SmartStarUseMassWeightedValues == 1){
+          TotalGasMass = 0.0, SumOfWeights = 0.0, KernelRadius = 0.0;
+          /* Calculate mass-weighted average values to use in scale radius formula */
+          FeedbackZone->SetParticleBondiHoyle_AvgValues_MassWeighted(dx, BondiHoyleRadius_Interpolated, &KernelRadius,
+                                                                     dx*dx*dx, xparticle, vparticle, Temperature,
+                                                                     &TotalGasMass, &SumOfWeights, SS);
+        }
 
         /* these are now set to the mass-weighted averages */
         Avg_vInfinity = SS->Average_vInfinity;
