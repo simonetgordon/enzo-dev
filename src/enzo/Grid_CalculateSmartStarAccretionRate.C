@@ -164,7 +164,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     AccretionRate_Cell = (4*pi*RhoInfinity*POW(Gcode,2)*POW(mparticle,2)/
       POW((POW(cInfinity, 2) + POW(vInfinity, 2)), 1.5));
 
-    /* Accretion rate calculated from averaged values */
+    /* Accretion rate calculated from kernel- and mass-averaged values */
     AccretionRate_Avg = (4*pi*Avg_Density*POW(Gcode,2)*POW(mparticle,2)/
       POW((POW(Avg_cInfinity, 2) + POW(Avg_vInfinity, 2)), 1.5));
 
@@ -172,8 +172,8 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
                     "%e Msun/yr (%e code)\n", __FUNCTION__, AccretionRate_Avg*MassUnits*yr_s/(TimeUnits*SolarMass),
                       AccretionRate_Avg);
 
-    fprintf(stderr, "%s: spherical BHL accretion rate with cell values = %e Msun/yr (%e code)\n", __FUNCTION__,
-            AccretionRate_Cell*MassUnits*yr_s/(TimeUnits*SolarMass), AccretionRate_Cell);
+//    fprintf(stderr, "%s: spherical BHL accretion rate with cell values = %e Msun/yr (%e code)\n", __FUNCTION__,
+//            AccretionRate_Cell*MassUnits*yr_s/(TimeUnits*SolarMass), AccretionRate_Cell);
 
     /* Setting the return value of function */
     AccretionRate = AccretionRate_Avg;
@@ -272,13 +272,13 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     AccretionRate = ConvergentMassFlow(DensNum, Vel1Num, AccretionRadius, xparticle, vparticle,
 				       mparticle, Gcode, GENum);
 
-    fprintf(stderr, "%s: Calculated (mass flux) accretion rate is %e Msolar/yr\n", __FUNCTION__,
+    fprintf(stderr, "%s: Calculated (mass flux) accretion rate is %"GSYM" Msolar/yr\n", __FUNCTION__,
 	   AccretionRate*3.154e7*MassUnits/(SolarMass*TimeUnits));
 
   }
   
   return AccretionRate;
-}
+} // END CalculateSmartStarAccretionRate
 
 
 int grid::GetVorticityComponent(FLOAT *pos, FLOAT *vorticity)
@@ -854,14 +854,14 @@ int grid::SetParticleBondiHoyle_AvgValues(
   fprintf(stderr, "%s: Avg_Density = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
                   "Average vInfinity = %e km/s, TotalGasMass within Kernel Radius = %e Msun \n",
           __FUNCTION__, Avg_Density*ConvertToNumberDensity, AverageT, Average_cInfinity*VelocityUnits/1e5,
-          Average_vInfinity*VelocityUnits/1e5, TotalGasMass*MassUnits/SolarMass);
+          Average_vInfinity*VelocityUnits/1e5, (*TotalGasMass)*MassUnits/SolarMass);
 
   ThisParticle->AverageDensity = Avg_Density;
   ThisParticle->Average_vInfinity = Average_vInfinity;
   ThisParticle->Average_cInfinity = Average_cInfinity;
 
   /* set TotalGasMass within Kernel Radius as particle attribute */
-  SS->mass_in_accretion_sphere = TotalGasMass;
+  SS->mass_in_accretion_sphere = (*TotalGasMass);
 
   return SUCCESS;
 } // SG. End CalculateBondiHoyleRadius_AvgValues
@@ -963,14 +963,14 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
   fprintf(stderr, "%s: Avg_Density = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
                   "Average vInfinity = %e km/s, TotalGasMass within Kernel Radius = %e Msun \n",
                   __FUNCTION__, Avg_Density*ConvertToNumberDensity, AverageT, Average_cInfinity*VelocityUnits/1e5,
-                  Average_vInfinity*VelocityUnits/1e5, TotalGasMass*MassUnits/SolarMass);
+                  Average_vInfinity*VelocityUnits/1e5, (*TotalGasMass)*MassUnits/SolarMass);
 
   ThisParticle->AverageDensity = Avg_Density;
   ThisParticle->Average_vInfinity = Average_vInfinity;
   ThisParticle->Average_cInfinity = Average_cInfinity;
 
   /* set TotalGasMass within Kernel Radius as particle attribute */
-  SS->mass_in_accretion_sphere = TotalGasMass;
+  SS->mass_in_accretion_sphere = (*TotalGasMass);
 
   return SUCCESS;
 } // SG. End CalculateBondiHoyleRadius_AvgValues_MassWeighted
