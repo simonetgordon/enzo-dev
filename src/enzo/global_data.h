@@ -1183,6 +1183,7 @@ EXTERN int SmartStarAccretion;
 EXTERN FLOAT SmartStarBondiRadiusRefinementFactor; // SG. New parameter for adjusting refinement around BH.
 EXTERN FLOAT SmartStarMassFluxScaleRadius; // SG. New parameter for sampling cell properties when using mass-flux accretion scheme.
 EXTERN float SmartStarAccretionLimitFraction; // SG. New parameter for setting max frac of mass removed per cell.
+EXTERN float SmartStarMinimumRefinementRadius;
 EXTERN int SmartStarUseFixedRadiusForRefinement; // SG. Set to 1 to use SmartStarMassFluxScaleRadius.
 EXTERN int SmartStarUseMassWeightedValues; // SG. Set to 1 to use SetParticleBondiHoyle_AvgValues_MassWeighted.
 EXTERN int SmartStarFeedback;
