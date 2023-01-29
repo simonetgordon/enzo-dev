@@ -1166,6 +1166,10 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         /* Choose which scale radius to use for refinement, with average cell properties as input */
         BondiHoyleRadius = (2*Gcode*mparticle/POW(max(Avg_vInfinity, Avg_cInfinity), 2));
         if (BondiHoyleRadius*LengthUnits/pc_cm < SmartStarMinimumRefinementRadius){
+          fprintf(stderr, "%s: BondiHoyle radius too small at %e pc (%f cells). Setting to "
+                          "SmartStarMinimumRefinementRadius = %e pc (%e code).\n",
+                  __FUNCTION__,BondiHoyleRadius*LengthUnits/pc_cm, BondiHoyleRadius/dx, SmartStarMinimumRefinementRadius,
+                  SmartStarMinimumRefinementRadius*pc_cm/LengthUnits);
           BondiHoyleRadius = SmartStarMinimumRefinementRadius;
         }
         SS->AccretionRadius = BondiHoyleRadius;
