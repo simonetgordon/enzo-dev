@@ -100,8 +100,8 @@ int grid::SetFlaggingField(int &NumberOfFlaggedCells, int level)
 	   return the number of flagged cells). */
  
 	NumberOfFlaggedCells = this->FlagCellsToBeRefinedByMass(level, method, FALSE);
-	fprintf(stderr,"%s: %"ISYM" cells detected, baryon mass refinement. Case %"ISYM".\n", __FUNCTION__,
-          NumberOfFlaggedCells, method);
+//	fprintf(stderr,"%s: %"ISYM" cells detected, baryon mass refinement. Case %"ISYM".\n", __FUNCTION__,
+//          NumberOfFlaggedCells, method);
 	if (NumberOfFlaggedCells < 0) {
 	  ENZO_FAIL("Error in grid->FlagCellsToBeRefinedByMass (2).");
 	}
@@ -133,7 +133,7 @@ int grid::SetFlaggingField(int &NumberOfFlaggedCells, int level)
 	pmethod = method;
 	if (!RestrictFlaggingToMustRefineParticles) {
 	  NumberOfFlaggedCells = this->FlagCellsToBeRefinedByMass(level, method, FALSE);
-	   fprintf(stderr,"%s: %"ISYM" cells detected, dm mass refinement. Case %"ISYM".\n", __FUNCTION__, NumberOfFlaggedCells, pmethod);
+//	   fprintf(stderr,"%s: %"ISYM" cells detected, dm mass refinement. Case %"ISYM".\n", __FUNCTION__, NumberOfFlaggedCells, pmethod);
 	  if (NumberOfFlaggedCells < 0) {
 	    ENZO_FAIL("Error in grid->FlagCellsToBeRefinedByMass (4).");
 	  }
@@ -147,7 +147,7 @@ int grid::SetFlaggingField(int &NumberOfFlaggedCells, int level)
       case 6:
  
 	NumberOfFlaggedCells = this->FlagCellsToBeRefinedByJeansLength();
-	fprintf(stderr,"%s: %"ISYM" cells detected, Jeans length refinement. Case %"ISYM".\n", __FUNCTION__,NumberOfFlaggedCells, method);
+//	fprintf(stderr,"%s: %"ISYM" cells detected, Jeans length refinement. Case %"ISYM".\n", __FUNCTION__,NumberOfFlaggedCells, method);
 	if (NumberOfFlaggedCells < 0) {
 	  ENZO_FAIL("Error in grid->FlagCellsToBeRefinedByJeansLength.");
 	}
