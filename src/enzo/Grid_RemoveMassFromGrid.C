@@ -200,9 +200,9 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 
 	  if (maccreted > SmartStarAccretionLimitFraction*mcell) {
 	    //#if DEBUG_AP
-	     fprintf(stderr, "Index %d: accretion rate capped at %e percent of mass in cell - old maccreted = %g Msun "
-                       "new maccreted in cell = %g Msun\n", index, SmartStarAccretionLimitFraction*100,
-                       maccreted*MassUnits/SolarMass, SmartStarAccretionLimitFraction*mcell*MassUnits/SolarMass);
+//	     fprintf(stderr, "Index %d: accretion rate capped at %e percent of mass in cell - old maccreted = %g Msun "
+//                       "new maccreted in cell = %g Msun\n", index, SmartStarAccretionLimitFraction*100,
+//                       maccreted*MassUnits/SolarMass, SmartStarAccretionLimitFraction*mcell*MassUnits/SolarMass);
 	    //#endif
 	    maccreted = SmartStarAccretionLimitFraction*mcell;
 	  }
