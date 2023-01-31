@@ -340,6 +340,7 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "SmartStarAccretionLimitFraction       = %"FSYM"\n", SmartStarAccretionLimitFraction);
   fprintf(fptr, "SmartStarMassFluxScaleRadius          = %"FSYM"\n", SmartStarMassFluxScaleRadius);
   fprintf(fptr, "SmartStarMinimumRefinementRadius      = %"FSYM"\n", SmartStarMinimumRefinementRadius);
+  fprintf(fptr, "SmartStarOneParticleOnly              = %"ISYM"\n", SmartStarOneParticleOnly);
   fprintf(fptr, "SmartStarFeedback                     = %"ISYM"\n", SmartStarFeedback);
   fprintf(fptr, "SmartStarEddingtonCap                 = %"ISYM"\n", SmartStarEddingtonCap);
   fprintf(fptr, "SmartStarBHFeedback                   = %"ISYM"\n", SmartStarBHFeedback);

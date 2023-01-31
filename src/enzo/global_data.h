@@ -1186,6 +1186,7 @@ EXTERN float SmartStarAccretionLimitFraction; // SG. New parameter for setting m
 EXTERN float SmartStarMinimumRefinementRadius;
 EXTERN int SmartStarUseFixedRadiusForRefinement; // SG. Set to 1 to use SmartStarMassFluxScaleRadius.
 EXTERN int SmartStarUseMassWeightedValues; // SG. Set to 1 to use SetParticleBondiHoyle_AvgValues_MassWeighted.
+EXTERN int SmartStarOneParticleOnly;
 EXTERN int SmartStarFeedback;
 EXTERN int SmartStarEddingtonCap;
 EXTERN int SmartStarBHFeedback;

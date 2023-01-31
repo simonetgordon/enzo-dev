@@ -1379,6 +1379,7 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     ret += sscanf(line, "SmartStarUseMassWeightedValues          = %"ISYM, &SmartStarUseMassWeightedValues);
     ret += sscanf(line, "SmartStarAccretionLimitFraction         = %"FSYM, &SmartStarAccretionLimitFraction);
     ret += sscanf(line, "SmartStarMinimumRefinementRadius        = %"FSYM, &SmartStarMinimumRefinementRadius);
+    ret += sscanf(line, "SmartStarOneParticleOnly                = %"ISYM, &SmartStarOneParticleOnly);
     ret += sscanf(line, "SmartStarFeedback                       = %"ISYM, &SmartStarFeedback);
     ret += sscanf(line, "SmartStarEddingtonCap                   = %"ISYM, &SmartStarEddingtonCap);
     ret += sscanf(line, "SmartStarBHFeedback                     = %"ISYM, &SmartStarBHFeedback);

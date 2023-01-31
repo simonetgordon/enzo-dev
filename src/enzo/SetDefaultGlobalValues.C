@@ -1047,6 +1047,7 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   SmartStarUseMassWeightedValues = 0; // off
   SmartStarAccretionLimitFraction = 0.75; // 75%
   SmartStarMinimumRefinementRadius = 0;
+  SmartStarOneParticleOnly = 0;
   SmartStarFeedback = FALSE;
   SmartStarEddingtonCap = FALSE;
   SmartStarBHFeedback = FALSE;

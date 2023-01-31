@@ -27,7 +27,6 @@
 #define STELLAR_ACCRETION_OFF 1 // SG. Turns off accretion for POPIII if =1.
 #define HW_BH_MASS 1   // SG. BH forms with mass according to Heger-Woosley 2002 relation.
 #define SNEFEEDBACK 1
-#define ONE_PARTICLE_ONLY 1 // SG. Disabling further particle formation. Must be set to 1 after forming 1 particle.
 #define ZEROSTELLARPHASE 1 // SG. Sets RadiationLifeime = 0 (BH-only runs).
 #define FEEDBACKZONESIZE 8 // SG. (FEEDBACKZONESIZE)^3 is the volume of the most refined grid.
 int DetermineSEDParameters(ActiveParticleType_SmartStar *SS,FLOAT Time, FLOAT dx);
@@ -127,7 +126,7 @@ int ActiveParticleType_SmartStar::EvaluateFormation
 {
   // SG. If we just want one SmartStar in simulation.
   // SG. Temporarily disable star formation other than the current particle.
-  if (ONE_PARTICLE_ONLY) {
+  if (SmartStarOneParticleOnly) {
     return SUCCESS;
   }
   // No need to do the rest if we're not on the maximum refinement level/ local max level of refinement
