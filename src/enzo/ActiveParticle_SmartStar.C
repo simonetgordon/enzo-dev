@@ -1122,7 +1122,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
 
       /* Construct feedback zone of at least 5^3 cells */
       FLOAT accrad = SS->AccretionRadius;
-      FLOAT RefinementZoneCellCount = max(accrad/dx, 5);
+      FLOAT RefinementZoneCellCount = max((accrad/dx)+2, 5);
       grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(RefinementZoneCellCount), dx, Grids,
                                                  NumberOfGrids, ALL_FIELDS);
 
@@ -1286,7 +1286,7 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
         for (Temp = LevelArray[level]; Temp; Temp = Temp->NextGridThisLevel){
           // fprintf(stderr,"%s: BondiRadius/factor = %e pc is less than cell width = %e pc. Deposit
           // refinement zone.\n", __FUNCTION__, dx_bondi_pc, dx_pc);
-          RefinementZoneCellCount = max(accrad/dx, 5);
+          RefinementZoneCellCount = max((accrad/dx)+2, 5);
           if (Temp->GridData->DepositRefinementZone(level,pos,FLOAT(dx*RefinementZoneCellCount)) == FAIL) {
             ENZO_FAIL("Error in grid->DepositRefinementZone.\n")
             } // end IF
@@ -1343,7 +1343,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
 
         /* Construct feedback zone of at least 5^3 cells */
         FLOAT accrad = SS->AccretionRadius;
-        FLOAT RefinementZoneCellCount = max(accrad/dx, 5);
+        FLOAT RefinementZoneCellCount = max((accrad/dx) + 2, 5);
         grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(RefinementZoneCellCount), dx, Grids,
                                                    NumberOfGrids, ALL_FIELDS);
         fprintf(stderr, "%s: construct feedback zone of width in cells %e \n", __FUNCTION__, RefinementZoneCellCount);
