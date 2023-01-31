@@ -930,7 +930,7 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
           gaussian_w = exp(-radius2/((*KernelRadius)*(*KernelRadius)));
           mcell = BaryonField[DensNum][index]*CellVolume;
 
-          (*SumOfWeights) += gaussian_w;
+          (*SumOfWeights) += (gaussian_w*mcell);
           WeightedSum_rho += BaryonField[DensNum][index] * gaussian_w * mcell;
           WeightedSum_v1 += BaryonField[Vel1Num][index] * gaussian_w * mcell;
           WeightedSum_v2 += BaryonField[Vel2Num][index] * gaussian_w * mcell;
@@ -943,7 +943,7 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
     }
   }
 
-  sum_mass_kernel = (*SumOfWeights)*(*TotalGasMass);
+  sum_mass_kernel = (*SumOfWeights);
 
   /* Estimate the relative velocity */
   Average_v1 = WeightedSum_v1/sum_mass_kernel;
