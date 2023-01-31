@@ -430,10 +430,10 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 
     /* thermal feedback sphere radius in terms of current cell width */
     FLOAT BHThermalFeedbackRadius = 5*dx;
-    fprintf(stderr, "%s: BHThermalFeedbackRadius in cell widths = %"GSYM" (%e pc). "
-                    "AccretionRadius is %e pc. \n", __FUNCTION__,
-                    BHThermalFeedbackRadius/dx, BHThermalFeedbackRadius*LengthUnits/pc_cm,
-                    SS->AccretionRadius*LengthUnits/pc_cm);
+//    fprintf(stderr, "%s: BHThermalFeedbackRadius in cell widths = %"GSYM" (%e pc). "
+//                    "AccretionRadius is %e pc. \n", __FUNCTION__,
+//                    BHThermalFeedbackRadius/dx, BHThermalFeedbackRadius*LengthUnits/pc_cm,
+//                    SS->AccretionRadius*LengthUnits/pc_cm);
 
     /* Find number of cells on this grid (FeedbackZone) to define BHThermalFeedbackRadius */
     int NumberOfCells, NumberOfCells2;

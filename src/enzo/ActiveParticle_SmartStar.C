@@ -1121,7 +1121,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       }
 
       /* Construct feedback zone of at least 5^3 cells */
-      accrad = SS->AccretionRadius;
+      FLOAT accrad = SS->AccretionRadius;
       FLOAT RefinementZoneCellCount = max(accrad/dx, 5);
       grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(RefinementZoneCellCount), dx, Grids,
                                                  NumberOfGrids, ALL_FIELDS);
@@ -1342,10 +1342,11 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
       if(pclass == BH){
 
         /* Construct feedback zone of at least 5^3 cells */
-        accrad = SS->AccretionRadius;
+        FLOAT accrad = SS->AccretionRadius;
         FLOAT RefinementZoneCellCount = max(accrad/dx, 5);
         grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(RefinementZoneCellCount), dx, Grids,
                                                    NumberOfGrids, ALL_FIELDS);
+        fprintf(stderr, "%s: construct feedback zone of width in cells %e \n", __FUNCTION__, RefinementZoneCellCount);
 
         if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
           if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
