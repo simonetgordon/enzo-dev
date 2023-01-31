@@ -1346,7 +1346,7 @@ int ActiveParticleType_SmartStar::SmartStarParticleFeedback(int nParticles,
         FLOAT RefinementZoneCellCount = max((accrad/dx) + 2, 5);
         grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(RefinementZoneCellCount), dx, Grids,
                                                    NumberOfGrids, ALL_FIELDS);
-        fprintf(stderr, "%s: construct feedback zone of width in cells %e \n", __FUNCTION__, RefinementZoneCellCount);
+        //fprintf(stderr, "%s: construct feedback zone of width in cells %e \n", __FUNCTION__, RefinementZoneCellCount);
 
         if (MyProcessorNumber == FeedbackZone->ReturnProcessorNumber()) {
           if (FeedbackZone->ApplySmartStarParticleFeedback(&ParticleList[i]) == FAIL)
