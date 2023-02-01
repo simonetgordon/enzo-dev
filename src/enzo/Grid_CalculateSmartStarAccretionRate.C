@@ -916,7 +916,7 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
   int numcells=0;
   float Average_v1, Average_v2, Average_v3 = 0.0, Average_cInfinity, WeightedSum_T = 0.0, WeightedSum_v1 = 0.0,
     WeightedSum_v2 = 0.0, WeightedSum_v3 = 0.0, Average_vInfinity, AverageT, Avg_Density, WeightedSum_rho = 0.0,
-    gaussian_w, mcell, sum_mass_kernel;
+    gaussian_w, mcell, sum_mass_kernel, SumOfTwoWeights;
   FLOAT radius2;
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
@@ -929,8 +929,8 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
         if (POW(*KernelRadius,2) > radius2) { // SG. Using kernel radius instead of accretion radius.
           gaussian_w = exp(-radius2/((*KernelRadius)*(*KernelRadius)));
           mcell = BaryonField[DensNum][index]*CellVolume;
-
-          (*SumOfWeights) += (gaussian_w*mcell);
+          SumOfTwoWeights += (gaussian_w*mcell);
+          (*SumOfWeights) += (gaussian_w); // just Gaussian kernel (to be passed to RemoveMassFromGrid)
           WeightedSum_rho += BaryonField[DensNum][index] * gaussian_w * mcell;
           WeightedSum_v1 += BaryonField[Vel1Num][index] * gaussian_w * mcell;
           WeightedSum_v2 += BaryonField[Vel2Num][index] * gaussian_w * mcell;
@@ -943,7 +943,7 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
     }
   }
 
-  sum_mass_kernel = (*SumOfWeights);
+  sum_mass_kernel = SumOfTwoWeights;
 
   /* Estimate the relative velocity */
   Average_v1 = WeightedSum_v1/sum_mass_kernel;
