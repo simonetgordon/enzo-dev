@@ -159,9 +159,9 @@ int grid::AccreteOntoSmartStarParticle(
    * up in Jets. 
    */
   if((BH == SS->ParticleClass) && SmartStarBHFeedback) {
-    *AccretionRate *= (1.0 - SS->eta_disk);
 
     if(SmartStarBHJetFeedback) {
+      *AccretionRate *= (1.0 - SS->eta_disk);
       /* 
        * Now this is the complicated/clever bit. 
        * The MassEjected will not be a fraction of the accreted mass but a fraction of the available mass
