@@ -922,15 +922,16 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       int index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
+        // distance from cell to BH
         radius2 =
           POW((CellLeftEdge[0][i] + 0.5*CellWidth[0][i]) - xparticle[0],2) +
           POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
           POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
-        if (POW(*KernelRadius,2) > radius2) { // SG. Using kernel radius instead of accretion radius.
+        // check the cell lies within the KernelRadius
+        if (POW(*KernelRadius,2) > radius2) {
           gaussian_w = exp(-radius2/((*KernelRadius)*(*KernelRadius)));
           mcell = BaryonField[DensNum][index]*CellVolume;
-          SumOfTwoWeights += (gaussian_w*mcell);
-          (*SumOfWeights) += (gaussian_w); // just Gaussian kernel (to be passed to RemoveMassFromGrid)
+          (*SumOfWeights) += (gaussian_w*mcell); // to be passed to RemoveMassFromGrid
           WeightedSum_rho += BaryonField[DensNum][index] * gaussian_w * mcell;
           WeightedSum_v1 += BaryonField[Vel1Num][index] * gaussian_w * mcell;
           WeightedSum_v2 += BaryonField[Vel2Num][index] * gaussian_w * mcell;
@@ -943,22 +944,20 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
     }
   }
 
-  sum_mass_kernel = SumOfTwoWeights;
-
   /* Estimate the relative velocity */
-  Average_v1 = WeightedSum_v1/sum_mass_kernel;
-  Average_v2 = WeightedSum_v2/sum_mass_kernel;
-  Average_v3 = WeightedSum_v3/sum_mass_kernel;
+  Average_v1 = WeightedSum_v1/(*SumOfWeights);
+  Average_v2 = WeightedSum_v2/(*SumOfWeights);
+  Average_v3 = WeightedSum_v3/(*SumOfWeights);
   Average_vInfinity = sqrt(pow(vparticle[0] - Average_v1,2) +
                            pow(vparticle[1] - Average_v2,2) +
                            pow(vparticle[2] - Average_v3,2));
 
   /* Estimate the sound speed */
-  AverageT = WeightedSum_T/sum_mass_kernel;
+  AverageT = WeightedSum_T/(*SumOfWeights);
   Average_cInfinity = sqrt(Gamma * kboltz * AverageT / (Mu * mh)) / LengthUnits*TimeUnits;
 
   /* Estimate the density */
-  Avg_Density = WeightedSum_rho/sum_mass_kernel;
+  Avg_Density = WeightedSum_rho/(*SumOfWeights);
 
   fprintf(stderr, "%s: Avg_Density = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
                   "Average vInfinity = %e km/s, TotalGasMass within Kernel Radius = %e Msun \n",
