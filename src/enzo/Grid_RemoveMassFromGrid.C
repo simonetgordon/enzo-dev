@@ -138,6 +138,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 	  ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
 	Weight = exp(-radius2/(KernelRadius*KernelRadius))/SumOfWeights; // Gaussian kernel
 
+  AccretionRadius = KernelRadius;
 	if ((AccretionRadius) < radius || Weight < SMALL_NUMBER) {
 	  // outside the accretion radius
 	  ;
