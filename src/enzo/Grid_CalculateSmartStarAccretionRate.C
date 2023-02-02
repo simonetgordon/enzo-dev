@@ -518,7 +518,8 @@ float grid::ConvergentMassFlow(int DensNum, int Vel1Num, FLOAT AccretionRadius,
           if(radialvelocity < 0) {
           #if USEBOUNDEDNESS
             if(SSmass > 0.0){
-              float ke = 0.5*pow(gasvelx[index], 2.0) + pow(gasvely[index], 2.0) + pow(gasvelz[index], 2.0);
+              float ke = 0.5*(pow(gasvelx[index], 2.0) + pow(gasvely[index],2.0)
+                + pow(gasvelz[index], 2.0));
               float te = BaryonField[GENum][index];
               FLOAT dist = sqrt(radius2);
               float ge = Gcode*SSmass/dist;
