@@ -41,7 +41,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 			     float MaxAccretionRate)
 {
 
-  int index = 0, numcells = 0;
+  int index = 0, numcells = 0, numcellscapped = 0;
   double rhocell = 0.0, mcell = 0.0;
   FLOAT radius2 = 0.0;
   float SmallRhoFac = 1e-10, Weight = 0.0, SmallEFac = 10., SmEint = 0,  AccretedMomentum[3],
@@ -110,232 +110,238 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
       index = GRIDINDEX_NOGHOST(GridStartIndex[0],j,k);
       for (int i = GridStartIndex[0]; i <= GridEndIndex[0]; i++, index++) {
-	rhocell = BaryonField[DensNum][index];
-	mcell = rhocell*CellVolume;
-	if(mcell < TINY_NUMBER || rhocell < TINY_NUMBER) {
-	  continue;
-	}
-	radius2 =
-	  POW((CellLeftEdge[0][i] + 0.5*CellWidth[0][i]) - xparticle[0],2) +
-	  POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
-	  POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
-	FLOAT radius = sqrt(radius2);
-	// useful shorthand
-	if (HydroMethod == PPM_DirectEuler) {
-	  vgas[0] = BaryonField[Vel1Num][index];
-	  vgas[1] = BaryonField[Vel2Num][index];
-	  vgas[2] = BaryonField[Vel3Num][index];
-	}
-	else if (HydroMethod == Zeus_Hydro) {
-	  vgas[0] = 0.5 * (BaryonField[Vel1Num][index] +
-			   BaryonField[Vel1Num][index+offset[0]]);
-	  vgas[1] = 0.5 * (BaryonField[Vel2Num][index] +
-			   BaryonField[Vel2Num][index+offset[1]]);
-	  vgas[2] = 0.5 * (BaryonField[Vel3Num][index] +
-			   BaryonField[Vel3Num][index+offset[2]]);
-	}
-	else
-	  ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
-  if (SmartStarUseMassWeightedValues == 1){
-    Weight = exp(-radius2/(KernelRadius*KernelRadius))*mcell/SumOfWeights; // Gaussian_kernel*mass weighting
-  }
-  else{
-    Weight = exp(-radius2/(KernelRadius*KernelRadius))/SumOfWeights; // just Gaussian weighting
-  }
+        rhocell = BaryonField[DensNum][index];
+        mcell = rhocell*CellVolume;
+        if(mcell < TINY_NUMBER || rhocell < TINY_NUMBER) {
+          continue;
+        }
+        // distance between current cell and the BH
+        radius2 =
+          POW((CellLeftEdge[0][i] + 0.5*CellWidth[0][i]) - xparticle[0],2) +
+          POW((CellLeftEdge[1][j] + 0.5*CellWidth[1][j]) - xparticle[1],2) +
+          POW((CellLeftEdge[2][k] + 0.5*CellWidth[2][k]) - xparticle[2],2);
+        FLOAT radius = sqrt(radius2);
+
+        if (HydroMethod == PPM_DirectEuler) {
+          vgas[0] = BaryonField[Vel1Num][index];
+          vgas[1] = BaryonField[Vel2Num][index];
+          vgas[2] = BaryonField[Vel3Num][index];
+        }
+        else if (HydroMethod == Zeus_Hydro) {
+          vgas[0] = 0.5 * (BaryonField[Vel1Num][index] +
+               BaryonField[Vel1Num][index+offset[0]]);
+          vgas[1] = 0.5 * (BaryonField[Vel2Num][index] +
+               BaryonField[Vel2Num][index+offset[1]]);
+          vgas[2] = 0.5 * (BaryonField[Vel3Num][index] +
+               BaryonField[Vel3Num][index+offset[2]]);
+        }
+        else
+          ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
+
+        // calculate weight to apply to accreted mass
+        if (SmartStarUseMassWeightedValues == 1){
+          Weight = exp(-radius2/(KernelRadius*KernelRadius))*mcell/SumOfWeights; // Gaussian_kernel*mass weighting
+        }
+        else{
+          Weight = exp(-radius2/(KernelRadius*KernelRadius))/SumOfWeights; // just Gaussian weighting
+        }
+
+        AccretionRadius = KernelRadius;
+        if ((AccretionRadius) < radius || Weight < SMALL_NUMBER) {
+          // outside the accretion radius
+          ;
+        }
+        else {  //Inside accretion radius
+
+          // TE and GE are stored per unit mass
+          if (HydroMethod == PPM_DirectEuler) {
+            etot = mcell*BaryonField[TENum][index];
+            if (DualEnergyFormalism)
+              eint = mcell*BaryonField[GENum][index];
+            else
+              eint = etot - 0.5*mcell*
+          (vgas[0]*vgas[0] + vgas[1]*vgas[1] + vgas[2]*vgas[2]);
+          }
+          else if (HydroMethod == Zeus_Hydro) {  // total energy is really internal energy
+            eint = mcell*BaryonField[TENum][index];
+            etot = eint + 0.5*mcell*
+              (vgas[0]*vgas[0] + vgas[1]*vgas[1] + vgas[2]*vgas[2]);
+          }
+          else
+            ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
+
+          ke = 0.5*mcell*(vgas[0]*vgas[0] + vgas[1]*vgas[1] + vgas[2]*vgas[2]);
+      #if ANGULAR_MOMENTUM_ACCRETION
+          /*
+           * Calculate the specific angular momentum of each point particle
+           * in each cell.
+           */
+          int numpoints = 0;
+
+          FLOAT CLEdge[3] = {CellLeftEdge[0][i], CellLeftEdge[1][j], CellLeftEdge[2][k]};
+          if(radius < CellWidth[0][0]) { /* Host cell */
+            numpoints = (float)(N*N*N);
+          }
+          else {
+            if(!this->CalculateSpecificQuantities(xparticle, CLEdge, vgas, mparticle, vparticle,
+                    &numpoints)) {
+              ENZO_FAIL("Failed to calculate specific energy/momentum\n");
+            }
+          }
+          if(numpoints == 0)
+            continue;
+          float reduceaccby = (float)numpoints/(float)(N*N*N);
+      #endif
+
+          // Calculate mass we need to subtract from this cell
+          maccreted =  this->dtFixed * AccretionRate * Weight;
+      #if ANGULAR_MOMENTUM_ACCRETION
+          if(reduceaccby != 1.0) {
+            //printf("%s: !!!!!!!Reduce accreted mass by %e\n", __FUNCTION__, reduceaccby);
+            maccreted *= reduceaccby;
+          }
+      #endif
+      #if DEBUG_AP
+          //maccreted = 0.1*mcell;
+          //printf("Index %d: mcell: %g\t maccreted: %g\t  maccreted/mcell = %g\n", index,
+          // 		 mcell, maccreted, maccreted/mcell);
+      #endif
+
+          if (maccreted > SmartStarAccretionLimitFraction*mcell) {
+            //#if DEBUG_AP
+      //	     fprintf(stderr, "Index %d: accretion rate capped at %e percent of mass in cell - old maccreted = %g Msun "
+      //                       "new maccreted in cell = %g Msun\n", index, SmartStarAccretionLimitFraction*100,
+      //                       maccreted*MassUnits/SolarMass, SmartStarAccretionLimitFraction*mcell*MassUnits/SolarMass);
+            //#endif
+            maccreted = SmartStarAccretionLimitFraction*mcell;
+            numcellscapped++;
+          }
+          // Keep cell mass well above density floor
+          if ((mcell - maccreted)/CellVolume > SmallRhoFac*SmallRho) {
+            mnew = mcell - maccreted;
+          }
+          else {
+            mnew = SmallRhoFac*SmallRho*CellVolume;
+            maccreted = mcell - mnew;
+            fprintf(stderr, "Keeping cell mass above density floor: mnew = %e mcell = %e maccreted = %e\n",mnew, mcell,
+                    maccreted);
+          }
+
+          mnew = mcell - maccreted;
+          maccreted = mcell - mnew;
+          rhonew = mnew/CellVolume;
+
+          // Calculate angular momentum of cell before
+          //L = r x p
+
+          xpos = (CellLeftEdge[0][i] + 0.5*CellWidth[0][i]);
+          ypos = (CellLeftEdge[0][j] + 0.5*CellWidth[0][j]);
+          zpos = (CellLeftEdge[0][k] + 0.5*CellWidth[0][k]);
 
 
-  AccretionRadius = KernelRadius;
-	if ((AccretionRadius) < radius || Weight < SMALL_NUMBER) {
-	  // outside the accretion radius
-	  ;
-	}
-	else {  //Inside accretion radius
-	 
-	  // TE and GE are stored per unit mass
-	  if (HydroMethod == PPM_DirectEuler) {
-	    etot = mcell*BaryonField[TENum][index];
-	    if (DualEnergyFormalism)
-	      eint = mcell*BaryonField[GENum][index];
-	    else
-	      eint = etot - 0.5*mcell*
-		(vgas[0]*vgas[0] + vgas[1]*vgas[1] + vgas[2]*vgas[2]);
-	  }
-	  else if (HydroMethod == Zeus_Hydro) {  // total energy is really internal energy
-	    eint = mcell*BaryonField[TENum][index];
-	    etot = eint + 0.5*mcell*
-	      (vgas[0]*vgas[0] + vgas[1]*vgas[1] + vgas[2]*vgas[2]);
-	  }
-	  else
-	    ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
-	  
-	  ke = 0.5*mcell*(vgas[0]*vgas[0] + vgas[1]*vgas[1] + vgas[2]*vgas[2]);
-#if ANGULAR_MOMENTUM_ACCRETION
-	  /* 
-	   * Calculate the specific angular momentum of each point particle 
-	   * in each cell. 
-	   */
-	  int numpoints = 0;
+          numcells++;
+          // Compute new total internal energy. By construction,
+          // this keeps the specific internal energy constant after
+          // accretion
+          eintnew = eint * (1.0 - maccreted/mcell);
 
-	  FLOAT CLEdge[3] = {CellLeftEdge[0][i], CellLeftEdge[1][j], CellLeftEdge[2][k]};
-	  if(radius < CellWidth[0][0]) { /* Host cell */
-	    numpoints = (float)(N*N*N);
-	  }
-	  else {
-	    if(!this->CalculateSpecificQuantities(xparticle, CLEdge, vgas, mparticle, vparticle, 
-						  &numpoints)) {
-	      ENZO_FAIL("Failed to calculate specific energy/momentum\n");
-	    }
-	  }
-	  if(numpoints == 0)
-	    continue;
-	  float reduceaccby = (float)numpoints/(float)(N*N*N);
-#endif
-	
-	  // Calculate mass we need to subtract from this cell
-	  maccreted =  this->dtFixed * AccretionRate * Weight;
-#if ANGULAR_MOMENTUM_ACCRETION
-	  if(reduceaccby != 1.0) {
-	    //printf("%s: !!!!!!!Reduce accreted mass by %e\n", __FUNCTION__, reduceaccby);
-	    maccreted *= reduceaccby;
-	  }
-#endif
-#if DEBUG_AP
-	  //maccreted = 0.1*mcell;
-	  //printf("Index %d: mcell: %g\t maccreted: %g\t  maccreted/mcell = %g\n", index,
-	  // 		 mcell, maccreted, maccreted/mcell);
-#endif
+          //
+          // Compute new total kinetic energy
+          kenew = ke * (1.0 - maccreted/mcell);
 
-	  if (maccreted > SmartStarAccretionLimitFraction*mcell) {
-	    //#if DEBUG_AP
-//	     fprintf(stderr, "Index %d: accretion rate capped at %e percent of mass in cell - old maccreted = %g Msun "
-//                       "new maccreted in cell = %g Msun\n", index, SmartStarAccretionLimitFraction*100,
-//                       maccreted*MassUnits/SolarMass, SmartStarAccretionLimitFraction*mcell*MassUnits/SolarMass);
-	    //#endif
-	    maccreted = SmartStarAccretionLimitFraction*mcell;
-	  }
-	  // Keep cell mass well above density floor
-	  if ((mcell - maccreted)/CellVolume > SmallRhoFac*SmallRho) {
-	    mnew = mcell - maccreted;
-	  }
-	  else {
-	    mnew = SmallRhoFac*SmallRho*CellVolume;
-	    
-	    maccreted = mcell - mnew;
-	    fprintf(stderr, "Keeping cell mass above density floor: mnew = %e mcell = %e maccreted = %e\n",mnew, mcell, maccreted);
-	  }
+          // Compute the new total energy
+          etotnew = eintnew + kenew;
 
-	  mnew = mcell - maccreted;
-	  maccreted = mcell - mnew;
-	  rhonew = mnew/CellVolume;
-	  
-	  // Calculate angular momentum of cell before
-	  //L = r x p
-	  
-	  xpos = (CellLeftEdge[0][i] + 0.5*CellWidth[0][i]);
-	  ypos = (CellLeftEdge[0][j] + 0.5*CellWidth[0][j]);
-	  zpos = (CellLeftEdge[0][k] + 0.5*CellWidth[0][k]);
-	  
+          // Update the densities
+          BaryonField[DensNum][index] -= maccreted/CellVolume;
 
-	  numcells++;
-	  // Compute new total internal energy. By construction,
-	  // this keeps the specific internal energy constant after
-	  // accretion
-	  eintnew = eint * (1.0 - maccreted/mcell);
-	  
-	  //
-	  // Compute new total kinetic energy
-	  kenew = ke * (1.0 - maccreted/mcell);
 
-	  // Compute the new total energy
-	  etotnew = eintnew + kenew;
-	  
-	  // Update the densities
-	  BaryonField[DensNum][index] -= maccreted/CellVolume;
-	  
-					   
-	  // Update the energies
-	  if (HydroMethod == PPM_DirectEuler) {
-	    BaryonField[TENum][index] = etotnew/mnew;
-	  }
-	  else if (HydroMethod == Zeus_Hydro) {
-	    ; // Do nothing, internal energy is unchanged.
-	  }
-	  else
-	    ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
+          // Update the energies
+          if (HydroMethod == PPM_DirectEuler) {
+            BaryonField[TENum][index] = etotnew/mnew;
+          }
+          else if (HydroMethod == Zeus_Hydro) {
+            ; // Do nothing, internal energy is unchanged.
+          }
+          else
+            ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
 
-	  //break;
-	  // Check if mass or energy is too small, correct if necessary
-	  if (BaryonField[DensNum][index] < SmallRhoFac*SmallRho) {
-	    BaryonField[DensNum][index] = SmallRhoFac*SmallRho;
-	    BaryonField[Vel1Num][index] = vgas[0];
-	    BaryonField[Vel2Num][index] = vgas[1];
-	    BaryonField[Vel3Num][index] = vgas[2];
-	  }
-	
-	  
-	  if (HydroMethod == PPM_DirectEuler) {  
-	    if (DualEnergyFormalism) {
-	      if (BaryonField[GENum][index] < SmallEFac*SmEint) {
-		BaryonField[GENum][index] = SmallEFac*SmEint;
-	      }
-	    }
-	    else if (BaryonField[TENum][index] -
-		     0.5 * (POW(BaryonField[Vel1Num][index],2) +
-			    POW(BaryonField[Vel2Num][index],2) +
-			    POW(BaryonField[Vel3Num][index],2))
-		     < SmallEFac*SmEint) {
-	      BaryonField[TENum][index] = SmallEFac*SmEint +
-		0.5 * (POW(BaryonField[Vel1Num][index],2) +
-		       POW(BaryonField[Vel2Num][index],2) +
-		       POW(BaryonField[Vel3Num][index],2));
-	    }
-	  }
-	  else if (HydroMethod == Zeus_Hydro) {
-	    // Total energy is gas energy for Zeus.
-	    if (BaryonField[TENum][index] < SmallEFac*SmEint)
-	      BaryonField[TENum][index] = SmallEFac*SmEint;
-	  }
-	  else
-	    ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
+          //break;
+          // Check if mass or energy is too small, correct if necessary
+          if (BaryonField[DensNum][index] < SmallRhoFac*SmallRho) {
+            BaryonField[DensNum][index] = SmallRhoFac*SmallRho;
+            BaryonField[Vel1Num][index] = vgas[0];
+            BaryonField[Vel2Num][index] = vgas[1];
+            BaryonField[Vel3Num][index] = vgas[2];
+          }
 
-	  // Everything is OK we can update the particle
-	  // Mass first
-	  // This is actually a density since particle masses are stored
-	  // in density units.
-	  *AccretedMass += maccreted/CellVolume;
-	  cumulative_accreted_mass += maccreted;
-	 
-	  AveragedVelocity[0] += mcell*vgas[0];
-	  AveragedVelocity[1] += mcell*vgas[1];
-	  AveragedVelocity[2] += mcell*vgas[2];
-	  totalmass_before += mcell;
-	  totalmass_after += mnew;
-#if DEBUG_AP
 
-	  GasAngularMomentumBefore[0] += mcell*(ypos*vgas[2] -
-						zpos*vgas[1]);
-	  GasAngularMomentumBefore[1] += mcell*(zpos*vgas[0] -
-						xpos*vgas[2]);
-	  GasAngularMomentumBefore[2] += mcell*(xpos*vgas[1] -
-						ypos*vgas[0]);
-	  GasAngularMomentumAfter[0]  += mnew*(ypos*vgas[2]  -
-					       zpos*vgas[1]);
-	  GasAngularMomentumAfter[1]  += mnew*(zpos*vgas[0]
-					       - xpos*vgas[2]);
-	  GasAngularMomentumAfter[2]  += mnew*(xpos*vgas[1]
-					       - ypos*vgas[0]);
-#endif
-	  if(*AccretedMass*CellVolume > MaxAccretionRate*this->dtFixed) {
-	    fprintf(stderr, "%s: We have removed the maximum allowed mass from the grid", __FUNCTION__);
-	    fprintf(stderr, "%s: Accreted Mass = %e Msolar\t Max Allowed = %e\n", __FUNCTION__,
-		   *AccretedMass*CellVolume*MassUnits/SolarMass,  
-		   MaxAccretionRate*this->dtFixed*MassUnits/SolarMass);
-	    return SUCCESS;
-	  }
-	}
+          if (HydroMethod == PPM_DirectEuler) {
+            if (DualEnergyFormalism) {
+              if (BaryonField[GENum][index] < SmallEFac*SmEint) {
+          BaryonField[GENum][index] = SmallEFac*SmEint;
+              }
+            }
+            else if (BaryonField[TENum][index] -
+               0.5 * (POW(BaryonField[Vel1Num][index],2) +
+                POW(BaryonField[Vel2Num][index],2) +
+                POW(BaryonField[Vel3Num][index],2))
+               < SmallEFac*SmEint) {
+              BaryonField[TENum][index] = SmallEFac*SmEint +
+          0.5 * (POW(BaryonField[Vel1Num][index],2) +
+                 POW(BaryonField[Vel2Num][index],2) +
+                 POW(BaryonField[Vel3Num][index],2));
+            }
+          }
+          else if (HydroMethod == Zeus_Hydro) {
+            // Total energy is gas energy for Zeus.
+            if (BaryonField[TENum][index] < SmallEFac*SmEint)
+              BaryonField[TENum][index] = SmallEFac*SmEint;
+          }
+          else
+            ENZO_FAIL("AccretingParticle does not support RK Hydro or RK MHD");
+
+          // Everything is OK we can update the particle
+          // Mass first
+          // This is actually a density since particle masses are stored
+          // in density units.
+          *AccretedMass += maccreted/CellVolume;
+          cumulative_accreted_mass += maccreted;
+
+          AveragedVelocity[0] += mcell*vgas[0];
+          AveragedVelocity[1] += mcell*vgas[1];
+          AveragedVelocity[2] += mcell*vgas[2];
+          totalmass_before += mcell;
+          totalmass_after += mnew;
+      #if DEBUG_AP
+
+          GasAngularMomentumBefore[0] += mcell*(ypos*vgas[2] -
+                  zpos*vgas[1]);
+          GasAngularMomentumBefore[1] += mcell*(zpos*vgas[0] -
+                  xpos*vgas[2]);
+          GasAngularMomentumBefore[2] += mcell*(xpos*vgas[1] -
+                  ypos*vgas[0]);
+          GasAngularMomentumAfter[0]  += mnew*(ypos*vgas[2]  -
+                       zpos*vgas[1]);
+          GasAngularMomentumAfter[1]  += mnew*(zpos*vgas[0]
+                       - xpos*vgas[2]);
+          GasAngularMomentumAfter[2]  += mnew*(xpos*vgas[1]
+                       - ypos*vgas[0]);
+      #endif
+          if(*AccretedMass*CellVolume > MaxAccretionRate*this->dtFixed) {
+            fprintf(stderr, "%s: We have removed the maximum allowed mass from the grid", __FUNCTION__);
+            fprintf(stderr, "%s: Accreted Mass = %e Msolar\t Max Allowed = %e\n", __FUNCTION__,
+             *AccretedMass*CellVolume*MassUnits/SolarMass,
+             MaxAccretionRate*this->dtFixed*MassUnits/SolarMass);
+            return SUCCESS;
+          }
+        } // END inside AccretionRadius
       }
     }
-  }
+  } // END loop over cells
+
+  fprintf(stderr, "%s: numcells from which we remove gas: %"ISYM", numcells which hit the 75% cap: %"ISYM" \n",
+          __FUNCTION__, numcells, numcellscapped);
 
   if(numcells == 0) { //Nothing to do
     DeltaV[0] = 0.0, DeltaV[1] = 0.0; DeltaV[2] = 0.0;
@@ -346,8 +352,8 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
   for(int i = 0; i < 3 ; i++)
     AveragedVelocity[i] /= totalmass_before;
 
-  fprintf(stderr, "%s: Calculate mass weighted average velocity inside accretion sphere: %e km/s \n", __FUNCTION__,
-          (AveragedVelocity[0]+AveragedVelocity[1]+AveragedVelocity[2])*VelocityUnits/(3*1e5));
+//  fprintf(stderr, "%s: Calculate mass weighted average velocity inside accretion sphere: %e km/s \n", __FUNCTION__,
+//          (AveragedVelocity[0]+AveragedVelocity[1]+AveragedVelocity[2])*VelocityUnits/(3*1e5));
 
 #if DEBUG_AP
   GasLinearMomentumBefore[0] =  totalmass_before*AveragedVelocity[0];
