@@ -214,7 +214,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
       //                       maccreted*MassUnits/SolarMass, SmartStarAccretionLimitFraction*mcell*MassUnits/SolarMass);
             //#endif
             maccreted = SmartStarAccretionLimitFraction*mcell;
-            numcellscapped++;
+            numcellscapped +=1;
           }
           // Keep cell mass well above density floor
           if ((mcell - maccreted)/CellVolume > SmallRhoFac*SmallRho) {
@@ -237,7 +237,6 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
           xpos = (CellLeftEdge[0][i] + 0.5*CellWidth[0][i]);
           ypos = (CellLeftEdge[0][j] + 0.5*CellWidth[0][j]);
           zpos = (CellLeftEdge[0][k] + 0.5*CellWidth[0][k]);
-
 
           numcells++;
           // Compute new total internal energy. By construction,
@@ -340,7 +339,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
     }
   } // END loop over cells
 
-  fprintf(stderr, "%s: numcells from which we remove gas: %"ISYM", numcells which hit the 75% cap: %"ISYM" \n",
+  fprintf(stderr, "%s: numcells from which we remove gas: %"ISYM", numcells which hit the 0.75 mcell cap: %"ISYM" \n",
           __FUNCTION__, numcells, numcellscapped);
 
   if(numcells == 0) { //Nothing to do
