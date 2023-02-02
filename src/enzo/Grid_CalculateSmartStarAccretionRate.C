@@ -472,7 +472,6 @@ float grid::ConvergentMassFlow(int DensNum, int Vel1Num, FLOAT AccretionRadius,
 {
   int numincells = 0, numoutcells = 0;
   float mdot = 0.0;
-  float epsilon = AccretionRadius*0.1;
   float *density = BaryonField[DensNum];
   float *gasvelx = BaryonField[Vel1Num];
   float *gasvely = BaryonField[Vel1Num++];
@@ -480,6 +479,7 @@ float grid::ConvergentMassFlow(int DensNum, int Vel1Num, FLOAT AccretionRadius,
   float div = 0.0, divx = 0.0, divy = 0.0, divz = 0.0;
   const int offset[] = {1, GridDimension[0], GridDimension[0]*GridDimension[1]};
   FLOAT dx = CellWidth[0][0];
+  float epsilon = dx;
   if (AccretionRadius < FLOAT(4*dx)){
     AccretionRadius = FLOAT(4*dx);
     fprintf(stderr, "%s: updating AccretionRadius for mass flux scheme only to 4*dx \n", __FUNCTION__);
@@ -518,7 +518,7 @@ float grid::ConvergentMassFlow(int DensNum, int Vel1Num, FLOAT AccretionRadius,
           if(radialvelocity < 0) {
           #if USEBOUNDEDNESS
             if(SSmass > 0.0){
-              float ke = pow(gasvelx[index], 2.0) + pow(gasvely[index], 2.0) + pow(gasvelz[index], 2.0);
+              float ke = 0.5*pow(gasvelx[index], 2.0) + pow(gasvely[index], 2.0) + pow(gasvelz[index], 2.0);
               float te = BaryonField[GENum][index];
               FLOAT dist = sqrt(radius2);
               float ge = Gcode*SSmass/dist;
