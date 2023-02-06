@@ -54,7 +54,7 @@ grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, FLOAT FeedbackRadi
   FeedbackRadius = ceil(FeedbackRadius);
   APGrid = ThisParticle->ReturnCurrentGrid();
   FBRdx = dx * FeedbackRadius;
-  fprintf(stderr, "%s: FeedbackZoneRadius = %e code units (%e cells) \n", __FUNCTION__, FBRdx, FeedbackRadius);
+  //fprintf(stderr, "%s: FeedbackZoneRadius = %e code units (%e cells) \n", __FUNCTION__, FBRdx, FeedbackRadius);
 
   if (APGrid == NULL)
     ENZO_FAIL("Particle CurrentGrid is invalid!\n");
