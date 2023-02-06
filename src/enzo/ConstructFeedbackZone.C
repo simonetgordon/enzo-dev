@@ -40,7 +40,7 @@ grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, FLOAT FeedbackRadi
 			    FLOAT dx, HierarchyEntry** Grids, int NumberOfGrids,
 			    int SendField)
 {
-  FLOAT Time = this->->ReturnTime();
+  FLOAT Time = this->ReturnTime();
   float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits, VelocityUnits;
   GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits,
            &VelocityUnits, Time);
