@@ -41,6 +41,8 @@ grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, FLOAT FeedbackRadi
 			    int SendField)
 {
   //printf("%s: We're beginning to read through this function now.\n", __FUNCTION__);
+  GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits,
+           &VelocityUnits, Time);
 
   int i,j,dim,size;
   int FeedbackZoneRank;
@@ -56,6 +58,7 @@ grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, FLOAT FeedbackRadi
 
   APGrid = ThisParticle->ReturnCurrentGrid();
   FBRdx = dx * FeedbackRadius;
+  fprintf(stderr, "%s: FeedbackZoneRadius = %e pc (%e cells) \n", __FUNCTION__, FBRdx*LengthUnits/pc_cm, FeedbackRadius);
 
   if (APGrid == NULL)
     ENZO_FAIL("Particle CurrentGrid is invalid!\n");
