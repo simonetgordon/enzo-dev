@@ -40,7 +40,8 @@ grid* ConstructFeedbackZone(ActiveParticleType* ThisParticle, FLOAT FeedbackRadi
 			    FLOAT dx, HierarchyEntry** Grids, int NumberOfGrids,
 			    int SendField)
 {
-  //printf("%s: We're beginning to read through this function now.\n", __FUNCTION__);
+  FLOAT Time = LevelArray[ThisLevel]->GridData->ReturnTime();
+  float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits, VelocityUnits;
   GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits, &TimeUnits,
            &VelocityUnits, Time);
 
