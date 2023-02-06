@@ -147,8 +147,8 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
         }
 
         AccretionRadius = KernelRadius;
-        fprintf(stderr, "%s: KernelRadius = %e pc ( %"ISYM" cells) \n", __FUNCTION__, KernelRadius*LengthUnits/pc_cm,
-                round(KernelRadius/CellWidth[0][0]));
+        fprintf(stderr, "%s: KernelRadius = %e pc ( %"ISYM" cells), dx = %e pc \n", __FUNCTION__, KernelRadius*LengthUnits/pc_cm,
+                round(KernelRadius/CellWidth[0][0]), CellWidth[0][0]*LengthUnits/pc_cm);
         if ((AccretionRadius) < radius || Weight < SMALL_NUMBER) {
           // outside the accretion radius
           ;
