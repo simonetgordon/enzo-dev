@@ -146,14 +146,14 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
           Weight = exp(-radius2/(KernelRadius*KernelRadius))/SumOfWeights; // just Gaussian weighting
         }
 
-        AccretionRadius = KernelRadius;
-        fprintf(stderr, "%s: KernelRadius = %e pc ( %"ISYM" cells), dx = %e pc \n", __FUNCTION__, KernelRadius*LengthUnits/pc_cm,
-                round(KernelRadius/CellWidth[0][0]), CellWidth[0][0]*LengthUnits/pc_cm);
-        if ((AccretionRadius) < radius || Weight < SMALL_NUMBER) {
+        FLOAT dx = this->CellWidth[0][0];
+        if ((KernelRadius) < radius || Weight < SMALL_NUMBER) {
           // outside the accretion radius
           ;
         }
         else {  //Inside accretion radius
+          fprintf(stderr, "%s: KernelRadius = %e pc ( %"ISYM" cells), dx = %e pc \n", __FUNCTION__, KernelRadius*LengthUnits/pc_cm,
+                  round(KernelRadius/dx), dx*LengthUnits/pc_cm);
 
           // TE and GE are stored per unit mass
           if (HydroMethod == PPM_DirectEuler) {
