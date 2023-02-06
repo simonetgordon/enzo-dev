@@ -76,6 +76,7 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
   {
     CellVolume*= (double)CellWidth[dim][0];
   }
+  FLOAT dx = this->CellWidth[0][0];
   FLOAT xparticle[3] = {
     ThisParticle->ReturnPosition()[0],
     ThisParticle->ReturnPosition()[1],
@@ -146,7 +147,6 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
           Weight = exp(-radius2/(KernelRadius*KernelRadius))/SumOfWeights; // just Gaussian weighting
         }
 
-        FLOAT dx = this->CellWidth[0][0];
         if ((KernelRadius) < radius || Weight < SMALL_NUMBER) {
           // outside the accretion radius
           ;
