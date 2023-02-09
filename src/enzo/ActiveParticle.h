@@ -75,10 +75,10 @@ public:
   double ReturnOldMass(void) { return oldmass; };
 
 
-  void  ReduceLevel(void) { level--; fprintf(stderr, "%s: (void).\n", __FUNCTION__);};
-  void  ReduceLevel(int x) { level -= x; fprintf(stderr, "%s: (int).\n", __FUNCTION__);};
-  void  IncreaseLevel(void) { level++; fprintf(stderr, "%s: (void).\n", __FUNCTION__);};
-  void  IncreaseLevel(int x) { level += x; fprintf(stderr, "%s: (int).\n", __FUNCTION__);};
+  void  ReduceLevel(void) { level--; }; // fprintf(stderr, "%s: (void).\n", __FUNCTION__);
+  void  ReduceLevel(int x) { level -= x; }; // fprintf(stderr, "%s: (int).\n", __FUNCTION__);
+  void  IncreaseLevel(void) { level++; }; // fprintf(stderr, "%s: (void).\n", __FUNCTION__);
+  void  IncreaseLevel(int x) { level += x; }; // fprintf(stderr, "%s: (int).\n", __FUNCTION__);
   void  SetLevel(int i) { level = i; };
   void  SetGridID(int i) { GridID = i; };
   void  AssignCurrentGrid(grid *a) { this->CurrentGrid = a; };

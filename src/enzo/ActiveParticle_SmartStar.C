@@ -1272,11 +1272,11 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
         /* SG. Only print out accretion radius if we're on the SS processor */
         APGrid = SS->ReturnCurrentGrid();
         if (MyProcessorNumber == APGrid->ReturnProcessorNumber()){
-          fprintf(stderr, "%s: SS->AccretionRadius = %e pc (Bondi radius),\t BondiRadiusRefinementFactor "
-                          "= %"GSYM",\t dx = %e pc (%"GSYM" x Bondi radius).\n",
-                          __FUNCTION__, accrad*LengthUnits/pc_cm, SmartStarBondiRadiusRefinementFactor, dx_pc,
-                          dx/accrad);
-        }
+//          fprintf(stderr, "%s: SS->AccretionRadius = %e pc (Bondi radius),\t BondiRadiusRefinementFactor "
+//                          "= %"GSYM",\t dx = %e pc (%"GSYM" x Bondi radius).\n",
+//                          __FUNCTION__, accrad*LengthUnits/pc_cm, SmartStarBondiRadiusRefinementFactor, dx_pc,
+//                          dx/accrad);
+//        }
 
         /* SG. if dx_bondi > dx, don't deposit refinement zone */
         if (dx_bondi > dx){
