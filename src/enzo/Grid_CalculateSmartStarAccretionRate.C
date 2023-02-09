@@ -177,14 +177,15 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     /* Setting the return value of function */
     AccretionRate = AccretionRate_Avg;
 
+    /* Compute Bondi Hoyle Radius */
+    FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
+
     /* Include Vorticity component if specified */
     if(SPHERICAL_BONDI_HOYLE_FORMALISM_WITH_VORTICITY == SmartStarAccretion) {
 #ifdef DEBUG_AP
       printf("Doing SPHERICAL_BONDI_HOYLE_FORMALISM_WIDTH_VORTICITY, SmartStarAccretion = %d\n",
 	     SmartStarAccretion);
 #endif
-      /* Compute Bondi Hoyle Radius */
-      FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
 
       /* Include Vorticity Component */
       FLOAT vorticity[3] = {0.0, 0.0, 0.0};
@@ -658,22 +659,21 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
   // SG. GravConst = 6.67e-8 cgs units cm^3 kg^-1 s^-2
   // VelocityUnits    = GlobalLengthUnits/GlobalTimeUnits; // cm s-1
   Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
-  fprintf(stderr,"%s: vInfinity = %f km/s,\t cInfinity = %f km/s,\t "
-                 "CellTemperature = %"GSYM" K,\t CellWidth = %e pc\t, mparticle = %e Msun (%e code)\n",
-          __FUNCTION__, (vInfinity*VelocityUnits)/1e5, (cInfinity*VelocityUnits)/1e5, CellTemperature,
-          CellWidth[0][0]*LengthUnits/pc_cm, mparticle*MassUnits/SolarMass, mparticle);
+//  fprintf(stderr,"%s: vInfinity = %f km/s,\t cInfinity = %f km/s,\t "
+//                 "CellTemperature = %"GSYM" K,\t CellWidth = %e pc\t, mparticle = %e Msun (%e code)\n",
+//          __FUNCTION__, (vInfinity*VelocityUnits)/1e5, (cInfinity*VelocityUnits)/1e5, CellTemperature,
+//          CellWidth[0][0]*LengthUnits/pc_cm, mparticle*MassUnits/SolarMass, mparticle);
 
   // SG. Use Bondi radius in subsonic relative motion case: c > v
   if (cInfinity > vInfinity){
     ret = FLOAT(2*Gcode*mparticle/(POW(cInfinity,2)));
-    fprintf(stderr, "%s: Bondi radius used = %f pc (%e code)\n",
-            __FUNCTION__, ret*LengthUnits/pc_cm, ret);
+//    fprintf(stderr, "%s: Bondi radius used = %f pc (%e code)\n", __FUNCTION__, ret*LengthUnits/pc_cm, ret);
   }
   // SG. Use Hoyle-Lyttleton radius in super-sonic relative motion case: c < v
   else{
     ret = FLOAT(2*Gcode*mparticle/(POW(vInfinity,2)));
-    fprintf(stderr, "%s: Hoyle-Lyttleton radius used = %f pc (%e code)\n",
-            __FUNCTION__, ret*LengthUnits/pc_cm, ret);
+//    fprintf(stderr, "%s: Hoyle-Lyttleton radius used = %f pc (%e code)\n",
+//            __FUNCTION__, ret*LengthUnits/pc_cm, ret);
   }
 
   return ret;
