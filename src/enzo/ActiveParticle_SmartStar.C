@@ -1276,7 +1276,7 @@ int ActiveParticleType_SmartStar::SetFlaggingField(
 //                          "= %"GSYM",\t dx = %e pc (%"GSYM" x Bondi radius).\n",
 //                          __FUNCTION__, accrad*LengthUnits/pc_cm, SmartStarBondiRadiusRefinementFactor, dx_pc,
 //                          dx/accrad);
-//        }
+        }
 
         /* SG. if dx_bondi > dx, don't deposit refinement zone */
         if (dx_bondi > dx){
