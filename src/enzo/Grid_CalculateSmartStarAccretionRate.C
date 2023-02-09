@@ -131,6 +131,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   RhoInfinity = BaryonField[DensNum][cgindex];
 
   /* Compute Bondi Hoyle Radius (either HL or Bondi) and Interpolated BHL Radius */
+  FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
   delete [] Temperature;
   Temperature = NULL;
@@ -176,9 +177,6 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
 
     /* Setting the return value of function */
     AccretionRate = AccretionRate_Avg;
-
-    /* Compute Bondi Hoyle Radius */
-    FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
 
     /* Include Vorticity component if specified */
     if(SPHERICAL_BONDI_HOYLE_FORMALISM_WITH_VORTICITY == SmartStarAccretion) {
