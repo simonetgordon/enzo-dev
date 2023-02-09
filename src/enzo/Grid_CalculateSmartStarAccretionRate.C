@@ -613,7 +613,7 @@ FLOAT grid::CalculateBondiHoyleRadius(float mparticle, float *vparticle, float *
   /* grab index of cell in centre of grid */
   cindex = (GridEndIndex[0] - GridStartIndex[0])/2 + GridStartIndex[0];
   cgindex = GRIDINDEX_NOGHOST(cindex,cindex,cindex);
-  fprintf(stderr, "%s: cgindex = %"ISYM"\n", __FUNCTION__, cgindex);
+  // fprintf(stderr, "%s: cgindex = %"ISYM"\n", __FUNCTION__, cgindex);
 
   /* units */
   float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1,
@@ -755,7 +755,7 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
   Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
 
   ret = FLOAT(Gcode*mparticle/(POW(cInfinity,2) + POW(vInfinity,2)));
-  fprintf(stderr, "%s: Interpolated BHL radius used = %f pc (%e code) \n", __FUNCTION__, ret*LengthUnits/pc_cm, ret);
+  // fprintf(stderr, "%s: Interpolated BHL radius used = %f pc (%e code) \n", __FUNCTION__, ret*LengthUnits/pc_cm, ret);
   fprintf(stderr,"%s: (bhindex = %"ISYM") vInfinity = %1.2e km/s,\t cInfinity = %1.2e km/s,\t "\
                   "CellTemp = %"GSYM" K,\t dx = %e pc,\t r_BHL = %f pc,\t mparticle = %e Msun (%e code)\n",
           __FUNCTION__, bhindex,(vInfinity*VelocityUnits)/1e5, (cInfinity*VelocityUnits)/1e5, CellTemperature,
