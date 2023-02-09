@@ -435,8 +435,8 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
       			    ParticleList);
       if (AssignActiveParticlesToGrids(ParticleList, nParticles, LevelArray) == FAIL)
           return FAIL;
-      if (debug)
-//          fprintf(stderr,"%s: Number of particles before merging: %"ISYM"\n",__FUNCTION__, nParticles);fflush(stdout);
+//      if (debug)
+//        fprintf(stderr,"%s: Number of particles before merging: %"ISYM"\n",__FUNCTION__, nParticles);fflush(stdout);
 
       /* Do Merging   */
       ActiveParticleList<active_particle_class> MergedParticles;
@@ -462,8 +462,8 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
       
       ParticleList.clear();
       
-      if (debug)
-//          fprintf(stderr,"%s: Number of particles after merging: %"ISYM"\n",__FUNCTION__, NumberOfMergedParticles);fflush(stdout);
+//      if (debug)
+//        fprintf(stderr,"%s: Number of particles after merging: %"ISYM"\n",__FUNCTION__, NumberOfMergedParticles);fflush(stdout);
       
       /* Assign local particles to grids */
       /* Do Merging   */
