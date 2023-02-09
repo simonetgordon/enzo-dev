@@ -152,8 +152,8 @@ int grid::RemoveMassFromGrid(ActiveParticleType* ThisParticle,
           ;
         }
         else {  //Inside accretion radius
-          fprintf(stderr, "%s: KernelRadius = %e pc ( %"ISYM" cells), dx = %e pc \n", __FUNCTION__, KernelRadius*LengthUnits/pc_cm,
-                  round(KernelRadius/dx), dx*LengthUnits/pc_cm);
+//          fprintf(stderr, "%s: KernelRadius = %e pc ( %"ISYM" cells), dx = %e pc \n", __FUNCTION__,
+//                  KernelRadius*LengthUnits/pc_cm, int(KernelRadius/dx), dx*LengthUnits/pc_cm);
 
           // TE and GE are stored per unit mass
           if (HydroMethod == PPM_DirectEuler) {

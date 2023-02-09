@@ -904,13 +904,13 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
     else {
       *KernelRadius = 2*dx;
     }
-    fprintf(stderr, "%s: BHL scheme:  kernel radius = %e pc (%\"ISYM\" cells)\n", __FUNCTION__,
-            (*KernelRadius)*LengthUnits/pc_cm, round((*KernelRadius)/dx));
+    fprintf(stderr, "%s: BHL scheme:  kernel radius = %e pc (%"ISYM" cells)\n", __FUNCTION__,
+            (*KernelRadius)*LengthUnits/pc_cm, int((*KernelRadius)/dx));
   }
   else if (SmartStarAccretion == CONVERGING_MASS_FLOW){
     *KernelRadius = max(SS->AccretionRadius, FLOAT(4*dx));
     fprintf(stderr, "%s: Mass-flux scheme: kernel radius = %e pc (%"ISYM" cells) \n", __FUNCTION__,
-            (*KernelRadius)*LengthUnits/pc_cm, round((*KernelRadius)/dx));
+            (*KernelRadius)*LengthUnits/pc_cm, int((*KernelRadius)/dx));
   }
 
   /* Weight the cells by mass and the Gaussian kernel */
