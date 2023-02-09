@@ -120,7 +120,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   this->ComputeTemperatureField(Temperature);
   CellTemperature = Temperature[cgindex];
   RegionTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, 2.0*AccretionRadius);
-  fprintf(stderr, "%s: RegionTemperature = %e K  (within 2*AccretionRadius) \n", __FUNCTION__, RegionTemperature);
+  // fprintf(stderr, "%s: RegionTemperature = %e K  (within 2*AccretionRadius) \n", __FUNCTION__, RegionTemperature);
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
 
@@ -131,7 +131,6 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   RhoInfinity = BaryonField[DensNum][cgindex];
 
   /* Compute Bondi Hoyle Radius (either HL or Bondi) and Interpolated BHL Radius */
-  FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
   delete [] Temperature;
   Temperature = NULL;
@@ -184,6 +183,9 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
       printf("Doing SPHERICAL_BONDI_HOYLE_FORMALISM_WIDTH_VORTICITY, SmartStarAccretion = %d\n",
 	     SmartStarAccretion);
 #endif
+      /* Compute Bondi Hoyle Radius */
+      FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
+
       /* Include Vorticity Component */
       FLOAT vorticity[3] = {0.0, 0.0, 0.0};
       GetVorticityComponent(xparticle, vorticity);
@@ -753,13 +755,13 @@ FLOAT grid::CalculateInterpolatedBondiHoyleRadius(float mparticle, float *vparti
   // SG. GravConst = 6.67e-8 cgs units cm^3 kg^-1 s^-2
   // VelocityUnits    = GlobalLengthUnits/GlobalTimeUnits; // cm s-1
   Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
-  fprintf(stderr,"%s: (using bhindex) vInfinity = %f km/s,\t cInfinity = %f km/s,\t "
-                 "CellTemperature = %"GSYM" K,\t CellWidth = %e pc\t, mparticle = %e Msun (%e code)\n",
-          __FUNCTION__, (vInfinity*VelocityUnits)/1e5, (cInfinity*VelocityUnits)/1e5, CellTemperature,
-          CellWidth[0][0]*LengthUnits/pc_cm, mparticle*MassUnits/SolarMass, mparticle);
 
   ret = FLOAT(Gcode*mparticle/(POW(cInfinity,2) + POW(vInfinity,2)));
   fprintf(stderr, "%s: Interpolated BHL radius used = %f pc (%e code) \n", __FUNCTION__, ret*LengthUnits/pc_cm, ret);
+  fprintf(stderr,"%s: (bhindex = %"ISYM") vInfinity = %1.2e km/s,\t cInfinity = %1.2e km/s,\t "\
+                  "CellTemp = %"GSYM" K,\t dx = %e pc,\t r_BHL = %f pc,\t mparticle = %e Msun (%e code)\n",
+          __FUNCTION__, bhindex,(vInfinity*VelocityUnits)/1e5, (cInfinity*VelocityUnits)/1e5, CellTemperature,
+          CellWidth[0][0]*LengthUnits/pc_cm, ret*LengthUnits/pc_cm, mparticle*MassUnits/SolarMass, mparticle);
 
   return ret;
 } // SG. End of function.
@@ -896,21 +898,21 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
    */
   if (SmartStarAccretion == SPHERICAL_BONDI_HOYLE_FORMALISM){
     if (BondiHoyleRadius_Interpolated < dx) {
-      fprintf(stderr, "%s: Setting kernel radius to CellWidth, BH not resolved\n", __FUNCTION__);
       *KernelRadius = dx;
     }
     else if(dx < BondiHoyleRadius_Interpolated < 2*dx) { /*Accrete out to the BH radius */
-      fprintf(stderr, "%s: Setting kernel radius to BondiHoyleRadiusInterpolated, BH marginally resolved\n", __FUNCTION__);
       *KernelRadius = BondiHoyleRadius_Interpolated;
     }
     else {
-      fprintf(stderr, "%s: Setting kernel radius to 2*CellWidth, BH is resolved\n", __FUNCTION__);
       *KernelRadius = 2*dx;
     }
+    fprintf(stderr, "%s: BHL scheme:  kernel radius = %e pc (%\"ISYM\" cells)\n", __FUNCTION__,
+            (*KernelRadius)*LengthUnits/pc_cm, round((*KernelRadius)/dx));
   }
   else if (SmartStarAccretion == CONVERGING_MASS_FLOW){
     *KernelRadius = max(SS->AccretionRadius, FLOAT(4*dx));
-    fprintf(stderr, "%s: Setting kernel radius to max of 4*CellWidth or accrad, mass flux scheme\n", __FUNCTION__);
+    fprintf(stderr, "%s: Mass-flux scheme: kernel radius = %e pc (%"ISYM" cells) \n", __FUNCTION__,
+            (*KernelRadius)*LengthUnits/pc_cm, round((*KernelRadius)/dx));
   }
 
   /* Weight the cells by mass and the Gaussian kernel */

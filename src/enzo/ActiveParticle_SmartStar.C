@@ -1550,9 +1550,8 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
         if( ((ctime - SS->AccretionRateTime[SS->TimeIndex])*TimeUnits/yr_s > (float)TIMEGAP)
           || (SS->TimeIndex == 0)) {
 
-          fprintf(stderr,"%s: level = %"ISYM" and MyLevel = %"ISYM" and NoParticles = %"ISYM".\n", __FUNCTION__,
-                  ThisLevel, MyLevel, nParticles);
-          fprintf(stderr,"%s: cell width = %e pc (APGrid) on level = %"ISYM".\n", __FUNCTION__, dx_pc, ThisLevel);
+          fprintf(stderr,"%s: level = %"ISYM" and MyLevel = %"ISYM" and NoParticles = %"ISYM" and CellWidth = %e pc (APGrid) \n",
+                  __FUNCTION__, ThisLevel, MyLevel, nParticles, dx_pc);
 
           float omass = SS->ReturnOldMass();
           float cmass = SS->ReturnMass();
@@ -1604,10 +1603,12 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
               Age*TimeUnits/yr_s,
               SS->RadiationLifetime*TimeUnits/Myr_s,
               SS->ParticleClass);
-          fprintf(stderr, "Avg_Density = %e cm^3\t Avg_cinf = %e km/s\t Avg_vinf = %e km/s\t TotalGasMass within r_k = %e Msun \n",
+          fprintf(stderr, "Avg_rho = %e cm^3\t Avg_cinf = %e km/s\t Avg_vinf = %e km/s\t "
+                          "TotalGasMass within r_k = %e Msun \t SS pos = (%e, %e, %e) \n",
                   SS->AverageDensity*ConvertToNumberDensity,SS->Average_cInfinity*VelocityUnits/1e5,
-                  SS->Average_vInfinity*VelocityUnits/1e5, SS->mass_in_accretion_sphere*MassUnits/SolarMass);
-              /* End Prints */
+                  SS->Average_vInfinity*VelocityUnits/1e5, SS->mass_in_accretion_sphere*MassUnits/SolarMass
+                  SS->pos[0], SS->pos[1], SS->pos[2]);
+          /* End Prints */
 
           /* Set omass to cmass */
           omass = cmass;
