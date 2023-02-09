@@ -1606,7 +1606,7 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
           fprintf(stderr, "Avg_rho = %e cm^3\t Avg_cinf = %e km/s\t Avg_vinf = %e km/s\t "
                           "TotalGasMass within r_k = %e Msun \t SS pos = (%e, %e, %e) \n",
                   SS->AverageDensity*ConvertToNumberDensity,SS->Average_cInfinity*VelocityUnits/1e5,
-                  SS->Average_vInfinity*VelocityUnits/1e5, SS->mass_in_accretion_sphere*MassUnits/SolarMass
+                  SS->Average_vInfinity*VelocityUnits/1e5, SS->mass_in_accretion_sphere*MassUnits/SolarMass,
                   SS->pos[0], SS->pos[1], SS->pos[2]);
           /* End Prints */
 
