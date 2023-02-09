@@ -221,9 +221,10 @@ int grid::AccreteOntoSmartStarParticle(
   
   AccretedMass = (*AccretionRate)*this->dtFixed;
   ThisParticle->AddMass(AccretedMass);
-  fprintf(stderr, "%s: AccretedMass = %e Msolar, PrevMass = %e Msolar\t NewMass = %e Msolar\n", __FUNCTION__,
+  fprintf(stderr, "%s: Actual AccretionRate = %"GSYM" Msun/yr,AccretedMass = %e Msolar, PrevMass = %e Msolar\t NewMass = %e Msolar\n",
+          __FUNCTION__, (*AccretionRate)*yr_s*MassConversion/(SolarMass*TimeUnits),
           AccretedMass*MassConversion/SolarMass, (SS->ReturnMass() - AccretedMass)*MassConversion/SolarMass,
-          SS->ReturnMass()*MassConversion/SolarMass);
+          SS->ReturnMass()*MassConversion/SolarMass); yr_s
   return SUCCESS;
 }
 

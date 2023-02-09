@@ -273,7 +273,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     AccretionRate = ConvergentMassFlow(DensNum, Vel1Num, AccretionRadius, xparticle, vparticle,
 				       mparticle, Gcode, GENum);
 
-    fprintf(stderr, "%s: Calculated (mass flux) accretion rate is %"GSYM" Msolar/yr\n", __FUNCTION__,
+    fprintf(stderr, "%s: Mass-Flux AccretionRate = %"GSYM" Msolar/yr\n", __FUNCTION__,
 	   AccretionRate*3.154e7*MassUnits/(SolarMass*TimeUnits));
 
   }
