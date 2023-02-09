@@ -442,8 +442,7 @@ int ActiveParticleType_SmartStar::AfterEvolveLevel(
       ActiveParticleList<active_particle_class> MergedParticles;
       
       /* Generate new merged list of sink particles */
-      MergeSmartStars<active_particle_class>(&nParticles, ParticleList, &NumberOfMergedParticles, LevelArray,
-                                             ThisLevel, MergedParticles);
+      MergeSmartStars<active_particle_class>(&nParticles, ParticleList, &NumberOfMergedParticles, LevelArray, ThisLevel, MergedParticles);
 
       ParticleList.clear();
 
