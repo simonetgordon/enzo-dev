@@ -37,6 +37,7 @@ int GetUnits(float *DensityUnits, float *LengthUnits,
 	     float *TemperatureUnits, float *TimeUnits,
 	     float *VelocityUnits, FLOAT Time);
 int CosmologyComputeExpansionFactor(FLOAT time, FLOAT *a, FLOAT *dadt);
+static double JeansLength(float T, float dens, float density_units);
  
 float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
 					    FLOAT AccretionRadius, float SumOfWeights, FLOAT KernelRadius)
@@ -980,3 +981,11 @@ int grid::SetParticleBondiHoyle_AvgValues_MassWeighted(
 
   return SUCCESS;
 } // SG. End CalculateBondiHoyleRadius_AvgValues_MassWeighted
+
+
+static double JeansLength(float T, float dens, float density_units)
+{
+  float jeans_length = 0.0;
+  jeans_length = 15*kboltz*T/(4.0*M_PI*GravConst*mh*dens*density_units);
+  return sqrt(jeans_length);
+}
