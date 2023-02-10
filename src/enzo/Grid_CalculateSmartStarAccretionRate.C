@@ -121,7 +121,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   /* 6) temperature field of grid, region temperature over 2*dx, cell temperature */
   this->ComputeTemperatureField(Temperature);
   CellTemperature = Temperature[cgindex];
-  RegionTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, 2.0*AccretionRadius);
+  RegionTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, AccretionRadius);
   // fprintf(stderr, "%s: RegionTemperature = %e K  (within 2*AccretionRadius) \n", __FUNCTION__, RegionTemperature);
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
@@ -141,7 +141,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   Avg_Density = SS->AverageDensity;
 
   /* Calculate jeans length using average properties of accretion region */
-  JLength = JeansLength(Temperature, Avg_Density, DensityUnits)/LengthUnits;
+  JLength = JeansLength(RegionTemperature, Avg_Density, DensityUnits)/LengthUnits;
   SS->JeansLengthOfRegion = JLength;
 
   delete [] Temperature;
