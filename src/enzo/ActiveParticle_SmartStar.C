@@ -1612,7 +1612,7 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
                   SS->Average_vInfinity*VelocityUnits/1e5, SS->mass_in_accretion_sphere*MassUnits/SolarMass,
                   SS->pos[0], SS->pos[1], SS->pos[2]);
           fprintf(stderr, "HLRadius = %e pc \t BondiRadius = %e pc \t JeansLengthOfRegion = %e pc\n",
-                  BondiRadius*LengthUnits/pc_cm, HLRadius*LengthUnits/pc_cm, SS->JeansLengthOfRegion*LengthUnits/pc_cm);
+                  HLRadius*LengthUnits/pc_cm, BondiRadius*LengthUnits/pc_cm, SS->JeansLengthOfRegion*LengthUnits/pc_cm);
           /* End Prints */
 
           /* Set omass to cmass */
