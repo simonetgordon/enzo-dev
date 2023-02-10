@@ -72,6 +72,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   FLOAT radius2 = 0.0, dx;
   float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0, AccretedMomentum[3], vgas[3], etot, eint,
     ke, CellVolume = 1.0;
+  double JLength = 0.0;
   int cindex, cgindex;
   int size = this->GetGridSize();
   float *Temperature = new float[size]();
@@ -133,12 +134,17 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   /* Compute Bondi Hoyle Radius (either HL or Bondi) and Interpolated BHL Radius */
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
-  delete [] Temperature;
-  Temperature = NULL;
 
   Avg_vInfinity = SS->Average_vInfinity;
   Avg_cInfinity = SS->Average_cInfinity;
   Avg_Density = SS->AverageDensity;
+
+  /* Calculate jeans length using average properties of accretion region */
+  JLength = JeansLength(Temperature, Avg_Density, DensityUnits)/LengthUnits;
+  SS->JeansLengthOfRegion = JLength;
+
+  delete [] Temperature;
+  Temperature = NULL;
 
   /***********************************************************************
   /                      Accretion Schemes

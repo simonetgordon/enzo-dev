@@ -1456,7 +1456,6 @@ bool ActiveParticleType_SmartStar::IsARadiationSource(FLOAT Time)
 static double JeansLength(float T, float dens, float density_units)
 {
   float jeans_length = 0.0;
-
   jeans_length = 15*kboltz*T/(4.0*M_PI*GravConst*mh*dens*density_units);
   return sqrt(jeans_length);
 }
@@ -1606,13 +1605,12 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
               SS->RadiationLifetime*TimeUnits/Myr_s,
               SS->ParticleClass);
           fprintf(stderr, "Avg_rho = %e cm^3\t Avg_cinf = %e km/s\t Avg_vinf = %e km/s\t "
-                          "TotalGasMass within r_k = %e Msun \t SS pos = (%e, %e, %e) \t"
-                          "HLRadius = %e pc \n",
+                          "TotalGasMass within r_k = %e Msun \t SS pos = (%e, %e, %e) \n",
                   SS->AverageDensity*ConvertToNumberDensity,SS->Average_cInfinity*VelocityUnits/1e5,
                   SS->Average_vInfinity*VelocityUnits/1e5, SS->mass_in_accretion_sphere*MassUnits/SolarMass,
-                  SS->pos[0], SS->pos[1], SS->pos[2], BondiHoyleRadius*LengthUnits/pc_cm);
-          fprintf(stderr, "HLRadius = %e pc \t BondiRadius = %e pc\n",
-                  BondiHoyleRadius*LengthUnits/pc_cm, HLRadius*LengthUnits/pc_cm);
+                  SS->pos[0], SS->pos[1], SS->pos[2]);
+          fprintf(stderr, "HLRadius = %e pc \t BondiRadius = %e pc \t JeansLengthOfRegion = %e pc\n",
+                  BondiHoyleRadius*LengthUnits/pc_cm, HLRadius*LengthUnits/pc_cm, SS->JeansLengthOfRegion*LengthUnits/pc_cm);
           /* End Prints */
 
           /* Set omass to cmass */
