@@ -1499,7 +1499,7 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
     /* Get units, define current time */
     FLOAT Time = LevelArray[ThisLevel]->GridData->ReturnTime();
     float ctime = LevelArray[ThisLevel]->GridData->ReturnTime();
-    float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits, VelocityUnits;
+    float DensityUnits, LengthUnits, TemperatureUnits, TimeUnits, VelocityUnits, CellVolume = 1.0;
     double MassUnits;
     GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
              &TimeUnits, &VelocityUnits, Time);
@@ -1510,6 +1510,9 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
     double dx_pc1 = dx_grid*LengthUnits/pc_cm;   //in pc
     double MassConversion = (double) (dx_grid*dx_grid*dx_grid * double(MassUnits));  //convert to g
     MassConversion = MassConversion/SolarMass; // convert to Msun
+    for (int dim = 0; dim < GridRank; dim++){
+      CellVolume*=LevelArray[ThisLevel]->GridData->CellWidth[dim][0];
+    }
 
     /* SG. Moved mass conversion to within loop over particles. */
     for (int i = 0; i < nParticles; i++) {
@@ -1591,8 +1594,8 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
 
           /* Prints */
           float ConvertToNumberDensity = DensityUnits/mh;
-          FLOAT HLRadius = (2*Gcode*mparticle/POW(SS->Average_vInfinity, 2));
-          FLOAT BondiRadius = (2*Gcode*mparticle/POW(SS->Average_cInfinity, 2));
+          FLOAT HLRadius = (2*Gcode*cmass*CellVolume/POW(SS->Average_vInfinity, 2));
+          FLOAT BondiRadius = (2*Gcode*cmass**CellVolume/POW(SS->Average_cInfinity, 2));
           fprintf(stderr, "old_mass = %e Msolar\t cmass = %e Msolar (%e code)\n", omass*MassConversion,
                   cmass*MassConversion, cmass);
           fprintf(stderr, "accrate = %1.2e Msolar/yr\t deltatime = %3.3f yrs\t TimeIndex = %d\t "
@@ -1610,7 +1613,7 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
                   SS->Average_vInfinity*VelocityUnits/1e5, SS->mass_in_accretion_sphere*MassUnits/SolarMass,
                   SS->pos[0], SS->pos[1], SS->pos[2]);
           fprintf(stderr, "HLRadius = %e pc \t BondiRadius = %e pc \t JeansLengthOfRegion = %e pc\n",
-                  BondiHoyleRadius*LengthUnits/pc_cm, HLRadius*LengthUnits/pc_cm, SS->JeansLengthOfRegion*LengthUnits/pc_cm);
+                  BondiRadius*LengthUnits/pc_cm, HLRadius*LengthUnits/pc_cm, SS->JeansLengthOfRegion*LengthUnits/pc_cm);
           /* End Prints */
 
           /* Set omass to cmass */
