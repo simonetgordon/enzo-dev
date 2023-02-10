@@ -1513,6 +1513,7 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
     for (int dim = 0; dim < GridRank; dim++){
       CellVolume*=LevelArray[ThisLevel]->GridData->CellWidth[dim][0];
     }
+    float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
 
     /* SG. Moved mass conversion to within loop over particles. */
     for (int i = 0; i < nParticles; i++) {
