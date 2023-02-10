@@ -1592,6 +1592,8 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
 
           /* Prints */
           float ConvertToNumberDensity = DensityUnits/mh;
+          FLOAT HLRadius = (2*Gcode*mparticle/POW(SS->Average_vInfinity, 2));
+          FLOAT BondiRadius = (2*Gcode*mparticle/POW(SS->Average_cInfinity, 2));
           fprintf(stderr, "old_mass = %e Msolar\t cmass = %e Msolar (%e code)\n", omass*MassConversion,
                   cmass*MassConversion, cmass);
           fprintf(stderr, "accrate = %1.2e Msolar/yr\t deltatime = %3.3f yrs\t TimeIndex = %d\t "
@@ -1604,10 +1606,13 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
               SS->RadiationLifetime*TimeUnits/Myr_s,
               SS->ParticleClass);
           fprintf(stderr, "Avg_rho = %e cm^3\t Avg_cinf = %e km/s\t Avg_vinf = %e km/s\t "
-                          "TotalGasMass within r_k = %e Msun \t SS pos = (%e, %e, %e) \n",
+                          "TotalGasMass within r_k = %e Msun \t SS pos = (%e, %e, %e) \t"
+                          "HLRadius = %e pc \n",
                   SS->AverageDensity*ConvertToNumberDensity,SS->Average_cInfinity*VelocityUnits/1e5,
                   SS->Average_vInfinity*VelocityUnits/1e5, SS->mass_in_accretion_sphere*MassUnits/SolarMass,
-                  SS->pos[0], SS->pos[1], SS->pos[2]);
+                  SS->pos[0], SS->pos[1], SS->pos[2], BondiHoyleRadius*LengthUnits/pc_cm);
+          fprintf(stderr, "HLRadius = %e pc \t BondiRadius = %e pc\n",
+                  BondiHoyleRadius*LengthUnits/pc_cm, HLRadius*LengthUnits/pc_cm);
           /* End Prints */
 
           /* Set omass to cmass */
