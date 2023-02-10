@@ -1510,9 +1510,7 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
     double dx_pc1 = dx_grid*LengthUnits/pc_cm;   //in pc
     double MassConversion = (double) (dx_grid*dx_grid*dx_grid * double(MassUnits));  //convert to g
     MassConversion = MassConversion/SolarMass; // convert to Msun
-    for (int dim = 0; dim < GridRank; dim++){
-      CellVolume*=LevelArray[ThisLevel]->GridData->CellWidth[dim][0];
-    }
+    CellVolume = dx_grid*dx_grid*dx_grid;
     float Gcode = GravConst*DensityUnits*TimeUnits*TimeUnits;
 
     /* SG. Moved mass conversion to within loop over particles. */
@@ -1596,7 +1594,7 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
           /* Prints */
           float ConvertToNumberDensity = DensityUnits/mh;
           FLOAT HLRadius = (2*Gcode*cmass*CellVolume/POW(SS->Average_vInfinity, 2));
-          FLOAT BondiRadius = (2*Gcode*cmass**CellVolume/POW(SS->Average_cInfinity, 2));
+          FLOAT BondiRadius = (2*Gcode*cmass*CellVolume/POW(SS->Average_cInfinity, 2));
           fprintf(stderr, "old_mass = %e Msolar\t cmass = %e Msolar (%e code)\n", omass*MassConversion,
                   cmass*MassConversion, cmass);
           fprintf(stderr, "accrate = %1.2e Msolar/yr\t deltatime = %3.3f yrs\t TimeIndex = %d\t "
