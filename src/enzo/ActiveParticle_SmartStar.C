@@ -1189,9 +1189,12 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         /* Doing accretion with updated AccretionRadius */
         AccretionRadius = SS->AccretionRadius;
         /* SG. Check if accrad < dx */
-        double dx_bondi = (double) SS->AccretionRadius/SmartStarBondiRadiusRefinementFactor;
-        if ((dx_bondi + 0.1*dx_bondi) < dx){
-          fprintf(stderr, "%s: refinement zone needs to be deposited before accretion can be done.\n", __FUNCTION__);
+        int bondi_cells = int(SS->AccretionRadius/dx);
+        if not (((bondi_cells) == int(SmartStarBondiRadiusRefinementFactor)) || ((bondi_cells) == 1+int(SmartStarBondiRadiusRefinementFactor))
+        || ((bondi_cells) == int(SmartStarBondiRadiusRefinementFactor)-1)){
+          fprintf(stderr, "%s: refinement zone needs to be deposited "
+                          "before accretion can be done, bondi_cells = %"ISYM", BF = %e \n", __FUNCTION__
+                          bondi_cells, SmartStarBondiRadiusRefinementFactor);
         }
         else {
           if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate,
