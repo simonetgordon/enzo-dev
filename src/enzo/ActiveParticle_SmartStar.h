@@ -34,7 +34,7 @@
 #define ACCRETIONRADIUS  4 // SG. Change to something arbitrarily small for testing. Changing it back to 4 for formation purposes.
 #define NUMRADIATIONBINS 5
 #define CRITICAL_ACCRETION_RATE 0.001 //Msolar/yr (Haemerlee et al (2018))
-#define TIMEGAP            100   // * timestep SG CHANGED FROM 100 TO 1 for testing
+#define TIMEGAP            300   // * timestep SG
 #define POPIII_RESOLUTION  0.001 //pc
 #define SMS_RESOLUTION     0.1   //pc
 /* Prototypes */

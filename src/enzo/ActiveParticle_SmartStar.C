@@ -1058,7 +1058,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
      * For each particle, loop over all the grids and do accretion if the grid overlaps with the
      * accretion zone.
      */
-    float TimeDelay = 100*yr_s/TimeUnits; // SG change to 100 yr for BH only run.
+    float TimeDelay = 300*yr_s/TimeUnits; // SG change to 100 yr for BH only run.
     for (i = 0; i < nParticles; i++) {
       /*
        * Accretion is only allowed if it makes sense:
@@ -1541,11 +1541,9 @@ int ActiveParticleType_SmartStar::UpdateAccretionRateStats(int nParticles,
         ActiveParticleType_SmartStar* SS;
         SS = static_cast<ActiveParticleType_SmartStar*>(ParticleList[i]);
 
-        #if SSDEBUG
         fprintf(stderr,"%s: deltatime = %f years\t TIMEGAP = %0.2f years\n",
         __FUNCTION__, (ctime - SS->AccretionRateTime[SS->TimeIndex])*TimeUnits/yr_s,
         (float)TIMEGAP);
-        #endif
 
         /* SG. Changing TIMEGAP to 100 years as in the print statement just above. */
         if( ((ctime - SS->AccretionRateTime[SS->TimeIndex])*TimeUnits/yr_s > (float)TIMEGAP)
