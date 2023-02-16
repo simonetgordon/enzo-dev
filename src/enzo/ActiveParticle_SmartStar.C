@@ -1192,11 +1192,12 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         double dx_bondi = (double) SS->AccretionRadius/SmartStarBondiRadiusRefinementFactor;
         if ((dx_bondi + 0.1*dx_bondi) < dx){
           fprintf(stderr, "%s: refinement zone needs to be deposited before accretion can be done.\n", __FUNCTION__);
-          continue;
         }
-        if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate,
-                                                       SumOfWeights, KernelRadius) == FAIL)
-          return FAIL;
+        else {
+          if (FeedbackZone->AccreteOntoSmartStarParticle(ParticleList[i], AccretionRadius, &AccretionRate,
+                                                         SumOfWeights, KernelRadius) == FAIL)
+            return FAIL;
+        }
 
         delete [] Temperature;
         Temperature = NULL;
