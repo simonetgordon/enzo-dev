@@ -98,7 +98,9 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
         ENZO_FAIL("Error in GetUnits.");
   }
   MassUnits = DensityUnits * POW(LengthUnits,3);
-  double MassConversion = (double) (dx*dx*dx * MassUnits);  //convert to g      
+  double MassConversion = (double) (dx*dx*dx * MassUnits);  //convert to g
+  // double EnergyUnits = POW(LengthUnits, 2.0) / POW(TimeUnits, 2.0);
+  double EnergyUnits = MassUnits*POW(VelocityUnits, 2.0);
   int DensNum, GENum, TENum, Vel1Num, Vel2Num, Vel3Num;
   if (this->IdentifyPhysicalQuantities(DensNum, GENum, Vel1Num, Vel2Num,
          Vel3Num, TENum) == FAIL) {
@@ -261,13 +263,13 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           SNEnergy = 1e51 * (SNExplosionEnergy[bin] + frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
           MetalMass = (SNExplosionMetals[bin] + frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
 
-          fprintf(stderr, "%s: SN Kinetic Energy = %"GSYM" \t MetalMass = %"GSYM" \n",
-                  __FUNCTION__, SNEnergy, MetalMass);
-
           // Heger-Woosley (2002) relation for BHMass
 	        HeliumCoreMass = (13./24.) * (StellarMass - 20);
 	        StellarMass = HeliumCoreMass; // msun
 	        SS->Mass = StellarMass*SolarMass/MassConversion; // code density
+
+          fprintf(stderr, "%s: BH Mass = %e Msun \t SN Energy = %"GSYM" ergs \t MetalMass = %"GSYM" Msun\n",
+                  __FUNCTION__, SS->Mass*MassConversion/SolarMass, SNEnergy, MetalMass*MassConversion/SolarMass);
         }
 
         // Set to BH particle
@@ -286,8 +288,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
         float *Temperature = new float[size]();
         APGrid->ComputeTemperatureField(Temperature);
         FLOAT BondiHoyleRadius = APGrid->CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
-        SS->AccretionRadius = 1000000*BondiHoyleRadius;
-        fprintf(stderr, "%s: Initial accretion radius of BH (x1e6 Bondi rad)= %e pc.\n", __FUNCTION__,
+        SS->AccretionRadius = 10*BondiHoyleRadius;
+        fprintf(stderr, "%s: Initial accretion radius of BH (x10 Bondi rad)= %e pc.\n", __FUNCTION__,
           SS->AccretionRadius*LengthUnits/pc_cm);
         /* SG. End set accretion radius to BHL radius */
 
