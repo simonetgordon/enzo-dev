@@ -288,6 +288,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
         float *Temperature = new float[size]();
         APGrid->ComputeTemperatureField(Temperature);
         FLOAT BondiHoyleRadius = APGrid->CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
+        SS->JeansLengthOfRegion = 0.0;
         SS->AccretionRadius = 10*BondiHoyleRadius;
         fprintf(stderr, "%s: Initial accretion radius of BH (x10 Bondi rad)= %e pc.\n", __FUNCTION__,
           SS->AccretionRadius*LengthUnits/pc_cm);
