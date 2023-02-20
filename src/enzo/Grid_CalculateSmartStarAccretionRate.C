@@ -73,7 +73,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   FLOAT radius2 = 0.0, dx;
   float SmallRhoFac = 1e10, Weight = 0.0, SmallEFac = 10., SmEint = 0, AccretedMomentum[3], vgas[3], etot, eint,
     ke, CellVolume = 1.0;
-  double JLength = 0.0;
+  FLOAT JLength = 0.0;
   int cindex, cgindex;
   int size = this->GetGridSize();
   float *Temperature = new float[size]();
@@ -122,7 +122,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   this->ComputeTemperatureField(Temperature);
   CellTemperature = Temperature[cgindex];
   RegionTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, AccretionRadius);
-  // fprintf(stderr, "%s: RegionTemperature = %e K  (within 2*AccretionRadius) \n", __FUNCTION__, RegionTemperature);
+  fprintf(stderr, "%s: RegionTemperature = %e K  (within AccretionRadius) \n", __FUNCTION__, RegionTemperature);
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
 
@@ -136,6 +136,9 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   FLOAT BondiHoyleRadius = CalculateBondiHoyleRadius(mparticle, vparticle, Temperature);
   FLOAT BondiHoyleRadius_Interpolated = CalculateInterpolatedBondiHoyleRadius(mparticle, vparticle, Temperature, xparticle);
 
+  delete [] Temperature;
+  Temperature = NULL;
+
   Avg_vInfinity = SS->Average_vInfinity;
   Avg_cInfinity = SS->Average_cInfinity;
   Avg_Density = SS->AverageDensity;
@@ -144,8 +147,6 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   JLength = JeansLength(RegionTemperature, Avg_Density, DensityUnits)/LengthUnits;
   SS->JeansLengthOfRegion = JLength;
 
-  delete [] Temperature;
-  Temperature = NULL;
 
   /***********************************************************************
   /                      Accretion Schemes
