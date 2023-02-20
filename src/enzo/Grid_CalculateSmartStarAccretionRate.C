@@ -121,7 +121,7 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
   /* 6) temperature field of grid, region temperature over 2*dx, cell temperature */
   this->ComputeTemperatureField(Temperature);
   CellTemperature = Temperature[cgindex];
-  RegionTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, AccretionRadius);
+  RegionTemperature = FindAverageTemperatureinRegion(Temperature, xparticle, max(AccretionRadius, dx));
   fprintf(stderr, "%s: RegionTemperature = %e K  (within AccretionRadius) \n", __FUNCTION__, RegionTemperature);
   if (JeansRefinementColdTemperature > 0)
     CellTemperature = JeansRefinementColdTemperature;
