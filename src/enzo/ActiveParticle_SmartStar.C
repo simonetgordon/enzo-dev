@@ -20,7 +20,7 @@
 #define JEANSREFINEMENT  0 // SG. turning off to check potential fix.
 #define MASSTHRESHOLDCHECK 1  //SG. Turned on for testing. Turning off again.
 #define JEANSLENGTHCALC    1
-#define MASSTHRESHOLD      0.1 //Msolar in grid. SG. changed to 10 to prevent runaway SF in EvaluateFormation.
+#define MASSTHRESHOLD      10 //Msolar in grid. SG. changed to 10 to prevent runaway SF in EvaluateFormation.
 #define COOLING_TIME       0 // SG. Turn on to prevent spurious SF.Turning off again.
 #define NUMSSPARTICLETYPES 4
 #define JEANS_FACTOR       2
