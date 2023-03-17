@@ -13,6 +13,7 @@
 ************************************************************************/
 
 #ifdef USE_GRACKLE
+#include <cstddef>
 extern "C" {
 #include <grackle.h>
 } // USE_GRACKLE
