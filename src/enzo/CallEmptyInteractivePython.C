@@ -12,6 +12,11 @@
 /
 ************************************************************************/
 
+#ifdef USE_LIBYT
+#include "libyt/libyt.h"
+#include "libyt/libyt_interactive_mode.h"
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "ErrorExceptions.h"
@@ -28,7 +33,6 @@
 #include "libyt.h"
 #include "libyt_interactive_mode.h"
 #endif
-
 
 void CommunicationBarrier();
 
