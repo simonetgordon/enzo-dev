@@ -965,6 +965,7 @@ EXTERN PyObject *my_processor;
 
 #ifdef USE_LIBYT
 EXTERN void *param_libyt;
+EXTERN void *param_yt;
 #endif
 EXTERN int NumberOfLibytCalls;
 EXTERN int NumberOfLibytTopGridCalls;
