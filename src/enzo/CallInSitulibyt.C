@@ -12,7 +12,10 @@
 /
 ************************************************************************/
 
+#ifdef USE_LIBYT
 #include "libyt.h"
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "ErrorExceptions.h"
