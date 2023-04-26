@@ -15,6 +15,7 @@
 #include "libyt/libyt.h"
 #endif
 
+#include "libyt/libyt.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -50,7 +51,7 @@ int ExposeHierarchyToLibyt(TopGridData *MetaData, HierarchyEntry *Grid,
   if (Grid->GridData->ReturnProcessorNumber() == MyProcessorNumber) {
       /* We do a similar */
     Grid->GridData->ConvertToLibyt(LocalGridID, GridID, ParentID, level,
-            &GridInfoArray[LocalGridID-1]);
+            GridInfoArray[LocalGridID-1]);
     LocalGridID++;
   }
 
