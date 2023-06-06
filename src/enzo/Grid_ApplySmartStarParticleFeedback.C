@@ -41,7 +41,7 @@
 #define THRESHOLDFRACTION 1   //Solarmasses ejected per jet event
 #define OPENING_ANGLE pi/360.0  //pi/3.9
 #define HW_BH_MASS 1    // SG. Heger-Woosley mass used for BH remanant for POPIII particles.
-#define NO_SUPERNOVA 1  // SG. Turning SN event off for 40 msun POPIII.
+#define SUPERNOVA 0  // SG. Turning SN event off for 40 msun POPIII.
 
 int search_lower_bound(float *arr, float value, int low, int high, 
 		       int total);
@@ -303,7 +303,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
         int NumCells = 1;
 
         // SG. Skip supernova (this is just a SN feedback routine) if desired.
-        #if NO_SUPERNOVA 
+        #if SUPERNOVA 
         // SG. Non-zero EjectaDensity.
         this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
                    EjectaMetalDensity, Radius, NumCells); // SN Radius
