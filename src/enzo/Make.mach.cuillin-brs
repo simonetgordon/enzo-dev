@@ -20,7 +20,7 @@ MACH_FILE  = Make.mach.ubuntu-hardy
 # Install paths (local variables)
 #-----------------------------------------------------------------------
 
-LOCAL_HDF5_INSTALL = /usr/local/hdf5/gcc-11/mpich/1.13.2/
+LOCAL_HDF5_INSTALL = /usr/local/hdf5/gcc-11/mpich/1.13.2
 LOCAL_GRACKLE_INSTALL = /home/sgordon/software/grackle
 
 #-----------------------------------------------------------------------
