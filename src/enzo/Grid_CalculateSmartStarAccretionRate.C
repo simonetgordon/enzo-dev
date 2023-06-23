@@ -492,7 +492,7 @@ float grid::ConvergentMassFlow(int DensNum, int Vel1Num, FLOAT AccretionRadius,
 
   // SG. AccretionRadius = 4dx
   AccretionRadius = FLOAT(4*dx);
-  fprintf(stderr, "%s: updating AccretionRadius for mass flux scheme to 4*dx (irrespective of dx) \n", __FUNCTION__);
+  fprintf(stderr, "%s: updating AccretionRadius for mass flux scheme to 4*dx (irrespective of dx): AccretionRadius = %e pc\n", __FUNCTION__, AccretionRadius*LengthUnits/pc_cm);
 
   for (int k = GridStartIndex[2]; k <= GridEndIndex[2]; k++) {
     for (int j = GridStartIndex[1]; j <= GridEndIndex[1]; j++) {
