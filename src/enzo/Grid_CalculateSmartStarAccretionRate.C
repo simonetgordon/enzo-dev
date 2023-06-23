@@ -490,6 +490,13 @@ float grid::ConvergentMassFlow(int DensNum, int Vel1Num, FLOAT AccretionRadius,
   FLOAT dx = CellWidth[0][0];
   float epsilon = dx;
 
+  /* Set the units. */
+  float DensityUnits = 1, LengthUnits = 1, TemperatureUnits = 1, TimeUnits = 1, VelocityUnits = 1;
+  if (GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
+               &TimeUnits, &VelocityUnits, Time) == FAIL) {
+    ENZO_FAIL("Error in GetUnits.");
+  }
+
   // SG. AccretionRadius = 4dx
   AccretionRadius = FLOAT(4*dx);
   fprintf(stderr, "%s: updating AccretionRadius for mass flux scheme to 4*dx (irrespective of dx): AccretionRadius = %e pc\n", __FUNCTION__, AccretionRadius*LengthUnits/pc_cm);
