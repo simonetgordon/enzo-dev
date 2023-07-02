@@ -20,7 +20,7 @@
 #define JEANSREFINEMENT  0 // SG. turning off to check potential fix.
 #define MASSTHRESHOLDCHECK 1  //SG. Turned on for testing. Turning off again.
 #define JEANSLENGTHCALC    1
-#define MASSTHRESHOLD      10 //Msolar in grid. SG. changed to 10 to prevent runaway SF in EvaluateFormation.
+#define MASSTHRESHOLD      40 //Msolar in grid. SG. changed to 10 to prevent runaway SF in EvaluateFormation.
 #define COOLING_TIME       0 // SG. Turn on to prevent spurious SF.Turning off again.
 #define NUMSSPARTICLETYPES 4
 #define JEANS_FACTOR       2
@@ -698,11 +698,11 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 
 		/* Exit if no mass is enclosed */
 		if (SphereMass == 0){
-//			fprintf(stderr,"%s: No mass enclosed. No particle created.\n", __FUNCTION__);
+			fprintf(stderr,"%s: Insufficient mass enclosed on level. No particle created.\n", __FUNCTION__);
 			return SUCCESS;
 		}
 
-		fprintf(stderr,"%s: PopIII Particle created!\n", __FUNCTION__);
+		fprintf(stderr,"%s: PopIII Particle created + mass removed from grid!\n", __FUNCTION__);
 
 		/* Assign mass, radius and lifetime to particle */
 		SS->Mass = PopIIIStarMass; // msun
