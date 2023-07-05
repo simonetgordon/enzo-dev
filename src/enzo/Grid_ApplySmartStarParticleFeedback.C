@@ -208,10 +208,10 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     }
   
     if(Age > SS->RadiationLifetime) {/* Star needs to go supernovae and change type */
-      fprintf(stderr, "%s: Age exceeds stellar lifetime. Transition to BH.\n", __FUNCTION__);
+      fprintf(stderr, "%s: Age exceeds stellar lifetime. Transition to BH?\n", __FUNCTION__);
       
       /* We now need to convert this particle into a Black Hole if appropriate 
-       * 20 Msolar - 40.1 Msolar -> Type II supernova with BH remnant 
+       * 20 Msolar - 40.1 Msolar -> Type II supernova with BH remnant from Heger-Woosley relation
        * 40.1 Msolar - 140 Msolar -> DCBH with Heger-Woosley relation
        * 140 Msolar - 260 Msolar -> PISN -> No remnant (delete particle)
        * 260+ Msolar - DCBH of same mass as parent star
@@ -265,11 +265,13 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           MetalMass = (SNExplosionMetals[bin] + frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
 
           // Heger-Woosley (2002) relation for BHMass
+          #if SUPERNOVA
 	        HeliumCoreMass = (13./24.) * (StellarMass - 20);
-	        StellarMass = HeliumCoreMass; // msun
+          StellarMass = HeliumCoreMass; // msun
+          #endif
 	        SS->Mass = StellarMass*SolarMass/MassConversion; // code density
 
-          fprintf(stderr, "%s: BH Mass = %e Msun \t SN Energy = %"GSYM" ergs \t MetalMass = %"GSYM" Msun\n",
+          fprintf(stderr, "%s: BH Mass = %e Msun. If SN occurs: \t SN Energy = %"GSYM" ergs \t MetalMass = %"GSYM" Msun\n",
                   __FUNCTION__, SS->Mass*MassConversion/SolarMass, SNEnergy, MetalMass*MassConversion/SolarMass);
         }
 
@@ -295,18 +297,19 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           SS->AccretionRadius*LengthUnits/pc_cm);
         /* SG. End set accretion radius to BHL radius */
 
-        fprintf(stderr, "%s: Post-SNe: ParticleClass now %d\t Lifetime = %f Myr\n", __FUNCTION__,
-               SS->ParticleClass, SS->RadiationLifetime*TimeUnits/Myr_s);
+        /* SG. Set metal ejecta */
         EjectaMetalDensity = MetalMass * SolarMass / EjectaVolume / DensityUnits;
         EjectaThermalEnergy = SNEnergy / (StellarMass * SolarMass) / VelocityUnits / VelocityUnits;
         EjectaDensity = StellarMass * SolarMass / EjectaVolume / DensityUnits;
         int NumCells = 1;
 
-        // SG. Skip supernova (this is just a SN feedback routine) if desired.
+        // SG. Do supernova (this is just a SN feedback routine) if desired.
         #if SUPERNOVA 
         // SG. Non-zero EjectaDensity.
         this->ApplySphericalFeedbackToGrid(ThisParticle, EjectaDensity, EjectaThermalEnergy,
                    EjectaMetalDensity, Radius, NumCells); // SN Radius
+        fprintf(stderr, "%s: Post-SNe: ParticleClass now %d\t Lifetime = %f Myr\n", __FUNCTION__,
+               SS->ParticleClass, SS->RadiationLifetime*TimeUnits/Myr_s);
         #endif
 
       } // SG. End 11 <= M <= 40.1.
