@@ -20,7 +20,7 @@
 #define JEANSREFINEMENT  0 // SG. turning off to check potential fix.
 #define MASSTHRESHOLDCHECK 1  //SG. Turned on for testing. Turning off again.
 #define JEANSLENGTHCALC    1
-#define MASSTHRESHOLD      10 //Msolar in grid. SG. changed to 10 to prevent runaway SF in EvaluateFormation.
+#define MASSTHRESHOLD      40 //Msolar in grid. SG. changed to 10 to prevent runaway SF in EvaluateFormation.
 #define COOLING_TIME       0 // SG. Turn on to prevent spurious SF.Turning off again.
 #define NUMSSPARTICLETYPES 4
 #define JEANS_FACTOR       2
@@ -650,7 +650,7 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		int SphereContained, SphereContainedNextLevel, CellsModified = 0;
 		bool MarkedSubgrids = false;
 
-		/* Set target sphere mass to be twice the target PopIII mass */
+		/* Set target sphere mass to be twice the target PopIII mass (input parameter) */
 		float TargetSphereMass = 2*PopIIIStarMass;
 
 		/* Find radius of sphere to be accreted from */
@@ -698,11 +698,11 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 
 		/* Exit if no mass is enclosed */
 		if (SphereMass == 0){
-//			fprintf(stderr,"%s: No mass enclosed. No particle created.\n", __FUNCTION__);
+			fprintf(stderr,"%s: Insufficient mass enclosed on level. No particle created.\n", __FUNCTION__);
 			return SUCCESS;
 		}
 
-		fprintf(stderr,"%s: PopIII Particle created!\n", __FUNCTION__);
+		fprintf(stderr,"%s: PopIII Particle created + mass removed from grid!\n", __FUNCTION__);
 
 		/* Assign mass, radius and lifetime to particle */
 		SS->Mass = PopIIIStarMass; // msun
@@ -1122,6 +1122,8 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
       /* Construct feedback zone of at least 5^3 cells */
       FLOAT accrad = SS->AccretionRadius;
       FLOAT RefinementZoneCellCount = max((accrad/dx)+2, 5);
+      fprintf(stderr, "%s: accrad = %e pc. RefinementZoneCellCount = %e. \n",
+              __FUNCTION__, accrad*LengthUnits/pc_cm, RefinementZoneCellCount);
       grid* FeedbackZone = ConstructFeedbackZone(ParticleList[i], FLOAT(RefinementZoneCellCount), dx, Grids,
                                                  NumberOfGrids, ALL_FIELDS);
 
