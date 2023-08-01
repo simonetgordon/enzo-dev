@@ -1058,7 +1058,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
      * For each particle, loop over all the grids and do accretion if the grid overlaps with the
      * accretion zone.
      */
-    float TimeDelay = 100*yr_s/TimeUnits; // SG change to 100 yr for BH only run.
+    float TimeDelay = 1000*yr_s/TimeUnits; // SG change to 100 yr for BH only run.
     for (i = 0; i < nParticles; i++) {
       /*
        * Accretion is only allowed if it makes sense:
