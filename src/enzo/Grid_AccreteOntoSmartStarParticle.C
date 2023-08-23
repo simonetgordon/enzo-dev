@@ -28,6 +28,7 @@
 #define NO_DEBUG_AP
 #define ACCRETE_DEBUG 0
 #define NO_ACCRETION 0
+#define ZERO_ACCRETION 1 // SG. Hack. See below.
 
 int GetUnits(float *DensityUnits, float *LengthUnits,
 	     float *TemperatureUnits, float *TimeUnits,
@@ -220,6 +221,15 @@ int grid::AccreteOntoSmartStarParticle(
   } // END BH && SmartStarBHFeedback
   
   AccretedMass = (*AccretionRate)*this->dtFixed;
+
+# if ZERO_ACCRETION
+  // SG. This is a bit of a hack to avoid large accretion on lower refinement level than desired in first timestep. 
+  // If the accreted mass is greater than 10 Msolar, it is zeroed and the BH particle does not grow.
+  if (AccretedMass*MassConversion/SolarMass > 10)
+    AccretedMass = 0;
+# endif
+
+  // Add mass to particle.
   ThisParticle->AddMass(AccretedMass);
   fprintf(stderr, "%s: Actual AccretionRate = %"GSYM" Msun/yr,AccretedMass = %e Msolar, PrevMass = %e Msolar\t NewMass = %e Msolar\n",
           __FUNCTION__, (*AccretionRate)*yr_s*MassConversion/(SolarMass*TimeUnits),
