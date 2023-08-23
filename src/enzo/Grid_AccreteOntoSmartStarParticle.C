@@ -222,12 +222,12 @@ int grid::AccreteOntoSmartStarParticle(
   
   AccretedMass = (*AccretionRate)*this->dtFixed;
 
-# if ZERO_ACCRETION
+#if ZERO_ACCRETION
   // SG. This is a bit of a hack to avoid large accretion on lower refinement level than desired in first timestep. 
   // If the accreted mass is greater than 10 Msolar, it is zeroed and the BH particle does not grow.
   if (AccretedMass*MassConversion/SolarMass > 10)
     AccretedMass = 0;
-# endif
+#endif
 
   // Add mass to particle.
   ThisParticle->AddMass(AccretedMass);
