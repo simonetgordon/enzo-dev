@@ -102,13 +102,14 @@ float grid::CalculateSmartStarAccretionRate(ActiveParticleType* ThisParticle,
     ThisParticle->ReturnVelocity()[1],
     ThisParticle->ReturnVelocity()[2]
   };
-  vInfinity = sqrt(pow(vparticle[0] - BaryonField[Vel1Num][cgindex],2) +
-                   pow(vparticle[1] - BaryonField[Vel2Num][cgindex],2) +
-                   pow(vparticle[2] - BaryonField[Vel3Num][cgindex],2));
 
   /* 3) particle cell index */
   cindex = (GridEndIndex[0] - GridStartIndex[0])/2 + GridStartIndex[0];
   cgindex = GRIDINDEX_NOGHOST(cindex,cindex,cindex);
+
+  vInfinity = sqrt(pow(vparticle[0] - BaryonField[Vel1Num][cgindex],2) +
+                  pow(vparticle[1] - BaryonField[Vel2Num][cgindex],2) +
+                  pow(vparticle[2] - BaryonField[Vel3Num][cgindex],2));
 
   /* 4) cell volume and cell width */
   for (int dim = 0; dim < GridRank; dim++){
