@@ -1190,7 +1190,7 @@ int ActiveParticleType_SmartStar::Accrete(int nParticles,
         AccretionRadius = SS->AccretionRadius;
         /* SG. Check if accrad < dx */
         int bondi_cells = int(SS->AccretionRadius/dx);
-        fprintf(stderr, "%s: AccretionRadius = %e pc (%f cells), bondi_cells = %"ISYM", SmartStarBondiRadiusRefinementFactor = %"ISYM". \n", __FUNCTION__,
+        fprintf(stderr, "%s: AccretionRadius = %e pc (%f cells), bondi_cells = %"ISYM", SmartStarBondiRadiusRefinementFactor = %e. \n", __FUNCTION__,
                 AccretionRadius*LengthUnits/pc_cm, AccretionRadius/dx, bondi_cells, SmartStarBondiRadiusRefinementFactor);
         if (((bondi_cells) < (SmartStarBondiRadiusRefinementFactor-2)) && ((bondi_cells) > (SmartStarBondiRadiusRefinementFactor+2))){
           fprintf(stderr, "%s: refinement zone needs to be deposited "
