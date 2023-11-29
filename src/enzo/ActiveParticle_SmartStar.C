@@ -644,10 +644,10 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		
 		/* Initialise attributes of PopIII class
 		+ instantiate sphere variables */
-		float Radius = 0.0, SphereRadius, SphereMass, Age;
-		float MassEnclosed = 0, ColdGasMass = 0, ColdGasFraction = 0;
-		float Metallicity2 = 0, Metallicity3 = 0, Subtraction;
-		int SphereContained, SphereContainedNextLevel, CellsModified = 0;
+		float Radius = 0.0, SphereRadius = 0.0, SphereMass = 0.0, Age = 0.0;
+		float MassEnclosed = 0.0, ColdGasMass = 0.0, ColdGasFraction = 0.0;
+		float Metallicity2 = 0.0, Metallicity3 = 0.0, Subtraction = 0.0;
+		int SphereContained = 0, SphereContainedNextLevel = FALSE, CellsModified = 0;
 		bool MarkedSubgrids = false;
 
 		/* Set target sphere mass to be twice the target PopIII mass */
@@ -663,7 +663,6 @@ int ActiveParticleType_SmartStar::PopIIIFormationFromSphere(ActiveParticleType_S
 		but in the EvolveLevel of the next level. */
 		SphereMass = MassEnclosed; // for mass removal
 		SphereRadius = Radius; // For subtraction variable
-		SphereContainedNextLevel = FALSE;
 		
 		if (LevelArray[ThisLevel+1] != NULL) {
       // fprintf(stderr, "%s: Checking if sphere can be found on next highest level.\n", __FUNCTION__);
