@@ -88,10 +88,6 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
         float cell_density, cellmass, r1, norm, ramp, factor, OldDensity;
         FLOAT radius2;
 
-//	    fprintf(stderr,"%s: index = %e \n", __FUNCTION__, index);
-//      fprintf(stderr,"%s: current density = %e (this), %e\n", __FUNCTION__, this->BaryonField[DensNum][index],
-//              BaryonField[DensNum][index]);
-
         radius2 = POW(CellLeftEdge[0][i] + 0.5*dx - pos[0],2.0) + POW(CellLeftEdge[1][j] + 0.5*dx - pos[1],2.0) +
                 POW(CellLeftEdge[2][k] + 0.5*dx - pos[2], 2.0);
         cell_density = this->BaryonField[DensNum][index];
@@ -205,6 +201,9 @@ int grid::ApplySphericalFeedbackToGrid(ActiveParticleType** ThisParticle, float 
               if(EjectaDensity > 0.0) {
                   newGE = (OldDensity * this->BaryonField[TENum][index] +
                           ramp * factor * EjectaDensity * EjectaThermalEnergyDensity) / BaryonField[DensNum][index];
+                  // SG. Checking that BaryonField[DensNum][index] is not zero (no NaNs in TE field)
+                  fprintf(stderr,"%s: TotalEnergy (old) = %e\t newGE = %e\t Density = %e code units \n",
+                          __FUNCTION__, this->BaryonField[TENum][index], newGE, BaryonField[DensNum][index]);
               } else if (EjectaDensity == 0.0) { /* Thermal energy from luminosity */
                   newGE = EjectaThermalEnergyDensity;
               } else if (EjectaDensity < 0.0) {
