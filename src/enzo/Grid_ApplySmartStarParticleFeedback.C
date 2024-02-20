@@ -460,7 +460,8 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
 
     if (SmartStarBHThermalFeedback == TRUE) {
       /* find epsilon = radiative efficiency of accretion */
-      float epsilon = SS->eta_disk/(1 - SS->eta_disk); // 0.1
+      // float epsilon = SS->eta_disk/(1 - SS->eta_disk); // 0.1
+      float epsilon = 0.01;
 
       /* find mdot */
       mdot = SS->AccretionRate[SS->TimeIndex];  // CodeMass/CodeTime
@@ -473,7 +474,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
       EjectaVolumeCGS = 4.0/3.0 * PI * pow(BHThermalFeedbackRadius*LengthUnits, 3);
       EjectaVolume = 4.0/3.0 * PI * pow(BHThermalFeedbackRadius, 3);
 
-      /* Eddington rate */
+      /* Eddington rate - see JR 2019 Paper */
       BHMass =  SS->ReturnMass()*MassConversion/SolarMass; //In solar masses
       eddrate = 4*M_PI*GravConst*BHMass*mh/(SS->eta_disk*clight*sigma_thompson); // Msolar/s
       eddrate = eddrate*3.154e7; //in Msolar/yr
@@ -489,7 +490,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
           /* Apply Madau fit to calculate Luminosity */
           float LSuperEdd = Ledd*MadauFit(a, accrate*SolarMass/3.154e7, medddot); //cgs
           epsilon = LSuperEdd/(mdot_cgs*clight*clight);
-          printf("%s: Using the Madau fit raditive efficiency calculated as %e\n", __FUNCTION__, epsilon);
+          printf("%s: Using the Madau fit radiative efficiency calculated as %e\n", __FUNCTION__, epsilon);
           }
       } // END SmartStarSuperEddingtonAdjustment
 
