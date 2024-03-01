@@ -500,7 +500,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
        * We calculate the SmartStarDiskEnergyCoupling as (v_wind/(2*c)). To do this we must fix v_wind.
        * For v_wind we choose 0.1 c (C.-A. Faucher-Giguere, E. Quataert Arxiv:1204.2547)
        */
-      SmartStarDiskEnergyCoupling = 0.001;
+      SmartStarDiskEnergyCoupling = 0.0001;
       /*
        * This is the total energy created by the accretion process and dumped into an area surrounding the
        * black hole. This is NOT the specific energy. This is simply the energy deposited homogeneously into
