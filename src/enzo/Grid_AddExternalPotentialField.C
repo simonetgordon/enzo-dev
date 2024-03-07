@@ -114,6 +114,24 @@ int grid::AddExternalPotentialField(float *potential)
 
 	}
 
+	if (ExternalGravity == 30){
+
+      /* Plummer sphere potential.
+
+         Potential for Plummer sphere centred at centre of box */
+
+      /*Set perturber at centre of grid (here fixed for 10*10*10)*/
+	
+		double xpert = ypert = zpert = 5.0;
+		double eps = 0.125;
+		xpos = xpos - xpert;
+		ypos = ypos - ypert;
+		zpos = zpos - zpert;
+		rsquared = (xpos*xpos + ypos*ypos + zpos*zpos)*LengthUnits*LengthUnits;
+		ExternalPotential = -1.0*ExternalGravityConstant*LengthUnits*VelocityUnits*VelocityUnits/sqrt(rsquared + eps*eps);
+		 
+	}
+
 	potential[GINDEX(i,j,k)] = float(ExternalPotential/PotentialUnits); 
 
       }
