@@ -72,12 +72,14 @@ int NohInitialize(FILE *fptr,
 
   /* Input parameters */
 
+  float SpecificInternalEnergy = 0.795; // (km/s)^2
+
   /* Default parameters */
 
   NohProblemFullBox      = 0;
-  float NohDensity       = 1.0000000000;
-  float NohPressure      = 1.0000000000e-6;
-  float NohVelocity      = - 1.0000000000;
+  float NohDensity       = 20.0;
+  float NohPressure      = SpecificInternalEnergy * (Gamma - 1.0) * NohDensity;
+  float NohVelocity      = - 1.3000000000;
   float NohSubgridLeft   = 0.0;    // start of subgrid
   float NohSubgridRight  = 0.0;    // end of subgrid
 
