@@ -117,18 +117,20 @@ int grid::AddExternalPotentialField(float *potential)
 	if (ExternalGravity == 30){
 
       /* Plummer sphere potential.
-
-         Potential for Plummer sphere centred at centre of box */
-
-      /*Set perturber at centre of grid (here fixed for 10*10*10)*/
+ 		 Potential for Plummer sphere centred at centre of box
+		 Set perturber at centre of grid (here fixed for 10*10*10) */
 	
-		double xpert = ypert = zpert = 5.0;
-		double eps = 0.125;
+		double xpert = ypert = zpert = 0.5; // SG. 1*1*1 grid instead of 10*10*10
+		double eps = 0.0125;
 		xpos = xpos - xpert;
 		ypos = ypos - ypert;
 		zpos = zpos - zpert;
-		rsquared = (xpos*xpos + ypos*ypos + zpos*zpos)*LengthUnits*LengthUnits;
-		ExternalPotential = -1.0*ExternalGravityConstant*LengthUnits*VelocityUnits*VelocityUnits/sqrt(rsquared + eps*eps);
+		rsquared = (xpos*xpos + ypos*ypos + zpos*zpos)*LengthUnits*LengthUnits; // km^2
+		// Gravitational constant [cm3g-1s-2] 6.6740831e-8 [cgs]
+		double G = GravConst*LengthUnits*LengthUnits*LengthUnits/(MassUnits*TimeUnits*TimeUnits); // from cgs to my units
+		double M = ExternalGravityConstant*MassUnits/SolarMass; // in Msun
+		fprintf(stderr, "GM = %e km^3 s^-2\n", GM);
+		ExternalPotential = -1.0*GM/sqrt(rsquared + eps*eps);
 		 
 	}
 
