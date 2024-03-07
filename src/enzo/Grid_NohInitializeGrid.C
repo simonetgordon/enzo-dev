@@ -74,21 +74,21 @@ int grid::NohInitializeGrid(float d0, float p0, float u0)
       kshift = GridDimension[2]/2;
   }
 
+/* SG: fill the density, energy and velocity baryon fields */
+
   for (k = 0; k < GridDimension[2]; k++)
     for (j = 0; j < GridDimension[1]; j++) {
       index = k*GridDimension[0]*GridDimension[1] + j*GridDimension[0];
       for (i = 0; i < GridDimension[0]; i++) {
 	BaryonField[0][index+i]  = d0;
 	BaryonField[1][index+i]  = p0/(Gamma-1.0)/d0;
-	xx = i + 0.5 - ishift;
-	yy = j + 0.5 - jshift;
+	BaryonField[2][index+i]  = u0;
+	BaryonField[3][index+i]  = u0;
 	if (GridRank > 2)
-	  zz = k + 0.5 - kshift;
-	radius = sqrt(xx*xx + yy*yy + zz*zz);
-	BaryonField[2][index+i]  = u0*xx/radius;
-	BaryonField[3][index+i]  = u0*yy/radius;
-	if (GridRank > 2)
-	  BaryonField[4][index+i]  = u0*zz/radius;
+	  BaryonField[4][index+i]  = u0;
+
+  /* SG: add specific KE total E */
+  
 	if (HydroMethod != Zeus_Hydro)
 
 	  BaryonField[1][index+i] += 0.5*u0*u0;
