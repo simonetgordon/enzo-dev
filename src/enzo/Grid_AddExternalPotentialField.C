@@ -115,22 +115,25 @@ int grid::AddExternalPotentialField(float *potential)
 	}
 
 	if (ExternalGravity == 30){
-
-      /* Plummer sphere potential.
- 		 Potential for Plummer sphere centred at centre of box
+		
+		/* Plummer sphere potential.
+		 Potential for Plummer sphere centred at centre of box
 		 Set perturber at centre of grid (here fixed for 10*10*10) */
 	
-		double xpert = ypert = zpert = 0.5; // SG. 1*1*1 grid instead of 10*10*10
+		double xpert, ypert, zpert; // SG. 1*1*1 grid instead of 10*10*10
+		xpert = ypert = zpert = 0.5;
 		double eps = 0.0125;
 		xpos = xpos - xpert;
 		ypos = ypos - ypert;
 		zpos = zpos - zpert;
+		fprintf(stderr, "xpos = %e, ypos = %e, zpos = %e\n", xpos, ypos, zpos);
 		rsquared = (xpos*xpos + ypos*ypos + zpos*zpos)*LengthUnits*LengthUnits; // km^2
 		// Gravitational constant [cm3g-1s-2] 6.6740831e-8 [cgs]
-		double G = GravConst*LengthUnits*LengthUnits*LengthUnits/(MassUnits*TimeUnits*TimeUnits); // from cgs to my units
+		double G = 4*pi*GravConst*(MassUnits*TimeUnits*TimeUnits)/LengthUnits*LengthUnits*LengthUnits; // from cgs to my units
 		double M = ExternalGravityConstant*MassUnits/SolarMass; // in Msun
-		fprintf(stderr, "GM = %e km^3 s^-2\n", GM);
-		ExternalPotential = -1.0*GM/sqrt(rsquared + eps*eps);
+		fprintf(stderr, "G = %e km^3 msun^-1 s^-2\n", G);
+		fprintf(stderr, "M = %e msun\n", M);
+		ExternalPotential = -1.0*G*M/sqrt(rsquared + eps*eps);
 		 
 	}
 
