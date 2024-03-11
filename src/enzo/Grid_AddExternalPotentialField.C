@@ -56,6 +56,7 @@ int grid::AddExternalPotentialField(float *potential)
 			&TimeUnits, &VelocityUnits, &MassUnits, Time);
 
    PotentialUnits = pow(LengthUnits/TimeUnits,2.0);
+   fprintf(stderr, "ExternalGravityPosition = %e, %e, %e [code]\n", ExternalGravityPosition[0], ExternalGravityPosition[1], ExternalGravityPosition[2]);
 
    for (k = 0; k < GravitatingMassFieldDimension[2]; k++) {
      
@@ -106,7 +107,7 @@ int grid::AddExternalPotentialField(float *potential)
 	     Duplicate to acceleration version in Grid_ComputeAccelerationFieldExternal 
 	     but useful for testing  */
 	    
-	  rcore = max(0.1*CellWidth[0][0], ExternalGravityRadius)*LengthUnits; // from code units -> my units
+	  rcore = max(0.1*CellWidth[0][0], ExternalGravityRadius)*LengthUnits; // from code/set units -> cgs
 	  
 	  rsquared = (xpos*xpos + ypos*ypos + zpos*zpos)*LengthUnits*LengthUnits;
 	  double GM = ExternalGravityConstant*LengthUnits*pow(VelocityUnits,2);
@@ -120,24 +121,21 @@ int grid::AddExternalPotentialField(float *potential)
 		 Potential for Plummer sphere centred at centre of box
 		 Set perturber at centre of grid (here fixed for 10*10*10) */
 
-		double eps = 0.125; // kpc
-		//if (PRINT){fprintf(stderr, "old: xpos = %e, ypos = %e, zpos = %e [code]\n", xpos, ypos, zpos);}
-		//if (PRINT){fprintf(stderr, "new: xpos = %e, ypos = %e, zpos = %e [kpc]\n", xpos, ypos, zpos);}
-		rsquared = (xpos*xpos + ypos*ypos + zpos*zpos); // pc^2 -> km^2
-		//if (PRINT){fprintf(stderr, "rsquared = %e [kpc^2]\n", rsquared);}
+		double eps = 0.125*LengthUnits; // kpc
+		fprintf(stderr, "old: xpos = %e, ypos = %e, zpos = %e [code]\n", xpos, ypos, zpos);
+		rsquared = (xpos*xpos + ypos*ypos + zpos*zpos)*LengthUnits*LengthUnits // cgs
+		fprintf(stderr, "rsquared = %e [cm^2]\n", rsquared);
 		// Gravitational constant [cm3g-1s-2] 6.6740831e-8 [cgs]
-		//if (PRINT){fprintf(stderr, "MassUnits = %e, TimeUnits = %e, LengthUnits = %e\n", MassUnits, TimeUnits, LengthUnits);}
-		double G = 4*pi*GravConst*MassUnits*TimeUnits*TimeUnits/(LengthUnits*LengthUnits*LengthUnits); // from cgs to my units
-		double M = ExternalGravityConstant; // my units (msun)
-		//if (PRINT){fprintf(stderr, "G = %e kpc^3 msun^-1 myr^-2\n", G);}
-		//if (PRINT){fprintf(stderr, "M = %e msun\n", M);}
-		ExternalPotential = -1.0*G*M/sqrt(rsquared + eps*eps); // kpc^3 msun^-1 Myr^-2
-		//fprintf(stderr, "ExternalPotential = %e kpc^2 Myr^-2 in units = %e;\n", ExternalPotential, PotentialUnits); // km^2 s^-2
+		double G = 4*pi*GravConst; // cgs
+		double M = ExternalGravityConstant*MassUnits; // g
+		fprintf(stderr, "G = %e cm^3 g-1 s-2, M = %e g\n", G, M);
+		ExternalPotential = -1.0*G*M/sqrt(rsquared + eps*eps); // cgs
+		fprintf(stderr, "ExternalPotential = %e cm^2 s^-2, to be divided by PotentialUnits = %e;\n", ExternalPotential, PotentialUnits); // km^2 s^-2
 		 
 	}
 
 	// SG. PotentialUnits = pow(LengthUnits/TimeUnits,2.0);
-	potential[GINDEX(i,j,k)] = float(ExternalPotential/PotentialUnits); // kpc^2 Myr^-2 -> code units
+	potential[GINDEX(i,j,k)] = float(ExternalPotential/PotentialUnits); // cm^2 s^-2 -> code units
 
 
       }
