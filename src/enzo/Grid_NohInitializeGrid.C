@@ -44,6 +44,7 @@ int grid::NohInitializeGrid(float d0, float p0, float u0)
   FieldType[3] = Velocity2;
   if (GridRank > 2)
     FieldType[4] = Velocity3;
+  
 
   /* Return if this doesn't concern us. */
 
@@ -74,7 +75,8 @@ int grid::NohInitializeGrid(float d0, float p0, float u0)
       kshift = GridDimension[2]/2;
   }
 
-/* SG: fill the density, energy and velocity baryon fields */
+/* SG: fill the density, energy and velocity baryon fields in CGS units */
+  //fprintf(stderr, "Density = %e, Pressure = %e, Velocity = %e\n", d0, p0, u0);
 
   for (k = 0; k < GridDimension[2]; k++)
     for (j = 0; j < GridDimension[1]; j++) {

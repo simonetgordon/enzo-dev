@@ -864,7 +864,7 @@ int grid::SetParticleBondiHoyle_AvgValues(
   fprintf(stderr, "%s: Avg_Density = %g cm^-3, AverageTemp = %e K, Average cInfinity = %e km/s, "
                   "Average vInfinity = %e km/s, TotalGasMass within Kernel Radius = %e Msun \n",
           __FUNCTION__, Avg_Density*ConvertToNumberDensity, AverageT, Average_cInfinity*VelocityUnits/1e5,
-          Average_vInfinity*VelocityUnits/1e5, (*TotalGasMass)*MassUnits/SolarMass);
+          Average_vInfinity*VelocityUnits/1e5, (*TotalGasMass)*MassUnits/SolarMass); 
 
   ThisParticle->AverageDensity = Avg_Density;
   ThisParticle->Average_vInfinity = Average_vInfinity;
