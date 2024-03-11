@@ -123,7 +123,7 @@ int grid::AddExternalPotentialField(float *potential)
 
 		double eps = 0.125*LengthUnits; // kpc
 		fprintf(stderr, "old: xpos = %e, ypos = %e, zpos = %e [code]\n", xpos, ypos, zpos);
-		rsquared = (xpos*xpos + ypos*ypos + zpos*zpos)*LengthUnits*LengthUnits // cgs
+		rsquared = (xpos*xpos + ypos*ypos + zpos*zpos)*LengthUnits*LengthUnits; // cgs
 		fprintf(stderr, "rsquared = %e [cm^2]\n", rsquared);
 		// Gravitational constant [cm3g-1s-2] 6.6740831e-8 [cgs]
 		double G = 4*pi*GravConst; // cgs
