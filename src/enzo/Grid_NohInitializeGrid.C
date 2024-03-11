@@ -85,9 +85,9 @@ int grid::NohInitializeGrid(float d0, float p0, float u0)
 	BaryonField[0][index+i]  = d0;
 	BaryonField[1][index+i]  = p0/(Gamma-1.0)/d0;
 	BaryonField[2][index+i]  = u0;
-	BaryonField[3][index+i]  = u0;
+	BaryonField[3][index+i]  = 0;
 	if (GridRank > 2)
-	  BaryonField[4][index+i]  = u0;
+	  BaryonField[4][index+i]  = 0;
 
   /* SG: add specific KE total E */
   
