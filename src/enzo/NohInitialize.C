@@ -72,16 +72,25 @@ int NohInitialize(FILE *fptr,
 
   /* Input parameters */
 
-  float SpecificInternalEnergy = 0.795; // (km/s)^2
+  /* Default parameters in code units*/
+  // NohProblemFullBox      = 1;
+  // float NohDensity       = 1.0000000000;
+  // float NohPressure      = 1.0000000000e-6;
+  // float NohVelocity      = - 1.0000000000;
 
-  /* Default parameters */
+  // SG parameters
+  float km_s_to_kpc_myr = 0.0010227;  
+  float SpecificInternalEnergy = 795.692*POW(km_s_to_kpc_myr, 2.0); // (km/s)^2 -> (kpc/Myr)^2
 
-  NohProblemFullBox      = 0;
-  float NohDensity       = 20.0;
+  NohProblemFullBox      = 1;
+  float NohDensity       = 20.0000000000; // msun/kpc^3
   float NohPressure      = SpecificInternalEnergy * (Gamma - 1.0) * NohDensity;
-  float NohVelocity      = - 1.3000000000;
+  float NohVelocity      = 1.3*km_s_to_kpc_myr; // 1.3 km/s -> kpc/Myr
   float NohSubgridLeft   = 0.0;    // start of subgrid
   float NohSubgridRight  = 0.0;    // end of subgrid
+
+  fprintf(stderr, "NohInitialize: NohDensity = %g, NohPressure = %g, NohVelocity = %g\n",
+    NohDensity, NohPressure, NohVelocity);
 
   /* read input from file */
 
