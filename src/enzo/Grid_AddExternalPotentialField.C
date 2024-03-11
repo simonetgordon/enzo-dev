@@ -117,17 +117,11 @@ int grid::AddExternalPotentialField(float *potential)
 	if (ExternalGravity == 30){
 		
 		/* Plummer sphere potential.
-		 Potential for Plummer sphere centred at centre of boxzzz
+		 Potential for Plummer sphere centred at centre of box
 		 Set perturber at centre of grid (here fixed for 10*10*10) */
 
-		double pc_km = 3.08567758e13; // km in 1 pc
-		double xpert, ypert, zpert; // SG. 10*10*10 grid.
-		xpert = ypert = zpert = 0.0; // kpc
 		double eps = 0.125; // kpc
 		//if (PRINT){fprintf(stderr, "old: xpos = %e, ypos = %e, zpos = %e [code]\n", xpos, ypos, zpos);}
-		xpos = xpos - xpert; // kpc
-		ypos = ypos - ypert;
-		zpos = zpos - zpert;
 		//if (PRINT){fprintf(stderr, "new: xpos = %e, ypos = %e, zpos = %e [kpc]\n", xpos, ypos, zpos);}
 		rsquared = (xpos*xpos + ypos*ypos + zpos*zpos); // pc^2 -> km^2
 		//if (PRINT){fprintf(stderr, "rsquared = %e [kpc^2]\n", rsquared);}
