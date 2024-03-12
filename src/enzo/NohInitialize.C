@@ -118,9 +118,7 @@ int NohInitialize(FILE *fptr,
 
   /* set up grid */
 
-  if (TopGrid.GridData->NohInitializeGrid(NohDensity,
-					  NohPressure,
-					  NohVelocity) == FAIL) {
+  if (TopGrid.GridData->NohInitializeGrid(NohDensity, NohPressure, NohVelocity) == FAIL) {
     ENZO_FAIL("Error in NohInitializeGrid.\n");
   }
 
@@ -168,13 +166,13 @@ int NohInitialize(FILE *fptr,
   /* set up boundary types. */
 
   for (dim = 0; dim < MetaData.TopGridRank; dim++) {
-    MetaData.LeftFaceBoundaryCondition[dim]  = reflecting;
-    MetaData.RightFaceBoundaryCondition[dim] = BoundaryUndefined;
+    MetaData.LeftFaceBoundaryCondition[dim]  = periodic; // SG. From reflecting to periodic.
+    MetaData.RightFaceBoundaryCondition[dim] = periodic; // SG. From undefined to periodic.
   }
 
   if (NohProblemFullBox == 1)
     for (dim = 0; dim < MetaData.TopGridRank; dim++)
-      MetaData.LeftFaceBoundaryCondition[dim]  = BoundaryUndefined;
+      MetaData.LeftFaceBoundaryCondition[dim]  = periodic;
 
   /* set up field names and units */
 
