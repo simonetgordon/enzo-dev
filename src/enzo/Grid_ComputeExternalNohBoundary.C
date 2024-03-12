@@ -39,6 +39,8 @@
 int grid::ComputeExternalNohBoundary()
 {
 
+  return SUCCESS;
+
   float d0 = 1.0, p0 = 1.0e-6, u0 = -1.0;
 
   /* Return if this doesn't involve us. */
