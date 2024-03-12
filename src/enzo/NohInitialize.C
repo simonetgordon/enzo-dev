@@ -80,7 +80,7 @@ int NohInitialize(FILE *fptr,
 
   // SG parameters
   float km_s_to_kpc_myr = 0.0010227;  
-  float SpecificInternalEnergy = Gamma*0.795*POW(km_s_to_kpc_myr, 2.0); // (km/s)^2 -> (kpc/Myr)^2
+  float SpecificInternalEnergy = 1.686844608447678*0.795*POW(km_s_to_kpc_myr, 2.0); // (km/s)^2 -> (kpc/Myr)^2
 
   NohProblemFullBox      = 1;
   float NohDensity       = 20.0000000000; // msun/kpc^3
