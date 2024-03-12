@@ -80,12 +80,12 @@ int NohInitialize(FILE *fptr,
 
   // SG parameters
   float km_s_to_kpc_myr = 0.0010227;  
-  float SpecificInternalEnergy = 1.686844608447678*0.795*POW(km_s_to_kpc_myr, 2.0); // (km/s)^2 -> (kpc/Myr)^2
+  float SpecificInternalEnergy = 1.668678589844192*0.795*POW(km_s_to_kpc_myr, 2.0); // (km/s)^2 -> (kpc/Myr)^2
 
   NohProblemFullBox      = 1;
   float NohDensity       = 20.0000000000; // msun/kpc^3
   float NohPressure      = SpecificInternalEnergy * (Gamma - 1.0) * NohDensity;
-  float NohVelocity      = 1.3*km_s_to_kpc_myr; // 1.3 km/s -> kpc/Myr
+  float NohVelocity      = 1.5783144304186358*km_s_to_kpc_myr; // 1.3 km/s -> kpc/Myr
   float NohSubgridLeft   = 0.0;    // start of subgrid
   float NohSubgridRight  = 0.0;    // end of subgrid
 
