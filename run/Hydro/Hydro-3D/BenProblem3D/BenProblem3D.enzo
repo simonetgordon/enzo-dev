@@ -1,51 +1,51 @@
 #
 # PROBLEM DEFINITION FILE:
 # 
-# 3D Noh Problem
+# 3D External Plummer Potential
+#
+# Written by: Simone Gordon and Ben Morton, March 2024
 #
 #  define problem
 #
 ProblemType            = 9
-TopGridRank            = 3 // dimensions
-TopGridDimensions      = 128 128 128 
-DomainRightEdge        = 1.0 1.0 1.0
-DomainLeftEdge         = 0.0 0.0 0.0
-HydroMethod            = 0 # PPM
+TopGridRank            = 3
+TopGridDimensions      = 256 256 256
+DomainRightEdge        = 10.0 10.0 10.0
+HydroMethod            = 0
+
 # SG additions
-NohProblemFullBox = 1
-TopGridGravityBoundary = 0           // Periodic BCs
-LeftFaceBoundaryCondition  = 3 3 3   // periodic
+NohProblemFullBox = 1                 
+TopGridGravityBoundary = 0            // Periodic BCs
+LeftFaceBoundaryCondition  = 3 3 3    // Periodic BCs
 RightFaceBoundaryCondition = 3 3 3
-SelfGravity            = 1       // Gravity ON - if the parameter SelfGravity is turned on (set to 1), the parameter GravitationalConstant must be set to 4*pi*G
-GravitationalConstant  = 1.668238e12 // 4*pi*G_{cgs}*MassUnits*(TimeUnits**2)/(LengthUnits^3) km^3 msun^-1 s^-2 (TimeUnits=1)
+SelfGravity             = 0           // No self-gravity
+ExternalGravity         = 30          // Ben's potential in AddExternalPotentialField
+ExternalGravityPosition = 5.0 5.0 5.0 // Position of perturber in kpc (centre of box)
+ExternalGravityConstant = 2.5e3       // Mass of perturber in Msun
+
 #
+#  2D Test Problem from Liska & Wendroff, 
+#  SIAM J. Sci. Comput. 25, 995-1017, 2003)
 #
 #  set I/O and stop/start parameters
 #
-StopTime               = 2.0
-dtDataDump             = 0.1
-DataDumpName           = DD
-
-# SG
-# reading of initial conditions and writing out of data dumps is fully parallelized
-ParallelParticleIO = 1
-ParallelRootGridIO = 1
-Unigrid = 1
+StopTime               = 2000.0      // Myr
+dtDataDump             = 2.0
+DataDumpName           = noh3D_
+OutputTemperature      = 1           // Output initial temperature field in DD0000
 #
 #  set hydro parameters
 #
 Gamma                  = 1.666667
-PPMDiffusionParameter  = 0
-PPMSteepeningParameter = 0
-CourantSafetyNumber    = 0.8
-# SG
-ExternalGravity        = 30      // Ben's potential in AddExternalPotentialField
-ExternalGravityConstant = 2.5e3  // Mass of perturber in Msolar
+PPMDiffusionParameter  = 1
+PPMSteepeningParameter = 1
+CourantSafetyNumber    = 0.3        // 0.5 too high
+HydroMethod            = 0          // PPM
 #
-#  set grid refinement parameters for a unigrid
+#  set grid refinement parameters
 #
-StaticHierarchy        = 1    // dynamic hierarchy turned off, unigrid
-MaximumRefinementLevel = 0    // use up to 0 levels
+StaticHierarchy        = 1          // static hierarchy
+MaximumRefinementLevel = 0          // refinement off
 #
 #  set some global parameters
 #
@@ -53,10 +53,6 @@ tiny_number            = 1.0e-10
 #
 #   set units
 #
-#DensityUnits = 6.765750671032827e-32    # 1 msun/kpc^3 in g/cm^3 - must choose to set either mass or density
-#LengthUnits = 3.086e21                 # 1 kpc in cm
-LengthUnits = 1e5                       # 1 km in cm
-#TimeUnits = 3.1557e+13                 # 1 Myr in seconds
-TimeUnits = 1                           # seconds
-#VelocityUnits = 1e5                     # km/s
-MassUnits = 1.9891e33                   # 1 Msun in g
+LengthUnits = 3.086e21                 // 1 kpc in cm
+TimeUnits = 3.1557e+13                 // 1 Myr in seconds
+MassUnits = 1.9891e33                  // 1 Msun in g
