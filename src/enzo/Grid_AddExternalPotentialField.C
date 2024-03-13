@@ -57,13 +57,11 @@ int grid::AddExternalPotentialField(float *potential)
   PotentialUnits = pow(LengthUnits/TimeUnits,2.0);
 
    for (k = 0; k < GravitatingMassFieldDimension[2]; k++) {
-	 fprintf(stderr, "GravitatingMassFieldCellSize = %e\n", GravitatingMassFieldCellSize);
      
      if (GridRank > 2) 
     zpos = GravitatingMassFieldLeftEdge[2] + (float(k)+0.5)*GravitatingMassFieldCellSize - 
 	  ExternalGravityPosition[2];
-	fprintf(stderr, "ExternalGravityPosition = %e, %e, %e [code]\n", ExternalGravityPosition[0], ExternalGravityPosition[1], ExternalGravityPosition[2]);
- 
+
      for (j = 0; j < GravitatingMassFieldDimension[1]; j++) {
 	
       if (GridRank > 1) 
@@ -75,8 +73,7 @@ int grid::AddExternalPotentialField(float *potential)
 	xpos = GravitatingMassFieldLeftEdge[0] + (float(i)+0.5)*GravitatingMassFieldCellSize -
 	  ExternalGravityPosition[0];
 
-	//fprintf(stderr, "xpos = %e, ypos = %e, zpos = %e [code]\n", xpos, ypos, zpos);
-	
+
 	if (ExternalGravity == 10) {
 	  
 	  /* Potential taken from `Logarithmic Potentials' in Binney+Tremaine, p46, chap2 

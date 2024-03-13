@@ -89,9 +89,6 @@ int NohInitialize(FILE *fptr,
   float NohSubgridLeft   = 0.0;    // start of subgrid
   float NohSubgridRight  = 0.0;    // end of subgrid
 
-  fprintf(stderr, "NohInitialize: NohDensity = %g, NohPressure = %g, NohVelocity = %g\n",
-    NohDensity, NohPressure, NohVelocity);
-
   /* read input from file */
 
   while (fgets(line, MAX_LINE_LENGTH, fptr) != NULL) {
@@ -191,6 +188,9 @@ int NohInitialize(FILE *fptr,
   /* Write parameters to parameter output file */
 
   if (MyProcessorNumber == ROOT_PROCESSOR) {
+
+    fprintf(Outfptr, "NohInitialize: NohDensity = %g, NohPressure = %g, NohVelocity = %g\n", 
+            NohDensity, NohPressure, NohVelocity);
 
     fprintf(Outfptr, "NohSubgridLeft  = %"GOUTSYM"\n"  , NohSubgridLeft);
     fprintf(Outfptr, "NohSubgridRight = %"GOUTSYM"\n\n", NohSubgridRight);
