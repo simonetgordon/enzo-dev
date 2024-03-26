@@ -710,6 +710,7 @@ EXTERN float SecondDerivativeEpsilon;
 /* Noh problem switch: Upper-Right quadrant or full domain */
 
 EXTERN int NohProblemFullBox;
+EXTERN float NohVelocity;
 
 /* A boolean flag indicating if we are using coordinate comoving with the
    expansion of the universe. */
