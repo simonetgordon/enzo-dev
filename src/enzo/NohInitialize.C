@@ -95,9 +95,7 @@ int NohInitialize(FILE *fptr,
 
     ret = 0;
 
-    /* read parameters */  modified:   Grid_AddExternalPotentialField.C
-        modified:   NohInitialize.C
-        modified:   global_data.h
+    /* read parameters */
 
     ret += sscanf(line, "NohProblemFullBox = %"ISYM,
 		  &NohProblemFullBox);
