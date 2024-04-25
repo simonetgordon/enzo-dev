@@ -85,7 +85,7 @@ int NohInitialize(FILE *fptr,
   NohProblemFullBox      = 1;
   float NohDensity       = 20.0000000000; // msun/kpc^3
   float NohPressure      = SpecificInternalEnergy * (Gamma - 1.0) * NohDensity;
-  float NohVelocity      = 1.5783144304186358*km_s_to_kpc_myr; // 1.3 km/s -> kpc/Myr
+  float NohVelocity      = -1.5783144304186358*km_s_to_kpc_myr; // 1.3 km/s -> kpc/Myr
   float NohSubgridLeft   = 0.0;    // start of subgrid
   float NohSubgridRight  = 0.0;    // end of subgrid
 
@@ -95,7 +95,9 @@ int NohInitialize(FILE *fptr,
 
     ret = 0;
 
-    /* read parameters */
+    /* read parameters */  modified:   Grid_AddExternalPotentialField.C
+        modified:   NohInitialize.C
+        modified:   global_data.h
 
     ret += sscanf(line, "NohProblemFullBox = %"ISYM,
 		  &NohProblemFullBox);
