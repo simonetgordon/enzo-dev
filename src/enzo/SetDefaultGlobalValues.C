@@ -617,6 +617,9 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   WriteGhostZones                  = FALSE;
   OutputParticleTypeGrouping       = FALSE;
 
+  // SG. Ben Problem.
+  xVelocity = 0.0;
+
   IsotropicConduction = FALSE;
   AnisotropicConduction = FALSE;
   IsotropicConductionSpitzerFraction = 0.0;
