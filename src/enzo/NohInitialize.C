@@ -103,8 +103,11 @@ int NohInitialize(FILE *fptr,
 		  &NohSubgridLeft);
     ret += sscanf(line, "NohSubgridRight = %"FSYM,
 		  &NohSubgridRight);
-    // ret += sscanf(line, "NohVelocity = %"FSYM,
-		//   &NohVelocity);
+    ret += sscanf(line, "xVelocity = %"FSYM,
+		  &xVelocity);
+
+    NohVelocity = xVelocity;
+    fprintf(stderr, "NohVelocity = %e, xVelocity = %e\n", NohVelocity, xVelocity);
 
     /* if the line is suspicious, issue a warning */
 
