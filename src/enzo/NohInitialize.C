@@ -79,15 +79,16 @@ int NohInitialize(FILE *fptr,
   // float NohVelocity      = - 1.0000000000;
 
   // SG parameters
-  float km_s_to_kpc_myr = 0.0010227;  
+  float NohVelocity; // will be read from parameter file
+  float km_s_to_kpc_myr = 0.001022712165;
   float SpecificInternalEnergy = 1.668678589844192*0.795*POW(km_s_to_kpc_myr, 2.0); // (km/s)^2 -> (kpc/Myr)^2
 
   NohProblemFullBox      = 1;
   float NohDensity       = 20.0000000000; // msun/kpc^3
   float NohPressure      = SpecificInternalEnergy * (Gamma - 1.0) * NohDensity;
-  float NohVelocity      = -1.5783144304186358*km_s_to_kpc_myr; // 1.3 km/s -> kpc/Myr
   float NohSubgridLeft   = 0.0;    // start of subgrid
   float NohSubgridRight  = 0.0;    // end of subgrid
+  float sound_speed      = sqrt(Gamma * NohPressure / NohDensity);
 
   /* read input from file */
 
@@ -103,11 +104,11 @@ int NohInitialize(FILE *fptr,
 		  &NohSubgridLeft);
     ret += sscanf(line, "NohSubgridRight = %"FSYM,
 		  &NohSubgridRight);
-    ret += sscanf(line, "xVelocity = %"FSYM,
-		  &xVelocity);
+    ret += sscanf(line, "MachNumber = %"FSYM,
+		  &MachNumber);
 
-    NohVelocity = xVelocity;
-    fprintf(stderr, "NohVelocity = %e, xVelocity = %e\n", NohVelocity, xVelocity);
+    NohVelocity = -MachNumber*sound_speed;
+    fprintf(stderr, "NohVelocity = %e, MachNumber = %e\n", NohVelocity, MachNumber);
 
     /* if the line is suspicious, issue a warning */
 

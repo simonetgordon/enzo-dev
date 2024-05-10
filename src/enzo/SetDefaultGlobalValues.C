@@ -618,7 +618,7 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   OutputParticleTypeGrouping       = FALSE;
 
   // SG. Ben Problem.
-  xVelocity = 0.0;
+  MachNumber = 0.0;
 
   IsotropicConduction = FALSE;
   AnisotropicConduction = FALSE;
