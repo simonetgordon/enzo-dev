@@ -1054,6 +1054,7 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   SmartStarBHRadiativeFeedback = FALSE;
   SmartStarBHJetFeedback = FALSE;
   SmartStarBHThermalFeedback = FALSE;
+  SmartStarBHThermalFeedbackRadiusinCells = FALSE;
   SmartStarStellarRadiativeFeedback = FALSE;
   ActiveParticlesIMFSeed = -1;
   

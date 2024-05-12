@@ -438,7 +438,7 @@ int grid::ApplySmartStarParticleFeedback(ActiveParticleType** ThisParticle){
     float EjectaThermalEnergyDensity, EjectaThermalEnergyDensity_CGS;
 
     /* thermal feedback sphere radius in terms of current cell width */
-    FLOAT BHThermalFeedbackRadius = max(SS->AccretionRadius, 5*dx);
+    FLOAT BHThermalFeedbackRadius = max(SS->AccretionRadius, SmartStarBHThermalFeedbackRadiusinCells*dx);
 //    fprintf(stderr, "%s: BHThermalFeedbackRadius in cell widths = %"GSYM" (%e pc). "
 //                    "AccretionRadius is %e pc. \n", __FUNCTION__,
 //                    BHThermalFeedbackRadius/dx, BHThermalFeedbackRadius*LengthUnits/pc_cm,

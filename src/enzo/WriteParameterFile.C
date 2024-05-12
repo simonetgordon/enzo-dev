@@ -347,6 +347,7 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "SmartStarBHRadiativeFeedback          = %"ISYM"\n", SmartStarBHRadiativeFeedback);
   fprintf(fptr, "SmartStarBHJetFeedback                = %"ISYM"\n", SmartStarBHJetFeedback);
   fprintf(fptr, "SmartStarBHThermalFeedback            = %"ISYM"\n", SmartStarBHThermalFeedback);
+  fprintf(fptr, "SmartStarBHThermalFeedbackRadiusinCells = %"ISYM"\n", SmartStarBHThermalFeedbackRadiusinCells);
   fprintf(fptr, "SmartStarStellarRadiativeFeedback     = %"ISYM"\n", SmartStarStellarRadiativeFeedback);
   fprintf(fptr, "SmartStarFeedbackEnergyCoupling       = %"GSYM"\n", SmartStarFeedbackEnergyCoupling);
   fprintf(fptr, "SmartStarFeedbackJetsThresholdMass    = %"GSYM"\n", SmartStarFeedbackJetsThresholdMass);

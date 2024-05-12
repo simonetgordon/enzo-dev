@@ -1192,6 +1192,7 @@ EXTERN int SmartStarEddingtonCap;
 EXTERN int SmartStarBHFeedback;
 EXTERN int SmartStarBHJetFeedback;
 EXTERN int SmartStarBHThermalFeedback;
+EXTERN int SmartStarBHThermalFeedbackRadiusinCells;
 EXTERN int SmartStarBHRadiativeFeedback;
 EXTERN int SmartStarStellarRadiativeFeedback;
 EXTERN float SmartStarFeedbackEnergyCoupling;

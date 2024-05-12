@@ -1385,6 +1385,7 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     ret += sscanf(line, "SmartStarBHFeedback                     = %"ISYM, &SmartStarBHFeedback);
     ret += sscanf(line, "SmartStarBHJetFeedback                  = %"ISYM, &SmartStarBHJetFeedback);
     ret += sscanf(line, "SmartStarBHThermalFeedback              = %"ISYM, &SmartStarBHThermalFeedback);
+    ret += sscanf(line, "SmartStarBHThermalFeedbackRadiusinCells = %"ISYM, &SmartStarBHThermalFeedbackRadiusinCells);
     ret += sscanf(line, "SmartStarBHRadiativeFeedback            = %"ISYM, &SmartStarBHRadiativeFeedback);
     ret += sscanf(line, "SmartStarStellarRadiativeFeedback       = %"ISYM, &SmartStarStellarRadiativeFeedback);
 
