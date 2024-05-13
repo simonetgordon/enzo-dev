@@ -59,7 +59,6 @@ void grid::ConvertToLibyt(int LocalGridID, int GlobalGridID, int ParentID, int l
     GridInfo.parent_id = ParentID;
     GridInfo.level = level;
 
-
     for (int field = 0; field < NumberOfBaryonFields; field++) {
         /* These are pointers, and *not* copies. Ownership is retained here. *
          * Note that we are only setting with the *current* BaryonField values,

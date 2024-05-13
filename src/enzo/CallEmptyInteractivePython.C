@@ -28,10 +28,6 @@
 #include "Grid.h"
 #include "CosmologyParameters.h"
 #include "TopGridData.h"
-#ifdef USE_LIBYT
-#include "libyt.h"
-#include "libyt_interactive_mode.h"
-#endif
 
 void CommunicationBarrier();
 
