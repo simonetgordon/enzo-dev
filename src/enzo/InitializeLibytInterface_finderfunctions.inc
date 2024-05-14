@@ -590,7 +590,7 @@ YT_SET_USERPARAM_NONINTEGER("SmartStarFeedbackJetsThresholdMass", 1, &SmartStarF
 YT_SET_USERPARAM_NONINTEGER("SmartStarJetVelocity", 1, &SmartStarJetVelocity);
 YT_SET_USERPARAM_NONINTEGER("SmartStarSpin", 1, &SmartStarSpin);
 YT_SET_USERPARAM_INTEGER("SmartStarSuperEddingtonAdjustment", 1, &SmartStarSuperEddingtonAdjustment);
-YT_SET_USERPARAM_NONINTEGER("SmartStarSMSLifetime", 1, &SmartStarSMSLifetime);
+//YT_SET_USERPARAM_NONINTEGER("SmartStarSMSLifetime", 1, &SmartStarSMSLifetime);
 YT_SET_USERPARAM_INTEGER("TimingCycleSkip", 1, &TimingCycleSkip);
 YT_SET_USERPARAM_INTEGER("GalaxySimulationRPSWind", 1, &GalaxySimulationRPSWind);
 YT_SET_USERPARAM_NONINTEGER("GalaxySimulationRPSWindShockSpeed", 1, &GalaxySimulationRPSWindShockSpeed);
