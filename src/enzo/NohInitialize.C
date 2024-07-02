@@ -108,7 +108,7 @@ int NohInitialize(FILE *fptr,
 		  &MachNumber);
 
     NohVelocity = -MachNumber*sound_speed;
-    fprintf(stderr, "NohVelocity = %e, MachNumber = %e\n", NohVelocity, MachNumber);
+    //fprintf(stderr, "NohVelocity = %e, MachNumber = %e\n", NohVelocity, MachNumber);
 
     /* if the line is suspicious, issue a warning */
 
